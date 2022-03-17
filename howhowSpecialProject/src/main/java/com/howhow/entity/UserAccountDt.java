@@ -45,7 +45,6 @@ public class UserAccountDt {
 	
 	@Column(name = "BIRTH")
 	@JsonFormat(pattern="yyyy-MM-dd", timezone = "GMT+8")
-	@Temporal(TemporalType.DATE)
 	private String Birth;
 	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
