@@ -1,6 +1,8 @@
 package com.howhow.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -32,8 +36,9 @@ public class CourseBasic {
 	@Column(name="Discount")
 	private double discount;
 	
-	@Column(name="CategoryID")
-	private int categoryId;
+	@ManyToOne
+	@JoinColumn(name="CategoryID")
+	private Category category;
 	
 	@Column(name="CourseStatus")
 	private int courseStatus;
@@ -41,8 +46,21 @@ public class CourseBasic {
 	@Column(name="CourseCover")
 	private String courseCover;
 	
+	
+	@Column
+	private String description;
+	
 	@Column(name="SystemTime")
 	private String SystemTime;
+	
+	@ManyToOne
+	@JoinColumn
+	private UserAccountDt creator;
+	
+	@OneToMany(mappedBy = "courseBasic")
+	private List<Section> sectionList =new ArrayList<Section>();
+	
+	
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private Set<PurchasedCourse> purchasedCourses = new HashSet<PurchasedCourse>();
@@ -94,13 +112,7 @@ public class CourseBasic {
 		this.discount = discount;
 	}
 
-	public int getCategoryId() {
-		return categoryId;
-	}
-
-	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
-	}
+	
 
 	public int getCourseStatus() {
 		return courseStatus;
@@ -124,6 +136,86 @@ public class CourseBasic {
 
 	public void setSystemTime(String systemTime) {
 		SystemTime = systemTime;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public UserAccountDt getCreator() {
+		return creator;
+	}
+
+	public void setCreator(UserAccountDt creator) {
+		this.creator = creator;
+	}
+
+	public List<Section> getSectionList() {
+		return sectionList;
+	}
+
+	public void setSectionList(List<Section> sectionList) {
+		this.sectionList = sectionList;
+	}
+
+	public Set<PurchasedCourse> getPurchasedCourses() {
+		return purchasedCourses;
+	}
+
+	public void setPurchasedCourses(Set<PurchasedCourse> purchasedCourses) {
+		this.purchasedCourses = purchasedCourses;
+	}
+
+	public Set<OrderDt> getOrderDts() {
+		return orderDts;
+	}
+
+	public void setOrderDts(Set<OrderDt> orderDts) {
+		this.orderDts = orderDts;
+	}
+
+	public Set<ShoppingCart> getShoppingCarts() {
+		return shoppingCarts;
+	}
+
+	public void setShoppingCarts(Set<ShoppingCart> shoppingCarts) {
+		this.shoppingCarts = shoppingCarts;
+	}
+
+	public Set<CFCourse> getCfCourses() {
+		return cfCourses;
+	}
+
+	public void setCfCourses(Set<CFCourse> cfCourses) {
+		this.cfCourses = cfCourses;
+	}
+
+	public Set<FavoriteCourse> getFavoriteCourses() {
+		return favoriteCourses;
+	}
+
+	public void setFavoriteCourses(Set<FavoriteCourse> favoriteCourses) {
+		this.favoriteCourses = favoriteCourses;
+	}
+
+	public Set<CourseRank> getCourseRanks() {
+		return courseRanks;
+	}
+
+	public void setCourseRanks(Set<CourseRank> courseRanks) {
+		this.courseRanks = courseRanks;
 	}
 	
 	
