@@ -15,24 +15,24 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Component
-@Table(name="REPORTRECORD")
+@Table(name="reportrecord")
 public class ReportRecord {
 	
-	@Id @Column(name ="REPORTID")
+	@Id @Column(name ="ReportID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int reportid;
 	
-	@Column(name ="USERID")
+	@Column(name ="UserId")
 	private int userid;
 	
-	@Column(name ="QUESTIONID")
+	@Column(name ="QuestionID")
 	private int questionid;
 	
-	@Column(name ="REPORTYPE")
+	@Column(name ="ReportType")
 	private int reporttype;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "SYSTEMTIME")
+	@Column(name = "SystemTime")
 	private Date systemtime;
 
 	public int getReportid() {
