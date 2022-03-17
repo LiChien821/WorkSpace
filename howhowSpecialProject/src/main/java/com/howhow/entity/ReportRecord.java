@@ -1,4 +1,4 @@
-package tony.main.CMS.model;
+package com.howhow.entity;
 
 import java.util.Date;
 
