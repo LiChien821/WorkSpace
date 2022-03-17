@@ -58,12 +58,12 @@ public static void sendVerificationEmail(UserAccountMt acc,HttpServletRequest re
 		helper.setSubject(subject);
 		String randomCode = RandomString.make(54);
 
-		acc.setVerificationcode(randomCode);
+		acc.getUserstatus().setVerificationcode(randomCode);
 		
 		content =content.replace("[[name]]", acc.getAccount());
 		String myip=InetAddress. getLocalHost().getHostAddress();
 		
-		String verifyURL=myip+UtilityTool.getSiteURL(request) +"/verify?code="+acc.getVerificationcode()+"&email="+toAddress;
+		String verifyURL=myip+UtilityTool.getSiteURL(request) +"/verify?code="+acc.getUserstatus().getVerificationcode()+"&email="+toAddress;
 		System.out.println("/verify?code="+randomCode+"&email="+toAddress);
 		content=content.replace("[[URL]]", verifyURL);
 		

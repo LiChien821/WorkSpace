@@ -12,9 +12,8 @@ import com.howhow.entity.AccountLevel;
 import com.howhow.entity.UserAccountMt;
 
 public class AccountUserDetails implements UserDetails {
-	private static final long serialVersionUID= 1L;
-	private UserAccountMt userAccount; 
-		
+	private static final long serialVersionUID = 1L;
+	private UserAccountMt userAccount;
 
 	public AccountUserDetails(UserAccountMt userAccount) {
 		super();
@@ -23,14 +22,10 @@ public class AccountUserDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		AccountLevel role = userAccount.getAccountLevel();
-		List<SimpleGrantedAuthority> authories =new ArrayList<>();
-		
-				
-			authories.add(new SimpleGrantedAuthority(role.name()));
-			
-		
+		AccountLevel role = userAccount.getUserstatus().getAccountLevel();
+		List<SimpleGrantedAuthority> authories = new ArrayList<>();
+
+		authories.add(new SimpleGrantedAuthority(role.name()));
 		return authories;
 	}
 
@@ -66,14 +61,12 @@ public class AccountUserDetails implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-	
-		return userAccount.isEmailAuth();
+
+		return userAccount.getUserstatus().isEmailAuth();
 	}
 
 	public UserAccountMt getLoggedAccount() {
 		return userAccount;
 	}
-	
 
-	
 }
