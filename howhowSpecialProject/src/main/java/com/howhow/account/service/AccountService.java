@@ -55,8 +55,8 @@ public class AccountService {
 	public boolean activeAccount(String code, String userEmail) {
 		UserAccountDt acd = detailRepo.findByEmail(userEmail);
 		UserAccountMt user = repo.findById(acd.getUserId()).get();
-		if (code.equals(user.getVerificationcode())) {
-			user.setEmailAuth(true);
+		if (code.equals(user.getUserstatus().getVerificationcode())) {
+			user.getUserstatus().setEmailAuth(true);
 			repo.save(user);
 			return true;
 		}

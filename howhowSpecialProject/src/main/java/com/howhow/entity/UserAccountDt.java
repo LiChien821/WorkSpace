@@ -1,9 +1,12 @@
 package com.howhow.entity;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+=======
+>>>>>>> e76eca133122c09c0d5eef0475013358ccbe2527
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,10 +16,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity @Table(name="useraccountdt")
 @Component
@@ -28,7 +35,11 @@ public class UserAccountDt {
 	@GeneratedValue(generator = "generator")
 	private int userId;
 	
-	@Column(name="Email")
+	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name="property" , value="userAccountMt"))
+	@Column(name="ACCOUNT", unique = true)
+	private String Account;
+	
+	@Column(name="Email", unique=true)
 	private String email;
 	
 	@Column(name="GivenName")
@@ -40,18 +51,23 @@ public class UserAccountDt {
 	@Column(name="Gender")
 	private String gender;
 	
-	@Column(name="Birth")
-	private Date birth;
+	@Column(name = "BIRTH")
+	@JsonFormat(pattern="yyyy-MM-dd", timezone = "GMT+8")
+	@Temporal(TemporalType.DATE)
+	private String Birth;
 	
-	@Column(name="AccountCreationDate")
-	private Date accountCreationDate;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	@Column(name = "AccountCreationTime")
+	private java.util.Date acountCreationTime;
 	
-	@Column(name="SystemTime")
-	private String systemtime;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	@Column(name = "SYSTEMTIME")
+	private java.util.Date SystemTime;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
 	private UserAccountMt userAccountMt;
+<<<<<<< HEAD
 	
 	@OneToMany(mappedBy = "creator")
 	private List<CourseBasic> createdCourseList=new ArrayList<CourseBasic>();
@@ -65,12 +81,23 @@ public class UserAccountDt {
 	@OneToMany(mappedBy = "author")
 	private List<Notes> notesList=new ArrayList<Notes>();
 	
+=======
+
+>>>>>>> e76eca133122c09c0d5eef0475013358ccbe2527
 	public int getUserId() {
 		return userId;
 	}
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public String getAccount() {
+		return Account;
+	}
+
+	public void setAccount(String account) {
+		Account = account;
 	}
 
 	public String getEmail() {
@@ -105,28 +132,28 @@ public class UserAccountDt {
 		this.gender = gender;
 	}
 
-	public Date getBirth() {
-		return birth;
+	public String getBirth() {
+		return Birth;
 	}
 
-	public void setBirth(Date birth) {
-		this.birth = birth;
+	public void setBirth(String birth) {
+		Birth = birth;
 	}
 
-	public Date getAccountCreationDate() {
-		return accountCreationDate;
+	public java.util.Date getAcountCreationTime() {
+		return acountCreationTime;
 	}
 
-	public void setAccountCreationDate(Date accountCreationDate) {
-		this.accountCreationDate = accountCreationDate;
+	public void setAcountCreationTime(java.util.Date acountCreationTime) {
+		this.acountCreationTime = acountCreationTime;
 	}
 
-	public String getSystemtime() {
-		return systemtime;
+	public java.util.Date getSystemTime() {
+		return SystemTime;
 	}
 
-	public void setSystemtime(String systemtime) {
-		this.systemtime = systemtime;
+	public void setSystemTime(java.util.Date systemTime) {
+		SystemTime = systemTime;
 	}
 
 	public UserAccountMt getUserAccountMt() {

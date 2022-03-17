@@ -18,6 +18,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity @Table(name="useraccountmt")
 @Component
 public class UserAccountMt {
@@ -32,16 +34,9 @@ public class UserAccountMt {
 	@Column(name="Password")
 	String password;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name="AccountLevel")
-	private AccountLevel accountLevel =AccountLevel.Student;
-	
-	@Column(name="EmailAuth")
-	private boolean emailAuth=false;
-	
-	@Column(name="Verificationcode")
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String verificationcode;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	@Column(name = "SYSTEMTIME")
+	private java.util.Date systemTime;
 	
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
 	private UserAccountDt userAccountDt;
@@ -67,6 +62,9 @@ public class UserAccountMt {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
 	private Set<UserBonus> userBonuses = new HashSet<UserBonus>();
 	
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
+	private UserStatus userstatus;
+
 	public int getUserId() {
 		return userId;
 	}
@@ -91,28 +89,12 @@ public class UserAccountMt {
 		this.password = password;
 	}
 
-	public AccountLevel getAccountLevel() {
-		return accountLevel;
+	public java.util.Date getSystemTime() {
+		return systemTime;
 	}
 
-	public void setAccountLevel(AccountLevel accountLevel) {
-		this.accountLevel = accountLevel;
-	}
-
-	public boolean isEmailAuth() {
-		return emailAuth;
-	}
-
-	public void setEmailAuth(boolean emailAuth) {
-		this.emailAuth = emailAuth;
-	}
-
-	public String getVerificationcode() {
-		return verificationcode;
-	}
-
-	public void setVerificationcode(String verificationcode) {
-		this.verificationcode = verificationcode;
+	public void setSystemTime(java.util.Date systemTime) {
+		this.systemTime = systemTime;
 	}
 
 	public UserAccountDt getUserAccountDt() {
@@ -121,7 +103,72 @@ public class UserAccountMt {
 
 	public void setUserAccountDt(UserAccountDt userAccountDt) {
 		this.userAccountDt = userAccountDt;
-	}	
+	}
+
+	public Set<PurchasedCourse> getPurchasedCourses() {
+		return purchasedCourses;
+	}
+
+	public void setPurchasedCourses(Set<PurchasedCourse> purchasedCourses) {
+		this.purchasedCourses = purchasedCourses;
+	}
+
+	public Set<OrderMt> getOrderMts() {
+		return orderMts;
+	}
+
+	public void setOrderMts(Set<OrderMt> orderMts) {
+		this.orderMts = orderMts;
+	}
+
+	public Set<ShoppingCart> getShoppingCarts() {
+		return shoppingCarts;
+	}
+
+	public void setShoppingCarts(Set<ShoppingCart> shoppingCarts) {
+		this.shoppingCarts = shoppingCarts;
+	}
+
+	public Set<CFCOrder> getCfcOrders() {
+		return cfcOrders;
+	}
+
+	public void setCfcOrders(Set<CFCOrder> cfcOrders) {
+		this.cfcOrders = cfcOrders;
+	}
+
+	public Set<FavoriteCourse> getFavoriteCourses() {
+		return favoriteCourses;
+	}
+
+	public void setFavoriteCourses(Set<FavoriteCourse> favoriteCourses) {
+		this.favoriteCourses = favoriteCourses;
+	}
+
+	public Set<CourseRank> getCourseRanks() {
+		return courseRanks;
+	}
+
+	public void setCourseRanks(Set<CourseRank> courseRanks) {
+		this.courseRanks = courseRanks;
+	}
+
+	public Set<UserBonus> getUserBonuses() {
+		return userBonuses;
+	}
+
+	public void setUserBonuses(Set<UserBonus> userBonuses) {
+		this.userBonuses = userBonuses;
+	}
+
+	public UserStatus getUserstatus() {
+		return userstatus;
+	}
+
+	public void setUserstatus(UserStatus userstatus) {
+		this.userstatus = userstatus;
+	}
+	
 	
 	
 }
