@@ -1,12 +1,10 @@
 package com.howhow.entity;
 
-<<<<<<< HEAD
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-=======
->>>>>>> e76eca133122c09c0d5eef0475013358ccbe2527
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -67,7 +65,7 @@ public class UserAccountDt {
 	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
 	private UserAccountMt userAccountMt;
-<<<<<<< HEAD
+
 	
 	@OneToMany(mappedBy = "creator")
 	private List<CourseBasic> createdCourseList=new ArrayList<CourseBasic>();
@@ -81,9 +79,7 @@ public class UserAccountDt {
 	@OneToMany(mappedBy = "author")
 	private List<Notes> notesList=new ArrayList<Notes>();
 	
-=======
 
->>>>>>> e76eca133122c09c0d5eef0475013358ccbe2527
 	public int getUserId() {
 		return userId;
 	}
