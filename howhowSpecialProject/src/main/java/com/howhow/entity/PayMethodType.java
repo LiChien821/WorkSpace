@@ -1,7 +1,7 @@
 package com.howhow.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,16 +17,48 @@ import org.springframework.stereotype.Component;
 @Component
 public class PayMethodType {
 	
-	@Id @Column(name="PayMethodID")
+	@Id @Column(name="PAYMETHODID")
 	private int payMethodID;
 
-	@Column(name="PayMethodName")
+	@Column(name="PAYMETHODNAME")
 	private String payMethodName;
 	
-	@Column(name="SystemTime")
+	@Column(name="SYSTEMTIME")
 	private String systemTime;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "payMethodtype", cascade = CascadeType.ALL)
-	private Set<OrderMt> orderMts = new HashSet<OrderMt>();
+	private List<OrderMt> orderMtList = new ArrayList<OrderMt>();
+
+	public int getPayMethodID() {
+		return payMethodID;
+	}
+
+	public void setPayMethodID(int payMethodID) {
+		this.payMethodID = payMethodID;
+	}
+
+	public String getPayMethodName() {
+		return payMethodName;
+	}
+
+	public void setPayMethodName(String payMethodName) {
+		this.payMethodName = payMethodName;
+	}
+
+	public String getSystemTime() {
+		return systemTime;
+	}
+
+	public void setSystemTime(String systemTime) {
+		this.systemTime = systemTime;
+	}
+
+	public List<OrderMt> getOrderMtList() {
+		return orderMtList;
+	}
+
+	public void setOrderMtList(List<OrderMt> orderMtList) {
+		this.orderMtList = orderMtList;
+	}
 	
 }

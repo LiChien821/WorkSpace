@@ -26,7 +26,7 @@ public class UserAccountDt {
 	
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name="property", value="userAccountMt"))
 	@Id
-	@Column(name="UserID")
+	@Column(name="USERID")
 	@GeneratedValue(generator = "generator")
 	private int userId;
 	
@@ -34,16 +34,16 @@ public class UserAccountDt {
 	@Column(name="ACCOUNT", unique = true)
 	private String Account;
 	
-	@Column(name="Email", unique=true)
+	@Column(name="EMAIL", unique=true)
 	private String email;
 	
-	@Column(name="GivenName")
+	@Column(name="GIVENNAME")
 	private String givenName;
 	
-	@Column(name="FamilyName")
+	@Column(name="FAMILYNAME")
 	private String familyName;
 	
-	@Column(name="Gender")
+	@Column(name="GENDER")
 	private String gender;
 	
 	@Column(name = "BIRTH")
@@ -51,7 +51,7 @@ public class UserAccountDt {
 	private String Birth;
 	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "AccountCreationTime")
+	@Column(name = "ACCOUNTCREATIONTIME")
 	private java.util.Date acountCreationTime;
 	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")

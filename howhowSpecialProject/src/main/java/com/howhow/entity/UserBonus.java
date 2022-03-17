@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -17,13 +17,13 @@ public class UserBonus {
 	@Id
 	private int userID;
 	
-	@Column(name="BonusCount")
+	@Column(name="BONUSCOUNT")
 	private int bonusCount;
 	
-	@Column(name="SystemTime")
+	@Column(name="SYSTEMTIME")
 	private String systemTime;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.LAZY)
 	@PrimaryKeyJoinColumn
 	private UserAccountMt userAccountMt;
 

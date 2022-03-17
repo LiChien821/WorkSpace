@@ -23,11 +23,11 @@ public class Question {
 	private int questionID;
 	
 	@ManyToOne
-	@JoinColumn(name="lecturesID")
+	@JoinColumn(name="LECTURESID")
 	private Lectures lectures;
 	
 	@ManyToOne
-	@JoinColumn(name="launcherID")
+	@JoinColumn(name="LAUNCHERID")
 	private UserAccountDt launcher;
 	
 	@Column
@@ -36,7 +36,7 @@ public class Question {
 	@Column
 	private String questionContext;
 	
-	@Column(name="SystemTime")
+	@Column(name="SYSTEMTIME")
 	private String SystemTime;
 	
 	@OneToMany(mappedBy = "question")

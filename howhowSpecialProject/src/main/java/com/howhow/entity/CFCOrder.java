@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CFCOrder {
 	
-	@Id @Column(name="CFCOrderID")
+	@Id @Column(name="CFCORDERID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int cfcOrderID;
 	
@@ -27,15 +27,15 @@ public class CFCOrder {
 	@Transient
 	private int crowdFundID;
 	
-	@Column(name="SystemTime")
+	@Column(name="SYSTEMTIME")
 	private String systemTime;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="UserID")
+	@JoinColumn(name="USERID")
 	private UserAccountMt userAccountMt;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="CrowdFundID")
+	@JoinColumn(name="CROWDFUNDID")
 	private CFCourse cfCourse;
 
 	public String getSystemTime() {

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ShoppingCart {
 	
-	@Id @Column(name="ShoppingCartID")
+	@Id @Column(name="SHOPPINGCARTID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int shoppingCartID;
 	
@@ -27,15 +27,15 @@ public class ShoppingCart {
 	@Transient
 	private int courseID;
 	
-	@Column(name="SystemTime")
+	@Column(name="SYSTEMTIME")
 	private String systemTime;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UserID")
+	@JoinColumn(name = "USERID")
 	private UserAccountMt userAccountMt;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CourseID")
+	@JoinColumn(name = "COURSEID")
 	private CourseBasic courseBasic;
 
 

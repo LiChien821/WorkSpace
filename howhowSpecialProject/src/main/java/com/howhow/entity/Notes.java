@@ -20,11 +20,11 @@ public class Notes {
 	
 	
 	@ManyToOne
-	@JoinColumn(name="authorID")
+	@JoinColumn(name="AUTHORID")
 	private UserAccountDt author;
 	
 	@ManyToOne
-	@JoinColumn(name="notedlectureID")
+	@JoinColumn(name="NOTEDLECTUREID")
 	private Lectures notedlecture;
 	
 	@Column
@@ -33,7 +33,7 @@ public class Notes {
 	@Column
 	private String context;
 	
-	@Column(name="SystemTime")
+	@Column(name="SYSTEMTIME")
 	private String SystemTime;
 	
 	public int getNoteID() {

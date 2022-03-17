@@ -1,8 +1,8 @@
 package com.howhow.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,33 +25,33 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Component
 public class CFCourse {
 	
-	@Id @Column(name="CrowdFundID")
+	@Id @Column(name="CROWDFUNDID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int crowdFundID;
 	
 	@Transient
 	private int courseID;
 	
-	@Column(name="ExpireDate")
+	@Column(name="EXPIREDATE")
 	@JsonFormat(pattern="yyyy-MM-dd", timezone = "GMT+8")
 	private Date expireDate;
 	
-	@Column(name="ExpectValue")
+	@Column(name="EXPECTVALUE")
 	private int expectValue;
 	
-	@Column(name="DiscountPrice")
+	@Column(name="DISCOUNTPRICE")
 	private int discountPrice;
 	
-	@Column(name="SystemTime")
+	@Column(name="SYSTEMTIME")
 	private String systemTime;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="CourseID")
+	@JoinColumn(name="COURSEID")
 	private CourseBasic courseBasic;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cfCourse", cascade = CascadeType.ALL)
-	private Set<CFCOrder> cfcOrders = new HashSet<CFCOrder>();
-	
+	private List<CFCOrder> cfcOrderList = new ArrayList<CFCOrder>();
+
 	public int getCrowdFundID() {
 		return crowdFundID;
 	}
@@ -107,6 +107,13 @@ public class CFCourse {
 	public void setCourseBasic(CourseBasic courseBasic) {
 		this.courseBasic = courseBasic;
 	}
-	
-	
+
+	public List<CFCOrder> getCfcOrderList() {
+		return cfcOrderList;
+	}
+
+	public void setCfcOrderList(List<CFCOrder> cfcOrderList) {
+		this.cfcOrderList = cfcOrderList;
+	}
+
 }

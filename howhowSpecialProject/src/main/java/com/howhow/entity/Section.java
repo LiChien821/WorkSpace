@@ -30,13 +30,13 @@ public class Section {
 	
 
 	@ManyToOne
-	@JoinColumn(name="courseID")
+	@JoinColumn(name="COURSEID")
 	private CourseBasic courseBasic;
 	
 	@OneToMany(mappedBy = "section")
 	private List<Lectures> lecturesList=new ArrayList<>();
 	
-	@Column(name="SystemTime")
+	@Column(name="SYSTEMTIME")
 	private String SystemTime;
 
 

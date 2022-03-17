@@ -1,6 +1,7 @@
 package com.howhow.entity;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -22,14 +23,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Component
 public class UserAccountMt {
 	
-	@Id @Column(name="UserID")
+	@Id @Column(name="USERID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int userId;
 	
-	@Column(name="Account")
+	@Column(name="ACCOUNT")
 	String account;
 	
-	@Column(name="Password")
+	@Column(name="PASSWORD")
 	String password;
 	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -40,25 +41,25 @@ public class UserAccountMt {
 	private UserAccountDt userAccountDt;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
-	private Set<PurchasedCourse> purchasedCourses = new HashSet<PurchasedCourse>();
+	private List<PurchasedCourse> purchasedCourseList = new ArrayList<PurchasedCourse>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
-	private Set<OrderMt> orderMts = new HashSet<OrderMt>();
+	private List<OrderMt> orderMtList = new ArrayList<OrderMt>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
-	private Set<ShoppingCart> shoppingCarts = new HashSet<ShoppingCart>();
+	private List<ShoppingCart> shoppingCartList = new ArrayList<ShoppingCart>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
-	private Set<CFCOrder> cfcOrders = new HashSet<CFCOrder>();
+	private List<CFCOrder> cfcOrderList = new ArrayList<CFCOrder>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
-	private Set<FavoriteCourse> favoriteCourses = new HashSet<FavoriteCourse>();
+	private List<FavoriteCourse> favoriteCourseList = new ArrayList<FavoriteCourse>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
-	private Set<CourseRank> courseRanks = new HashSet<CourseRank>();
+	private List<CourseRank> courseRankList = new ArrayList<CourseRank>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
-	private Set<UserBonus> userBonuses = new HashSet<UserBonus>();
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
+	private UserBonus userBonus;
 	
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
 	private UserStatus userstatus;
@@ -103,61 +104,6 @@ public class UserAccountMt {
 		this.userAccountDt = userAccountDt;
 	}
 
-	public Set<PurchasedCourse> getPurchasedCourses() {
-		return purchasedCourses;
-	}
-
-	public void setPurchasedCourses(Set<PurchasedCourse> purchasedCourses) {
-		this.purchasedCourses = purchasedCourses;
-	}
-
-	public Set<OrderMt> getOrderMts() {
-		return orderMts;
-	}
-
-	public void setOrderMts(Set<OrderMt> orderMts) {
-		this.orderMts = orderMts;
-	}
-
-	public Set<ShoppingCart> getShoppingCarts() {
-		return shoppingCarts;
-	}
-
-	public void setShoppingCarts(Set<ShoppingCart> shoppingCarts) {
-		this.shoppingCarts = shoppingCarts;
-	}
-
-	public Set<CFCOrder> getCfcOrders() {
-		return cfcOrders;
-	}
-
-	public void setCfcOrders(Set<CFCOrder> cfcOrders) {
-		this.cfcOrders = cfcOrders;
-	}
-
-	public Set<FavoriteCourse> getFavoriteCourses() {
-		return favoriteCourses;
-	}
-
-	public void setFavoriteCourses(Set<FavoriteCourse> favoriteCourses) {
-		this.favoriteCourses = favoriteCourses;
-	}
-
-	public Set<CourseRank> getCourseRanks() {
-		return courseRanks;
-	}
-
-	public void setCourseRanks(Set<CourseRank> courseRanks) {
-		this.courseRanks = courseRanks;
-	}
-
-	public Set<UserBonus> getUserBonuses() {
-		return userBonuses;
-	}
-
-	public void setUserBonuses(Set<UserBonus> userBonuses) {
-		this.userBonuses = userBonuses;
-	}
 
 	public UserStatus getUserstatus() {
 		return userstatus;
@@ -166,7 +112,62 @@ public class UserAccountMt {
 	public void setUserstatus(UserStatus userstatus) {
 		this.userstatus = userstatus;
 	}
-	
-	
+
+	public List<PurchasedCourse> getPurchasedCourseList() {
+		return purchasedCourseList;
+	}
+
+	public void setPurchasedCourseList(List<PurchasedCourse> purchasedCourseList) {
+		this.purchasedCourseList = purchasedCourseList;
+	}
+
+	public List<OrderMt> getOrderMtList() {
+		return orderMtList;
+	}
+
+	public void setOrderMtList(List<OrderMt> orderMtList) {
+		this.orderMtList = orderMtList;
+	}
+
+	public List<ShoppingCart> getShoppingCartList() {
+		return shoppingCartList;
+	}
+
+	public void setShoppingCartList(List<ShoppingCart> shoppingCartList) {
+		this.shoppingCartList = shoppingCartList;
+	}
+
+	public List<CFCOrder> getCfcOrderList() {
+		return cfcOrderList;
+	}
+
+	public void setCfcOrderList(List<CFCOrder> cfcOrderList) {
+		this.cfcOrderList = cfcOrderList;
+	}
+
+	public List<FavoriteCourse> getFavoriteCourseList() {
+		return favoriteCourseList;
+	}
+
+	public void setFavoriteCourseList(List<FavoriteCourse> favoriteCourseList) {
+		this.favoriteCourseList = favoriteCourseList;
+	}
+
+	public List<CourseRank> getCourseRankList() {
+		return courseRankList;
+	}
+
+	public void setCourseRankList(List<CourseRank> courseRankList) {
+		this.courseRankList = courseRankList;
+	}
+
+	public UserBonus getUserBonus() {
+		return userBonus;
+	}
+
+	public void setUserBonus(UserBonus userBonus) {
+		this.userBonus = userBonus;
+	}
+		
 	
 }

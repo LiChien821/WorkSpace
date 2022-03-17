@@ -20,14 +20,14 @@ public class ReportType {
 	
 	@GenericGenerator(name = "native", strategy = "native")
 	@GeneratedValue(generator = "native")
-	@Id @Column(name = "ReportType")
+	@Id @Column(name = "REPORTTYPE")
 	private int reporttype;
 
-	@Column(name = "ReportName")
+	@Column(name = "REPORTNAME")
 	private String reportname;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "SystemTime")
+	@Column(name = "SYSTEMTIME")
 	private Date systemtime;
 
 	public int getReporttype() {

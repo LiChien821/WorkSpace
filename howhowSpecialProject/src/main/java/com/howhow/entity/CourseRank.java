@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CourseRank {
 	
-	@Id @Column(name="CourseRankID")
+	@Id @Column(name="COURSERANKID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int courseRankID;
 	
@@ -28,18 +28,18 @@ public class CourseRank {
 	@Transient
 	private int courseID;
 	
-	@Column(name = "CourseRank")
+	@Column(name = "COURSERANK")
 	private int courseRank;
 
-	@Column(name = "SystemTime")
+	@Column(name = "SYSTEMTIME")
 	private String systemTime;
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="UserID")
+	@JoinColumn(name="USERID")
 	private UserAccountMt userAccountMt;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="CourseID")
+	@JoinColumn(name="COURSEID")
 	private CourseBasic courseBasic;
 
 	public int getCourseRank() {

@@ -39,7 +39,7 @@ public class Lectures {
 	private String previewViedeoUrl;
 	
 	
-	@Column(name="SystemTime")
+	@Column(name="SYSTEMTIME")
 	private String SystemTime;
 	
 	@OneToMany(mappedBy = "lectures")

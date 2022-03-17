@@ -29,30 +29,30 @@ public class UserStatus implements Serializable {
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
 	@Id
-	@Column(name = "UuserID")
+	@Column(name = "USERID")
 	@GeneratedValue(generator = "generator")
 	private int UserId;
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
-	@Column(name = "Account", unique = true)
+	@Column(name = "ACCOUNT", unique = true)
 	private String account;
 
-	@Column(name = "AccountStatus")
+	@Column(name = "ACCOUNTSTATUS")
 	private int accountStatus;
 
-	@Column(name="EmailAuth")
+	@Column(name="EMAILAUTH")
 	private boolean emailAuth = false;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name = "AccountLevel")
+	@Column(name = "ACCOUNTLEVEL")
 	private AccountLevel accountLevel =AccountLevel.Student;
 
-	@Column(name = "Verificationcode")
+	@Column(name = "VERIFICATIONCODE")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String verificationcode;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "SystemTime")
+	@Column(name = "SYSTEMTIME")
 	private java.util.Date systemTime;
 
 	@OneToOne(fetch = FetchType.LAZY)

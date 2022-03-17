@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderDt {
 	
-	@Id @Column(name="OrderDtID")
+	@Id @Column(name="ORDERDTID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int OrderDtID;
 	
@@ -27,21 +27,21 @@ public class OrderDt {
 	@Transient
 	private int CourseID;
 	
-	@Column(name="Discount")
+	@Column(name="DISCOUNT")
 	private double discount;
 	
-	@Column(name="UnitPrice")
+	@Column(name="UNITPRICE")
 	private int unitPrice;
 	
-	@Column(name="SystemTime")
+	@Column(name="SYSTEMTIME")
 	private String systemTime;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "OrderID")
+	@JoinColumn(name = "ORDERID")
 	private OrderMt orderMt;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CourseID")
+	@JoinColumn(name = "COURSEID")
 	private CourseBasic courseBasic;
 
 	public double getDiscount() {

@@ -19,17 +19,17 @@ public class Answer {
 	private int answerID;
 	
 	@ManyToOne
-	@JoinColumn(name="questionID")
+	@JoinColumn(name="QUESTIONID")
 	private Question question;
 	
 	@ManyToOne
-	@JoinColumn(name="answererID")
+	@JoinColumn(name="ANSWERID")
 	private UserAccountDt answerer;
 	
 	@Column
 	private String answerContext;
 	
-	@Column(name="SystemTime")
+	@Column(name="SYSTEMTIME")
 	private String SystemTime;
 
 	public int getAnswerID() {

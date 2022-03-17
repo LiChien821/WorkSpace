@@ -18,21 +18,21 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Table(name="reportrecord")
 public class ReportRecord {
 	
-	@Id @Column(name ="ReportID")
+	@Id @Column(name ="REPORTID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int reportid;
 	
-	@Column(name ="UserId")
+	@Column(name ="USERID")
 	private int userid;
 	
-	@Column(name ="QuestionID")
+	@Column(name ="QUESTIONID")
 	private int questionid;
 	
-	@Column(name ="ReportType")
+	@Column(name ="REPORTTYPE")
 	private int reporttype;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "SystemTime")
+	@Column(name = "SYSTEMTIME")
 	private Date systemtime;
 
 	public int getReportid() {

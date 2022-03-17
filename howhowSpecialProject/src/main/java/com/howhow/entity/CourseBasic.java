@@ -23,34 +23,34 @@ import org.springframework.stereotype.Component;
 @Component("coursebasic")
 public class CourseBasic {
 	
-	@Id @Column(name="CourseID")
+	@Id @Column(name="COURSEID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int courseId;
 	
-	@Column(name="CourseName")
+	@Column(name="COURSENAME")
 	private String courseName;
 	
-	@Column(name="Price")
+	@Column(name="PRICE")
 	private int price;
 	
-	@Column(name="Discount")
+	@Column(name="DISCOUNT")
 	private double discount;
 	
 	@ManyToOne
-	@JoinColumn(name="CategoryID")
+	@JoinColumn(name="CATEGORYID")
 	private Category category;
 	
-	@Column(name="CourseStatus")
+	@Column(name="COURSESTATUS")
 	private int courseStatus;
 	
-	@Column(name="CourseCover")
+	@Column(name="COURSECOVER")
 	private String courseCover;
 	
 	
 	@Column
 	private String description;
 	
-	@Column(name="SystemTime")
+	@Column(name="SYSTEMTIME")
 	private String SystemTime;
 	
 	@ManyToOne
@@ -63,23 +63,23 @@ public class CourseBasic {
 	
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
-	private Set<PurchasedCourse> purchasedCourses = new HashSet<PurchasedCourse>();
+	private List<PurchasedCourse> purchasedCourses = new ArrayList<PurchasedCourse>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
-	private Set<OrderDt> orderDts = new HashSet<OrderDt>();
+	private List<OrderDt> orderDtList = new ArrayList<OrderDt>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
-	private Set<ShoppingCart> shoppingCarts = new HashSet<ShoppingCart>();
+	private List<ShoppingCart> shoppingCartList = new ArrayList<ShoppingCart>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
-	private Set<CFCourse> cfCourses = new HashSet<CFCourse>();
+	private List<CFCourse> cfCourseList = new ArrayList<CFCourse>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
-	private Set<FavoriteCourse> favoriteCourses = new HashSet<FavoriteCourse>();
+	private List<FavoriteCourse> favoriteCourseList = new ArrayList<FavoriteCourse>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
-	private Set<CourseRank> courseRanks = new HashSet<CourseRank>();
-	
+	private List<CourseRank> courseRankList = new ArrayList<CourseRank>();
+
 	public int getCourseId() {
 		return courseId;
 	}
@@ -112,7 +112,13 @@ public class CourseBasic {
 		this.discount = discount;
 	}
 
-	
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
 	public int getCourseStatus() {
 		return courseStatus;
@@ -130,28 +136,20 @@ public class CourseBasic {
 		this.courseCover = courseCover;
 	}
 
-	public String getSystemTime() {
-		return SystemTime;
-	}
-
-	public void setSystemTime(String systemTime) {
-		SystemTime = systemTime;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getSystemTime() {
+		return SystemTime;
+	}
+
+	public void setSystemTime(String systemTime) {
+		SystemTime = systemTime;
 	}
 
 	public UserAccountDt getCreator() {
@@ -170,54 +168,54 @@ public class CourseBasic {
 		this.sectionList = sectionList;
 	}
 
-	public Set<PurchasedCourse> getPurchasedCourses() {
+	public List<PurchasedCourse> getPurchasedCourses() {
 		return purchasedCourses;
 	}
 
-	public void setPurchasedCourses(Set<PurchasedCourse> purchasedCourses) {
+	public void setPurchasedCourses(List<PurchasedCourse> purchasedCourses) {
 		this.purchasedCourses = purchasedCourses;
 	}
 
-	public Set<OrderDt> getOrderDts() {
-		return orderDts;
+	public List<OrderDt> getOrderDtList() {
+		return orderDtList;
 	}
 
-	public void setOrderDts(Set<OrderDt> orderDts) {
-		this.orderDts = orderDts;
+	public void setOrderDtList(List<OrderDt> orderDtList) {
+		this.orderDtList = orderDtList;
 	}
 
-	public Set<ShoppingCart> getShoppingCarts() {
-		return shoppingCarts;
+	public List<ShoppingCart> getShoppingCartList() {
+		return shoppingCartList;
 	}
 
-	public void setShoppingCarts(Set<ShoppingCart> shoppingCarts) {
-		this.shoppingCarts = shoppingCarts;
+	public void setShoppingCartList(List<ShoppingCart> shoppingCartList) {
+		this.shoppingCartList = shoppingCartList;
 	}
 
-	public Set<CFCourse> getCfCourses() {
-		return cfCourses;
+	public List<CFCourse> getCfCourseList() {
+		return cfCourseList;
 	}
 
-	public void setCfCourses(Set<CFCourse> cfCourses) {
-		this.cfCourses = cfCourses;
+	public void setCfCourseList(List<CFCourse> cfCourseList) {
+		this.cfCourseList = cfCourseList;
 	}
 
-	public Set<FavoriteCourse> getFavoriteCourses() {
-		return favoriteCourses;
+	public List<FavoriteCourse> getFavoriteCourseList() {
+		return favoriteCourseList;
 	}
 
-	public void setFavoriteCourses(Set<FavoriteCourse> favoriteCourses) {
-		this.favoriteCourses = favoriteCourses;
+	public void setFavoriteCourseList(List<FavoriteCourse> favoriteCourseList) {
+		this.favoriteCourseList = favoriteCourseList;
 	}
 
-	public Set<CourseRank> getCourseRanks() {
-		return courseRanks;
+	public List<CourseRank> getCourseRankList() {
+		return courseRankList;
 	}
 
-	public void setCourseRanks(Set<CourseRank> courseRanks) {
-		this.courseRanks = courseRanks;
+	public void setCourseRankList(List<CourseRank> courseRankList) {
+		this.courseRankList = courseRankList;
 	}
-	
-	
+
+
 	
 }
