@@ -9,9 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import org.springframework.stereotype.Component;
 
 @Entity
@@ -22,11 +21,9 @@ public class PaymentFlow {
 	@Id
 	@Column(name = "PAYMENTID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String paymentID;
-
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "ordermt"))
-	@Column(name = "ORDERID")
-	@GeneratedValue(generator = "generator")
+	private int paymentID;
+	
+	@Transient
 	private int orderID;
 
 	@Column(name = "MERCHANTID")
@@ -60,14 +57,14 @@ public class PaymentFlow {
 	private String systemTime;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn
+	@JoinColumn(name="ORDERID")
 	private OrderMt orderMt;
 
-	public String getPaymentID() {
+	public int getPaymentID() {
 		return paymentID;
 	}
 
-	public void setPaymentID(String paymentID) {
+	public void setPaymentID(int paymentID) {
 		this.paymentID = paymentID;
 	}
 

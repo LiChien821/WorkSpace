@@ -3,18 +3,24 @@ package com.howhow.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import org.springframework.stereotype.Component;
 
 @Entity @Table(name="userbonus")
 @Component
 public class UserBonus {
 	
+	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "useraccountmt"))
 	@Id
+	@Column(name = "USERID")
+	@GeneratedValue(generator = "generator")
 	private int userID;
 	
 	@Column(name="BONUSCOUNT")
@@ -58,6 +64,5 @@ public class UserBonus {
 	public void setUserAccountMt(UserAccountMt userAccountMt) {
 		this.userAccountMt = userAccountMt;
 	}
-	
 	
 }
