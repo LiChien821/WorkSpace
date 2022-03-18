@@ -23,7 +23,7 @@ public class Answer {
 	private Question question;
 	
 	@ManyToOne
-	@JoinColumn(name="ANSWERID")
+	@JoinColumn(name="ANSWER_ID")
 	private UserAccountDt answerer;
 	
 	@Column
