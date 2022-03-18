@@ -4,10 +4,14 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
@@ -15,22 +19,35 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Component
-@Table(name="reportrecord")
+@Table(name = "reportrecord")
 public class ReportRecord {
-	
-	@Id @Column(name ="REPORTID")
+
+	@Id
+	@Column(name = "REPORTID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int reportid;
-	
-	@Column(name ="USERID")
+
+	@Transient
 	private int userid;
-	
-	@Column(name ="QUESTIONID")
+
+	@Transient
 	private int questionid;
-	
-	@Column(name ="REPORTTYPE")
+
+	@Transient
 	private int reporttype;
-	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USERID")
+	private UserAccountMt usermt;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "QUESTIONID")
+	private Question question;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "REPORTTYPE")
+	private ReportType typeobj;
+
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@Column(name = "SYSTEMTIME")
 	private Date systemtime;
@@ -44,28 +61,19 @@ public class ReportRecord {
 	}
 
 	public int getUserid() {
-		return userid;
+		return usermt.getUserId();
 	}
 
-	public void setUserid(int userid) {
-		this.userid = userid;
-	}
 
 	public int getQuestionid() {
-		return questionid;
+		return question.getQuestionID();
 	}
 
-	public void setQuestionid(int questionid) {
-		this.questionid = questionid;
-	}
 
 	public int getReporttype() {
-		return reporttype;
+		return typeobj.getReporttype();
 	}
 
-	public void setReporttype(int reporttype) {
-		this.reporttype = reporttype;
-	}
 
 	public Date getSystemtime() {
 		return systemtime;
@@ -74,6 +82,5 @@ public class ReportRecord {
 	public void setSystemtime(Date systemtime) {
 		this.systemtime = systemtime;
 	}
-	
-	
+
 }
