@@ -10,10 +10,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import org.springframework.stereotype.Component;
 
-@Entity @Table(name="cfcorder")
+@Entity @Table(name="cfcorder",
+uniqueConstraints=@UniqueConstraint(columnNames={"USERID", "CROWDFUNDID"}))
 @Component
 public class CFCOrder {
 	

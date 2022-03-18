@@ -2,139 +2,149 @@ package com.howhow.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
-@Entity @Table(name = "paymentflow")
+@Entity
+@Table(name = "paymentflow")
 @Component
 public class PaymentFlow {
 
- @Id @Column(name = "PAYMENTID")
- @GeneratedValue(strategy = GenerationType.IDENTITY)
- private String paymentID;
- 
- @Column(name = "ORDERID")
- private int orderID;
- 
- @Column(name = "MERCHANTID")
- private String merchantID;
- 
- @Column(name = "MERCHANTTRADENO")
- private String merchantTradeNo;
- 
- @Column(name = "RTNCODE")
- private int rtnCode;
- 
- @Column(name = "RTNMSG")
- private String rtnMsg;
- 
- @Column(name = "TRADENO")
- private String tradeNo;
- 
- @Column(name = "TRADEAMT")
- private int tradeAmt;
- 
- @Column(name = "PAYMENTTYPE")
- private String paymentType;
- 
- @Column(name = "TRADEDATE")
- private String tradeDate;
- 
- @Column(name = "CHECKMACVALUE")
- private String checkMacvalue;
- 
- @Column(name = "SYSTEMTIME")
- private String systemTime;
+	@Id
+	@Column(name = "PAYMENTID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private String paymentID;
 
- public String getPaymentID() {
-  return paymentID;
- }
+	@Transient
+	private int orderID;
 
- public void setPaymentID(String paymentID) {
-  this.paymentID = paymentID;
- }
+	@Column(name = "MERCHANTID")
+	private String merchantID;
 
- public int getOrderID() {
-  return orderID;
- }
+	@Column(name = "MERCHANTTRADENO")
+	private String merchantTradeNo;
 
- public void setOrderID(int orderID) {
-  this.orderID = orderID;
- }
+	@Column(name = "RTNCODE")
+	private int rtnCode;
 
- public String getMerchantID() {
-  return merchantID;
- }
+	@Column(name = "RTNMSG")
+	private String rtnMsg;
 
- public void setMerchantID(String merchantID) {
-  this.merchantID = merchantID;
- }
+	@Column(name = "TRADENO")
+	private String tradeNo;
 
- public String getMerchantTradeNo() {
-  return merchantTradeNo;
- }
+	@Column(name = "TRADEAMT")
+	private int tradeAmt;
 
- public void setMerchantTradeNo(String merchantTradeNo) {
-  this.merchantTradeNo = merchantTradeNo;
- }
+	@Column(name = "PAYMENTTYPE")
+	private String paymentType;
 
- public int getRtnCode() {
-  return rtnCode;
- }
+	@Column(name = "TRADEDATE")
+	private String tradeDate;
 
- public void setRtnCode(int rtnCode) {
-  this.rtnCode = rtnCode;
- }
+	@Column(name = "CHECKMACVALUE")
+	private String checkMacvalue;
 
- public String getRtnMsg() {
-  return rtnMsg;
- }
+	@Column(name = "SYSTEMTIME")
+	private String systemTime;
 
- public void setRtnMsg(String rtnMsg) {
-  this.rtnMsg = rtnMsg;
- }
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ORDERID")
+	private OrderMt orderMt;
 
- public String getTradeNo() {
-  return tradeNo;
- }
+	public String getPaymentID() {
+		return paymentID;
+	}
 
- public void setTradeNo(String tradeNo) {
-  this.tradeNo = tradeNo;
- }
+	public void setPaymentID(String paymentID) {
+		this.paymentID = paymentID;
+	}
 
- public int getTradeAmt() {
-  return tradeAmt;
- }
+	public int getOrderID() {
+		return orderID;
+	}
 
- public void setTradeAmt(int tradeAmt) {
-  this.tradeAmt = tradeAmt;
- }
+	public void setOrderID(int orderID) {
+		this.orderID = orderID;
+	}
 
- public String getPaymentType() {
-  return paymentType;
- }
+	public String getMerchantID() {
+		return merchantID;
+	}
 
- public void setPaymentType(String paymentType) {
-  this.paymentType = paymentType;
- }
+	public void setMerchantID(String merchantID) {
+		this.merchantID = merchantID;
+	}
 
- public String getTradeDate() {
-  return tradeDate;
- }
+	public String getMerchantTradeNo() {
+		return merchantTradeNo;
+	}
 
- public void setTradeDate(String tradeDate) {
-  this.tradeDate = tradeDate;
- }
+	public void setMerchantTradeNo(String merchantTradeNo) {
+		this.merchantTradeNo = merchantTradeNo;
+	}
 
- public String getSystemTime() {
-  return systemTime;
- }
+	public int getRtnCode() {
+		return rtnCode;
+	}
 
- public void setSystemTime(String systemTime) {
-  this.systemTime = systemTime;
- }
+	public void setRtnCode(int rtnCode) {
+		this.rtnCode = rtnCode;
+	}
+
+	public String getRtnMsg() {
+		return rtnMsg;
+	}
+
+	public void setRtnMsg(String rtnMsg) {
+		this.rtnMsg = rtnMsg;
+	}
+
+	public String getTradeNo() {
+		return tradeNo;
+	}
+
+	public void setTradeNo(String tradeNo) {
+		this.tradeNo = tradeNo;
+	}
+
+	public int getTradeAmt() {
+		return tradeAmt;
+	}
+
+	public void setTradeAmt(int tradeAmt) {
+		this.tradeAmt = tradeAmt;
+	}
+
+	public String getPaymentType() {
+		return paymentType;
+	}
+
+	public void setPaymentType(String paymentType) {
+		this.paymentType = paymentType;
+	}
+
+	public String getTradeDate() {
+		return tradeDate;
+	}
+
+	public void setTradeDate(String tradeDate) {
+		this.tradeDate = tradeDate;
+	}
+
+	public String getSystemTime() {
+		return systemTime;
+	}
+
+	public void setSystemTime(String systemTime) {
+		this.systemTime = systemTime;
+	}
 }

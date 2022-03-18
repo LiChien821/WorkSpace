@@ -62,7 +62,10 @@ public class OrderMt {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ORDERSTATUSID")
 	private OrderStatusType orderStatusType;
-
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="orderMt", cascade = CascadeType.ALL)
+	private PaymentFlow paymentFlow;
+	
 	public int getOrderID() {
 		return orderID;
 	}

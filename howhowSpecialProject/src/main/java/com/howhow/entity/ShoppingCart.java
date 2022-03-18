@@ -10,10 +10,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import org.springframework.stereotype.Component;
 
-@Entity @Table(name="shoppingcart")
+@Entity @Table(name="shoppingcart",
+uniqueConstraints=@UniqueConstraint(columnNames={"USERID", "COURSEID"}))
 @Component
 public class ShoppingCart {
 	

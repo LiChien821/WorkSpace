@@ -10,10 +10,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import org.springframework.stereotype.Component;
 
-@Entity @Table(name="orderdt")
+@Entity @Table(name="orderdt",
+uniqueConstraints=@UniqueConstraint(columnNames={"ORDERID", "COURSEID"}))
 @Component
 public class OrderDt {
 	

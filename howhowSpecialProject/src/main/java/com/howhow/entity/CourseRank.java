@@ -10,11 +10,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name = "courserank")
+@Table(name = "courserank",
+uniqueConstraints=@UniqueConstraint(columnNames={"COURSEID", "USERID"}))
 @Component
 public class CourseRank {
 	
