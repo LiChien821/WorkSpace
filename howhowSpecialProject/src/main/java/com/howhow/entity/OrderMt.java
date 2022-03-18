@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -63,7 +64,7 @@ public class OrderMt {
 	@JoinColumn(name="ORDERSTATUSID")
 	private OrderStatusType orderStatusType;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="orderMt", cascade = CascadeType.ALL)
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="orderMt", cascade = CascadeType.ALL)
 	private PaymentFlow paymentFlow;
 	
 	public int getOrderID() {
@@ -153,5 +154,14 @@ public class OrderMt {
 	public void setOrderStatusType(OrderStatusType orderStatusType) {
 		this.orderStatusType = orderStatusType;
 	}
+
+	public PaymentFlow getPaymentFlow() {
+		return paymentFlow;
+	}
+
+	public void setPaymentFlow(PaymentFlow paymentFlow) {
+		this.paymentFlow = paymentFlow;
+	}
+	
 	
 }

@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -56,7 +56,7 @@ public class PaymentFlow {
 	@Column(name = "SYSTEMTIME")
 	private String systemTime;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ORDERID")
 	private OrderMt orderMt;
 
@@ -147,4 +147,22 @@ public class PaymentFlow {
 	public void setSystemTime(String systemTime) {
 		this.systemTime = systemTime;
 	}
+
+	public String getCheckMacvalue() {
+		return checkMacvalue;
+	}
+
+	public void setCheckMacvalue(String checkMacvalue) {
+		this.checkMacvalue = checkMacvalue;
+	}
+
+	public OrderMt getOrderMt() {
+		return orderMt;
+	}
+
+	public void setOrderMt(OrderMt orderMt) {
+		this.orderMt = orderMt;
+	}
+	
+	
 }
