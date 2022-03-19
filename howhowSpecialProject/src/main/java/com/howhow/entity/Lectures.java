@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="lecturesBasic")
 public class Lectures {
@@ -24,6 +26,9 @@ public class Lectures {
 	
 	@Column
 	private String lecturesName;
+	
+	@Column
+	private int lectureNumber;
 	
 	
 	@Column
@@ -48,6 +53,7 @@ public class Lectures {
 	@OneToMany(mappedBy = "notedlecture")
 	private List<Notes> notesList=new ArrayList<Notes>();
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="sectionID")
 	private Section section;
@@ -130,6 +136,14 @@ public class Lectures {
 
 	public void setSystemTime(String systemTime) {
 		SystemTime = systemTime;
+	}
+
+	public int getLectureNumber() {
+		return lectureNumber;
+	}
+
+	public void setLectureNumber(int lectureNumber) {
+		this.lectureNumber = lectureNumber;
 	}
 	
 	

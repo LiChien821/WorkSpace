@@ -17,6 +17,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity @Table(name="coursebasic")
 @Component("coursebasic")
 public class CourseBasic {
@@ -29,7 +31,7 @@ public class CourseBasic {
 	private String courseName;
 	
 	@Column(name="PRICE")
-	private int price;
+	private Long price;
 	
 	@Column(name="DISCOUNT")
 	private double discount;
@@ -38,8 +40,10 @@ public class CourseBasic {
 	@JoinColumn(name="CATEGORYID")
 	private Category category;
 	
+	
 	@Column(name="COURSESTATUS")
-	private int courseStatus;
+	private Long courseStatus;
+	
 	
 	@Column(name="COURSECOVER")
 	private String courseCover;
@@ -51,6 +55,7 @@ public class CourseBasic {
 	@Column(name="SYSTEMTIME")
 	private String SystemTime;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn
 	private UserAccountDt creator;
@@ -63,17 +68,22 @@ public class CourseBasic {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<PurchasedCourse> purchasedCourses = new ArrayList<PurchasedCourse>();
 	
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<OrderDt> orderDtList = new ArrayList<OrderDt>();
+	
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<ShoppingCart> shoppingCartList = new ArrayList<ShoppingCart>();
 	
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<CFCourse> cfCourseList = new ArrayList<CFCourse>();
 	
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<FavoriteCourse> favoriteCourseList = new ArrayList<FavoriteCourse>();
+	
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<CourseRank> courseRankList = new ArrayList<CourseRank>();
@@ -94,13 +104,7 @@ public class CourseBasic {
 		this.courseName = courseName;
 	}
 
-	public int getPrice() {
-		return price;
-	}
 
-	public void setPrice(int price) {
-		this.price = price;
-	}
 
 	public double getDiscount() {
 		return discount;
@@ -118,13 +122,7 @@ public class CourseBasic {
 		this.category = category;
 	}
 
-	public int getCourseStatus() {
-		return courseStatus;
-	}
 
-	public void setCourseStatus(int courseStatus) {
-		this.courseStatus = courseStatus;
-	}
 
 	public String getCourseCover() {
 		return courseCover;
@@ -212,6 +210,22 @@ public class CourseBasic {
 
 	public void setCourseRankList(List<CourseRank> courseRankList) {
 		this.courseRankList = courseRankList;
+	}
+
+	public Long getPrice() {
+		return price;
+	}
+
+	public void setPrice(Long price) {
+		this.price = price;
+	}
+
+	public Long getCourseStatus() {
+		return courseStatus;
+	}
+
+	public void setCourseStatus(Long courseStatus) {
+		this.courseStatus = courseStatus;
 	}
 
 
