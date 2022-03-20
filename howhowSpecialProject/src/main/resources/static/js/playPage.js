@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 const dataObj = {
-	videoSrcUrl: "../course-videos/42/test.mp4",
+	videoSrcUrl: "../video/test.mp4",
 	videotype: "video/mp4",
 
 	currentTime: "",
@@ -101,8 +101,8 @@ var player = videojs('my-video', {
 	sources: [{ src: dataObj.videoSrcUrl }],
 	loop: true,
 	muted: true,
-	width: "1140px",
-	height: "800px",
+	width: "800px",
+	height: "720px",
 	controls: true
 });
 
