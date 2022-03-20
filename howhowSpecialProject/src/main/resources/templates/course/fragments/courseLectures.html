@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<th:block th:fragment="content">
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card text-center">
+            <div class="card-header"> 單元1</div>
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">添加附件</a>
+            </div>
+            <div class="card-footer text-muted"> 2 days ago </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="ml-auto col-lg-7 text-center text-lg-left">
+          <h1>SECTION 選擇</h1>
+          <p class="mb-0">JS+option 選擇章節</p>
+        </div>
+        <div class="col-lg-4 d-flex justify-content-center align-items-center p-3">
+          <form class="form-inline mb-0">
+            <div class="input-group"> <input type="text" class="form-control" placeholder="編號"   id="form2">
+             <input type="text" class="form-control" placeholder="標題名稱" id="form2">
+              <div class="input-group-append"> <button class="btn btn-primary" type="button">新增格式(NO.title) </button> </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
+
+</html>

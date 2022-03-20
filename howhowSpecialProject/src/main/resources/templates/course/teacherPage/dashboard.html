@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+	<meta name="generator" content="Hugo 0.88.1">
+	<title>Dashboard Template · Bootstrap v5.1</title>
+
+	<link href="https://vjs.zencdn.net/7.17.0/video-js.css" rel="stylesheet" />
+	<link th:href="@{/assets3/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/assets3/css/dashboard.css}" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+
+
+
+	<!-- Bootstrap core CSS -->
+
+	<style>
+		.bd-placeholder-img {
+			font-size: 1.125rem;
+			text-anchor: middle;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			user-select: none;
+		}
+
+		@media (min-width: 768px) {
+			.bd-placeholder-img-lg {
+				font-size: 3.5rem;
+			}
+		}
+	</style>
+
+
+	<!-- Custom styles for this template -->
+
+</head>
+
+<body>
+
+	<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+		<a class="navbar-brand col-md-3 col-lg-2  col-xl-2 me-0 px-3" href="#">Company name</a>
+		<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+			data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+		<div class="navbar-nav">
+			<div class="nav-item text-nowrap">
+				<a class="nav-link px-3" href="#">Sign out</a>
+			</div>
+		</div>
+	</header>
+
+	<div class="container-fluid" id="playSectionList">
+		<div class="row">
+			<nav id="sidebarMenu" class="col-md-3 col-lg-2 col-xl-2 d-md-block bg-light sidebar collapse">
+				<div class="position-sticky pt-3">
+					<input th:value="${courseId}" id="playPageDeafultId" hidden>
+					<ul class="nav flex-column" v-for="section in sectionList">
+						<li class="nav-item">
+							<button class="btn btn-toggle align-items-center rounded collapsed "
+								data-bs-toggle="collapse" :data-bs-target="'#course-collapse'+section.sectionNumber"
+								aria-expanded="true">
+								<h4><span data-feather="layers"></span> {{section.sectionNumber}}.
+									{{section.sectionName}}</h4>
+							</button>
+							<div class="collapse show" :id="'course-collapse'+section.sectionNumber">
+								<ul class="nav flex-column btn-toggle-nav list-unstyled fw-normal pb-1 small"
+									v-for="lecture in section.lecturesList">
+									<li class="nav-item border rounded-pill"><a href="#" class="link-dark rounded ">
+											<h5><span data-feather="fast-forward"></span>{{lecture.lectureNumber}}.
+												{{lecture.lecturesName}}</h5>
+										</a>
+
+										<button>附加連結</button>
+									</li>
+								</ul>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+			</nav>
+
+
+
+
+			<div class=" ms-sm-auto col-md-7 col-lg-8 col-xl-8">
+				<div
+					class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					
+						<video id="my-video" class="video-js vjs-fluid vjs-big-play-centered">
+						</video>
+						
+				</div>
+			</div>
+
+			<div class="col-md-2 ms-sm-auto col-lg-2 col-xl-2 ">
+				<div class="align-items-center border-bottom">
+					<h1 class="h2">Notes</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+		integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+		crossorigin="anonymous"></script>
+
+
+
+	<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+	<script src="https://vjs.zencdn.net/7.17.0/video.min.js"></script>
+	<script th:src="@{/assets3/js/bootstrap.bundle.min.js}"></script>
+
+
+
+	<script type="importmap">
+
+	{
+	  "imports": {
+		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+	  
+	  }
+	}
+	</script>
+
+	<script th:src="@{/js/playPage.js}" type="module"></script>
+
+</body>
+
+</html>
