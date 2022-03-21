@@ -11,4 +11,5 @@ public interface ProductRepository extends JpaRepository<CourseBasic, Integer> {
 	public List<CourseBasic> findByCourseNameLike(String courseName);
 	
 	public CourseBasic findByCourseName(String courseName);
+	
 }

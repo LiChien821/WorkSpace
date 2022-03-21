@@ -30,7 +30,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		auth
 				.userDetailsService(accountUserDetailService())
 				.passwordEncoder(bcryptoEncoder());
-		
+				
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		http 	
 		.csrf().disable()
 			.authorizeRequests() 
-					.antMatchers("/test","/querytest")
+					.antMatchers("/test","/querytest","/login","/querycourserank/**")
 					.permitAll()
 					.antMatchers("/student/**").hasAuthority("Teacher,Student")
 					.antMatchers("/course/**").hasAuthority("Admin")
@@ -48,7 +48,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 								.and()
 									.formLogin()
 									.loginPage("/login")
-									.usernameParameter("userAccount")
+									.usernameParameter("Account")
 									.defaultSuccessUrl("/", true)
 									.permitAll()
 									.and()
