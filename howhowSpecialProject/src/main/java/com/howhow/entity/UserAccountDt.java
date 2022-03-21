@@ -61,16 +61,15 @@ public class UserAccountDt {
 	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
 	private UserAccountMt userAccountMt;
-
 	
 	@OneToMany(mappedBy = "creator")
 	private List<CourseBasic> createdCourseList=new ArrayList<CourseBasic>();
 	
-	@OneToMany(mappedBy = "launcher")
-	private List<Question> questionList=new ArrayList<Question>();
+	@OneToMany(mappedBy = "userid")
+	private List<Bulletin> bulletinList = new ArrayList<Bulletin>();
 	
-	@OneToMany(mappedBy = "answerer")
-	private List<Answer> answerList=new ArrayList<Answer>();
+	@OneToMany(mappedBy = "userid")
+	private List<BulletinReply> bulletinReplyList = new ArrayList<BulletinReply>();
 	
 	@OneToMany(mappedBy = "author")
 	private List<Notes> notesList=new ArrayList<Notes>();
@@ -156,21 +155,20 @@ public class UserAccountDt {
 		this.userAccountMt = userAccountMt;
 	}
 
-
-	public List<Question> getQuestionList() {
-		return questionList;
+	public List<Bulletin> getBulletinList() {
+		return bulletinList;
 	}
 
-	public void setQuestionList(List<Question> questionList) {
-		this.questionList = questionList;
+	public void setBulletinList(List<Bulletin> bulletinList) {
+		this.bulletinList = bulletinList;
 	}
 
-	public List<Answer> getAnswerList() {
-		return answerList;
+	public List<BulletinReply> getBulletinReplyList() {
+		return bulletinReplyList;
 	}
 
-	public void setAnswerList(List<Answer> answerList) {
-		this.answerList = answerList;
+	public void setBulletinReplyList(List<BulletinReply> bulletinReplyList) {
+		this.bulletinReplyList = bulletinReplyList;
 	}
 
 	public List<Notes> getNotesList() {

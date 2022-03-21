@@ -27,7 +27,6 @@ public class Section {
 	
 	@Column
 	private String sectionName;
-	
 
 	@ManyToOne
 	@JoinColumn(name="COURSEID")
