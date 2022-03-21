@@ -23,7 +23,7 @@ public class CourseBasic {
 	
 	@Id @Column(name="COURSEID")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int courseId;
+	private int courseID;
 	
 	@Column(name="COURSENAME")
 	private String courseName;
@@ -78,12 +78,12 @@ public class CourseBasic {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<CourseRank> courseRankList = new ArrayList<CourseRank>();
 
-	public int getCourseId() {
-		return courseId;
+	public int getCourseID() {
+		return courseID;
 	}
 
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
+	public void setCourseID(int courseID) {
+		this.courseID = courseID;
 	}
 
 	public String getCourseName() {
