@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" utf>
+
+<head th:fragment="pagehead">
+	<meta http-equiv="Content-Type" content="text/html" ; charset="UTF-8">
+	<title>howhow學</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+
+
+
+</head>
+
+<body>
+
+	<th:block th:fragment="content">
+		<div class="accordion accordion-flush" id="createSectionList">
+			<div class="accordion-item" v-for="sectionunit in sectionList">
+				<h2 class="accordion-header" :id="'flush-heading'+sectionunit.sectionNumber">
+					<a class="accordion-button collapsed border-secondary border-2 rounded-pill border" type="button" data-bs-toggle="collapse"
+						:data-bs-target="'#flush-collapse'+sectionunit.sectionNumber" aria-expanded="false"
+						:aria-controls="'flush-collapse'+sectionunit.sectionNumber"
+						:href="'#flush-collapse'+sectionunit.sectionNumber"  @click="getLectureListFromSection(sectionunit.sectionID)">
+						<div class="d-flex justify-content-around ">
+						<h2 class="p-0 m-0">{{sectionunit.sectionNumber}} . </h2> 
+						<h2 class="p-0 m-0">{{sectionunit.sectionName}}</h2>
+						
+						</div>
+						
+					</a>
+				</h2>
+				<div :id="'flush-collapse'+sectionunit.sectionNumber" class="accordion-collapse collapse"
+					:aria-labelledby="'flush-heading'+sectionunit.sectionNumber" data-bs-parent="#createSectionList">
+					<div class="accordion-body" v-for="lecture in lectureList">
+						<div class="d-flex justify-content-around border rounded-pill">
+						<p class="p-0 m-0">{{lecture.lectureNumber}} . </p> 
+						<h5 class="p-0 m-0">{{lecture.lecturesName}}</h5>
+						</div>
+						 </div>
+					<div class="input-group " id="createLecture">
+						<input type="number" class="form-control " placeholder="單元編號" v-model="newLectureNum"
+							id="form3">
+						<input type="text" class="form-control " placeholder="單元名稱" required
+							v-model="newLectureName" id="form3">
+						<div class="input-group-append">
+							<button class="btn btn-primary" type="button" @click="sendlecturemessage(sectionunit.sectionID)">
+								新增單元<br>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<br><br><br><br>
+		<div class="input-group " id="createSection">
+			<input type="number" class="form-control border border-5" placeholder="章節編號" v-model="newSectionNum" id="form2">
+			<input type="text" class="form-control border border-5" placeholder="章節名稱" v-model="newSectionName" id="form2" required>
+			<div class="input-group-append">
+				<button class="btn btn-primary" type="button" @click="sendsectionmessage">
+					新增章節<br>
+				</button>
+			</div>
+		</div>
+	</th:block>
+</body>
+
+
+
+
+
+</html>
