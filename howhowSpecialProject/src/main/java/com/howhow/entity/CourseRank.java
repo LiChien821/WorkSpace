@@ -32,7 +32,13 @@ public class CourseRank {
 	
 	@Column(name = "COURSERANK")
 	private int courseRank;
-
+	
+	@Column(name="RANKMESSAGE")
+	private String rankMessage;
+	
+	@Column(name="RANKDATE")
+	private String rankDate;
+	
 	@Column(name = "SYSTEMTIME")
 	private String systemTime;
 
