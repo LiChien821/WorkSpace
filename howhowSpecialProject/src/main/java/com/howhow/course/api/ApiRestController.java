@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,10 @@ import com.howhow.entity.UserAccountMt;
 @RestController
 public class ApiRestController {
 	
+	@Value("${blob.url.setting}")
+	private String blobSetting;
+	
+	
 	@Autowired
 	private LearningCourseService courseService;
 	
@@ -44,10 +49,16 @@ public class ApiRestController {
 	@Autowired
 	private LearningLecturesService lectureService;
 	
+	@GetMapping("/api/getBlobUrl")
+	public String getBlobUrl(){
+		return blobSetting;
+	}
+	
 	@GetMapping("/api/getLectureList/{sectionID}")
 	public Iterable<Lectures> getAllLectureFromSectionID(@PathVariable("sectionID") int sectionID){
 		return lectureService.findAllBySectionID(sectionID);
 	}
+	
 	@GetMapping("/api/getSectionList/{courseID}")
 	public Iterable<Section> getAllSectionFromCourseID(@PathVariable("courseID") int courseID){
 		return sectionService.findAllByCourseId(courseID);

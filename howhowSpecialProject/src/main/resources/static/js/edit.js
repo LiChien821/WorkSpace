@@ -1,9 +1,12 @@
 import { createApp } from 'vue'
 
 const dataObj = {
+	blobSetting:"",
+	
 	currentAccountID: "",
 	currentCourseID: "",
 	currentSectionID: "",
+	
 
 	category: "",
 	course: "",
@@ -30,6 +33,16 @@ createApp({
 	},
 	mounted: function() {
 		this.currentCourseID = document.getElementById("defaultCourseID").value;
+		axios({
+			method: 'get',
+			url: '/howhow/api/getBlobUrl',
+			headers: { "Access-Control-Allow-Origin": "*" },
+		})
+			.then(response => (this.blobSetting = response.data))
+			.catch(function(error) {
+				console.log(error);
+			});
+		
 		axios({
 			method: 'get',
 

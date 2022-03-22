@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 const dataObj = {
-	videoSrcUrl: "../video/atlantic_drone_traveling (720p).mp4",
+	videoSrcUrl: "https://stoageno1.blob.core.windows.net/mycontainer/travel.mp4",
 	videotype: "video/mp4",
 
 	currentTime: "",
