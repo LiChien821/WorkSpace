@@ -65,10 +65,10 @@ public class UserAccountDt {
 	@OneToMany(mappedBy = "creator")
 	private List<CourseBasic> createdCourseList=new ArrayList<CourseBasic>();
 	
-	@OneToMany(mappedBy = "userid")
+	@OneToMany(mappedBy = "userAccountDt")
 	private List<Bulletin> bulletinList = new ArrayList<Bulletin>();
 	
-	@OneToMany(mappedBy = "userid")
+	@OneToMany(mappedBy = "userAccountDt")
 	private List<BulletinReply> bulletinReplyList = new ArrayList<BulletinReply>();
 	
 	@OneToMany(mappedBy = "author")

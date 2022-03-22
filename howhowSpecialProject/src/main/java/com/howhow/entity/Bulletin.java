@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
@@ -26,8 +28,7 @@ public class Bulletin {
 	@Id @Column
 	private Integer bulletinid;
 	
-	@ManyToOne
-	@JoinColumn
+	@Transient	//修正by chien
 	private Lectures lectureid;
 	
 	@Column
@@ -36,17 +37,21 @@ public class Bulletin {
 	@Column
 	private String content;
 
-	@ManyToOne
-	@JoinColumn
-	private UserAccountDt userid;
-	
-	@OneToMany(mappedBy = "bulletinreplyid")
-	private List<BulletinReply> bulletinReplyList = new ArrayList<BulletinReply>();
+	@Transient
+	private int userid;
 	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@Column
 	private Date creationtime;
-
+	
+	@ManyToOne(fetch=FetchType.LAZY)	//修正by chien 3lines
+	@JoinColumn(name="LECTUREID")
+	private Lectures lectures;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="USERID")
+	private UserAccountDt userAccountDt;
+	
 	public Integer getBulletinid() {
 		return bulletinid;
 	}
@@ -79,14 +84,6 @@ public class Bulletin {
 		this.content = content;
 	}
 
-	public UserAccountDt getUserid() {
-		return userid;
-	}
-
-	public void setUserid(UserAccountDt userid) {
-		this.userid = userid;
-	}
-
 	public Date getCreationtime() {
 		return creationtime;
 	}
@@ -95,12 +92,28 @@ public class Bulletin {
 		this.creationtime = creationtime;
 	}
 
-	public List<BulletinReply> getBulletinReplyList() {
-		return bulletinReplyList;
+	public int getUserid() {
+		return userid;
 	}
 
-	public void setBulletinReplyList(List<BulletinReply> bulletinReplyList) {
-		this.bulletinReplyList = bulletinReplyList;
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
+
+	public Lectures getLectures() {
+		return lectures;
+	}
+
+	public void setLectures(Lectures lectures) {
+		this.lectures = lectures;
+	}
+
+	public UserAccountDt getUserAccountDt() {
+		return userAccountDt;
+	}
+
+	public void setUserAccountDt(UserAccountDt userAccountDt) {
+		this.userAccountDt = userAccountDt;
 	}
 
 	
