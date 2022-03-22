@@ -24,7 +24,7 @@ public class Answer {
 	
 	@ManyToOne
 	@JoinColumn(name="ANSWER_ID")
-	private UserAccountDt answerer;
+	private UserAccountDt answerer; 
 	
 	@Column
 	private String answerContext;
@@ -47,8 +47,6 @@ public class Answer {
 	public void setQuestion(Question question) {
 		this.question = question;
 	}
-
-	
 
 	public String getAnswerContext() {
 		return answerContext;

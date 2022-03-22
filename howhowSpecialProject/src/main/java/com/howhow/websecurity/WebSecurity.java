@@ -30,35 +30,36 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		auth
 				.userDetailsService(accountUserDetailService())
 				.passwordEncoder(bcryptoEncoder());
-		
+				
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-//		http 	
-//		.csrf().disable()
-//			.authorizeRequests() 
-//					.antMatchers("/test","/querytest")
-//					.permitAll()
-//					.antMatchers("/student/**").hasAuthority("Teacher,Student")
-//					.antMatchers("/course/**").hasAuthority("Admin")
-//					.anyRequest()
-//					.authenticated()
-//								.and()
-//									.formLogin()
-//									.loginPage("/login")
-//									.usernameParameter("userAccount")
-//									.defaultSuccessUrl("/", true)
-//									.permitAll()
-//									.and()
-//									.rememberMe()
-//										.key("aaaaaaabbcccccc_1122334455")
-//										.tokenValiditySeconds(12*24*60)
-//									.and()
-//										.logout()
-//										.deleteCookies("JSESSIONID","remember-me")
-//										.permitAll();
-//									
+		// TODO Auto-generated method stub
+		http 	
+		.csrf().disable()
+			.authorizeRequests() 
+					.antMatchers("/test","/querytest","/login","/querycourserank/**","/querybycourseid/**")
+					.permitAll()
+					.antMatchers("/student/**").hasAuthority("Teacher,Student")
+					.antMatchers("/course/**").hasAuthority("Admin")
+					.anyRequest()
+					.authenticated()
+								.and()
+									.formLogin()
+									.loginPage("/login")
+									.usernameParameter("Account")
+									.defaultSuccessUrl("/", true)
+									.permitAll()
+									.and()
+									.rememberMe()
+										.key("aaaaaaabbcccccc_1122334455")
+										.tokenValiditySeconds(12*24*60)
+									.and()
+										.logout()
+										.deleteCookies("JSESSIONID","remember-me")
+										.permitAll();
+									
 						
 				
 		
