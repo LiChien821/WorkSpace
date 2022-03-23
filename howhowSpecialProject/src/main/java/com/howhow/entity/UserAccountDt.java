@@ -19,6 +19,7 @@ import org.hibernate.annotations.Parameter;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity @Table(name="useraccountdt")
 @Component
@@ -65,10 +66,12 @@ public class UserAccountDt {
 	@OneToMany(mappedBy = "creator")
 	private List<CourseBasic> createdCourseList=new ArrayList<CourseBasic>();
 	
-	@OneToMany(mappedBy = "userAccountDt")
+	@OneToMany(mappedBy = "launcherid")  //modified by weijie(2022-03-22)
+	@JsonManagedReference
 	private List<Bulletin> bulletinList = new ArrayList<Bulletin>();
 	
-	@OneToMany(mappedBy = "userAccountDt")
+	@OneToMany(mappedBy = "respondent") //modified by weijie(2022-03-22)
+	@JsonManagedReference
 	private List<BulletinReply> bulletinReplyList = new ArrayList<BulletinReply>();
 	
 	@OneToMany(mappedBy = "author")

@@ -13,8 +13,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name="lecturesBasic")
+@JsonIdentityInfo(property = "@id",generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Lectures {
 
 	@Id
@@ -42,8 +47,11 @@ public class Lectures {
 	@Column(name="SYSTEMTIME")
 	private String SystemTime;
 	
-	@OneToMany(mappedBy = "lectures")
-	private List<Question> questionList=new ArrayList<Question>();
+//	@OneToMany(mappedBy = "lectures")                                 //modified by weijie(2022-03-22)
+//	private List<Question> questionList=new ArrayList<Question>();
+	@OneToMany(mappedBy = "lectureid")                                //modified by weijie(2022-03-22)
+	@JsonManagedReference
+	private List<Bulletin> bulletinList=new ArrayList<Bulletin>();    
 	
 	@OneToMany(mappedBy = "notedlecture")
 	private List<Notes> notesList=new ArrayList<Notes>();
@@ -84,16 +92,24 @@ public class Lectures {
 		this.videoSource = videoSource;
 	}
 
-	public List<Question> getQuestionList() {
-		return questionList;
-	}
-
-	public void setQuestionList(List<Question> questionList) {
-		this.questionList = questionList;
-	}
+//	public List<Question> getQuestionList() {                          //modified by weijie(2022-03-22)
+//		return questionList;                                           
+//	}
+//
+//	public void setQuestionList(List<Question> questionList) {         //modified by weijie(2022-03-22)
+//		this.questionList = questionList;                              
+//	}
 
 	public Section getSection() {
 		return section;
+	}
+
+	public List<Bulletin> getBulletinList() {                         //modified by weijie(2022-03-22)
+		return bulletinList;
+	}
+
+	public void setBulletinList(List<Bulletin> bulletinList) {        //modified by weijie(2022-03-22)
+		this.bulletinList = bulletinList;
 	}
 
 	public void setSection(Section section) {

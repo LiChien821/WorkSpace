@@ -18,47 +18,55 @@ import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@Entity @Table(name="bullet")
+@Entity @Table(name="bulletin")
 @Component
+//@JsonIdentityInfo(property = "@id",generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Bulletin {
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id @Column
+	@Id @Column(name = "BULLETINID")
 	private Integer bulletinid;
 	
-	@Transient	//修正by chien
+	@ManyToOne
+	@JoinColumn(name = "LECTURESID")
+	@JsonBackReference
 	private Lectures lectureid;
 	
-	@Column
+	@Column(name = "TITLE")
 	private String title;
-
-	@Column
+	
+	@Column(name = "CONTENT")
 	private String content;
+	
+	@ManyToOne
+	@JoinColumn(name = "LAUNCHERID")
+	@JsonBackReference
+	private UserAccountDt launcherid;
 
-	@Transient
-	private int userid;
-	
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	@Column(name = "CREATIONTIME")
 	private Date creationtime;
+
+	@OneToMany(mappedBy = "bulletinid")
+//	@JsonManagedReference
+//	@JsonIgnore
+	private List<BulletinReply> replyList = new ArrayList<BulletinReply>(); 
 	
-	@ManyToOne(fetch=FetchType.LAZY)	//修正by chien 3lines
-	@JoinColumn(name="LECTUREID")
-	private Lectures lectures;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="USERID")
-	private UserAccountDt userAccountDt;
-	
-	public Integer getBulletinid() {
+	public Integer getBulletinid() { 
 		return bulletinid;
 	}
 
 	public void setBulletinid(Integer bulletinid) {
 		this.bulletinid = bulletinid;
 	}
+
 
 	public Lectures getLectureid() {
 		return lectureid;
@@ -83,6 +91,15 @@ public class Bulletin {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
+	
+	public List<BulletinReply> getReplyList() {
+		return replyList;
+	}
+
+	public void setReplyList(List<BulletinReply> replyList) {
+		this.replyList = replyList;
+	}
 
 	public Date getCreationtime() {
 		return creationtime;
@@ -92,28 +109,12 @@ public class Bulletin {
 		this.creationtime = creationtime;
 	}
 
-	public int getUserid() {
-		return userid;
+	public UserAccountDt getLauncherid() {
+		return launcherid;
 	}
 
-	public void setUserid(int userid) {
-		this.userid = userid;
-	}
-
-	public Lectures getLectures() {
-		return lectures;
-	}
-
-	public void setLectures(Lectures lectures) {
-		this.lectures = lectures;
-	}
-
-	public UserAccountDt getUserAccountDt() {
-		return userAccountDt;
-	}
-
-	public void setUserAccountDt(UserAccountDt userAccountDt) {
-		this.userAccountDt = userAccountDt;
+	public void setLauncherid(UserAccountDt launcherid) {
+		this.launcherid = launcherid;
 	}
 
 	
