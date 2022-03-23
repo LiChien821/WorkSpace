@@ -59,8 +59,8 @@ public class UserAccountDt {
 	private java.util.Date SystemTime;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(referencedColumnName = "user_id",insertable = false,updatable = false)
-	@JoinColumn(referencedColumnName = "account",insertable = false,updatable = false)
+	@JoinColumn(name="user_id", referencedColumnName = "user_id",insertable = false,updatable = false)
+	@JoinColumn(name="account", referencedColumnName = "account",insertable = false,updatable = false)
 	private UserAccountMt userAccountMt;
 
 	@OneToMany(mappedBy = "creator")
