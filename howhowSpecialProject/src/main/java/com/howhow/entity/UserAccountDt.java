@@ -28,12 +28,12 @@ public class UserAccountDt {
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
 	@Id
-	@Column(name = "USER_ID",insertable = false,updatable = false)
+	@Column(name = "USER_ID")
 	@GeneratedValue(generator = "generator")
 	private int user_Id;
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
-	@Column(name = "ACCOUNT", unique = true,insertable = false,updatable = false)
+	@Column(name = "ACCOUNT", unique = true)
 	private String Account;
 
 	@Column(name = "EMAIL", unique = true)

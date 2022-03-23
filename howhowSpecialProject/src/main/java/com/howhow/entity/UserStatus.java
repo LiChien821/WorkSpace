@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -29,9 +30,9 @@ public class UserStatus implements Serializable {
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
 	@Id
-	@Column(name = "USERID")
+	@Column(name = "USER_ID")
 	@GeneratedValue(generator = "generator")
-	private int UserId;
+	private int User_Id;
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
 	@Column(name = "ACCOUNT", unique = true)
@@ -56,15 +57,16 @@ public class UserStatus implements Serializable {
 	private java.util.Date systemTime;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name = "user_Id", referencedColumnName = "USERID",insertable = false,updatable = false)
+	@JoinColumn(name = "Account", referencedColumnName = "ACCOUNT",insertable = false,updatable = false)
 	private UserAccountMt userAccountMt;
 
 	public int getUserId() {
-		return UserId;
+		return User_Id;
 	}
 
 	public void setUserId(int userId) {
-		UserId = userId;
+		User_Id = userId;
 	}
 
 	public String getAccount() {
