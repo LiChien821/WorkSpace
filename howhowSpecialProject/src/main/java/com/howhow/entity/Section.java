@@ -14,28 +14,28 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="sectionBasic")
+@Table(name = "section")
 public class Section {
 	
 	@Id
-	@Column
+	@Column(name = "section_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int sectionID;
 	
-	@Column
+	@Column(name = "section_number")
 	private int sectionNumber;
 	
-	@Column
+	@Column(name = "section_name")
 	private String sectionName;
 
 	@ManyToOne
-	@JoinColumn(name="COURSEID")
+	@JoinColumn(name="course_id")
 	private CourseBasic courseBasic;
 	
 	@OneToMany(mappedBy = "section")
 	private List<Lectures> lecturesList=new ArrayList<>();
 	
-	@Column(name="SYSTEMTIME")
+	@Column(name = "system_time")
 	private String SystemTime;
 
 

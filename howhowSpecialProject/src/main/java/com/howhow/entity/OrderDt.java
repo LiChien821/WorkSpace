@@ -15,11 +15,11 @@ import javax.persistence.UniqueConstraint;
 import org.springframework.stereotype.Component;
 
 @Entity @Table(name="orderdt",
-uniqueConstraints=@UniqueConstraint(columnNames={"ORDERID", "COURSEID"}))
+uniqueConstraints=@UniqueConstraint(columnNames={"order_id", "course_id"}))
 @Component
 public class OrderDt {
 	
-	@Id @Column(name="ORDERDTID")
+	@Id @Column(name = "orderdt_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int OrderDtID;
 	
@@ -29,21 +29,21 @@ public class OrderDt {
 	@Transient
 	private int CourseID;
 	
-	@Column(name="DISCOUNT")
+	@Column(name = "discount")
 	private double discount;
 	
-	@Column(name="UNITPRICE")
+	@Column(name = "unit_price")
 	private int unitPrice;
 	
-	@Column(name="SYSTEMTIME")
+	@Column(name = "system_time")
 	private String systemTime;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ORDERID")
+	@JoinColumn(name = "order_id")
 	private OrderMt orderMt;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "COURSEID")
+	@JoinColumn(name = "course_id")
 	private CourseBasic courseBasic;
 
 	public double getDiscount() {

@@ -21,17 +21,11 @@ public class CourseRankService {
 		return courseRankPage;
 	}
 	
-	
-//	public List<CourseRank> findCourseRankByCourseID(int categoryid) {
-//		List<CourseRank> courseRankList = cRepo.findByCourseID(categoryid);
-//		return courseRankList;
-//	}
-//	
-//	public CourseRank insertCourseRank(CourseRank courseRank) {
-//		
-//		CourseRank insertedCourseRank = cRepo.insertCourseRank(courseRank);
-//		return insertedCourseRank;
-//	}
+	public CourseRank insertCourseRank(CourseRank courseRank) {
+		
+		CourseRank insertedCourseRank = cRepo.save(courseRank);
+		return insertedCourseRank;
+	}
 	
 	public CourseRank findByRID(int id) {
 		Optional<CourseRank> course = cRepo.findById(id);

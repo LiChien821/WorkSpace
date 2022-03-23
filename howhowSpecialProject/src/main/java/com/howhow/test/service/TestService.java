@@ -11,14 +11,19 @@ import com.howhow.test.repository.TestRepository;
 
 @Service
 public class TestService {
-	
+
 	@Autowired
 	TestRepository tRepo;
-	
+
 	public UserBonus findbyAccount(String account) {
 		Optional<UserAccountMt> accountquery = tRepo.findByAccount(account);
 		UserBonus userBonus = accountquery.get().getUserBonus();
-	
+
 		return userBonus;
+	}
+
+	public void saveUser(UserAccountMt user) {
+
+		tRepo.save(user);
 	}
 }

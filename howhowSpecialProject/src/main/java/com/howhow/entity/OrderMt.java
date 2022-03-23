@@ -22,22 +22,22 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity @Table(name="ordermt")
+@Entity @Table(name = "ordermt")
 @Component
 public class OrderMt {
 	
-	@Id @Column(name="ORDERID")
+	@Id @Column(name = "order_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int orderID;
 	
-	@Column(name="ORDERDATE")
+	@Column(name = "order_date")
 	@JsonFormat(pattern="yyyy-MM-dd", timezone = "GMT+8")
 	private Date orderDate;
 	
 	@Transient
 	private int userID;
 	
-	@Column(name="TOTALPRICE")
+	@Column(name = "total_price")
 	private int totalPrice;
 	
 	@Transient
@@ -46,22 +46,22 @@ public class OrderMt {
 	@Transient
 	private int orderStatusID;
 	
-	@Column(name="SYSTEMTIME")
+	@Column(name = "system_time")
 	private String systemTime;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderMt", cascade = CascadeType.ALL)
 	private List<OrderDt> orderDtList = new ArrayList<OrderDt>();
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="USERID")
+	@JoinColumn(name="user_id")
 	private UserAccountMt userAccountMt;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="PAYMETHODID")
-	private PayMethodType payMethodtype;
+	@JoinColumn(name="pay_method_id")
+	private PayMethodType payMethodType;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="ORDERSTATUSID")
+	@JoinColumn(name="order_status_id")
 	private OrderStatusType orderStatusType;
 	
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="orderMt", cascade = CascadeType.ALL)
@@ -139,12 +139,12 @@ public class OrderMt {
 		this.userAccountMt = userAccountMt;
 	}
 
-	public PayMethodType getPayMethodtype() {
-		return payMethodtype;
+	public PayMethodType getPayMethodType() {
+		return payMethodType;
 	}
 
-	public void setPayMethodtype(PayMethodType payMethodtype) {
-		this.payMethodtype = payMethodtype;
+	public void setPayMethodtype(PayMethodType payMethodType) {
+		this.payMethodType = payMethodType;
 	}
 
 	public OrderStatusType getOrderStatusType() {

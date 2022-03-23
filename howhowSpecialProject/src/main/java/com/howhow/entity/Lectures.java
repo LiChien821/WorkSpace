@@ -14,32 +14,30 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="lecturesBasic")
+@Table(name = "lectures")
 public class Lectures {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
+	@Column(name = "lectures_id")
 	private int lecturesID;
 	
-	@Column
+	@Column(name = "lectures_name")
 	private String lecturesName;
 	
-	
-	@Column
+	@Column(name = "attended_resource")
 	private String attendedResource;
 	
-	@Column
+	@Column(name = "video_source")
 	private String videoSource;
 	
-	@Column
+	@Column(name = "isavailabletopreview")
 	private boolean isAvailableToPreview;
 	
-	@Column
+	@Column(name = "previewvideo_url")
 	private String previewViedeoUrl;
 	
-	
-	@Column(name="SYSTEMTIME")
+	@Column(name = "system_time")
 	private String SystemTime;
 	
 	@OneToMany(mappedBy = "lectures")
@@ -49,7 +47,7 @@ public class Lectures {
 	private List<Notes> notesList=new ArrayList<Notes>();
 	
 	@ManyToOne
-	@JoinColumn(name="sectionID")
+	@JoinColumn(name="section_id")
 	private Section section;
 
 	public int getLecturesID() {

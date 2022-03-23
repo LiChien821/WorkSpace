@@ -25,31 +25,31 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Component
 public class CFCourse {
 	
-	@Id @Column(name="CROWDFUNDID")
+	@Id @Column(name="crowdfund_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int crowdFundID;
 	
 	@Transient
 	private int courseID;
 	
-	@Column(name="EXPIREDATE")
+	@Column(name="expire_date")
 	@JsonFormat(pattern="yyyy-MM-dd", timezone = "GMT+8")
 	private Date expireDate;
 	
-	@Column(name="EXPECTVALUE")
+	@Column(name="expect_value")
 	private int expectValue;
 	
-	@Column(name="DISCOUNTPRICE")
+	@Column(name="discount_price")
 	private int discountPrice;
 	
-	@Column(name="SYSTEMTIME")
+	@Column(name="system_time")
 	private String systemTime;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="COURSEID")
+	@JoinColumn(name="course_id")
 	private CourseBasic courseBasic;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cfCourse", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cFCourse", cascade = CascadeType.ALL)
 	private List<CFCOrder> cfcOrderList = new ArrayList<CFCOrder>();
 
 	public int getCrowdFundID() {

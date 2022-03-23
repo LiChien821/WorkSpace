@@ -15,12 +15,12 @@ import javax.persistence.UniqueConstraint;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name = "courserank",
-uniqueConstraints=@UniqueConstraint(columnNames={"COURSEID", "USERID"}))
+@Table(name="courserank",
+uniqueConstraints=@UniqueConstraint(columnNames={"course_id", "user_id"}))
 @Component
 public class CourseRank {
 	
-	@Id @Column(name="COURSERANKID")
+	@Id @Column(name = "courserank_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int courseRankID;
 	
@@ -30,24 +30,24 @@ public class CourseRank {
 	@Transient
 	private int courseID;
 	
-	@Column(name = "COURSERANK")
+	@Column(name = "course_rank")
 	private int courseRank;
 	
-	@Column(name="RANKMESSAGE")
+	@Column(name = "rank_message")
 	private String rankMessage;
 	
-	@Column(name="RANKDATE")
+	@Column(name = "rank_date")
 	private String rankDate;
 	
-	@Column(name = "SYSTEMTIME")
+	@Column(name = "system_time")
 	private String systemTime;
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="USERID")
+	@JoinColumn(name="user_id")
 	private UserAccountMt userAccountMt;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="COURSEID")
+	@JoinColumn(name="course_id")
 	private CourseBasic courseBasic;
 
 	public int getCourseRank() {
@@ -105,7 +105,5 @@ public class CourseRank {
 	public void setCourseBasic(CourseBasic courseBasic) {
 		this.courseBasic = courseBasic;
 	}
-	
-	
 
 }

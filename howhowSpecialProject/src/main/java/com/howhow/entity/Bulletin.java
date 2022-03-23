@@ -20,45 +20,37 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity @Table(name="bullet")
+@Entity @Table(name = "bulletin")
 @Component
 public class Bulletin {
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id @Column
-	private Integer bulletinid;
+	@Id @Column(name = "bulletin_id")
+	private Integer bulletinID;
 	
 	@Transient	//修正by chien
 	private Lectures lectureid;
 	
-	@Column
+	@Column(name = "title")
 	private String title;
 
-	@Column
+	@Column(name = "content")
 	private String content;
 
 	@Transient
-	private int userid;
+	private int userID;
 	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column
-	private Date creationtime;
+	@Column(name = "creation_time")
+	private Date creationTime;
 	
 	@ManyToOne(fetch=FetchType.LAZY)	//修正by chien 3lines
-	@JoinColumn(name="LECTUREID")
+	@JoinColumn(name="lecture_id")
 	private Lectures lectures;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="USERID")
+	@JoinColumn(name="user_id")
 	private UserAccountDt userAccountDt;
-	
-	public Integer getBulletinid() {
-		return bulletinid;
-	}
-
-	public void setBulletinid(Integer bulletinid) {
-		this.bulletinid = bulletinid;
-	}
 
 	public Lectures getLectureid() {
 		return lectureid;
@@ -84,22 +76,6 @@ public class Bulletin {
 		this.content = content;
 	}
 
-	public Date getCreationtime() {
-		return creationtime;
-	}
-
-	public void setCreationtime(Date creationtime) {
-		this.creationtime = creationtime;
-	}
-
-	public int getUserid() {
-		return userid;
-	}
-
-	public void setUserid(int userid) {
-		this.userid = userid;
-	}
-
 	public Lectures getLectures() {
 		return lectures;
 	}
@@ -116,6 +92,31 @@ public class Bulletin {
 		this.userAccountDt = userAccountDt;
 	}
 
+	public Integer getBulletinID() {
+		return bulletinID;
+	}
+
+	public void setBulletinID(Integer bulletinID) {
+		this.bulletinID = bulletinID;
+	}
+
+	public int getUserID() {
+		return userID;
+	}
+
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
+
+	public Date getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Date creationTime) {
+		this.creationTime = creationTime;
+	}
+	
+	
 	
 	
 }

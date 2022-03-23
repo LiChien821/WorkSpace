@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="answerBasic")
+@Table(name="answer")
 public class Answer {
 	
 	@Id
@@ -19,17 +19,17 @@ public class Answer {
 	private int answerID;
 	
 	@ManyToOne
-	@JoinColumn(name="QUESTIONID")
+	@JoinColumn(name="question_id")
 	private Question question;
 	
 	@ManyToOne
-	@JoinColumn(name="ANSWER_ID")
+	@JoinColumn(name="answer_id")
 	private UserAccountDt answerer; 
 	
 	@Column
 	private String answerContext;
 	
-	@Column(name="SYSTEMTIME")
+	@Column(name="system_time")
 	private String SystemTime;
 
 	public int getAnswerID() {
