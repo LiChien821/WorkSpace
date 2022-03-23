@@ -25,33 +25,33 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@Entity @Table(name="bulletin")
+@Entity @Table(name = "bulletin")
 @Component
 //@JsonIdentityInfo(property = "@id",generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Bulletin {
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id @Column(name = "BULLETINID")
+	@Id @Column(name = "bulletin_id")
 	private Integer bulletinid;
 	
 	@ManyToOne
-	@JoinColumn(name = "LECTURESID")
+	@JoinColumn(name = "lecture_id")
 	@JsonBackReference
 	private Lectures lectureid;
 	
-	@Column(name = "TITLE")
+	@Column(name = "title")
 	private String title;
 	
-	@Column(name = "CONTENT")
+	@Column(name = "content")
 	private String content;
 	
 	@ManyToOne
-	@JoinColumn(name = "LAUNCHERID")
+	@JoinColumn(name = "launcher_id")
 	@JsonBackReference
 	private UserAccountDt launcherid;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "CREATIONTIME")
+	@Column(name = "creation_time")
 	private Date creationtime;
 
 	@OneToMany(mappedBy = "bulletinid")

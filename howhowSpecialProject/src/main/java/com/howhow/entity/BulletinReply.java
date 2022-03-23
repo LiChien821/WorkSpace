@@ -28,25 +28,25 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class BulletinReply {
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id @Column(name = "BULLETINREPLYID")
+	@Id @Column(name = "bulletinreply_id")
 	private Integer bulletinreplyid;
 	
 	@ManyToOne
-	@JoinColumn(name = "BULLETINID")
+	@JoinColumn(name = "bulletin_id")
 //	@JsonBackReference
 	@JsonIgnore
 	private Bulletin bulletinid;
 	
-	@Column(name = "REPLYCONTENT")
+	@Column(name = "reply_content")
 	private String replycontent;
 	
 	@ManyToOne
-	@JoinColumn(name = "RESPONDENTID")
+	@JoinColumn(name = "respondent")
 	@JsonBackReference
 	private UserAccountDt respondent;
 
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "CREATIONTIME")
+	@Column(name = "creation_time")
 	private Date creationtime;
 
 	public Integer getBulletinreplyid() {
