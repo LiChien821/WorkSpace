@@ -12,18 +12,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "category")
+@Table
 public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "name", length = 40, nullable = false, unique = true)
+	@Column(length = 40, nullable = false, unique = true)
 	private String name;
 	
-	@Column(name = "descriptior", length = 200)
+	@Column(length = 200)
 	private String descriptior;
 	
 	@OneToMany(mappedBy = "category")

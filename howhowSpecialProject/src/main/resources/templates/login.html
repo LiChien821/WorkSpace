@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=""UTF-8">
+	<meta name="viewpor" content="width=device-width,initial-scale=1.0, minimum0scale=1.0">
+	<link rel="icon" type="image/x-icon" th:href="@{/images/sheep.ico}" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<title>LoginPage</title>
+</head>
+
+
+<body>
+		
+
+<form class="form" method="POST" th:action="@{/login}" style="max-width: 350px; margin: 0 auto">
+		<h1 class="form-group">HOMEWORK</h1>
+		<br>
+		<div th:if="${param.error}">
+			<p class="text-danger">無此帳號 或密碼錯誤</p>
+		</div>
+		
+		<div th:if="${param.logout}">
+			<p class="text-warming">log out</p>
+		</div>
+
+
+		<div class="boder boder-secondary rounded">
+			<p> Access to control panel</p>
+			<p>
+					<div class="form-group">
+				<label for="account">帳號:</label> 
+				<input type="text" name="userAccount" class="form-control" placeholder="account" required id="account"/>
+					</div>			
+			</p>
+			<p>
+				<div class="form-group">
+				<label for="pwd">密碼:</label> 
+				<input type="password" name="password" class="form-control" placeholder="password" id="pwd"required />
+				</div>
+			</p>
+
+			<p>
+				<div class="form-group">
+				<label for="rmb">remember me:</label> 
+				<input type="checkbox" name="remember-me" id="rmb"/>
+				</div>
+			</p>
+			<p><input type="submit" value="send" class="btn btn-primary" /></p>
+			<div><a th:href="@{/register}">註冊帳號</a></div>
+		</div>
+	</form>
+	
+	
+
+</body>
+
+</html>
