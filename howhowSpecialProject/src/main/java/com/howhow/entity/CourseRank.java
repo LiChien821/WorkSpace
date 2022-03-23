@@ -15,12 +15,12 @@ import javax.persistence.UniqueConstraint;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(
+@Table(name="courserank",
 uniqueConstraints=@UniqueConstraint(columnNames={"course_id", "user_id"}))
 @Component
 public class CourseRank {
 	
-	@Id @Column
+	@Id @Column(name = "courserank_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int courseRankID;
 	
@@ -30,16 +30,16 @@ public class CourseRank {
 	@Transient
 	private int courseID;
 	
-	@Column
+	@Column(name = "course_rank")
 	private int courseRank;
 	
-	@Column
+	@Column(name = "rank_message")
 	private String rankMessage;
 	
-	@Column
+	@Column(name = "rank_date")
 	private String rankDate;
 	
-	@Column
+	@Column(name = "system_time")
 	private String systemTime;
 
 	@ManyToOne(fetch=FetchType.LAZY)

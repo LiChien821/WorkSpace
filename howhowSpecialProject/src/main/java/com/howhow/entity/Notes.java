@@ -10,14 +10,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "notes")
 public class Notes {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
+	@Column(name = "note_id")
 	private int noteID;
-	
 	
 	@ManyToOne
 	@JoinColumn(name="author_id")
@@ -27,13 +26,13 @@ public class Notes {
 	@JoinColumn(name="notedlecture_id")
 	private Lectures notedlecture;
 	
-	@Column
+	@Column(name = "duration")
 	private long duration;
 	
-	@Column
+	@Column(name = "context")
 	private String context;
 	
-	@Column
+	@Column(name = "system_time")
 	private String SystemTime;
 	
 	public int getNoteID() {

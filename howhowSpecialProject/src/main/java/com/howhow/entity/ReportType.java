@@ -14,20 +14,20 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Component
-@Table
+@Table(name = "reporttype")
 @Entity
 public class ReportType {
 	
 	@GenericGenerator(name = "native", strategy = "native")
 	@GeneratedValue(generator = "native")
-	@Id @Column
+	@Id @Column(name = "reporttype_id")
 	private int reporttype;
 
-	@Column
+	@Column(name = "report_name")
 	private String reportname;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column
+	@Column(name = "system_time")
 	private Date systemtime;
 
 	public int getReporttype() {

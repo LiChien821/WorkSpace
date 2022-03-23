@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity @Table
+@Entity @Table(name = "useraccountmt")
 @Component
 public class UserAccountMt {
 	
@@ -26,14 +26,14 @@ public class UserAccountMt {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int userID;
 	
-	@Column
+	@Column(name = "account")
 	String account;
 	
-	@Column
+	@Column(name = "password")
 	String password;
 	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column
+	@Column(name = "system_time")
 	private java.util.Date systemTime;
 	
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)

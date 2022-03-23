@@ -19,7 +19,7 @@ uniqueConstraints=@UniqueConstraint(columnNames={"USER_ID", "CROWD_FUND_ID"}))
 @Component
 public class CFCOrder {
 	
-	@Id @Column
+	@Id @Column(name = "cfcorder_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int cfcOrderID;
 	
@@ -29,7 +29,7 @@ public class CFCOrder {
 	@Transient
 	private int crowdFundID;
 	
-	@Column
+	@Column(name = "system_time")
 	private String systemTime;
 	
 	@ManyToOne(fetch=FetchType.LAZY)

@@ -14,46 +14,46 @@ import javax.persistence.Transient;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table
+@Table(name = "paymentflow")
 @Component
 public class PaymentFlow {
 
 	@Id
-	@Column
+	@Column(name = "payment_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int paymentID;
 	
 	@Transient
 	private int orderID;
 
-	@Column
+	@Column(name = "merchant_id")
 	private String merchantID;
 
-	@Column
+	@Column(name = "merchanttrade_no")
 	private String merchantTradeNo;
 
-	@Column
+	@Column(name = "rtn_code")
 	private int rtnCode;
 
-	@Column
+	@Column(name = "rtn_msg")
 	private String rtnMsg;
 
-	@Column
+	@Column(name = "trade_no")
 	private String tradeNo;
 
-	@Column
+	@Column(name = "trade_amt")
 	private int tradeAmt;
 
-	@Column
+	@Column(name = "payment_type")
 	private String paymentType;
 
-	@Column
+	@Column(name = "trade_date")
 	private String tradeDate;
 
-	@Column
+	@Column(name = "check_macvalue")
 	private String checkMacvalue;
 
-	@Column
+	@Column(name = "system_time")
 	private String systemTime;
 
 	@OneToOne(fetch = FetchType.LAZY)

@@ -13,49 +13,35 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 @Entity
-<<<<<<< HEAD
-@Table
-=======
-@Table(name="lecturesBasic")
-@JsonIdentityInfo(property = "@id",generator = ObjectIdGenerators.IntSequenceGenerator.class)
->>>>>>> 5f1a41e80502b829cae4338d64c4272d7bcaf74b
+@Table(name = "lectures")
 public class Lectures {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
+	@Column(name = "lectures_id")
 	private int lecturesID;
 	
-	@Column
+	@Column(name = "lectures_name")
 	private String lecturesName;
 	
-	
-	@Column
+	@Column(name = "attended_resource")
 	private String attendedResource;
 	
-	@Column
+	@Column(name = "video_source")
 	private String videoSource;
 	
-	@Column
+	@Column(name = "isavailabletopreview")
 	private boolean isAvailableToPreview;
 	
-	@Column
+	@Column(name = "previewvideo_url")
 	private String previewViedeoUrl;
 	
-	
-	@Column
+	@Column(name = "system_time")
 	private String SystemTime;
 	
-//	@OneToMany(mappedBy = "lectures")                                 //modified by weijie(2022-03-22)
-//	private List<Question> questionList=new ArrayList<Question>();
-	@OneToMany(mappedBy = "lectureid")                                //modified by weijie(2022-03-22)
-	@JsonManagedReference
-	private List<Bulletin> bulletinList=new ArrayList<Bulletin>();    
+	@OneToMany(mappedBy = "lectures")
+	private List<Question> questionList=new ArrayList<Question>();
 	
 	@OneToMany(mappedBy = "notedlecture")
 	private List<Notes> notesList=new ArrayList<Notes>();
@@ -96,24 +82,16 @@ public class Lectures {
 		this.videoSource = videoSource;
 	}
 
-//	public List<Question> getQuestionList() {                          //modified by weijie(2022-03-22)
-//		return questionList;                                           
-//	}
-//
-//	public void setQuestionList(List<Question> questionList) {         //modified by weijie(2022-03-22)
-//		this.questionList = questionList;                              
-//	}
+	public List<Question> getQuestionList() {
+		return questionList;
+	}
+
+	public void setQuestionList(List<Question> questionList) {
+		this.questionList = questionList;
+	}
 
 	public Section getSection() {
 		return section;
-	}
-
-	public List<Bulletin> getBulletinList() {                         //modified by weijie(2022-03-22)
-		return bulletinList;
-	}
-
-	public void setBulletinList(List<Bulletin> bulletinList) {        //modified by weijie(2022-03-22)
-		this.bulletinList = bulletinList;
 	}
 
 	public void setSection(Section section) {

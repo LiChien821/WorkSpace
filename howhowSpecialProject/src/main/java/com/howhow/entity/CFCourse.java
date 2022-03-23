@@ -25,24 +25,24 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Component
 public class CFCourse {
 	
-	@Id @Column
+	@Id @Column(name="crowdfund_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int crowdFundID;
 	
 	@Transient
 	private int courseID;
 	
-	@Column
+	@Column(name="expire_date")
 	@JsonFormat(pattern="yyyy-MM-dd", timezone = "GMT+8")
 	private Date expireDate;
 	
-	@Column
+	@Column(name="expect_value")
 	private int expectValue;
 	
-	@Column
+	@Column(name="discount_price")
 	private int discountPrice;
 	
-	@Column
+	@Column(name="system_time")
 	private String systemTime;
 	
 	@ManyToOne(fetch=FetchType.LAZY)

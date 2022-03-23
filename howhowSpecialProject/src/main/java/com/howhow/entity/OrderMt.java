@@ -22,22 +22,22 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity @Table
+@Entity @Table(name = "ordermt")
 @Component
 public class OrderMt {
 	
-	@Id @Column
+	@Id @Column(name = "order_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int orderID;
 	
-	@Column
+	@Column(name = "order_date")
 	@JsonFormat(pattern="yyyy-MM-dd", timezone = "GMT+8")
 	private Date orderDate;
 	
 	@Transient
 	private int userID;
 	
-	@Column
+	@Column(name = "total_price")
 	private int totalPrice;
 	
 	@Transient
@@ -46,7 +46,7 @@ public class OrderMt {
 	@Transient
 	private int orderStatusID;
 	
-	@Column
+	@Column(name = "system_time")
 	private String systemTime;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderMt", cascade = CascadeType.ALL)

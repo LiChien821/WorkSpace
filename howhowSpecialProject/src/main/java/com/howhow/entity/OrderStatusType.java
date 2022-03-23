@@ -13,17 +13,17 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-@Entity @Table
+@Entity @Table(name = "orderstatustype")
 @Component
 public class OrderStatusType {
 	
-	@Id @Column
+	@Id @Column(name = "orderstatus_id")
 	private int orderStatusID;
 	
-	@Column
+	@Column(name = "orderstatus_name")
 	private String orderStatusName;
 	
-	@Column
+	@Column(name = "system_time")
 	private String systemTime;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderStatusType", cascade = CascadeType.ALL)

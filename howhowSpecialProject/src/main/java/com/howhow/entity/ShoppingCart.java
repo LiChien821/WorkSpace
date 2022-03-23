@@ -14,12 +14,12 @@ import javax.persistence.UniqueConstraint;
 
 import org.springframework.stereotype.Component;
 
-@Entity @Table(
+@Entity @Table(name="shoppingcart",
 uniqueConstraints=@UniqueConstraint(columnNames={"user_id", "course_id"}))
 @Component
 public class ShoppingCart {
 	
-	@Id @Column
+	@Id @Column(name = "shoppingcart_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int shoppingCartID;
 	
@@ -29,7 +29,7 @@ public class ShoppingCart {
 	@Transient
 	private int courseID;
 	
-	@Column
+	@Column(name = "system_time")
 	private String systemTime;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

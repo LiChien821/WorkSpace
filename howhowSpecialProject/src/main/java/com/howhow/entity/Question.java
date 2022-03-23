@@ -14,11 +14,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "question")
 public class Question {
 	
 	@Id
-	@Column
+	@Column(name = "question_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int questionID;
 	
@@ -30,13 +30,13 @@ public class Question {
 	@JoinColumn(name="launcher_id")
 	private UserAccountDt launcher;
 	
-	@Column
+	@Column(name = "question_title")
 	private String questionTitle;
 	
-	@Column
+	@Column(name = "question_context")
 	private String questionContext;
 	
-	@Column
+	@Column(name = "system_time")
 	private String SystemTime;
 	
 	@OneToMany(mappedBy = "question")

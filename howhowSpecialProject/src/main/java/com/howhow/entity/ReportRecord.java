@@ -19,11 +19,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Component
-@Table
+@Table(name = "reportrecord")
 public class ReportRecord {
 
 	@Id
-	@Column
+	@Column(name = "report_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int reportID;
 
@@ -49,7 +49,7 @@ public class ReportRecord {
 	private ReportType typeobj;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column
+	@Column(name = "system_time")
 	private Date systemtime;
 
 	public int getUserID() {

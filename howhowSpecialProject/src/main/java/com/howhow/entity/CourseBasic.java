@@ -17,21 +17,21 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-@Entity @Table
+@Entity @Table(name = "coursebasic")
 @Component
 public class CourseBasic {
 	
-	@Id @Column
+	@Id @Column(name = "course_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int courseID;
 	
-	@Column
+	@Column(name = "course_name")
 	private String courseName;
 	
-	@Column
+	@Column(name = "price")
 	private int price;
 	
-	@Column
+	@Column(name = "discount")
 	private double discount;
 	
 	@ManyToOne
@@ -44,11 +44,10 @@ public class CourseBasic {
 	@Column(name="course_cover")
 	private String courseCover;
 	
-	
-	@Column
+	@Column(name = "description")
 	private String description;
 	
-	@Column
+	@Column(name = "system_time")
 	private String SystemTime;
 	
 	@ManyToOne
@@ -57,8 +56,6 @@ public class CourseBasic {
 	
 	@OneToMany(mappedBy = "courseBasic")
 	private List<Section> sectionList =new ArrayList<Section>();
-	
-	
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<PurchasedCourse> purchasedCourses = new ArrayList<PurchasedCourse>();
