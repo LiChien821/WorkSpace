@@ -1,5 +1,6 @@
 package com.howhow.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,13 +25,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name = "useraccountdt")
 @Component
-public class UserAccountDt {
+public class UserAccountDt implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
 	@Id
-	@Column(name = "USER_ID")
+	@Column(name = "USERID")
 	@GeneratedValue(generator = "generator")
-	private int user_Id;
+	private int userId;
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
 	@Column(name = "ACCOUNT", unique = true)
@@ -60,10 +63,14 @@ public class UserAccountDt {
 	@Column(name = "SYSTEMTIME")
 	private java.util.Date SystemTime;
 
+	@MapsId
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_Id", referencedColumnName = "USERID",insertable = false,updatable = false)
-	@JoinColumn(name = "Account", referencedColumnName = "ACCOUNT",insertable = false,updatable = false)
+	@JoinColumn(name = "USERID", referencedColumnName = "USERID",insertable = false,updatable = false)
 	private UserAccountMt userAccountMt;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Account", referencedColumnName = "ACCOUNT",insertable = false,updatable = false)
+	private UserAccountMt userAccountMt2;
 
 	@OneToMany(mappedBy = "creator")
 	private List<CourseBasic> createdCourseList = new ArrayList<CourseBasic>();
@@ -77,12 +84,14 @@ public class UserAccountDt {
 	@OneToMany(mappedBy = "author")
 	private List<Notes> notesList = new ArrayList<Notes>();
 
-	public int getUser_Id() {
-		return user_Id;
+
+
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUser_Id(int user_Id) {
-		this.user_Id = user_Id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public String getAccount() {

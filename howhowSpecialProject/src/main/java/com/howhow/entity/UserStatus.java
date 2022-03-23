@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -30,13 +31,14 @@ public class UserStatus implements Serializable {
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
 	@Id
-	@Column(name = "USER_ID")
+	@Column(name = "USERID")
 	@GeneratedValue(generator = "generator")
-	private int User_Id;
+	private int userId;
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
 	@Column(name = "ACCOUNT", unique = true)
 	private String account;
+	
 
 	@Column(name = "ACCOUNTSTATUS")
 	private int accountStatus;
@@ -56,17 +58,30 @@ public class UserStatus implements Serializable {
 	@Column(name = "SYSTEMTIME")
 	private java.util.Date systemTime;
 
+	@MapsId
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_Id", referencedColumnName = "USERID",insertable = false,updatable = false)
-	@JoinColumn(name = "Account", referencedColumnName = "ACCOUNT",insertable = false,updatable = false)
+	@JoinColumn(name = "USERID", referencedColumnName = "USERID",insertable = false,updatable = false)
 	private UserAccountMt userAccountMt;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Account", referencedColumnName = "ACCOUNT",insertable = false,updatable = false)
+	private UserAccountMt userAccountMt2;
+
 
 	public int getUserId() {
-		return User_Id;
+		return userId;
 	}
 
 	public void setUserId(int userId) {
-		User_Id = userId;
+		this.userId = userId;
+	}
+
+	public UserAccountMt getUserAccountMt2() {
+		return userAccountMt2;
+	}
+
+	public void setUserAccountMt2(UserAccountMt userAccountMt2) {
+		this.userAccountMt2 = userAccountMt2;
 	}
 
 	public String getAccount() {

@@ -1,10 +1,16 @@
 package com.howhow.entity;
 
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -15,30 +21,34 @@ import org.springframework.stereotype.Component;
 
 @Entity @Table(name="userbonus")
 @Component
-public class UserBonus {
+public class UserBonus implements Serializable{
 	
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "useraccountmt"))
+	private static final long serialVersionUID = 1L;
+
+	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
 	@Id
 	@Column(name = "USERID")
 	@GeneratedValue(generator = "generator")
-	private int userID;
-	
+	private int userId;
+
 	@Column(name="BONUSCOUNT")
 	private int bonusCount;
 	
 	@Column(name="SYSTEMTIME")
 	private String systemTime;
 	
-	@OneToOne(fetch=FetchType.LAZY)
-	@PrimaryKeyJoinColumn
+	@MapsId
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USERID", referencedColumnName = "USERID",insertable = false,updatable = false )
 	private UserAccountMt userAccountMt;
 
-	public int getUserID() {
-		return userID;
+
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public int getBonusCount() {
