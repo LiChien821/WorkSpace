@@ -67,7 +67,6 @@ public class UserAccountDt {
 	private UserAccountMt userAccountMt;
 
 	@OneToMany(mappedBy = "creator")
-<<<<<<< HEAD
 	private List<CourseBasic> createdCourseList=new ArrayList<CourseBasic>();
 	
 	@OneToMany(mappedBy = "launcherid")  //modified by weijie(2022-03-22)
@@ -76,14 +75,6 @@ public class UserAccountDt {
 	
 	@OneToMany(mappedBy = "respondent") //modified by weijie(2022-03-22)
 	@JsonManagedReference
-=======
-	private List<CourseBasic> createdCourseList = new ArrayList<CourseBasic>();
-
-	@OneToMany(mappedBy = "userAccountDt")
-	private List<Bulletin> bulletinList = new ArrayList<Bulletin>();
-
-	@OneToMany(mappedBy = "userAccountDt")
->>>>>>> origin/master
 	private List<BulletinReply> bulletinReplyList = new ArrayList<BulletinReply>();
 
 	@OneToMany(mappedBy = "author")
