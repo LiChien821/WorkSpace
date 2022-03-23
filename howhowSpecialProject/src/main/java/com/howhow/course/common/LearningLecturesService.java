@@ -38,4 +38,15 @@ public class LearningLecturesService {
 		
 		return lectureRepo.findAllBySectionID(sectionID);
 	}
+
+
+	public Lectures findByLectureID(int lectureID) {
+		
+		return lectureRepo.findById(lectureID).get();
+	}
+	
+	
+	public void updateLecturesWithVideoSource(Lectures lecture) {
+		lectureRepo.save(lecture);
+	}
 }

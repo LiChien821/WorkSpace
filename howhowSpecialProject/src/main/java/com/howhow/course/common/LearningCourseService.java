@@ -99,5 +99,34 @@ public class LearningCourseService {
 		System.out.println("try to match raw password:" + ans);
 
 	}
+	public void updateCourseAbstractCover(CourseBasic course) {
+		repo.save(course);
+	}
+	
+	
+	public boolean updateCourseAbstract(CourseBasic course) {
+		try  {
+			CourseBasic existedCourse = findCourseByCourseId(course.getCourseId());
+			if (course.getCategory() != null) {
+				existedCourse.setCategory(course.getCategory());
+			}
+			if (course.getCourseName() != null && course.getCourseName() !="") {
+				existedCourse.setCourseName(course.getCourseName());
+			}
+			if (course.getDescription() != null  && course.getDescription() !="") {
+				existedCourse.setDescription(course.getDescription());
+			}
+			if (course.getPrice() != null  && course.getPrice() !=0) {
+				existedCourse.setPrice(course.getPrice());
+			}
+			repo.save(existedCourse);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		
+	}
 
 }

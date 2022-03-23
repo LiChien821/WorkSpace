@@ -6,11 +6,16 @@ const dataObj = {
 	currentAccountID: "",
 	currentCourseID: "",
 	currentSectionID: "",
+	currentLectureID:"",
+	currentSectionIndex:"",
+	currentLectureIndex:"",
 	
-
+	categoryList:"",
 	category: "",
 	course: "",
-
+	currentSection:"",
+	videoSrc:"",
+	lecture:"",
 
 	sectionList: "",
 	lectureList: "",
@@ -22,7 +27,8 @@ const dataObj = {
 	newLectureName: "",
 
 
-
+	coverFile:"",
+	videoFile:""
 
 };
 
@@ -31,6 +37,48 @@ createApp({
 	data() {
 		return dataObj;
 	},
+	methods: {
+		changeCategory(id) {
+			this.category=this.categoryList[id-1];
+			this.course.category=this.category;
+		},
+		handleFileUpload() {
+				this.coverFile = this.$refs.file.files[0];
+			},
+		 createForm: function () {
+				if(this.coverFile !==""){
+				var postforms = new FormData();
+				postforms.append("file", this.coverFile);
+				postforms.append("courseID", this.course.courseId);
+			
+				let config = {
+					headers: {
+						"Content-Type": "multipart/form-data"
+					}
+				};
+
+
+				axios
+					.post(
+						'/howhow/api/updateCourseAbstractCover',
+						postforms,
+						config
+					)
+					.then(response => (this.course = response.data))
+					.catch(function (error) {
+						console.log(error);
+						
+					});
+			
+				}	
+			
+			},
+			
+			handleVideoUpload() {
+				this.videoFile = this.$refs.videofile.files[0];
+			},
+		
+		},
 	mounted: function() {
 		this.currentCourseID = document.getElementById("defaultCourseID").value;
 		axios({
@@ -39,6 +87,15 @@ createApp({
 			headers: { "Access-Control-Allow-Origin": "*" },
 		})
 			.then(response => (this.blobSetting = response.data))
+			.catch(function(error) {
+				console.log(error);
+			});
+		axios({
+			method: 'get',
+			url: '/howhow/api/getAllCategory',
+			headers: { "Access-Control-Allow-Origin": "*" },
+		})
+			.then(response => (this.categoryList = response.data))
 			.catch(function(error) {
 				console.log(error);
 			});
@@ -159,3 +216,52 @@ createApp({
 	}
 
 }).mount('#header')
+
+createApp({
+	data() {
+		return dataObj;
+	},
+	methods: {
+		changeLectureList: function(id) {
+			this.lecture="";
+			this.lectureList=this.sectionList[id].lecturesList;
+		
+		},
+		selectLecture:function(id) {
+			this.lecture=this.lectureList[id];
+		
+		},
+		 createForm: function () {
+				var postforms = new FormData();
+			
+				
+				postforms.append("videofile", this.videoFile);
+				postforms.append("lectureID", this.lecture.lecturesID);
+				let config = {
+					headers: {
+						"Content-Type": "multipart/form-data"
+					}
+				};
+
+
+				axios
+					.post(
+						'/howhow/api/updateLectureVideo',
+						postforms,
+						config
+					)
+					.then(response => (this.lecture = response.data))
+					.catch(function (error) {
+						console.log(error);
+						
+					});
+				
+			},
+			
+			handleVideoUpload() {
+				this.videoFile = this.$refs.videofile.files[0];
+			},
+		
+	}
+
+}).mount('#editCourseLectures')

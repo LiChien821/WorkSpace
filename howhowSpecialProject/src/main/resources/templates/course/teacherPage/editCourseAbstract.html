@@ -14,7 +14,8 @@
 
 
 					<div class="col p-4">
-						<h3 class="mb-3">編輯課程內容</h3>
+						<h3 class="mb-3">編輯課程內容&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="button" class="lead mb-4" value="更新課程大綱" @click="createForm"></input></h3>
 
 						<div class="form-row">
 							<label class="col col-form-label">課程名稱</label>
@@ -26,7 +27,7 @@
 							<label class="col col-form-label">分類</label>
 							<div class="col">
 
-								<select name="category" id="category" v-model="category.id">
+								<select name="category" id="category" v-model="category.id" @change="changeCategory(category.id)">
 									<th:block th:each="cat: ${cateList}">
 										<option th:value="${cat.id}">[[${cat.name}]]</option>
 									</th:block>
@@ -73,7 +74,7 @@
 
 				<div class="mx-auto text-center ">
 					<h1 class="mb-3">課程封面</h1>
-					<button class="lead mb-4">更新封面</button>
+					
 				</div>
 
 
@@ -86,8 +87,9 @@
 							class="img-fluid" accept="image/png,image/jpeg" />
 					</div>
 					<div>
-						<label class="text-success text-left">請選擇要更新的封面&nbsp;&nbsp;&nbsp;</label><input type="file"
-							id="fileImage" placeholder="請選擇封面" name="poster" />
+						<label class="text-success text-left">請選擇要更新的封面&nbsp;&nbsp;&nbsp;</label>
+						<input type="file" id="fileImage" name="file" ref="file" @change="handleFileUpload"/>
+							   
 
 					</div>
 					<input type="hidden" />

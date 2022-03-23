@@ -39,94 +39,77 @@ import com.howhow.entity.UserAccountMt;
 @Controller
 @RequestMapping("/teacherPage")
 public class TeacherPageController {
-	
-	@Value("${AZURE.STORAGE.CONNECTION.STRING}")
-	private String connectStr;
-	
-	@Value("${blob.url.setting}")
-	private String blobSetting;
-	
+
+	@Autowired
+	private BlobContainerClient containerClient;
+
 	@Autowired
 	private LearningCourseService courseService;
-	
+
 	@Autowired
 	private LearningAccountService accountService;
-	
+
 	@Autowired
 	private CommonCategoryRepository caregoryRepo;
-	
+
 	@GetMapping("/page")
 	public String homepage(Model model) {
-		int accountID=1;
-		model.addAttribute("accountID",accountID);
+		int accountID = 1;
+		model.addAttribute("accountID", accountID);
 		return "course/teacherPage/page.html";
 	}
-	
+
 	@PostMapping("/play")
-public String playpage(@RequestParam(name="courseId") Integer courseId,Model model) {
-		model.addAttribute("courseId",courseId);
+	public String playpage(@RequestParam(name = "courseId") Integer courseId, Model model) {
+		model.addAttribute("courseId", courseId);
 		return "course/teacherPage/dashboard";
 	}
-	
-	
-	
+
 	@PostMapping("/edit")
-	public String editpage(@RequestParam(name="courseId") Integer courseId, Model model) {
+	public String editpage(@RequestParam(name = "courseId") Integer courseId, Model model) {
 		System.out.println(courseId);
-		List<Category> cateList=new ArrayList<Category>();
-		Iterable<Category> cate=caregoryRepo.findAll(); 
+		List<Category> cateList = new ArrayList<Category>();
+		Iterable<Category> cate = caregoryRepo.findAll();
 		cate.forEach(cateList::add);
-		model.addAttribute("courseId",courseId);
-		model.addAttribute("cateList",cateList);
-			return "course/teacherPage/editcoursepage.html";
-		}
-	
-	
-	
+		model.addAttribute("courseId", courseId);
+		model.addAttribute("cateList", cateList);
+		return "course/teacherPage/editcoursepage.html";
+	}
+
 	@GetMapping("/new")
 	public String newpage(Model model) {
-		CourseBasic courseBasic=new CourseBasic();
-		List<Category> cateList=new ArrayList<Category>();
-		Iterable<Category> cate=caregoryRepo.findAll(); 
+		CourseBasic courseBasic = new CourseBasic();
+		List<Category> cateList = new ArrayList<Category>();
+		Iterable<Category> cate = caregoryRepo.findAll();
 		cate.forEach(cateList::add);
-		model.addAttribute("courseBasic",courseBasic);
-		model.addAttribute("cateList",cateList);
-	
+		model.addAttribute("courseBasic", courseBasic);
+		model.addAttribute("cateList", cateList);
+
 		return "course/teacherPage/newcoursepage.html";
 	}
-	
+
 	@PostMapping("/processedCreateCourse")
-	public String processedCreateCourse(CourseBasic courseBasic,@RequestParam("poster") MultipartFile multipartfile,Model model) throws NoCourseException, IOException {
-		int uid=1;
-		UserAccountMt userAccount=accountService.findById(uid).get();
+	public String processedCreateCourse(CourseBasic courseBasic, @RequestParam("poster") MultipartFile multipartfile,
+			Model model) throws NoCourseException, IOException {
+		int uid = 1;
+		UserAccountMt userAccount = accountService.findById(uid).get();
 		courseBasic.setCreator(userAccount.getUserAccountDt());
 		if (!multipartfile.isEmpty()) {
-			String fileName=StringUtils.cleanPath(multipartfile.getOriginalFilename());
+			String fileName = StringUtils.cleanPath(multipartfile.getOriginalFilename());
 			courseBasic.setCourseCover(fileName);
-			
-			String uploadDir = "course-photos/" +uid;
 			InputStream inputStream = multipartfile.getInputStream();
-		    	BlobServiceClient blobServiceClient = new BlobServiceClientBuilder().connectionString(connectStr).buildClient();
-		    	String containerName = "mycontainer" ;
+			BlobClient blobClient = containerClient.getBlobClient(courseBasic.getCourseName());
+			blobClient.upload(inputStream, inputStream.available(), true);
 
-		    	// Create the container and return a container client object
-		    	BlobContainerClient containerClient = blobServiceClient.getBlobContainerClient(containerName);
-		    	System.out.println("getcontainerClient");
-		    	BlobClient blobClient = containerClient.getBlobClient(fileName);
-		    	System.out.println("blobClient is ok");
-		    	blobClient.upload(inputStream, inputStream.available(), true);
-				
-		
-		
 		}
-		
-		if(courseService.createCourseSucessed(courseBasic)) {
-			CourseBasic existedCourse=courseService.findCourseByUIDAndName(uid,courseBasic.getCourseName());
-			model.addAttribute("courseId",existedCourse.getCourseId());
+
+		if (courseService.createCourseSucessed(courseBasic)) {
+			CourseBasic existedCourse = courseService.findCourseByUIDAndName(uid, courseBasic.getCourseName());
+			model.addAttribute("courseId", existedCourse.getCourseId());
 			return "course/teacherPage/editcoursepage.html";
 		}
-		
+
 		return "redirect:/teacherPage/new";
 	}
-	
+
 }

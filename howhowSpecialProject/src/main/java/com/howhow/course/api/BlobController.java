@@ -1,24 +1,19 @@
 package com.howhow.course.api;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.WritableResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,14 +23,16 @@ import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
-import com.azure.storage.blob.options.BlockBlobOutputStreamOptions;
-import com.azure.storage.blob.specialized.BlobOutputStream;
 import com.howhow.course.common.NoCourseException;
 import com.howhow.entity.CourseBasic;
 
+@Configuration
 @RestController
 @RequestMapping("blob")
 public class BlobController {
+	
+	
+	
 	
 	@Value("azure-blob://mycontainer/stoageno1")
     private Resource blobFile;
@@ -43,6 +40,17 @@ public class BlobController {
 	@Value("${AZURE.STORAGE.CONNECTION.STRING}")
 	private String connectStr;
 
+	@Bean
+	public BlobContainerClient blobContanerClient() {
+		BlobServiceClient blobServiceClient = new BlobServiceClientBuilder().connectionString(connectStr).buildClient();
+    	String containerName = "mycontainer" ;
+
+    	// Create the container and return a container client object
+    	BlobContainerClient containerClient = blobServiceClient.getBlobContainerClient(containerName);
+    	
+		return containerClient;
+	}
+	
     @GetMapping("/readBlobFile")
     public String readBlobFile() throws IOException {
         return StreamUtils.copyToString(
