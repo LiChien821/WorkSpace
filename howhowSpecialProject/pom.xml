@@ -12,18 +12,18 @@
 	<groupId>com.howhow</groupId>
 	<artifactId>howhowSpecialProject</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging> 
+	<packaging>war</packaging>
 	<name>howhowSpecialProject</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
-<!-- 		<dependency>  -->
-<!-- 			<groupId>mysql</groupId>  -->
-<!-- 			<artifactId>mysql-connector-java</artifactId>  -->
-<!-- 			<version>8.0.28</version>  -->
-<!-- 		</dependency>  -->
+		<!-- <dependency> -->
+		<!-- <groupId>mysql</groupId> -->
+		<!-- <artifactId>mysql-connector-java</artifactId> -->
+		<!-- <version>8.0.28</version> -->
+		<!-- </dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -64,17 +64,28 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		 
+
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
 			<scope>runtime</scope>
- 		</dependency> 
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.17.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.17.1</version>
 		</dependency>
 	</dependencies>
 
