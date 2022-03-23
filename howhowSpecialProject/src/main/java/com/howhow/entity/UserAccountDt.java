@@ -1,6 +1,5 @@
 package com.howhow.entity;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -21,49 +22,52 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-@Entity @Table(name="useraccountdt")
+@Entity
+@Table(name = "useraccountdt")
 @Component
 public class UserAccountDt {
-	
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name="property", value="userAccountMt"))
+
+	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
 	@Id
-	@Column(name="USERID")
+	@Column(name = "USER_ID",insertable = false,updatable = false)
 	@GeneratedValue(generator = "generator")
-	private int userId;
-	
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name="property" , value="userAccountMt"))
-	@Column(name="ACCOUNT", unique = true)
+	private int user_Id;
+
+	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
+	@Column(name = "ACCOUNT", unique = true,insertable = false,updatable = false)
 	private String Account;
-	
-	@Column(name="EMAIL", unique=true)
+
+	@Column(name = "EMAIL", unique = true)
 	private String email;
-	
-	@Column(name="GIVENNAME")
+
+	@Column(name = "GIVENNAME")
 	private String givenName;
-	
-	@Column(name="FAMILYNAME")
+
+	@Column(name = "FAMILYNAME")
 	private String familyName;
-	
-	@Column(name="GENDER")
+
+	@Column(name = "GENDER")
 	private String gender;
-	
+
 	@Column(name = "BIRTH")
-	@JsonFormat(pattern="yyyy-MM-dd", timezone = "GMT+8")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private String Birth;
-	
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@Column(name = "ACCOUNTCREATIONTIME")
 	private java.util.Date acountCreationTime;
-	
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@Column(name = "SYSTEMTIME")
 	private java.util.Date SystemTime;
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name = "user_Id", referencedColumnName = "USERID",insertable = false,updatable = false)
+	@JoinColumn(name = "Account", referencedColumnName = "ACCOUNT",insertable = false,updatable = false)
 	private UserAccountMt userAccountMt;
-	
+
 	@OneToMany(mappedBy = "creator")
+<<<<<<< HEAD
 	private List<CourseBasic> createdCourseList=new ArrayList<CourseBasic>();
 	
 	@OneToMany(mappedBy = "launcherid")  //modified by weijie(2022-03-22)
@@ -72,18 +76,25 @@ public class UserAccountDt {
 	
 	@OneToMany(mappedBy = "respondent") //modified by weijie(2022-03-22)
 	@JsonManagedReference
-	private List<BulletinReply> bulletinReplyList = new ArrayList<BulletinReply>();
-	
-	@OneToMany(mappedBy = "author")
-	private List<Notes> notesList=new ArrayList<Notes>();
-	
+=======
+	private List<CourseBasic> createdCourseList = new ArrayList<CourseBasic>();
 
-	public int getUserId() {
-		return userId;
+	@OneToMany(mappedBy = "userAccountDt")
+	private List<Bulletin> bulletinList = new ArrayList<Bulletin>();
+
+	@OneToMany(mappedBy = "userAccountDt")
+>>>>>>> origin/master
+	private List<BulletinReply> bulletinReplyList = new ArrayList<BulletinReply>();
+
+	@OneToMany(mappedBy = "author")
+	private List<Notes> notesList = new ArrayList<Notes>();
+
+	public int getUser_Id() {
+		return user_Id;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUser_Id(int user_Id) {
+		this.user_Id = user_Id;
 	}
 
 	public String getAccount() {
@@ -189,7 +200,5 @@ public class UserAccountDt {
 	public void setCreatedCourseList(List<CourseBasic> createdCourseList) {
 		this.createdCourseList = createdCourseList;
 	}
-	
-	
-	
+
 }
