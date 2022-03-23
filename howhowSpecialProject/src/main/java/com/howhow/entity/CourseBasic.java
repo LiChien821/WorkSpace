@@ -88,13 +88,7 @@ public class CourseBasic {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<CourseRank> courseRankList = new ArrayList<CourseRank>();
 
-	public int getCourseId() {
-		return courseId;
-	}
 
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
-	}
 
 	public String getCourseName() {
 		return courseName;
@@ -226,6 +220,14 @@ public class CourseBasic {
 
 	public void setCourseStatus(Long courseStatus) {
 		this.courseStatus = courseStatus;
+	}
+
+	public int getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
 	}
 
 

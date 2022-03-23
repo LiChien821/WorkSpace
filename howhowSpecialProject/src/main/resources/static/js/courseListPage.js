@@ -7,7 +7,9 @@ const dataObj = {
 	
 	courseList: "",
 
-	Account: ""
+	Account: "",
+	
+	blobSetting:""
 
 };
 
@@ -34,6 +36,15 @@ createApp({
 				console.log(error);
 
 			});
+		axios({
+			method: 'get',
+			url: '/howhow/api/getBlobUrl',
+			headers: { "Access-Control-Allow-Origin": "*" },
+		})
+			.then(response => (this.blobSetting = response.data))
+			.catch(function(error) {
+				console.log(error);
+			});	
 
 	},
 	methods: {

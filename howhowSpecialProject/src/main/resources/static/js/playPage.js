@@ -1,13 +1,14 @@
 import { createApp } from 'vue';
 const dataObj = {
-	videoSrcUrl: "../video/atlantic_drone_traveling (720p).mp4",
+	baseUrl:"https://stoageno1.blob.core.windows.net/mycontainer/",
+	videoSrcUrl: "https://stoageno1.blob.core.windows.net/mycontainer/1單元測試.mp4",
 	videotype: "video/mp4",
 
 	currentTime: "",
 	skipTime: "",
 	duration: "",
 
-
+	lecture:"",
 	course: "",
 	currentCourseID: "",
 	currentSectionID:"",
@@ -20,26 +21,7 @@ const dataObj = {
 
 
 
-const app = createApp({
-	data() {
-		return dataObj;
-	},
-	methods: {
-		changetime: function() {
-			player.pause();
 
-			if (this.skipTime == 800) {
-				this.videoSrcUrl = "4565"
-				player.src(this.videoSrcUrl)
-			} else {
-				this.videoSrcUrl = "../course-videos/42/test.mp4"
-				player.src(this.videoSrcUrl)
-				player.currentTime(this.skipTime)
-			}
-
-		}
-	}
-}).mount('#form2')
 
 
 
@@ -56,6 +38,11 @@ createApp({
 		sendlecturemessage: function(id) {
 
 		},
+		handleVideoUrl: function(lecture) {
+			this.lecture=lecture;
+			this.videoSrcUrl=this.baseUrl+this.lecture.videoSource;
+			player.src(this.videoSrcUrl)
+			},
 		getLectureListFromSection: function(id) {
 			this.currentSectionID = id;
 			axios({
@@ -95,7 +82,26 @@ createApp({
 	},
 
 }).mount('#playSectionList')
+const app = createApp({
+	data() {
+		return dataObj;
+	},
+	methods: {
+		changetime: function() {
+			player.pause();
 
+			if (this.skipTime == 800) {
+				this.videoSrcUrl = "4565"
+				player.src(this.videoSrcUrl)
+			} else {
+				this.videoSrcUrl = "../course-videos/42/test.mp4"
+				player.src(this.videoSrcUrl)
+				player.currentTime(this.skipTime)
+			}
+
+		}
+	}
+}).mount('#form2')
 
 var player = videojs('my-video', {
 	sources: [{ src: dataObj.videoSrcUrl }],

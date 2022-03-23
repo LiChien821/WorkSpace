@@ -117,8 +117,12 @@
 
 					<li><span class="opener">{{section.sectionNumber}}{{section.sectionName}}</span>
 						<ul>
-							<li v-for="lecture in section.lecturesList"><a
-									href="#">{{lecture.lectureNumber}}{{lecture.lecturesName}}</a>
+							<li >
+							<select name="videolecture" id="videolecture" v-model="lecture"
+								@change="handleVideoUrl" v-for="lecture in section.lecturesList"  >
+
+								<option  :value=lecture>
+									{{section.sectionNumber}}.{{section.sectionName}}</option>
 							</li>
 
 						</ul>
