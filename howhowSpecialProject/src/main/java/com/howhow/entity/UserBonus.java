@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -24,7 +25,7 @@ public class UserBonus implements Serializable {
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
 	@Id
-	@Column(name = "user_id", insertable = false,updatable = false)
+	@Column(name = "user_id")
 	@GeneratedValue(generator = "generator")
 	private int userID;
 	
@@ -36,7 +37,7 @@ public class UserBonus implements Serializable {
 	
 	@MapsId
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@PrimaryKeyJoinColumn
 	private UserAccountMt userAccountMt;
 
 	public int getUserID() {

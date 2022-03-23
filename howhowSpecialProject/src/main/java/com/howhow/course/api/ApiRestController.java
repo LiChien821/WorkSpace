@@ -201,7 +201,7 @@ public class ApiRestController {
 		UserAccountMt acd = accountService.findById(uid).get();
 		newcourse.setCreator(acd.getUserAccountDt());
 		if (courseService.createCourseSucessed(newcourse)) {
-			newcourse = courseService.findCourseByUIDAndName(acd.getUserId(), newcourse.getCourseName());
+			newcourse = courseService.findCourseByUIDAndName(acd.getUserID(), newcourse.getCourseName());
 			return newcourse;
 
 		}

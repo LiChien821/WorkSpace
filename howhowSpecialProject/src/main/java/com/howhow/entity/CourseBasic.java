@@ -18,11 +18,13 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity @Table(name = "coursebasic")
 @Component
 public class CourseBasic {
 	
-	@Id @Column(name = "course_id")
+	@Id @Column(name = "courseId")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int courseId;
 	
@@ -30,7 +32,7 @@ public class CourseBasic {
 	private String courseName;
 	
 	@Column(name = "price")
-	private int price;
+	private long price;
 	
 	@Column(name = "discount")
 	private double discount;
@@ -53,7 +55,7 @@ public class CourseBasic {
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="creator_id")
 	private UserAccountDt creator;
 	
 	@OneToMany(mappedBy = "courseBasic")
@@ -200,19 +202,22 @@ public class CourseBasic {
 		this.courseRankList = courseRankList;
 	}
 
-	public Long getPrice() {
+
+
+
+	public long getPrice() {
 		return price;
 	}
 
-	public void setPrice(Long price) {
+	public void setPrice(long price) {
 		this.price = price;
 	}
 
-	public Long getCourseStatus() {
+	public int getCourseStatus() {
 		return courseStatus;
 	}
 
-	public void setCourseStatus(Long courseStatus) {
+	public void setCourseStatus(int courseStatus) {
 		this.courseStatus = courseStatus;
 	}
 

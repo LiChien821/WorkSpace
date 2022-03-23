@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -30,9 +31,7 @@ public class UserAccountDt {
 	@GeneratedValue(generator = "generator")
 	private int userID;
 
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
-	@Column(name = "account", unique = true,insertable = false,updatable = false)
-	private String Account;
+	
 
 	@Column(name = "email", unique = true)
 	private String email;
@@ -59,8 +58,7 @@ public class UserAccountDt {
 	private java.util.Date SystemTime;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_id", referencedColumnName = "user_id",insertable = false,updatable = false)
-	@JoinColumn(name="account", referencedColumnName = "account",insertable = false,updatable = false)
+	@PrimaryKeyJoinColumn
 	private UserAccountMt userAccountMt;
 
 	@OneToMany(mappedBy = "creator")
@@ -75,13 +73,7 @@ public class UserAccountDt {
 	@OneToMany(mappedBy = "author")
 	private List<Notes> notesList = new ArrayList<Notes>();
 
-	public String getAccount() {
-		return Account;
-	}
-
-	public void setAccount(String account) {
-		Account = account;
-	}
+	
 
 	public String getEmail() {
 		return email;

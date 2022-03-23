@@ -23,7 +23,7 @@ public class LearningCourseService {
 	private CommonSectionRepository sectionRepo;
 
 	public boolean createCourseSucessed(CourseBasic course) {
-		int uid = course.getCreator().getUserId();
+		int uid = course.getCreator().getUserID();
 		String courseName = course.getCourseName();
 		CourseBasic existedCourse = repo.findCourseByUIDAndCourseName(uid, courseName);
 		if (existedCourse == null) {
@@ -67,7 +67,7 @@ public class LearningCourseService {
 	}
 
 	public boolean editSectionListofCourse(CourseBasic asignedcourse) throws NoCourseException {
-		CourseBasic existedCourse = repo.findCourseByUIDAndCourseName(asignedcourse.getCreator().getUserId(),
+		CourseBasic existedCourse = repo.findCourseByUIDAndCourseName(asignedcourse.getCreator().getUserID(),
 				asignedcourse.getCourseName());
 		if (existedCourse != null) {
 			existedCourse.setSectionList(asignedcourse.getSectionList());
@@ -116,7 +116,7 @@ public class LearningCourseService {
 			if (course.getDescription() != null  && course.getDescription() !="") {
 				existedCourse.setDescription(course.getDescription());
 			}
-			if (course.getPrice() != null  && course.getPrice() !=0) {
+			if (course.getPrice() !=0  && course.getPrice() !=0) {
 				existedCourse.setPrice(course.getPrice());
 			}
 			repo.save(existedCourse);

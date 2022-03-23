@@ -52,7 +52,7 @@ public class CourseRankController {
 		CourseBasic course = new CourseBasic();
 		
 		user.setUserId(1);
-		course.setCourseID(4);
+		course.setCourseId(4);
 		List<CourseRank> courseRankList = new ArrayList<CourseRank>();
 		courseRankList.add(courseRank);
 		tService.saveUser(user);

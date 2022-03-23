@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -32,10 +33,7 @@ public class UserStatus implements Serializable {
 	@GeneratedValue(generator = "generator")
 	private int userID;
 
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
-	@Column(name = "account", unique = true)
-	private String account;
-
+	
 	@Column(name = "account_status")
 	private int accountStatus;
 
@@ -55,8 +53,7 @@ public class UserStatus implements Serializable {
 	private java.util.Date systemTime;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id",referencedColumnName = "user_id", insertable = false,updatable = false)
-	@JoinColumn(name = "account", referencedColumnName = "account",insertable = false,updatable = false)
+	@PrimaryKeyJoinColumn
 	private UserAccountMt userAccountMt;
 
 	public int getUserID() {
@@ -67,13 +64,7 @@ public class UserStatus implements Serializable {
 		this.userID = userID;
 	}
 
-	public String getAccount() {
-		return account;
-	}
 
-	public void setAccount(String account) {
-		this.account = account;
-	}
 
 	public int getAccountStatus() {
 		return accountStatus;
