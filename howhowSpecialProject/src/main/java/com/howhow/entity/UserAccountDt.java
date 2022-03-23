@@ -186,6 +186,18 @@ public class UserAccountDt implements Serializable{
 		return notesList;
 	}
 
+	public UserAccountMt getUserAccountMt2() {
+		return userAccountMt2;
+	}
+
+	public void setUserAccountMt2(UserAccountMt userAccountMt2) {
+		this.userAccountMt2 = userAccountMt2;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	public void setNotesList(List<Notes> notesList) {
 		this.notesList = notesList;
 	}
