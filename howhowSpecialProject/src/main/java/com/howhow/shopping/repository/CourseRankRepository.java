@@ -12,8 +12,4 @@ public interface CourseRankRepository extends JpaRepository<CourseRank, Integer>
 	@Query(value="SELECT * from CourseRank where courseid=?1", nativeQuery=true)
 	public Page<CourseRank> findByCourseID(int courseid, Pageable pageable);
 
-//	@Query(value="from CourseRank where courseid=?1")
-//	public List<CourseRank> findByCourseID(int courseid);
-
-	// public CourseRank insertCourseRank(CourseRank courseRank);
 }

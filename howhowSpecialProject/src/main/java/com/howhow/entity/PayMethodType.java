@@ -13,20 +13,20 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-@Entity @Table(name="paymethodtype")
+@Entity @Table(name = "paymethodtype")
 @Component
 public class PayMethodType {
 	
-	@Id @Column(name="PAYMETHODID")
+	@Id @Column(name = "paymethod_id")
 	private int payMethodID;
 
-	@Column(name="PAYMETHODNAME")
+	@Column(name = "paymethod_name")
 	private String payMethodName;
 	
-	@Column(name="SYSTEMTIME")
+	@Column(name = "system_time")
 	private String systemTime;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "payMethodtype", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "payMethodType", cascade = CascadeType.ALL)
 	private List<OrderMt> orderMtList = new ArrayList<OrderMt>();
 
 	public int getPayMethodID() {

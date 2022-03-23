@@ -1,6 +1,5 @@
 package com.howhow.entity;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -20,68 +19,61 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity @Table(name="useraccountdt")
+@Entity
+@Table(name = "useraccountdt")
 @Component
 public class UserAccountDt {
-	
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name="property", value="userAccountMt"))
+
+	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
 	@Id
-	@Column(name="USERID")
+	@Column(name = "user_id", insertable = false, updatable = false)
 	@GeneratedValue(generator = "generator")
-	private int userId;
-	
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name="property" , value="userAccountMt"))
-	@Column(name="ACCOUNT", unique = true)
+	private int userID;
+
+	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
+	@Column(name = "account", unique = true,insertable = false,updatable = false)
 	private String Account;
-	
-	@Column(name="EMAIL", unique=true)
+
+	@Column(name = "email", unique = true)
 	private String email;
-	
-	@Column(name="GIVENNAME")
+
+	@Column(name = "given_name")
 	private String givenName;
-	
-	@Column(name="FAMILYNAME")
+
+	@Column(name = "gamily_name")
 	private String familyName;
-	
-	@Column(name="GENDER")
+
+	@Column(name = "gender")
 	private String gender;
-	
-	@Column(name = "BIRTH")
-	@JsonFormat(pattern="yyyy-MM-dd", timezone = "GMT+8")
+
+	@Column(name = "birth")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private String Birth;
-	
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "ACCOUNTCREATIONTIME")
+
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	@Column(name = "creation_time")
 	private java.util.Date acountCreationTime;
-	
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "SYSTEMTIME")
+
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	@Column(name = "system_time")
 	private java.util.Date SystemTime;
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="user_id", referencedColumnName = "user_id",insertable = false,updatable = false)
+	@JoinColumn(name="account", referencedColumnName = "account",insertable = false,updatable = false)
 	private UserAccountMt userAccountMt;
-	
+
 	@OneToMany(mappedBy = "creator")
-	private List<CourseBasic> createdCourseList=new ArrayList<CourseBasic>();
-	
+	private List<CourseBasic> createdCourseList = new ArrayList<CourseBasic>();
+
 	@OneToMany(mappedBy = "userAccountDt")
 	private List<Bulletin> bulletinList = new ArrayList<Bulletin>();
-	
+
 	@OneToMany(mappedBy = "userAccountDt")
 	private List<BulletinReply> bulletinReplyList = new ArrayList<BulletinReply>();
-	
+
 	@OneToMany(mappedBy = "author")
-	private List<Notes> notesList=new ArrayList<Notes>();
-	
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
+	private List<Notes> notesList = new ArrayList<Notes>();
 
 	public String getAccount() {
 		return Account;
@@ -186,7 +178,15 @@ public class UserAccountDt {
 	public void setCreatedCourseList(List<CourseBasic> createdCourseList) {
 		this.createdCourseList = createdCourseList;
 	}
+
+	public int getUserID() {
+		return userID;
+	}
+
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
 	
 	
-	
+
 }

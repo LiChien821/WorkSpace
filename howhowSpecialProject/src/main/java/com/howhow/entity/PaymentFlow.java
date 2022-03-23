@@ -19,45 +19,45 @@ import org.springframework.stereotype.Component;
 public class PaymentFlow {
 
 	@Id
-	@Column(name = "PAYMENTID")
+	@Column(name = "payment_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int paymentID;
 	
 	@Transient
 	private int orderID;
 
-	@Column(name = "MERCHANTID")
+	@Column(name = "merchant_id")
 	private String merchantID;
 
-	@Column(name = "MERCHANTTRADENO")
+	@Column(name = "merchanttrade_no")
 	private String merchantTradeNo;
 
-	@Column(name = "RTNCODE")
+	@Column(name = "rtn_code")
 	private int rtnCode;
 
-	@Column(name = "RTNMSG")
+	@Column(name = "rtn_msg")
 	private String rtnMsg;
 
-	@Column(name = "TRADENO")
+	@Column(name = "trade_no")
 	private String tradeNo;
 
-	@Column(name = "TRADEAMT")
+	@Column(name = "trade_amt")
 	private int tradeAmt;
 
-	@Column(name = "PAYMENTTYPE")
+	@Column(name = "payment_type")
 	private String paymentType;
 
-	@Column(name = "TRADEDATE")
+	@Column(name = "trade_date")
 	private String tradeDate;
 
-	@Column(name = "CHECKMACVALUE")
+	@Column(name = "check_macvalue")
 	private String checkMacvalue;
 
-	@Column(name = "SYSTEMTIME")
+	@Column(name = "system_time")
 	private String systemTime;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ORDERID")
+	@JoinColumn(name="order_id")
 	private OrderMt orderMt;
 
 	public int getPaymentID() {

@@ -10,30 +10,29 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="noteBasic")
+@Table(name = "notes")
 public class Notes {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
+	@Column(name = "note_id")
 	private int noteID;
 	
-	
 	@ManyToOne
-	@JoinColumn(name="AUTHORID")
+	@JoinColumn(name="author_id")
 	private UserAccountDt author;
 	
 	@ManyToOne
-	@JoinColumn(name="NOTEDLECTUREID")
+	@JoinColumn(name="notedlecture_id")
 	private Lectures notedlecture;
 	
-	@Column
+	@Column(name = "duration")
 	private long duration;
 	
-	@Column
+	@Column(name = "context")
 	private String context;
 	
-	@Column(name="SYSTEMTIME")
+	@Column(name = "system_time")
 	private String SystemTime;
 	
 	public int getNoteID() {

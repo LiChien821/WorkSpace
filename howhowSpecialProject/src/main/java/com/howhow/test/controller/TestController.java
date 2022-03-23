@@ -27,7 +27,6 @@ public class TestController {
 	@ResponseBody
 	public UserBonus queryUserBonusByAccount(@RequestParam("account") String account) {
 		UserBonus userBonus = tService.findbyAccount(account);
-		
 		return userBonus;
 	}
 	

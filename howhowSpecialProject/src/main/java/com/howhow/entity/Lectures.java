@@ -16,35 +16,35 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="lecturesBasic")
+@Table(name = "lectures")
 public class Lectures {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
+	@Column(name = "lectures_id")
 	private int lecturesID;
 	
-	@Column
+	@Column(name = "lectures_name")
 	private String lecturesName;
 	
 	@Column
 	private int lectureNumber;
 	
 	
-	@Column
+	
+	@Column(name = "attended_resource")
 	private String attendedResource;
 	
-	@Column
+	@Column(name = "video_source")
 	private String videoSource;
 	
-	@Column
+	@Column(name = "isavailabletopreview")
 	private boolean isAvailableToPreview;
 	
-	@Column
+	@Column(name = "previewvideo_url")
 	private String previewViedeoUrl;
 	
-	
-	@Column(name="SYSTEMTIME")
+	@Column(name = "system_time")
 	private String SystemTime;
 	
 	@OneToMany(mappedBy = "lectures")
@@ -55,7 +55,7 @@ public class Lectures {
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="sectionID")
+	@JoinColumn(name="section_id")
 	private Section section;
 
 	public int getLecturesID() {

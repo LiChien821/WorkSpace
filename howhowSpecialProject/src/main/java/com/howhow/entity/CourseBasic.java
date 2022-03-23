@@ -12,58 +12,52 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-@Entity @Table(name="coursebasic")
-@Component("coursebasic")
+@Entity @Table(name = "coursebasic")
+@Component
 public class CourseBasic {
 	
-	@Id @Column(name="COURSEID")
+	@Id @Column(name = "course_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int courseId;
 	
-	@Column(name="COURSENAME")
+	@Column(name = "course_name")
 	private String courseName;
 	
-	@Column(name="PRICE")
-	private Long price;
+	@Column(name = "price")
+	private int price;
 	
-	@Column(name="DISCOUNT")
+	@Column(name = "discount")
 	private double discount;
 	
 	@ManyToOne
-	@JoinColumn(name="CATEGORYID")
+	@JoinColumn(name="category_id")
 	private Category category;
 	
+	@Column(name="course_status")
+	private int courseStatus;
 	
-	@Column(name="COURSESTATUS")
-	private Long courseStatus;
-	
-	
-	@Column(name="COURSECOVER")
+	@Column(name="course_cover")
 	private String courseCover;
 	
-	
-	@Column
+	@Column(name = "description")
 	private String description;
 	
-	@Column(name="SYSTEMTIME")
+	@Column(name = "system_time")
 	private String SystemTime;
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name="user_id")
 	private UserAccountDt creator;
 	
 	@OneToMany(mappedBy = "courseBasic")
 	private List<Section> sectionList =new ArrayList<Section>();
-	
-	
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<PurchasedCourse> purchasedCourses = new ArrayList<PurchasedCourse>();

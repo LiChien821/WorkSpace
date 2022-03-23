@@ -23,45 +23,37 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class ReportRecord {
 
 	@Id
-	@Column(name = "REPORTID")
+	@Column(name = "report_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int reportid;
+	private int reportID;
 
 	@Transient
-	private int userid;
+	private int userID;
 
 	@Transient
-	private int questionid;
+	private int questionID;
 
 	@Transient
 	private int reporttype;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USERID")
+	@JoinColumn(name = "user_id")
 	private UserAccountMt usermt;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "QUESTIONID")
+	@JoinColumn(name = "question_id")
 	private Question question;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "REPORTTYPE")
+	@JoinColumn(name = "reporttype")
 	private ReportType typeobj;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "SYSTEMTIME")
+	@Column(name = "system_time")
 	private Date systemtime;
 
-	public int getReportid() {
-		return reportid;
-	}
-
-	public void setReportid(int reportid) {
-		this.reportid = reportid;
-	}
-
-	public int getUserid() {
-		return usermt.getUserId();
+	public int getUserID() {
+		return usermt.getUserID();
 	}
 
 
@@ -83,4 +75,65 @@ public class ReportRecord {
 		this.systemtime = systemtime;
 	}
 
+
+	public int getReportID() {
+		return reportID;
+	}
+
+
+	public void setReportID(int reportID) {
+		this.reportID = reportID;
+	}
+
+
+	public int getQuestionID() {
+		return questionID;
+	}
+
+
+	public void setQuestionID(int questionID) {
+		this.questionID = questionID;
+	}
+
+
+	public UserAccountMt getUsermt() {
+		return usermt;
+	}
+
+
+	public void setUsermt(UserAccountMt usermt) {
+		this.usermt = usermt;
+	}
+
+
+	public Question getQuestion() {
+		return question;
+	}
+
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
+
+	public ReportType getTypeobj() {
+		return typeobj;
+	}
+
+
+	public void setTypeobj(ReportType typeobj) {
+		this.typeobj = typeobj;
+	}
+
+
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
+
+
+	public void setReporttype(int reporttype) {
+		this.reporttype = reporttype;
+	}
+
+	
 }

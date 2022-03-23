@@ -14,12 +14,12 @@ import javax.persistence.UniqueConstraint;
 
 import org.springframework.stereotype.Component;
 
-@Entity @Table(name="cfcorder",
-uniqueConstraints=@UniqueConstraint(columnNames={"USERID", "CROWDFUNDID"}))
+@Entity @Table(
+uniqueConstraints=@UniqueConstraint(columnNames={"USER_ID", "CROWD_FUND_ID"}))
 @Component
 public class CFCOrder {
 	
-	@Id @Column(name="CFCORDERID")
+	@Id @Column(name = "cfcorder_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int cfcOrderID;
 	
@@ -29,16 +29,16 @@ public class CFCOrder {
 	@Transient
 	private int crowdFundID;
 	
-	@Column(name="SYSTEMTIME")
+	@Column(name = "system_time")
 	private String systemTime;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="USERID")
+	@JoinColumn(name="user_id")
 	private UserAccountMt userAccountMt;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="CROWDFUNDID")
-	private CFCourse cfCourse;
+	@JoinColumn(name="crowd_fund_id")
+	private CFCourse cFCourse;
 
 	public String getSystemTime() {
 		return systemTime;
@@ -80,12 +80,12 @@ public class CFCOrder {
 		this.userAccountMt = userAccountMt;
 	}
 
-	public CFCourse getCfCourse() {
-		return cfCourse;
+	public CFCourse getcFCourse() {
+		return cFCourse;
 	}
 
-	public void setCfCourse(CFCourse cfCourse) {
-		this.cfCourse = cfCourse;
+	public void setcFCourse(CFCourse cFCourse) {
+		this.cFCourse = cFCourse;
 	}	
 	
 	

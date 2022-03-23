@@ -17,53 +17,37 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity @Table
+@Entity @Table(name = "bulletinreply")
 @Component
 public class BulletinReply {
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id @Column
-	private Integer bulletinreplyid;
+	@Id @Column(name = "bulletinreply_id")
+	private Integer bulletinReplyID;
 	
 	@Transient	//修正by chien
-	private Integer bulletinid;
+	private Integer bulletinID;
 	
-	@Column
+	@Column(name = "title")
 	private String title;
 	
-	@Column
+	@Column(name = "content")
 	private String content;
 	
 	@Transient	//修正by chien
-	private int userid;
+	private int userID;
 	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column
-	private Date creationtime;
+	@Column(name = "creation_time")
+	private Date creationTime;
 	
 	@ManyToOne(fetch = FetchType.LAZY) //修正by chien
-	@JoinColumn(name="BULLENTINID")
+	@JoinColumn(name="bulletin_id")
 	private Bulletin bulletin;
 	
 	@ManyToOne(fetch=FetchType.LAZY)	//修正by chien
-	@JoinColumn(name="USERID")
+	@JoinColumn(name="user_id")
 	private UserAccountDt userAccountDt;
-	
-	public Integer getBulletinreplyid() {
-		return bulletinreplyid;
-	}
-
-	public void setBulletinreplyid(Integer bulletinreplyid) {
-		this.bulletinreplyid = bulletinreplyid;
-	}
-
-	public Integer getBulletinid() {
-		return bulletinid;
-	}
-
-	public void setBulletinid(Integer bulletinid) {
-		this.bulletinid = bulletinid;
-	}
 
 	public String getTitle() {
 		return title;
@@ -81,20 +65,12 @@ public class BulletinReply {
 		this.content = content;
 	}
 
-	public Date getCreationtime() {
-		return creationtime;
+	public int getUserID() {
+		return userID;
 	}
 
-	public void setCreationtime(Date creationtime) {
-		this.creationtime = creationtime;
-	}
-
-	public int getUserid() {
-		return userid;
-	}
-
-	public void setUserid(int userid) {
-		this.userid = userid;
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 
 	public Bulletin getBulletin() {
@@ -112,7 +88,29 @@ public class BulletinReply {
 	public void setUserAccountDt(UserAccountDt userAccountDt) {
 		this.userAccountDt = userAccountDt;
 	}
-	
-	
+
+	public Integer getBulletinReplyID() {
+		return bulletinReplyID;
+	}
+
+	public void setBulletinReplyID(Integer bulletinReplyID) {
+		this.bulletinReplyID = bulletinReplyID;
+	}
+
+	public Integer getBulletinID() {
+		return bulletinID;
+	}
+
+	public void setBulletinID(Integer bulletinID) {
+		this.bulletinID = bulletinID;
+	}
+
+	public Date getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Date creationTime) {
+		this.creationTime = creationTime;
+	}
 	
 }

@@ -10,8 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -20,51 +20,51 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity
-@Table(name = "userstatus")
+@Entity @Table(name = "userstatus")
 @Component
 public class UserStatus implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
-	@Id
-	@Column(name = "USERID")
+	@Column(name = "user_id", insertable = false,updatable = false)
+	@Id 
 	@GeneratedValue(generator = "generator")
-	private int UserId;
+	private int userID;
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
-	@Column(name = "ACCOUNT", unique = true)
+	@Column(name = "account", unique = true)
 	private String account;
 
-	@Column(name = "ACCOUNTSTATUS")
+	@Column(name = "account_status")
 	private int accountStatus;
 
-	@Column(name="EMAILAUTH")
+	@Column(name = "email_auth")
 	private boolean emailAuth = false;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name = "ACCOUNTLEVEL")
+	@Column(name = "account_level")
 	private AccountLevel accountLevel =AccountLevel.Student;
 
-	@Column(name = "VERIFICATIONCODE")
+	@Column(name = "verification_code")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String verificationcode;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "SYSTEMTIME")
+	@Column(name = "system_time")
 	private java.util.Date systemTime;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name = "user_id",referencedColumnName = "user_id", insertable = false,updatable = false)
+	@JoinColumn(name = "account", referencedColumnName = "account",insertable = false,updatable = false)
 	private UserAccountMt userAccountMt;
 
-	public int getUserId() {
-		return UserId;
+	public int getUserID() {
+		return userID;
 	}
 
-	public void setUserId(int userId) {
-		UserId = userId;
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 
 	public String getAccount() {
