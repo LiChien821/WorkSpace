@@ -128,7 +128,6 @@ public class ApiRestController {
 			@RequestParam("lectureID") int lectureID) throws IOException, updateLectureVideoIOException {
 		
 		try {	
-			System.out.println("已上傳完成");
 	    	return lectureService.updateLecturesWithVideoSource(multipartfile, lectureID);
 		} catch (IOException e) {
 		
