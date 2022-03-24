@@ -17,8 +17,11 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "courseID")
 @Entity @Table(name = "coursebasic")
 @Component
 public class CourseBasic {
@@ -83,7 +86,7 @@ public class CourseBasic {
 	private List<PurchasedCourse> purchasedCourses = new ArrayList<PurchasedCourse>();
 	
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseID", cascade = CascadeType.ALL)
 	private List<OrderDt> orderDtList = new ArrayList<OrderDt>();
 	
 	@JsonIgnore

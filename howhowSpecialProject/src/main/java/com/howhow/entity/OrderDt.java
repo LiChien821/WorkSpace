@@ -1,7 +1,5 @@
 package com.howhow.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +13,7 @@ import javax.persistence.UniqueConstraint;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity @Table(name="orderdt",
@@ -37,17 +36,17 @@ public class OrderDt {
 	@JoinColumn(name = "order_id")
 	private OrderMt orderMt;
 	
-	@JsonIgnore
+	@JsonIdentityReference(alwaysAsId = true)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "course_id")
-	private CourseBasic courseBasic;
+	private CourseBasic courseID;
 
 	public OrderDt() {
 	}
 	
-	public OrderDt(int unitPrice, CourseBasic courseBasic, String systemTime, OrderMt orderMt) {
+	public OrderDt(int unitPrice, CourseBasic courseID, String systemTime, OrderMt orderMt) {
 		this.unitPrice = unitPrice;
-		this.courseBasic = courseBasic;
+		this.courseID = courseID;
 		this.systemTime = systemTime;
 		this.orderMt = orderMt;
 	}
@@ -84,14 +83,13 @@ public class OrderDt {
 		this.orderMt = orderMt;
 	}
 
-	public CourseBasic getCourseBasic() {
-		return courseBasic;
+	public CourseBasic getCourseID() {
+		return courseID;
 	}
 
-	public void setCourseBasic(CourseBasic courseBasic) {
-		this.courseBasic = courseBasic;
+	public void setCourseID(CourseBasic courseID) {
+		this.courseID = courseID;
 	}
-	
 	
 	
 }

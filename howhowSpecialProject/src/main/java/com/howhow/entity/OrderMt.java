@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity @Table(name = "ordermt")
@@ -40,14 +41,13 @@ public class OrderMt {
 	@Column(name = "system_time")
 	private String systemTime;
 
-	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderMt", cascade = CascadeType.ALL)
 	private List<OrderDt> orderDtList = new ArrayList<OrderDt>();
 	
-	@JsonIgnore
+	@JsonIdentityReference(alwaysAsId = true)
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
-	private UserAccountMt userAccountMt;
+	private UserAccountMt userID;
 	
 	@Column(name="paymethodtype_id")
 	private int payMethodTypeID;
@@ -59,9 +59,11 @@ public class OrderMt {
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="orderMt", cascade = CascadeType.ALL)
 	private PaymentFlow paymentFlow;
 	
+	public OrderMt() {
+	}
 	
-	public OrderMt(UserAccountMt userAccountMt) {
-		this.userAccountMt = userAccountMt;
+	public OrderMt(UserAccountMt userID) {
+		this.userID = userID;
 		this.payMethodTypeID = 1;
 		this.orderStatusTypeID = 1;
 	}
@@ -106,12 +108,12 @@ public class OrderMt {
 		this.orderDtList = orderDtList;
 	}
 
-	public UserAccountMt getUserAccountMt() {
-		return userAccountMt;
+	public UserAccountMt getUserID() {
+		return userID;
 	}
 
-	public void setUserAccountMt(UserAccountMt userAccountMt) {
-		this.userAccountMt = userAccountMt;
+	public void setUserID(UserAccountMt userID) {
+		this.userID = userID;
 	}
 
 	public PaymentFlow getPaymentFlow() {

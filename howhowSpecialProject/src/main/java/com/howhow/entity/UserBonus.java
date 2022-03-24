@@ -27,25 +27,24 @@ public class UserBonus implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
+	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userID"))
 	@Id
-	@Column(name = "USERID")
+	@Column(name = "user_id")
 	@GeneratedValue(generator = "generator")
 	private int userId;
-
-	@Column(name="BONUSCOUNT")
+	
+	@Column(name="bonus_count")
 	private int bonusCount;
 	
-	@Column(name="SYSTEMTIME")
+	@Column(name="system_time")
 	private String systemTime;
 	
 	@MapsId
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USERID", referencedColumnName = "USERID",insertable = false,updatable = false )
-	private UserAccountMt userAccountMt;
-
-
+	@JoinColumn(name = "user_id", referencedColumnName = "USERID",insertable = false,updatable = false)
+	private UserAccountMt userID;
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -70,12 +69,18 @@ public class UserBonus implements Serializable{
 		this.systemTime = systemTime;
 	}
 
-	public UserAccountMt getUserAccountMt() {
-		return userAccountMt;
+	public UserAccountMt getUserID() {
+		return userID;
 	}
 
-	public void setUserAccountMt(UserAccountMt userAccountMt) {
-		this.userAccountMt = userAccountMt;
+	public void setUserID(UserAccountMt userID) {
+		this.userID = userID;
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
 	
 }

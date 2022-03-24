@@ -18,8 +18,11 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 @Entity @Table(name = "useraccountmt")
 @Component
 public class UserAccountMt implements Serializable{
@@ -50,7 +53,7 @@ public class UserAccountMt implements Serializable{
 	private List<PurchasedCourse> purchasedCourseList = new ArrayList<PurchasedCourse>();
 	
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userID", cascade = CascadeType.ALL)
 	private List<OrderMt> orderMtList = new ArrayList<OrderMt>();
 	
 	@JsonIgnore
@@ -70,7 +73,7 @@ public class UserAccountMt implements Serializable{
 	private List<CourseRank> courseRankList = new ArrayList<CourseRank>();
 	
 	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userID", cascade = CascadeType.ALL)
 	private UserBonus userBonus;
 	
 	@JsonIgnore

@@ -43,7 +43,7 @@ public class OrderMtService {
 			return false;
 		}
 		
-		repo.deleteById(null);
+		repo.deleteById(id);
 		return true;
 	}
 	

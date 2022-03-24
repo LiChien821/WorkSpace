@@ -75,4 +75,30 @@ public class OrderController {
 		return true;
 	}
 	
+	@GetMapping("/findorder/{id}")
+	@ResponseBody
+	public OrderMt findByID(@PathVariable("id") int id) {
+		OrderMt omt = omtService.findByID(id);
+		
+		return omt;
+	}
+	
+	@GetMapping("/findorderbyuserid/{userid}")
+	@ResponseBody
+	public List<OrderMt> findByUserID(@PathVariable("userid") int userid) {
+		
+		List<OrderMt> list = omtService.findByUserID(userid);
+		
+		return list;
+	}
+	
+	@GetMapping("/deleteorder/{id}")
+	@ResponseBody
+	public boolean deleteByID(@PathVariable("id") int id) {
+		
+		if(omtService.findByID(id)==null) return false;
+		
+		omtService.deleteByID(id);
+		return true;
+	}
 }
