@@ -4,18 +4,18 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity @Table(name = "bulletinreply")
 @Component
@@ -23,94 +23,64 @@ public class BulletinReply {
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id @Column(name = "bulletinreply_id")
-	private Integer bulletinReplyID;
+	private Integer bulletinreplyid;
 	
-	@Transient	//修正by chien
-	private Integer bulletinID;
+	@ManyToOne
+	@JoinColumn(name = "bulletin_id")
+//	@JsonBackReference
+	@JsonIgnore
+	private Bulletin bulletinid;
 	
-	@Column(name = "title")
-	private String title;
+	@Column(name = "reply_content")
+	private String replycontent;
 	
-	@Column(name = "content")
-	private String content;
-	
-	@Transient	//修正by chien
-	private int userID;
+	@ManyToOne
+	@JoinColumn(name = "respondent")
+	@JsonBackReference
+	private UserAccountDt respondent;
 	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@Column(name = "creation_time")
-	private Date creationTime;
-	
-	@ManyToOne(fetch = FetchType.LAZY) //修正by chien
-	@JoinColumn(name="bulletin_id")
-	private Bulletin bulletin;
-	
-	@ManyToOne(fetch=FetchType.LAZY)	//修正by chien
-	@JoinColumn(name="user_id")
-	private UserAccountDt userAccountDt;
+	private Date creationtime;
 
-	public String getTitle() {
-		return title;
+	public Integer getBulletinreplyid() {
+		return bulletinreplyid;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setBulletinreplyid(Integer bulletinreplyid) {
+		this.bulletinreplyid = bulletinreplyid;
 	}
 
-	public String getContent() {
-		return content;
+	public Bulletin getBulletinid() {
+		return bulletinid;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setBulletinid(Bulletin bulletinid) {
+		this.bulletinid = bulletinid;
 	}
 
-	public int getUserID() {
-		return userID;
+	public String getReplycontent() {
+		return replycontent;
 	}
 
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public void setReplycontent(String replycontent) {
+		this.replycontent = replycontent;
 	}
 
-	public Bulletin getBulletin() {
-		return bulletin;
+	public UserAccountDt getRespondent() {
+		return respondent;
 	}
 
-	public void setBulletin(Bulletin bulletin) {
-		this.bulletin = bulletin;
+	public void setRespondent(UserAccountDt respondent) {
+		this.respondent = respondent;
 	}
 
-	public UserAccountDt getUserAccountDt() {
-		return userAccountDt;
+	public Date getCreationtime() {
+		return creationtime;
 	}
 
-	public void setUserAccountDt(UserAccountDt userAccountDt) {
-		this.userAccountDt = userAccountDt;
-	}
-
-	public Integer getBulletinReplyID() {
-		return bulletinReplyID;
-	}
-
-	public void setBulletinReplyID(Integer bulletinReplyID) {
-		this.bulletinReplyID = bulletinReplyID;
-	}
-
-	public Integer getBulletinID() {
-		return bulletinID;
-	}
-
-	public void setBulletinID(Integer bulletinID) {
-		this.bulletinID = bulletinID;
-	}
-
-	public Date getCreationTime() {
-		return creationTime;
-	}
-
-	public void setCreationTime(Date creationTime) {
-		this.creationTime = creationTime;
+	public void setCreationtime(Date creationtime) {
+		this.creationtime = creationtime;
 	}
 	
 }

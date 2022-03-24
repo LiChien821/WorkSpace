@@ -22,13 +22,13 @@ public class Question {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int questionID;
 	
-	@ManyToOne
-	@JoinColumn(name="lectures_id")
-	private Lectures lectures;
-	
-	@ManyToOne
-	@JoinColumn(name="launcher_id")
-	private UserAccountDt launcher;
+//	@ManyToOne
+//	@JoinColumn(name="lectures_id")
+//	private Lectures lectures;
+//	
+//	@ManyToOne
+//	@JoinColumn(name="launcher_id")
+//	private UserAccountDt launcher;
 	
 	@Column(name = "question_title")
 	private String questionTitle;
@@ -39,8 +39,8 @@ public class Question {
 	@Column(name = "system_time")
 	private String SystemTime;
 	
-	@OneToMany(mappedBy = "question")
-	private List<Answer> answerList = new ArrayList<Answer>(); 
+//	@OneToMany(mappedBy = "question")
+//	private List<Answer> answerList = new ArrayList<Answer>(); 
 
 	public int getQuestionID() {
 		return questionID;
@@ -68,29 +68,29 @@ public class Question {
 		this.questionContext = questionContext;
 	}
 
-	public List<Answer> getAnswerList() {
-		return answerList;
-	}
-
-	public void setAnswerList(List<Answer> answerList) {
-		this.answerList = answerList;
-	}
-
-	public Lectures getLectures() {
-		return lectures;
-	}
-
-	public void setLectures(Lectures lectures) {
-		this.lectures = lectures;
-	}
-
-	public UserAccountDt getLauncher() {
-		return launcher;
-	}
-
-	public void setLauncher(UserAccountDt launcher) {
-		this.launcher = launcher;
-	}
+//	public List<Answer> getAnswerList() {
+//		return answerList;
+//	}
+//
+//	public void setAnswerList(List<Answer> answerList) {
+//		this.answerList = answerList;
+//	}
+//
+//	public Lectures getLectures() {
+//		return lectures;
+//	}
+//
+//	public void setLectures(Lectures lectures) {
+//		this.lectures = lectures;
+//	}
+//
+//	public UserAccountDt getLauncher() {
+//		return launcher;
+//	}
+//
+//	public void setLauncher(UserAccountDt launcher) {
+//		this.launcher = launcher;
+//	}
 
 	public String getSystemTime() {
 		return SystemTime;

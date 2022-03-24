@@ -18,13 +18,13 @@ public class Answer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int answerID;
 	
-	@ManyToOne
-	@JoinColumn(name="question_id")
-	private Question question;
-	
-	@ManyToOne
-	@JoinColumn(name="answer_id")
-	private UserAccountDt answerer; 
+//	@ManyToOne
+//	@JoinColumn(name="question_id")
+//	private Question question;
+//	
+//	@ManyToOne
+//	@JoinColumn(name="answer_id")
+//	private UserAccountDt answerer; 
 	
 	@Column
 	private String answerContext;
@@ -40,13 +40,13 @@ public class Answer {
 		this.answerID = answerID;
 	}
 
-	public Question getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(Question question) {
-		this.question = question;
-	}
+//	public Question getQuestion() {
+//		return question;
+//	}
+//
+//	public void setQuestion(Question question) {
+//		this.question = question;
+//	}
 
 	public String getAnswerContext() {
 		return answerContext;
@@ -56,13 +56,13 @@ public class Answer {
 		this.answerContext = answerContext;
 	}
 
-	public UserAccountDt getAnswerer() {
-		return answerer;
-	}
-
-	public void setAnswerer(UserAccountDt answerer) {
-		this.answerer = answerer;
-	}
+//	public UserAccountDt getAnswerer() {
+//		return answerer;
+//	}
+//
+//	public void setAnswerer(UserAccountDt answerer) {
+//		this.answerer = answerer;
+//	}
 
 	public String getSystemTime() {
 		return SystemTime;

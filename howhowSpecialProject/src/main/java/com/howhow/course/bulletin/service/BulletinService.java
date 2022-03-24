@@ -1,4 +1,4 @@
-package com.howhow.course.service;
+package com.howhow.course.bulletin.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.howhow.course.repository.BulletinRepository;
+import com.howhow.course.bulletin.repository.BulletinRepository;
 import com.howhow.entity.Bulletin;
 
 @Service

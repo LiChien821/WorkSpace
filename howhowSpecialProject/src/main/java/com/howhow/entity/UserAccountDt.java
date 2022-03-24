@@ -1,5 +1,6 @@
 package com.howhow.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +10,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -22,46 +25,52 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name = "useraccountdt")
 @Component
-public class UserAccountDt {
+public class UserAccountDt implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
 	@Id
-	@Column(name = "user_id", insertable = false, updatable = false)
+	@Column(name = "USERID")
 	@GeneratedValue(generator = "generator")
-	private int userID;
+	private int userId;
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
-	@Column(name = "account", unique = true,insertable = false,updatable = false)
+	@Column(name = "ACCOUNT", unique = true)
 	private String Account;
 
-	@Column(name = "email", unique = true)
+	@Column(name = "EMAIL", unique = true)
 	private String email;
 
-	@Column(name = "given_name")
+	@Column(name = "GIVENNAME")
 	private String givenName;
 
-	@Column(name = "gamily_name")
+	@Column(name = "FAMILYNAME")
 	private String familyName;
 
-	@Column(name = "gender")
+	@Column(name = "GENDER")
 	private String gender;
 
-	@Column(name = "birth")
+	@Column(name = "BIRTH")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private String Birth;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "creation_time")
+	@Column(name = "ACCOUNTCREATIONTIME")
 	private java.util.Date acountCreationTime;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "system_time")
+	@Column(name = "SYSTEMTIME")
 	private java.util.Date SystemTime;
 
+	@MapsId
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(referencedColumnName = "user_id",insertable = false,updatable = false)
-	@JoinColumn(referencedColumnName = "account",insertable = false,updatable = false)
+	@JoinColumn(name = "USERID", referencedColumnName = "USERID",insertable = false,updatable = false)
 	private UserAccountMt userAccountMt;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Account", referencedColumnName = "ACCOUNT",insertable = false,updatable = false)
+	private UserAccountMt userAccountMt2;
 
 	@OneToMany(mappedBy = "creator")
 	private List<CourseBasic> createdCourseList = new ArrayList<CourseBasic>();
@@ -74,6 +83,16 @@ public class UserAccountDt {
 
 	@OneToMany(mappedBy = "author")
 	private List<Notes> notesList = new ArrayList<Notes>();
+
+
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 
 	public String getAccount() {
 		return Account;
@@ -167,6 +186,18 @@ public class UserAccountDt {
 		return notesList;
 	}
 
+	public UserAccountMt getUserAccountMt2() {
+		return userAccountMt2;
+	}
+
+	public void setUserAccountMt2(UserAccountMt userAccountMt2) {
+		this.userAccountMt2 = userAccountMt2;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	public void setNotesList(List<Notes> notesList) {
 		this.notesList = notesList;
 	}
@@ -178,15 +209,5 @@ public class UserAccountDt {
 	public void setCreatedCourseList(List<CourseBasic> createdCourseList) {
 		this.createdCourseList = createdCourseList;
 	}
-
-	public int getUserID() {
-		return userID;
-	}
-
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
-	
-	
 
 }

@@ -18,6 +18,7 @@ import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity @Table(name = "bulletin")
@@ -26,9 +27,11 @@ public class Bulletin {
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id @Column(name = "bulletin_id")
-	private Integer bulletinID;
+	private Integer bulletinid;
 	
-	@Transient	//修正by chien
+	@ManyToOne
+	@JoinColumn(name = "lecture_id")
+	@JsonBackReference
 	private Lectures lectureid;
 	
 	@Column(name = "title")
@@ -37,21 +40,20 @@ public class Bulletin {
 	@Column(name = "content")
 	private String content;
 
-	@Transient
-	private int userID;
+	@ManyToOne
+	@JoinColumn(name = "launcherid")
+	@JsonBackReference
+	private UserAccountDt launcherid;
 	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@Column(name = "creation_time")
 	private Date creationTime;
-	
-	@ManyToOne(fetch=FetchType.LAZY)	//修正by chien 3lines
-	@JoinColumn(name="lecture_id")
-	private Lectures lectures;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
-	private UserAccountDt userAccountDt;
 
+	@OneToMany(mappedBy = "bulletinid")
+//	@JsonManagedReference
+//	@JsonIgnore
+	private List<BulletinReply> replyList = new ArrayList<BulletinReply>(); 
+	
 	public Lectures getLectureid() {
 		return lectureid;
 	}
@@ -76,36 +78,28 @@ public class Bulletin {
 		this.content = content;
 	}
 
-	public Lectures getLectures() {
-		return lectures;
+	public Integer getBulletinid() {
+		return bulletinid;
 	}
 
-	public void setLectures(Lectures lectures) {
-		this.lectures = lectures;
+	public void setBulletinid(Integer bulletinid) {
+		this.bulletinid = bulletinid;
 	}
 
-	public UserAccountDt getUserAccountDt() {
-		return userAccountDt;
+	public UserAccountDt getLauncherid() {
+		return launcherid;
 	}
 
-	public void setUserAccountDt(UserAccountDt userAccountDt) {
-		this.userAccountDt = userAccountDt;
+	public void setLauncherid(UserAccountDt launcherid) {
+		this.launcherid = launcherid;
 	}
 
-	public Integer getBulletinID() {
-		return bulletinID;
+	public List<BulletinReply> getReplyList() {
+		return replyList;
 	}
 
-	public void setBulletinID(Integer bulletinID) {
-		this.bulletinID = bulletinID;
-	}
-
-	public int getUserID() {
-		return userID;
-	}
-
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public void setReplyList(List<BulletinReply> replyList) {
+		this.replyList = replyList;
 	}
 
 	public Date getCreationTime() {
@@ -115,8 +109,5 @@ public class Bulletin {
 	public void setCreationTime(Date creationTime) {
 		this.creationTime = creationTime;
 	}
-	
-	
-	
 	
 }

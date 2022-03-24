@@ -1,4 +1,4 @@
-package com.howhow.course.controller;
+package com.howhow.course.bulletin.controller;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.howhow.course.service.BulletinService;
+import com.howhow.course.bulletin.service.BulletinService;
 import com.howhow.entity.Bulletin;
 
 @Controller

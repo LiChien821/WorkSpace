@@ -1,5 +1,6 @@
 package com.howhow.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +21,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity @Table(name = "useraccountmt")
 @Component
-public class UserAccountMt {
+public class UserAccountMt implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id @Column(name="user_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int userID;
