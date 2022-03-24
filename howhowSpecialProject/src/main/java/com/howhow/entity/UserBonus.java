@@ -19,6 +19,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity @Table(name="userbonus")
 @Component
 public class UserBonus implements Serializable{
@@ -38,6 +40,7 @@ public class UserBonus implements Serializable{
 	private String systemTime;
 	
 	@MapsId
+	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USERID", referencedColumnName = "USERID",insertable = false,updatable = false )
 	private UserAccountMt userAccountMt;

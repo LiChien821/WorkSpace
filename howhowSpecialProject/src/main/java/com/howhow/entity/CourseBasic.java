@@ -12,11 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity @Table(name = "coursebasic")
 @Component
@@ -35,6 +36,23 @@ public class CourseBasic {
 	@Column(name = "discount")
 	private double discount;
 	
+	public CourseBasic() {
+	}
+	
+	public CourseBasic(String courseName, int price, double discount, Category category, int courseStatus,
+			String courseCover, String description, String systemTime, UserAccountDt creator) {
+		this.courseName = courseName;
+		this.price = price;
+		this.discount = discount;
+		this.category = category;
+		this.courseStatus = courseStatus;
+		this.courseCover = courseCover;
+		this.description = description;
+		SystemTime = systemTime;
+		this.creator = creator;
+	}
+
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="category_id")
 	private Category category;
@@ -51,28 +69,36 @@ public class CourseBasic {
 	@Column(name = "system_time")
 	private String SystemTime;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private UserAccountDt creator;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "courseBasic")
 	private List<Section> sectionList =new ArrayList<Section>();
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<PurchasedCourse> purchasedCourses = new ArrayList<PurchasedCourse>();
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<OrderDt> orderDtList = new ArrayList<OrderDt>();
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<ShoppingCart> shoppingCartList = new ArrayList<ShoppingCart>();
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<CFCourse> cfCourseList = new ArrayList<CFCourse>();
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<FavoriteCourse> favoriteCourseList = new ArrayList<FavoriteCourse>();
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<CourseRank> courseRankList = new ArrayList<CourseRank>();
 

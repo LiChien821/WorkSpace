@@ -16,11 +16,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity @Table(name = "ordermt")
 @Component
@@ -34,39 +34,38 @@ public class OrderMt {
 	@JsonFormat(pattern="yyyy-MM-dd", timezone = "GMT+8")
 	private Date orderDate;
 	
-	@Transient
-	private int userID;
-	
 	@Column(name = "total_price")
 	private int totalPrice;
 	
-	@Transient
-	private int payMethodID;
-	
-	@Transient
-	private int orderStatusID;
-	
 	@Column(name = "system_time")
 	private String systemTime;
-	
+
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderMt", cascade = CascadeType.ALL)
 	private List<OrderDt> orderDtList = new ArrayList<OrderDt>();
 	
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private UserAccountMt userAccountMt;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="pay_method_id")
-	private PayMethodType payMethodType;
+	@Column(name="paymethodtype_id")
+	private int payMethodTypeID;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="order_status_id")
-	private OrderStatusType orderStatusType;
+	@Column(name="orderstatustype_id")
+	private int orderStatusTypeID;
 	
+	@JsonIgnore
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="orderMt", cascade = CascadeType.ALL)
 	private PaymentFlow paymentFlow;
 	
+	
+	public OrderMt(UserAccountMt userAccountMt) {
+		this.userAccountMt = userAccountMt;
+		this.payMethodTypeID = 1;
+		this.orderStatusTypeID = 1;
+	}
+
 	public int getOrderID() {
 		return orderID;
 	}
@@ -83,36 +82,12 @@ public class OrderMt {
 		this.orderDate = orderDate;
 	}
 
-	public int getUserID() {
-		return userID;
-	}
-
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
-
 	public int getTotalPrice() {
 		return totalPrice;
 	}
 
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
-	}
-
-	public int getPayMethodID() {
-		return payMethodID;
-	}
-
-	public void setPayMethodID(int payMethodID) {
-		this.payMethodID = payMethodID;
-	}
-
-	public int getOrderStatusID() {
-		return orderStatusID;
-	}
-
-	public void setOrderStatusID(int orderStatusID) {
-		this.orderStatusID = orderStatusID;
 	}
 
 	public String getSystemTime() {
@@ -139,22 +114,6 @@ public class OrderMt {
 		this.userAccountMt = userAccountMt;
 	}
 
-	public PayMethodType getPayMethodType() {
-		return payMethodType;
-	}
-
-	public void setPayMethodtype(PayMethodType payMethodType) {
-		this.payMethodType = payMethodType;
-	}
-
-	public OrderStatusType getOrderStatusType() {
-		return orderStatusType;
-	}
-
-	public void setOrderStatusType(OrderStatusType orderStatusType) {
-		this.orderStatusType = orderStatusType;
-	}
-
 	public PaymentFlow getPaymentFlow() {
 		return paymentFlow;
 	}
@@ -162,6 +121,21 @@ public class OrderMt {
 	public void setPaymentFlow(PaymentFlow paymentFlow) {
 		this.paymentFlow = paymentFlow;
 	}
-	
+
+	public int getPayMethodTypeID() {
+		return payMethodTypeID;
+	}
+
+	public void setPayMethodTypeID(int payMethodTypeID) {
+		this.payMethodTypeID = payMethodTypeID;
+	}
+
+	public int getOrderStatusTypeID() {
+		return orderStatusTypeID;
+	}
+
+	public void setOrderStatusTypeID(int orderStatusTypeID) {
+		this.orderStatusTypeID = orderStatusTypeID;
+	}
 	
 }

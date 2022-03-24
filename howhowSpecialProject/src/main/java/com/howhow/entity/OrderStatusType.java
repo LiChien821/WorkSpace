@@ -25,9 +25,6 @@ public class OrderStatusType {
 	
 	@Column(name = "system_time")
 	private String systemTime;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderStatusType", cascade = CascadeType.ALL)
-	private List<OrderMt> orderMtList = new ArrayList<OrderMt>();
 
 	public int getOrderStatusID() {
 		return orderStatusID;
@@ -51,14 +48,6 @@ public class OrderStatusType {
 
 	public void setSystemTime(String systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	public List<OrderMt> getOrderMtList() {
-		return orderMtList;
-	}
-
-	public void setOrderMtList(List<OrderMt> orderMtList) {
-		this.orderMtList = orderMtList;
 	}
 	
 }

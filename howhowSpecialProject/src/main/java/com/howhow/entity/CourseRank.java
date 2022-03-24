@@ -14,6 +14,9 @@ import javax.persistence.UniqueConstraint;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="courserank",
 uniqueConstraints=@UniqueConstraint(columnNames={"course_id", "user_id"}))
@@ -24,32 +27,42 @@ public class CourseRank {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int courseRankID;
 	
-	@Transient
-	private int userID;
-	
-	@Transient
-	private int courseID;
-	
 	@Column(name = "course_rank")
 	private int courseRank;
 	
 	@Column(name = "rank_message")
 	private String rankMessage;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@Column(name = "rank_date")
 	private String rankDate;
 	
 	@Column(name = "system_time")
 	private String systemTime;
-
+	
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private UserAccountMt userAccountMt;
 	
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="course_id")
 	private CourseBasic courseBasic;
 
+	public CourseRank(int courseRank, String rankMessage, String rankDate, String systemTime,
+			UserAccountMt userAccountMt, CourseBasic courseBasic) {
+		this.courseRank = courseRank;
+		this.rankMessage = rankMessage;
+		this.rankDate = rankDate;
+		this.systemTime = systemTime;
+		this.userAccountMt = userAccountMt;
+		this.courseBasic = courseBasic;
+	}
+	
+	public CourseRank() {
+	}
+	
 	public int getCourseRank() {
 		return courseRank;
 	}
@@ -74,22 +87,6 @@ public class CourseRank {
 		this.courseRankID = courseRankID;
 	}
 
-	public int getUserID() {
-		return userID;
-	}
-
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
-
-	public int getCourseID() {
-		return courseID;
-	}
-
-	public void setCourseID(int courseID) {
-		this.courseID = courseID;
-	}
-
 	public UserAccountMt getUserAccountMt() {
 		return userAccountMt;
 	}
@@ -106,4 +103,21 @@ public class CourseRank {
 		this.courseBasic = courseBasic;
 	}
 
+	public String getRankMessage() {
+		return rankMessage;
+	}
+
+	public void setRankMessage(String rankMessage) {
+		this.rankMessage = rankMessage;
+	}
+
+	public String getRankDate() {
+		return rankDate;
+	}
+
+	public void setRankDate(String rankDate) {
+		this.rankDate = rankDate;
+	}
+
+	
 }

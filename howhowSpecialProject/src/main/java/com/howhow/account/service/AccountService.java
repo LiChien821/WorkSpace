@@ -1,5 +1,7 @@
 package com.howhow.account.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -83,5 +85,10 @@ public class AccountService {
 	public void save(UserAccountMt acc) {
 		repo.save(acc);
 
+	}
+	
+	public UserAccountMt findByID(int id) {
+		Optional<UserAccountMt> bean = repo.findById(id);
+		return bean.get();
 	}
 }

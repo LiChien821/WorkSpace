@@ -14,6 +14,8 @@ import javax.persistence.UniqueConstraint;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity @Table(name="purchasedcourse",
 uniqueConstraints=@UniqueConstraint(columnNames={"course_id", "user_id"}))
 @Component
@@ -23,19 +25,15 @@ public class PurchasedCourse {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int purchasedCourseID;
 	
-	@Transient
-	private int courseID;
-	
-	@Transient
-	private int userID;
-	
 	@Column(name = "system_time")
 	private String systemTime;
 	
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="course_id")
 	private CourseBasic courseBasic;
 	
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private UserAccountMt userAccountMt;
@@ -54,22 +52,6 @@ public class PurchasedCourse {
 
 	public void setPurchasedCourseID(int purchasedCourseID) {
 		this.purchasedCourseID = purchasedCourseID;
-	}
-
-	public int getCourseID() {
-		return courseID;
-	}
-
-	public void setCourseID(int courseID) {
-		this.courseID = courseID;
-	}
-
-	public int getUserID() {
-		return userID;
-	}
-
-	public void setUserID(int userID) {
-		this.userID = userID;
 	}
 
 	public CourseBasic getCourseBasic() {

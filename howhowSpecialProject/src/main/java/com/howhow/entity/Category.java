@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "category")
 public class Category {
@@ -26,6 +28,7 @@ public class Category {
 	@Column(name = "descriptior", length = 200)
 	private String descriptior;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "category")
 	private List<CourseBasic> courseBasicList =new ArrayList<CourseBasic>() ;
 
