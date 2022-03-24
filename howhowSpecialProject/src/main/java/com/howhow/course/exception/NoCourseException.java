@@ -1,4 +1,4 @@
-package com.howhow.course.common;
+package com.howhow.course.exception;
 
 import java.io.PrintWriter;
 

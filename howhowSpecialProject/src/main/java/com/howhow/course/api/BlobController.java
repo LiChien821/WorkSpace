@@ -23,7 +23,7 @@ import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
-import com.howhow.course.common.NoCourseException;
+import com.howhow.course.exception.NoCourseException;
 import com.howhow.entity.CourseBasic;
 
 @Configuration

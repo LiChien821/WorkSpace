@@ -31,7 +31,8 @@ import com.azure.storage.blob.specialized.BlobOutputStream;
 import com.howhow.course.common.CommonCategoryRepository;
 import com.howhow.course.common.LearningAccountService;
 import com.howhow.course.common.LearningCourseService;
-import com.howhow.course.common.NoCourseException;
+import com.howhow.course.exception.CourseDuplicatedException;
+import com.howhow.course.exception.NoCourseException;
 import com.howhow.entity.Category;
 import com.howhow.entity.CourseBasic;
 import com.howhow.entity.UserAccountMt;
@@ -90,22 +91,16 @@ public class TeacherPageController {
 
 	@PostMapping("/processedCreateCourse")
 	public String processedCreateCourse(CourseBasic courseBasic, @RequestParam("poster") MultipartFile multipartfile,
-			Model model) throws NoCourseException, IOException {
+			Model model) throws NoCourseException, IOException, CourseDuplicatedException {
 		int uid = 1;
 		UserAccountMt userAccount = accountService.findById(uid).get();
 		courseBasic.setCreator(userAccount.getUserAccountDt());
-		if (!multipartfile.isEmpty()) {
-			String fileName = StringUtils.cleanPath(multipartfile.getOriginalFilename());
-			courseBasic.setCourseCover(fileName);
-			InputStream inputStream = multipartfile.getInputStream();
-			BlobClient blobClient = containerClient.getBlobClient(courseBasic.getCourseName());
-			blobClient.upload(inputStream, inputStream.available(), true);
-
-		}
-
+		
 		if (courseService.createCourseSucessed(courseBasic)) {
 			CourseBasic existedCourse = courseService.findCourseByUIDAndName(uid, courseBasic.getCourseName());
-			model.addAttribute("courseId", existedCourse.getCourseId());
+			Integer courseID= existedCourse.getCourseId();
+			courseService.updateCourseAbstractCover(multipartfile,courseID);
+			model.addAttribute("courseId", courseID);
 			return "course/teacherPage/editcoursepage.html";
 		}
 

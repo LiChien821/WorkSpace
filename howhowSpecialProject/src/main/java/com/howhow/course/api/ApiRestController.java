@@ -27,8 +27,14 @@ import com.howhow.course.common.LearningAccountService;
 import com.howhow.course.common.LearningCourseService;
 import com.howhow.course.common.LearningLecturesService;
 import com.howhow.course.common.LearningSectionService;
-import com.howhow.course.common.NoCourseException;
-import com.howhow.course.common.NoSectionException;
+import com.howhow.course.exception.BadEequestException;
+import com.howhow.course.exception.BlobUploadException;
+import com.howhow.course.exception.CourseDuplicatedException;
+import com.howhow.course.exception.LectureDuplicationException;
+import com.howhow.course.exception.NoCourseException;
+import com.howhow.course.exception.NoSectionException;
+import com.howhow.course.exception.SessionDuplicationException;
+import com.howhow.course.exception.updateLectureVideoIOException;
 import com.howhow.entity.Category;
 import com.howhow.entity.CourseBasic;
 import com.howhow.entity.Lectures;
@@ -56,8 +62,8 @@ public class ApiRestController {
 	@Autowired
 	private CommonCategoryRepository categoryRepo;
 	
-	@Autowired
-	private BlobContainerClient containerClient;
+	
+	
 
 	@GetMapping("/api/getBlobUrl")
 	public String getBlobUrl() {
@@ -91,33 +97,27 @@ public class ApiRestController {
 
 	@PostMapping("/api/updateCourseAbstractCover")
 	public CourseBasic updateCourseAbstractCover(@RequestParam("file") MultipartFile multipartfile,
-			@RequestParam("courseID") int courseID) throws IOException  {
+			@RequestParam("courseID") int courseID) throws BlobUploadException  {
 
 		try {
-			CourseBasic existedCourse = courseService.findCourseByCourseId(courseID);
-				
-			InputStream inputStream = multipartfile.getInputStream();
-			BlobClient blobClient = containerClient.getBlobClient(existedCourse.getCourseName());    	
-	    	blobClient.upload(inputStream, inputStream.available(), true);
-	    	existedCourse.setCourseCover(existedCourse.getCourseName());
-	    	courseService.updateCourseAbstractCover(existedCourse);
-	    	return existedCourse;
+			
+	    	return courseService.updateCourseAbstractCover(multipartfile,courseID);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new IOException();
+			throw new BlobUploadException("updateCourseAbstractCover fail");
 		}
     	
 		
 	}
 
 	@PostMapping("/api/updateCourseAbstract")
-	public CourseBasic updateCourseAbstract(@RequestBody CourseBasic course) {
+	public CourseBasic updateCourseAbstract(@RequestBody CourseBasic course) throws BadEequestException {
 		if(courseService.updateCourseAbstract(course)) {
 		
 			return courseService.findCourseByCourseId(course.getCourseId());
 		}else {
-			return (CourseBasic) ResponseEntity.badRequest();
+			throw new BadEequestException("錯誤提交");
 		}
 		
 		
@@ -125,38 +125,29 @@ public class ApiRestController {
 	
 	@PostMapping("/api/updateLectureVideo")
 	public Lectures updateLectureVideo(@RequestParam("videofile") MultipartFile multipartfile,
-			@RequestParam("lectureID") int lectureID) throws IOException {
-		Lectures existedLectures = lectureService.findByLectureID(lectureID);
-		String filename=".mp4";
-		BlobClient blobClient = containerClient.getBlobClient(existedLectures.getLectureNumber()+existedLectures.getLecturesName()+filename);    	
-		String uploadDir="/static/video/";
-		try {
-			
-				
-			InputStream inputStream = multipartfile.getInputStream();
-			 	System.out.println("start upload");
-	    	blobClient.upload(inputStream, inputStream.available(), true);
-	    	System.out.println("please waiting");
-			existedLectures.setVideoSource(existedLectures.getLectureNumber()+existedLectures.getLecturesName()+filename);
-			lectureService.updateLecturesWithVideoSource(existedLectures);
-	    	return existedLectures;
+			@RequestParam("lectureID") int lectureID) throws IOException, updateLectureVideoIOException {
+		
+		try {	
+			System.out.println("已上傳完成");
+	    	return lectureService.updateLecturesWithVideoSource(multipartfile, lectureID);
 		} catch (IOException e) {
 		
 			e.printStackTrace();
-			throw new IOException();
+			throw new updateLectureVideoIOException();
 		}
 		
 	}
 
+	
 
 	@PostMapping(value = "/api/createSection/{courseID}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Iterable<Section> createSectionAndReturnSectionList(@PathVariable("courseID") int courseID,
-			@RequestBody Section inputSection) throws NoCourseException {
+			@RequestBody Section inputSection) throws NoCourseException, SessionDuplicationException {
 		CourseBasic existedCourse = courseService.findCourseByCourseId(courseID);
 		inputSection.setCourseBasic(existedCourse);
 		if (!sectionService.createSection(inputSection)) {
-			return null;
+			throw new SessionDuplicationException();
 		}
 		List<Section> sectionlist = existedCourse.getSectionList();
 		sectionlist.add(inputSection);
@@ -164,90 +155,59 @@ public class ApiRestController {
 		courseService.editSectionListofCourse(existedCourse);
 		return sectionService.findAllByCourseId(courseID);
 
-//		
-//		System.out.println(inputSection);
-//		System.out.println(sectionlist);
 
-//		List<JsonSection> dtoList=new ArrayList<JsonSection>();
-//		for(Section sec : sectionlist) {
-//			JsonSection newsec=new JsonSection(sec);
-//			dtoList.add(newsec);
-//		}
-//		Section newSection = new Section();
-//		newSection.setSectionName(data.get("sectionName"));
-//		
-//		String courseID =data.get("courseID");
-//		Course asignedcourse = null;
-//		try {
-//			asignedcourse = service.findCourseByID(Integer.parseInt(courseID));
-//		} catch (NumberFormatException e) {
-//			e.printStackTrace();
-//			return ResponseEntity.ok().body("NumberFormatException");	
-//			
-//		}
-//		
-//		List<Section> sectionList=asignedcourse.getSectionList();
-//		sectionList.add(newSection);
-//		asignedcourse.setSectionList(sectionList);
-//		
-//		service.saveCourse(asignedcourse);
 	}
-
+	
+	
 	@PostMapping(path = "/api/createAbstract/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public CourseBasic createAbstractAndReturnCourseData(@PathVariable("id") int uid,
-			@RequestBody CourseBasic newcourse) throws NumberFormatException, NoCourseException {
+			@RequestBody CourseBasic newcourse) throws NumberFormatException, NoCourseException, CourseDuplicatedException {
 
 		UserAccountMt acd = accountService.findById(uid).get();
 		newcourse.setCreator(acd.getUserAccountDt());
-		if (courseService.createCourseSucessed(newcourse)) {
+		try {
+			courseService.createCourseSucessed(newcourse);
 			newcourse = courseService.findCourseByUIDAndName(acd.getUserID(), newcourse.getCourseName());
 			return newcourse;
-
+		} catch (Exception e) {
+			throw new CourseDuplicatedException();
 		}
-		return null;
+		
 
 	}
 
 	@PostMapping(value = "/api/createLecture/{sectionID}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Iterable<Lectures> createLecture(@PathVariable("sectionID") int sectionID, @RequestBody Lectures lecture)
-			throws NumberFormatException, NoSectionException {
+			throws NumberFormatException, NoSectionException, LectureDuplicationException {
 		Section existedSection = sectionService.findSectionByID(sectionID);
 		lecture.setSection(existedSection);
 		if (!lectureService.createLecture(lecture)) {
-			return null;
+			throw new LectureDuplicationException();
 		}
 		List<Lectures> lectureList = existedSection.getLecturesList();
 		lectureList.add(lecture);
 		existedSection.setLecturesList(lectureList);
 		sectionService.editLecturesListofSection(existedSection);
 		return lectureService.findAllBySectionID(sectionID);
-//		System.out.println(data.get("sectionID"));
-//		///////跟section一樣 上傳檔案另外處理
-//		Lectures newLecture= new Lectures();
-//		newLecture.setLecturesName(data.get("lectureName"));
-//		
-//		String sectionID =data.get("sectionID");
-//		Section asignedsection  =  service.findSectionByID(Integer.parseInt(sectionID));
-//		
-//		List<Lectures> lectureList=asignedsection.getLecturesList();
-//		lectureList.add(newLecture);
-//		asignedsection.setLecturesList(lectureList);
-//		
-//		service.saveSection(asignedsection);
 
-//		return ResponseEntity.ok().body("ok");	
 	}
+	
+	
+	
+	
+	
+	
 
-	@PostMapping(value = "/api/askForSectionList")
-	public ResponseEntity returnSectionList(@RequestBody Map<String, String> data)
-			throws NumberFormatException, NoCourseException {
-		int courseID = Integer.parseInt("courseID");
-		CourseBasic existedCourse = courseService.findCourseByCourseId(courseID);
-		List<Section> seciontist = existedCourse.getSectionList();
-		return ResponseEntity.ok().body(seciontist);
-	}
+//	@PostMapping(value = "/api/askForSectionList")
+//	public ResponseEntity returnSectionList(@RequestBody Map<String, String> data)
+//			throws NumberFormatException, NoCourseException {
+//		int courseID = Integer.parseInt("courseID");
+//		CourseBasic existedCourse = courseService.findCourseByCourseId(courseID);
+//		List<Section> seciontist = existedCourse.getSectionList();
+//		return ResponseEntity.ok().body(seciontist);
+//	}
 
 	@PostMapping(value = "/api/testForign")
 	public ResponseEntity testForign(@RequestParam("file") MultipartFile multipartfile,

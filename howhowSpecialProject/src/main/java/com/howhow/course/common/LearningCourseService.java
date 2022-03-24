@@ -1,5 +1,7 @@
 package com.howhow.course.common;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -8,7 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.azure.storage.blob.BlobClient;
+import com.azure.storage.blob.BlobContainerClient;
+import com.howhow.course.exception.CourseDuplicatedException;
+import com.howhow.course.exception.NoCourseException;
 import com.howhow.entity.CourseBasic;
 import com.howhow.entity.Lectures;
 import com.howhow.entity.Section;
@@ -22,7 +30,10 @@ public class LearningCourseService {
 	@Autowired
 	private CommonSectionRepository sectionRepo;
 
-	public boolean createCourseSucessed(CourseBasic course) {
+	@Autowired
+	private BlobContainerClient containerClient;
+
+	public boolean createCourseSucessed(CourseBasic course) throws CourseDuplicatedException {
 		int uid = course.getCreator().getUserID();
 		String courseName = course.getCourseName();
 		CourseBasic existedCourse = repo.findCourseByUIDAndCourseName(uid, courseName);
@@ -31,7 +42,7 @@ public class LearningCourseService {
 
 			return true;
 		} else {
-			return false;
+			throw new CourseDuplicatedException();
 		}
 
 	}
@@ -79,9 +90,6 @@ public class LearningCourseService {
 
 	}
 
-
-
-
 	public Iterable<CourseBasic> findAllCourseByUID(int id) {
 		return repo.findAllCourseByUID(id);
 
@@ -99,24 +107,43 @@ public class LearningCourseService {
 		System.out.println("try to match raw password:" + ans);
 
 	}
-	public void updateCourseAbstractCover(CourseBasic course) {
-		repo.save(course);
+
+	public CourseBasic updateCourseAbstractCover(MultipartFile multipartfile, int courseID) throws IOException {
+		
+
+		String fileName = StringUtils.cleanPath(multipartfile.getOriginalFilename());
+
+		String extension = "";
+
+		int i = fileName.lastIndexOf('.');
+		if (i > 0) {
+			extension = fileName.substring(i);
+		}
+		CourseBasic existedCourse = findCourseByCourseId(courseID);
+		InputStream inputStream = multipartfile.getInputStream();
+		BlobClient blobClient = containerClient.getBlobClient(existedCourse.getCourseName() + extension);
+		blobClient.upload(inputStream, inputStream.available(), true);
+		existedCourse.setCourseCover(existedCourse.getCourseName() + extension);
+
+		repo.save(existedCourse);
+		return existedCourse;
 	}
+
 	
-	
+
 	public boolean updateCourseAbstract(CourseBasic course) {
-		try  {
+		try {
 			CourseBasic existedCourse = findCourseByCourseId(course.getCourseId());
 			if (course.getCategory() != null) {
 				existedCourse.setCategory(course.getCategory());
 			}
-			if (course.getCourseName() != null && course.getCourseName() !="") {
+			if (course.getCourseName() != null && course.getCourseName() != "") {
 				existedCourse.setCourseName(course.getCourseName());
 			}
-			if (course.getDescription() != null  && course.getDescription() !="") {
+			if (course.getDescription() != null && course.getDescription() != "") {
 				existedCourse.setDescription(course.getDescription());
 			}
-			if (course.getPrice() !=0  && course.getPrice() !=0) {
+			if (course.getPrice() != 0 && course.getPrice() != 0) {
 				existedCourse.setPrice(course.getPrice());
 			}
 			repo.save(existedCourse);
@@ -125,8 +152,7 @@ public class LearningCourseService {
 			e.printStackTrace();
 			return false;
 		}
-		
-		
+
 	}
 
 }

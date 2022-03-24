@@ -29,9 +29,11 @@
 							</select>
 						</div>
 						<div class="card-body">
-							<h5 class="card-title">Special title treatment</h5>
-							<p class="card-text">With supporting text below as a natural lead-in to additional content.
-							</p>
+							<div  v-if="lecture !== ''">
+								<h5 class="card-title" v-if="lecture.videoSource !== null"></h5>
+								<p class="card-text"  v-if="lecture.videoSource !== null">已上傳完成
+								</p>
+							</div>
 							<div>
 								<input type="file" id="videofile" name="file" ref="videofile" @change="handleVideoUpload" />
 								<input type="submit" value="新增教學影片" @click="createForm">

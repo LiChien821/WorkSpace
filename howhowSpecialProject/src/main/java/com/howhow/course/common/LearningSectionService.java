@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.howhow.course.exception.NoSectionException;
 import com.howhow.entity.CourseBasic;
 import com.howhow.entity.Section;
 
