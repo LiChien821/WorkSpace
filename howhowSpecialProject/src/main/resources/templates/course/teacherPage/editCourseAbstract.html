@@ -14,8 +14,28 @@
 
 
 					<div class="col p-4">
-						<h3 class="mb-3">編輯課程內容&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="button" class="lead mb-4" value="更新課程大綱" @click="createForm"></input></h3>
+						<div v-if="upLoadingCover !== ''">
+							<h3 class="card-text">{{upLoadingCover}}</h3>
+						</div>
+						<div v-else>
+						<h3 class="mb-3">編輯課程內容&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+						</div>
+						
+						
+						<div v-if="coverFile !== ''">
+							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+									data-bs-target="#staticCoverBackdrop" @click="createForm">
+									更新課程大綱
+								</button>
+						</div>
+					
+						<div v-else>
+							<button type="button" class="btn btn-primary"  @click="createForm">
+									更新課程大綱
+								</button>
+						</div>
+
+
 
 						<div class="form-row">
 							<label class="col col-form-label">課程名稱</label>
@@ -27,7 +47,8 @@
 							<label class="col col-form-label">分類</label>
 							<div class="col">
 
-								<select name="category" id="category" v-model="category.id" @change="changeCategory(category.id)">
+								<select name="category" id="category" v-model="category.id"
+									@change="changeCategory(category.id)">
 									<th:block th:each="cat: ${cateList}">
 										<option th:value="${cat.id}">[[${cat.name}]]</option>
 									</th:block>
@@ -73,23 +94,52 @@
 			<div class="container">
 
 				<div class="mx-auto text-center ">
-					<h1 class="mb-3">課程封面</h1>
 					
+					
+						<h1 class="mb-3">課程封面</h1>
+				
 				</div>
 
 
 				<div class="p-0 ">
 
 					<div>
-						<img id="thumbnail" v-if="course.courseCover != null" :src="blobSetting+course.courseCover" alt="Main image preview"
-							class="img-fluid" accept="image/png,image/jpeg" />
-						<img id="thumbnail" v-else  alt="Main image preview"
-							class="img-fluid" accept="image/png,image/jpeg" />
+						<img id="thumbnail" v-if="course.courseCover != null" :src="blobSetting+course.courseCover"
+							alt="Main image preview" class="img-fluid" accept="image/png,image/jpeg" />
+						<img id="thumbnail" v-else alt="Main image preview" class="img-fluid"
+							accept="image/png,image/jpeg" />
 					</div>
 					<div>
-						<label class="text-success text-left">請選擇要更新的封面&nbsp;&nbsp;&nbsp;</label>
-						<input type="file" id="fileImage" name="file" ref="file" @change="handleFileUpload"/>
-							   
+						<div v-if="course.courseCover != null">
+							<label class="text-success text-left">請選擇要更新的封面&nbsp;&nbsp;&nbsp;</label>
+						</div>
+						<div v-else>
+							<label class="text-success text-left">請上傳封面&nbsp;&nbsp;&nbsp;</label>
+						</div>
+						
+						<input type="file" id="fileImage" name="file" ref="file" @change="handleFileUpload" />
+						
+						<div class="modal fade" id="staticCoverBackdrop" data-bs-backdrop="static"
+									data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticCoverBackdropLabel"
+									aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="staticCoverBackdropLabel">封面上傳中</h5>
+
+											</div>
+											<div class="modal-body">
+											   封面上傳中 請等候上傳
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">關閉提示窗並等候</button>
+												<button type="button" class="btn btn-primary">等一下</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
 
 					</div>
 					<input type="hidden" />

@@ -99,7 +99,9 @@ public class TeacherPageController {
 		if (courseService.createCourseSucessed(courseBasic)) {
 			CourseBasic existedCourse = courseService.findCourseByUIDAndName(uid, courseBasic.getCourseName());
 			Integer courseID= existedCourse.getCourseId();
+			if(multipartfile !=null && !multipartfile.isEmpty()) {
 			courseService.updateCourseAbstractCover(multipartfile,courseID);
+			}
 			model.addAttribute("courseId", courseID);
 			return "course/teacherPage/editcoursepage.html";
 		}

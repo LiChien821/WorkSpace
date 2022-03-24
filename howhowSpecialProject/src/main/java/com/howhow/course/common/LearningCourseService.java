@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -110,9 +111,11 @@ public class LearningCourseService {
 
 	public CourseBasic updateCourseAbstractCover(MultipartFile multipartfile, int courseID) throws IOException {
 		
-
 		String fileName = StringUtils.cleanPath(multipartfile.getOriginalFilename());
-
+		UUID uuid = UUID.randomUUID();
+		String str = uuid.toString();
+		String temp = str.substring(0, 8) + str.substring(9, 13) + str.substring(14, 18) + str.substring(19, 23)
+				+ str.substring(24);
 		String extension = "";
 
 		int i = fileName.lastIndexOf('.');
@@ -120,16 +123,20 @@ public class LearningCourseService {
 			extension = fileName.substring(i);
 		}
 		CourseBasic existedCourse = findCourseByCourseId(courseID);
+		String oldCover=existedCourse.getCourseCover();
+		if(oldCover != "" && oldCover != null) {
+		BlobClient oldBlobClient = containerClient.getBlobClient(oldCover);
+		oldBlobClient.delete();
+		}
 		InputStream inputStream = multipartfile.getInputStream();
-		BlobClient blobClient = containerClient.getBlobClient(existedCourse.getCourseName() + extension);
+		BlobClient blobClient = containerClient.getBlobClient(temp + existedCourse.getCourseName() + extension);
 		blobClient.upload(inputStream, inputStream.available(), true);
-		existedCourse.setCourseCover(existedCourse.getCourseName() + extension);
+		existedCourse.setCourseCover(temp + existedCourse.getCourseName() + extension);
 
 		repo.save(existedCourse);
 		return existedCourse;
+		
 	}
-
-	
 
 	public boolean updateCourseAbstract(CourseBasic course) {
 		try {
@@ -143,7 +150,7 @@ public class LearningCourseService {
 			if (course.getDescription() != null && course.getDescription() != "") {
 				existedCourse.setDescription(course.getDescription());
 			}
-			if (course.getPrice() != 0 && course.getPrice() != 0) {
+			if (course.getPrice() != 0) {
 				existedCourse.setPrice(course.getPrice());
 			}
 			repo.save(existedCourse);
