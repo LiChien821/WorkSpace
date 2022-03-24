@@ -34,7 +34,7 @@ public class LearningCourseService {
 	private BlobContainerClient containerClient;
 
 	public boolean createCourseSucessed(CourseBasic course) throws CourseDuplicatedException {
-		int uid = course.getCreator().getUserID();
+		int uid = course.getCreator().getUserId();
 		String courseName = course.getCourseName();
 		CourseBasic existedCourse = repo.findCourseByUIDAndCourseName(uid, courseName);
 		if (existedCourse == null) {
@@ -78,7 +78,7 @@ public class LearningCourseService {
 	}
 
 	public boolean editSectionListofCourse(CourseBasic asignedcourse) throws NoCourseException {
-		CourseBasic existedCourse = repo.findCourseByUIDAndCourseName(asignedcourse.getCreator().getUserID(),
+		CourseBasic existedCourse = repo.findCourseByUIDAndCourseName(asignedcourse.getCreator().getUserId(),
 				asignedcourse.getCourseName());
 		if (existedCourse != null) {
 			existedCourse.setSectionList(asignedcourse.getSectionList());

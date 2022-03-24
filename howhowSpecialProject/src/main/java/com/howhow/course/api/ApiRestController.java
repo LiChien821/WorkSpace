@@ -167,7 +167,7 @@ public class ApiRestController {
 		newcourse.setCreator(acd.getUserAccountDt());
 		try {
 			courseService.createCourseSucessed(newcourse);
-			newcourse = courseService.findCourseByUIDAndName(acd.getUserID(), newcourse.getCourseName());
+			newcourse = courseService.findCourseByUIDAndName(acd.getUserId(), newcourse.getCourseName());
 			return newcourse;
 		} catch (Exception e) {
 			throw new CourseDuplicatedException();
