@@ -46,7 +46,7 @@ public class AccountService {
 			databaseAccount.setPassword(bcryptoEncoder.encode(pwd));
 		}
 		UserAccountDt newaccountDetail = account.getUserAccountDt();
-		newaccountDetail.setUserID(databaseAccount.getUserID());
+		newaccountDetail.setUserId(databaseAccount.getUserId());
 		databaseAccount.setUserAccountDt(newaccountDetail);
 		repo.save(databaseAccount);
 
@@ -54,7 +54,7 @@ public class AccountService {
 
 	public boolean activeAccount(String code, String userEmail) {
 		UserAccountDt acd = detailRepo.findByEmail(userEmail);
-		UserAccountMt user = repo.findById(acd.getUserID()).get();
+		UserAccountMt user = repo.findById(acd.getUserId()).get();
 		if (code.equals(user.getUserstatus().getVerificationcode())) {
 			user.getUserstatus().setEmailAuth(true);
 			repo.save(user);
@@ -69,7 +69,7 @@ public class AccountService {
 
 	public boolean deleteAccount(UserAccountMt userAccount) {
 		try {
-			int id = userAccount.getUserID();
+			int id = userAccount.getUserId();
 			repo.deleteById(id);
 			detailRepo.deleteById(id);
 			return true;

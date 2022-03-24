@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -21,47 +22,66 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity @Table(name = "userstatus")
+@Entity
+@Table(name = "userstatus")
 @Component
 public class UserStatus implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
-	@Column(name = "user_id", insertable = false,updatable = false)
-	@Id 
+	@Id
+	@Column(name = "USERID")
 	@GeneratedValue(generator = "generator")
-	private int userID;
+	private int userId;
 
+	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
+	@Column(name = "ACCOUNT", unique = true)
+	private String account;
 	
-	@Column(name = "account_status")
+
+	@Column(name = "ACCOUNTSTATUS")
 	private int accountStatus;
 
-	@Column(name = "email_auth")
+	@Column(name="EMAILAUTH")
 	private boolean emailAuth = false;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name = "account_level")
+	@Column(name = "ACCOUNTLEVEL")
 	private AccountLevel accountLevel =AccountLevel.Student;
 
-	@Column(name = "verification_code")
+	@Column(name = "VERIFICATIONCODE")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String verificationcode;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "system_time")
+	@Column(name = "SYSTEMTIME")
 	private java.util.Date systemTime;
 
+	@MapsId
 	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name = "USERID", referencedColumnName = "USERID",insertable = false,updatable = false)
 	private UserAccountMt userAccountMt;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "Account", referencedColumnName = "ACCOUNT",insertable = false,updatable = false)
+	private UserAccountMt userAccountMt2;
 
-	public int getUserID() {
-		return userID;
+
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public UserAccountMt getUserAccountMt2() {
+		return userAccountMt2;
+	}
+
+	public void setUserAccountMt2(UserAccountMt userAccountMt2) {
+		this.userAccountMt2 = userAccountMt2;
 	}
 
 
