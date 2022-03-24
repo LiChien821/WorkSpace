@@ -53,7 +53,7 @@ public class ReportRecord {
 	private Date systemtime;
 
 	public int getUserID() {
-		return usermt.getUserID();
+		return usermt.getUserId();
 	}
 
 
