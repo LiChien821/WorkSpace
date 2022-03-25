@@ -24,9 +24,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Component
 public class CourseBasic {
 	
-	@Id @Column(name = "courseId")
+	@Id @Column(name = "course_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int courseId;
+	private int courseID;
 	
 	@Column(name = "course_name")
 	private String courseName;
@@ -221,14 +221,13 @@ public class CourseBasic {
 		this.courseStatus = courseStatus;
 	}
 
-	public int getCourseId() {
-		return courseId;
+	public int getCourseID() {
+		return courseID;
 	}
 
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
+	public void setCourseID(int courseID) {
+		this.courseID = courseID;
 	}
-
 
 	
 }

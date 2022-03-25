@@ -115,7 +115,7 @@ public class ApiRestController {
 	public CourseBasic updateCourseAbstract(@RequestBody CourseBasic course) throws BadEequestException {
 		if(courseService.updateCourseAbstract(course)) {
 		
-			return courseService.findCourseByCourseId(course.getCourseId());
+			return courseService.findCourseByCourseId(course.getCourseID());
 		}else {
 			throw new BadEequestException("錯誤提交");
 		}
@@ -224,7 +224,7 @@ public class ApiRestController {
 //				 saveCourse =service.findCourseByUIDAndName(course.getCreator().getUid(), course.getCourseName());
 //			}
 
-			String uploadDir = "course-photos/" + saveCourse.getCourseId();
+			String uploadDir = "course-photos/" + saveCourse.getCourseID();
 
 			FileUploadUtil.cleanDir(uploadDir);
 			FileUploadUtil.saveFile(uploadDir, fileName, multipartfile);
@@ -234,7 +234,7 @@ public class ApiRestController {
 //			
 //			String src="file:\\"+ ImageDirPath +"\\"+fileName;
 
-			String src = "../course-photos/" + saveCourse.getCourseId() + "/" + fileName;
+			String src = "../course-photos/" + saveCourse.getCourseID() + "/" + fileName;
 
 //			String images="/howhow/images"+"/"+fileName;
 			/////////////////////////////////////////////
@@ -245,7 +245,7 @@ public class ApiRestController {
 			//////////////////////////////////////////////////////////////////////////
 			if (!videofile.isEmpty()) {
 				String videofileName = StringUtils.cleanPath(videofile.getOriginalFilename());
-				String videouploadDir = "course-videos/" + saveCourse.getCourseId() + "/" + videofileName;
+				String videouploadDir = "course-videos/" + saveCourse.getCourseID() + "/" + videofileName;
 
 				FileUploadUtil.cleanDir(videouploadDir);
 				FileUploadUtil.saveFile(videouploadDir, videofileName, videofile);

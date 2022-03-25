@@ -68,7 +68,7 @@ createApp({
 			if (this.coverFile !== "") {
 				var postforms = new FormData();
 				postforms.append("file", this.coverFile);
-				postforms.append("courseID", this.course.courseId);
+				postforms.append("courseID", this.course.courseID);
 
 				let config = {
 					headers: {
@@ -247,6 +247,20 @@ createApp({
 		changeLectureList: function(id) {
 			this.lecture = "";
 			this.lectureList = this.sectionList[id].lecturesList;
+				axios({
+			method: 'get',
+
+			url: '/howhow/api/getCourse/' + this.currentCourseID,
+			headers: { "Access-Control-Allow-Origin": "*" },
+
+
+		})
+
+			.then(response => (this.course = response.data, this.sectionList = response.data.sectionList, this.category = response.data.category))
+			.catch(function(error) {
+				console.log(error);
+
+			});
 
 		},
 		selectLecture: function(id) {

@@ -25,7 +25,7 @@
 								<li><a th:href="@{/teacherPage/page#portfolio}" id="portfolio-link"><span class="icon solid fa-th">課程</span></a></li>
 								<li><a href="#about" id="about-link"><span class="icon solid fa-user">Q&A</span></a></li>
 								<li><a href="#javascript" id="contact-link"><span class="icon solid fa-envelope" @click="navToPlay">播放</span></a></li>
-								<form method="POST" hidden th:action="@{/teacherPage/play}"  id="postForm"> <input name="courseId" hidden th:value="${courseId}"></form>
+								<form method="POST" hidden th:action="@{/teacherPage/play}"  id="postForm"> <input name="courseID" hidden th:value="${courseID}"></form>
 							
 							</ul>
 						</nav>

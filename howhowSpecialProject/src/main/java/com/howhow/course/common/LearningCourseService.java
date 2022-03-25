@@ -140,7 +140,7 @@ public class LearningCourseService {
 
 	public boolean updateCourseAbstract(CourseBasic course) {
 		try {
-			CourseBasic existedCourse = findCourseByCourseId(course.getCourseId());
+			CourseBasic existedCourse = findCourseByCourseId(course.getCourseID());
 			if (course.getCategory() != null) {
 				existedCourse.setCategory(course.getCategory());
 			}

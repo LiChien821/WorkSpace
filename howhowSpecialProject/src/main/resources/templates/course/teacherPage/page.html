@@ -85,16 +85,16 @@
 				<p>以下是課程列表</p>
 
 				<div class="row">
-				<form method="POST" hidden th:action="@{/teacherPage/edit}" id="editForm"><input id="forminput" name="courseId" hidden ></form>
+				<form method="POST" hidden th:action="@{/teacherPage/edit}" id="editForm"><input id="forminput" name="courseID" hidden ></form>
 					<div class="col-4 col-12-mobile" v-for="course in courseList">
 						<article class="item">
-							<a @click="courseToEdit(course.courseId)"  href="#javascript" class="image fit">
+							<a @click="courseToEdit(course.courseID)"  href="#javascript" class="image fit">
 							<img v-if="course.courseCover == null" th:src="@{/images/pic02.jpg}" alt="" />
 							<img v-if="course.courseCover != null" :src="blobSetting+course.courseCover" alt="" />
 							</a>
 							
 							<header>
-								<a @click="courseToEdit(course.courseId)">
+								<a @click="courseToEdit(course.courseID)">
 								<h3>{{course.courseName}}</h3></a>
 								<input hidden :id="'course'">
 							</header>

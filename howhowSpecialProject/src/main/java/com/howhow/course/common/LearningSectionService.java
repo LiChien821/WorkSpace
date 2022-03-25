@@ -20,7 +20,7 @@ public class LearningSectionService {
 	
 	public boolean createSection(Section section) {
 		int sectionNum=section.getSectionNumber();
-		int courseID=section.getCourseBasic().getCourseId();
+		int courseID=section.getCourseBasic().getCourseID();
 		if(!sectionIsDuplicated(courseID, sectionNum)) {
 			sectionRepo.save(section);
 			return true;
@@ -56,7 +56,7 @@ public class LearningSectionService {
 
 	public boolean editLecturesListofSection(Section section) {
 		
-		int courseID=section.getCourseBasic().getCourseId();
+		int courseID=section.getCourseBasic().getCourseID();
 		int sectionNum=section.getSectionNumber();
 		Section existedSection=sectionRepo.findBycourseIDAndSectionNum(courseID,sectionNum);
 		if (existedSection!=null) {

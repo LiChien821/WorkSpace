@@ -106,7 +106,7 @@ public class BlobController {
 //			}
 			
 			
-			String uploadDir = "course-photos/" +saveCourse.getCourseId();
+			String uploadDir = "course-photos/" +saveCourse.getCourseID();
 			
 			FileUploadUtil.cleanDir(uploadDir);
 			FileUploadUtil.saveFile(uploadDir, fileName, multipartfile);
@@ -116,7 +116,7 @@ public class BlobController {
 //			
 //			String src="file:\\"+ ImageDirPath +"\\"+fileName;
 			
-			String src="../course-photos/" +saveCourse.getCourseId() +"/"+fileName;
+			String src="../course-photos/" +saveCourse.getCourseID() +"/"+fileName;
 			
 			
 //			String images="/howhow/images"+"/"+fileName;
@@ -129,7 +129,7 @@ public class BlobController {
 			//////////////////////////////////////////////////////////////////////////
 			if (!videofile.isEmpty()) {
 				String videofileName=StringUtils.cleanPath(videofile.getOriginalFilename());
-				String videouploadDir = "course-videos/"  +saveCourse.getCourseId() +"/"+videofileName;
+				String videouploadDir = "course-videos/"  +saveCourse.getCourseID() +"/"+videofileName;
 				
 				FileUploadUtil.cleanDir(videouploadDir);
 				FileUploadUtil.saveFile(videouploadDir, videofileName, videofile);

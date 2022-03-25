@@ -61,18 +61,18 @@ public class TeacherPageController {
 	}
 
 	@PostMapping("/play")
-	public String playpage(@RequestParam(name = "courseId") Integer courseId, Model model) {
-		model.addAttribute("courseId", courseId);
+	public String playpage(@RequestParam(name = "courseID") Integer courseID, Model model) {
+		model.addAttribute("courseID", courseID);
 		return "course/teacherPage/dashboard";
 	}
 
 	@PostMapping("/edit")
-	public String editpage(@RequestParam(name = "courseId") Integer courseId, Model model) {
-		System.out.println(courseId);
+	public String editpage(@RequestParam(name = "courseID") Integer courseID, Model model) {
+		System.out.println(courseID);
 		List<Category> cateList = new ArrayList<Category>();
 		Iterable<Category> cate = caregoryRepo.findAll();
 		cate.forEach(cateList::add);
-		model.addAttribute("courseId", courseId);
+		model.addAttribute("courseID", courseID);
 		model.addAttribute("cateList", cateList);
 		return "course/teacherPage/editcoursepage.html";
 	}
@@ -98,11 +98,11 @@ public class TeacherPageController {
 		
 		if (courseService.createCourseSucessed(courseBasic)) {
 			CourseBasic existedCourse = courseService.findCourseByUIDAndName(uid, courseBasic.getCourseName());
-			Integer courseID= existedCourse.getCourseId();
+			Integer courseID= existedCourse.getCourseID();
 			if(multipartfile !=null && !multipartfile.isEmpty()) {
 			courseService.updateCourseAbstractCover(multipartfile,courseID);
 			}
-			model.addAttribute("courseId", courseID);
+			model.addAttribute("courseID", courseID);
 			return "course/teacherPage/editcoursepage.html";
 		}
 
