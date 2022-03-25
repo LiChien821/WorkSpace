@@ -21,6 +21,7 @@ import org.hibernate.annotations.Parameter;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "userstatus")
@@ -50,19 +51,19 @@ public class UserStatus implements Serializable {
 	@Column(name = "ACCOUNTLEVEL")
 	private AccountLevel accountLevel =AccountLevel.Student;
 
-	@Column(name = "VERIFICATIONCODE")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String verificationcode;
+
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@Column(name = "SYSTEMTIME")
 	private java.util.Date systemTime;
 
+	@JsonIgnore
 	@MapsId
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USERID", referencedColumnName = "USERID",insertable = false,updatable = false)
 	private UserAccountMt userAccountMt;
 	
+	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "Account", referencedColumnName = "ACCOUNT",insertable = false,updatable = false)
 	private UserAccountMt userAccountMt2;
@@ -108,13 +109,7 @@ public class UserStatus implements Serializable {
 		this.emailAuth = emailAuth;
 	}
 
-	public String getVerificationcode() {
-		return verificationcode;
-	}
 
-	public void setVerificationcode(String verificationcode) {
-		this.verificationcode = verificationcode;
-	}
 
 	public java.util.Date getSystemTime() {
 		return systemTime;

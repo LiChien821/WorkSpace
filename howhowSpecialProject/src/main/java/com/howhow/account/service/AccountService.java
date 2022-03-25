@@ -24,7 +24,9 @@ public class AccountService {
 	public void createUser(UserAccountMt account, UserAccountDt acd) {
 		acd.setUserAccountMt(account);
 		account.setUserAccountDt(acd);
-
+		account.setSystemTime(new java.util.Date());
+		acd.setSystemTime(new java.util.Date());
+		//加密password
 		String userAccount = account.getAccount();
 		if (repo.findByAccount(userAccount) == null && detailRepo.findByEmail(acd.getEmail())== null) {
 			String encodePassword = bcryptoEncoder.encode(account.getPassword());
@@ -55,7 +57,7 @@ public class AccountService {
 	public boolean activeAccount(String code, String userEmail) {
 		UserAccountDt acd = detailRepo.findByEmail(userEmail);
 		UserAccountMt user = repo.findById(acd.getUserId()).get();
-		if (code.equals(user.getUserstatus().getVerificationcode())) {
+		if (code.equals(user.getVerificationcode())) {
 			user.getUserstatus().setEmailAuth(true);
 			repo.save(user);
 			return true;
