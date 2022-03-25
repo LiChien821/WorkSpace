@@ -94,11 +94,13 @@ public class ShoppingCartController {
 	 */
 	@GetMapping("/movetofavoritecourse/{id}")
 	@ResponseBody
-	public boolean removeProductAndAddFCBySID(int id) {
+	public boolean removeProductAndAddFCBySID(@PathVariable("id") int id) {
 		ShoppingCart shopping = sService.findByID(id);
 		if (shopping == null)
 			return false;
-
+		
+		System.out.println("TEST");
+		
 		int courseID = shopping.getCourseBasic().getCourseID();
 		int userId = shopping.getUserAccountMt().getUserId();
 

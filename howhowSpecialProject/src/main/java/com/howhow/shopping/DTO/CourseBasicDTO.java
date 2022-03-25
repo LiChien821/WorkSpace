@@ -13,6 +13,7 @@ public class CourseBasicDTO {
 	private int coursestatus;
 	private String cover;
 	private String description;
+	private String creatorName;
 	
 	public CourseBasicDTO() {
 	}
@@ -92,6 +93,15 @@ public class CourseBasicDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public String getCreatorName() {
+		return creatorName;
+	}
+
+	public void setCreatorName(String creatorName) {
+		this.creatorName = creatorName;
+	}
+	
 	
 	
 }

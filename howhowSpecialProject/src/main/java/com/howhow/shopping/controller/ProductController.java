@@ -46,6 +46,20 @@ public class ProductController {
 		CourseBasic course = cService.findByID(courseid);
 		if(course==null) return null;
 		CourseBasicDTO dto = dtoutils(course);
+
+		Integer id = course.getCategory().getId();
+		int creatorid = course.getCreator().getUserId();
+		String courseCover = course.getCourseCover();
+		String description = course.getDescription();
+		UserAccountDt userbean = acdService.findByID(creatorid);
+		String creatorName = userbean.getGivenName();
+		
+		
+		dto.setCategoryid(id);
+		dto.setDescription(description);
+		dto.setCover(courseCover);
+		dto.setCreatorName(creatorName);
+		
 		return dto;
 	}
 	

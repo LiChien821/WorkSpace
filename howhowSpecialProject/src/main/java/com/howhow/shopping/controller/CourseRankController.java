@@ -107,7 +107,7 @@ public class CourseRankController {
 		return updateCourseRank;
 	}
 	
-	@GetMapping("querycourserankbycourseid/{id}")
+	@GetMapping("/querycourserankbycourseid/{id}")
 	@ResponseBody
 	public List<CourseRankDTO> findCourseRankByCourseID(@PathVariable("id") int id) {
 		

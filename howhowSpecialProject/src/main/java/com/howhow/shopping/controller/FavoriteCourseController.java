@@ -16,11 +16,13 @@ import com.howhow.account.service.AccountService;
 import com.howhow.entity.CourseBasic;
 import com.howhow.entity.CourseRank;
 import com.howhow.entity.FavoriteCourse;
+import com.howhow.entity.ShoppingCart;
 import com.howhow.entity.UserAccountMt;
 import com.howhow.shopping.DTO.SimpleCourseDTO;
 import com.howhow.shopping.service.CourseBasicService;
 import com.howhow.shopping.service.CourseRankService;
 import com.howhow.shopping.service.FavoriteCourseService;
+import com.howhow.shopping.service.ShoppingCartService;
 import com.howhow.util.UtilityTool;
 
 @Controller
@@ -40,6 +42,9 @@ public class FavoriteCourseController {
 	
 	@Autowired
 	AccountService accService;
+	
+	@Autowired
+	ShoppingCartService sService;
 	/*
 	 * 利用登入的帳號bean去查詢此用戶加入最愛的課程
 	 * */
@@ -82,10 +87,26 @@ public class FavoriteCourseController {
 	/*
 	 * 用戶將指定課程加入購物車，並移除最愛列表
 	 * */
-	@GetMapping("/putfavoritecoursetoshoppingcart/{id}")
-	public boolean removeFavoriteCourseAndAddShopByFID(int id) {
+	@GetMapping("/movetoshoppingcart/{id}")
+	@ResponseBody
+	public boolean removeFavoriteCourseAndAddShopByFID(@PathVariable("id") int id) {
 		
-		return false;
+		FavoriteCourse favorite = fService.findByID(id);
+		if(favorite == null)
+			return false;
+		
+		int courseID = favorite.getCourseBasic().getCourseID();
+		int userId = favorite.getUserAccountMt().getUserId();
+		
+		UserAccountMt mt = accService.findByID(userId);
+		CourseBasic cb = cService.findByID(courseID);
+		
+		ShoppingCart sc = new ShoppingCart(UtilityTool.getSysTime(), mt, cb);
+		ShoppingCart insertShoppingCart = sService.insertShoppingCart(sc);
+		
+		fService.deleteByID(id);
+		
+		return true;
 	}
 	
 	/*
