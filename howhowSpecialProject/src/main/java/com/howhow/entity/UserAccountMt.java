@@ -84,7 +84,7 @@ public class UserAccountMt implements Serializable{
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
 	private UserBonus userBonus;
 	
-	@JsonIgnore
+
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
 	private UserStatus userstatus;
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.howhow.account.service.AccountService;
 import com.howhow.entity.UserAccountMt;
 import com.howhow.websecurity.AccountUserDetails;
+import com.howhow.entity.AccountLevel;
 import com.howhow.entity.UserAccountDt;
 
 
@@ -38,6 +39,7 @@ public class AccountController {
 	public String index(@AuthenticationPrincipal AccountUserDetails loggedAccount ,Model model) {
 		UserAccountMt account=loggedAccount.getLoggedAccount();
 		model.addAttribute("account",account);
+	 
 		return "main";
 	}
 	
@@ -57,9 +59,16 @@ public class AccountController {
 	public String processDelete(@AuthenticationPrincipal AccountUserDetails loggedAccount ,Model model) {
 		
 		UserAccountMt account=loggedAccount.getLoggedAccount();
-		service.deleteAccount(account);
+		
+		if(("admin").equals(account.getUserstatus().getAccountLevel().toString())) {
+			service.deleteAccount(account);
+			return "redirect:/logout";
+			
+		}
+		
+		return "redirect:/";
 	
-		return "redirect:/logout";
+		
 	}
 	
 	@PostMapping("/progessEditAccount")
