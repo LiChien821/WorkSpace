@@ -26,6 +26,11 @@ public class AccountController {
 	@Autowired
 	private AccountService service;
 	
+	@GetMapping("/index")
+	public String processTest() {
+		return "index";
+	}
+	
 	@GetMapping("/login")
 	public String login() {
 		Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
