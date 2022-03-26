@@ -85,13 +85,7 @@ public class UserStatus implements Serializable {
 		this.userAccountMt2 = userAccountMt2;
 	}
 
-	public String getAccount() {
-		return account;
-	}
 
-	public void setAccount(String account) {
-		this.account = account;
-	}
 
 	public int getAccountStatus() {
 		return accountStatus;

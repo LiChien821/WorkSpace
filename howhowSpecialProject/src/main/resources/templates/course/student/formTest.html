@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<form method="post" style="max-width: 700px; margin: 0 auto" enctype="multipart/form-data"
+	onsubmit="return checkEmailUnique(this);">
+	<div id="all">
+		<div class="py-3">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 p-4">
+						<h1>新增一門課程</h1>
+						<p>新增基本內容並上傳封面照</p>
+					</div>
+				</div>
+				<div class="row">
+
+					<div class="col-md-7 p-4">
+						<h3 class="mb-3">課程內容</h3>
+
+						<div class="form-row">
+							<label class="col-sm-4 col-form-label">課程名稱</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" v-model="courseName" required minlength="2"
+									maxlength="15" />
+							</div>
+
+							<label class="col-sm-4 col-form-label">分類</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" v-model="category" required minlength="2"
+									maxlength="15" />
+							</div>
+
+							<label class="col-sm-4 col-form-label">價錢</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" v-model="price" required minlength="2"
+									maxlength="15" />
+							</div>
+
+							<label class="col-sm-4 col-form-label">時數</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" v-model="createtime" required minlength="2"
+									maxlength="15" />
+							</div>
+
+
+
+						</div>
+
+					</div>
+					<div class="mb-3">
+						<div class="col-md-7 p-4">
+							<label class="col-sm-4 col-form-label">備註</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" required minlength="2" maxlength="15" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="py-5 bg-light">
+			<div class="container">
+				<div class="row">
+					<div class="mx-auto text-center col-lg-6">
+						<h1 class="mb-3">課程封面</h1>
+						<p class="lead mb-4">請上傳封面</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="p-0 order-2 order-md-1 col-lg-6">
+						<div><label class="text-success"></label></div>
+						<div>
+							<img id="thumbnail" alt="Main image preview" class="img-fluid"
+								accept="image/png,image/jpeg" :src="imagesrc"/>
+						</div>
+						<div>
+							<input type="file" id="fileImage" name="file" ref="file" @change="handleFileUpload" />
+						</div>
+						<div>
+							<input type="file" id="videofile" name="file" ref="videofile" @change="handleVideoUpload" />
+							<input type="button" value="創建課程" @click="createForm">
+						</div>
+						<input type="hidden" />
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+
+<script type="importmap">
+
+	{
+	  "imports": {
+		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+	  }
+	}
+</script>
+
+<script type="module">
+	import {createApp} from 'vue'
+
+	const dataObj = {
+		courseID: 1,
+		items: [
+			{
+				sectionID: 1,
+				sectionTitle: "課程介紹"
+
+
+			},
+			{
+				sectionID: 2,
+				sectionTitle: "環境設定"
+
+
+			},
+			{
+				sectionID: 3,
+				sectionTitle: "謝謝大家"
+			}
+		],
+		courseID: "",
+		newSectionID: "",
+		newSectionTitle: "",
+		section: "",
+		lectures: "",
+		category: "",
+		price: "",
+		createtime: "",
+		file: "",
+		courseName: "",
+		videofile: "",
+		imagesrc:"",
+		sectionID:""
+	};
+
+	createApp({
+		data() {
+			return dataObj;
+		},
+	
+		methods: {
+			createForm: function () {
+				var postforms = new FormData();
+				postforms.append("courseName", this.courseName);
+				postforms.append("category", this.category);
+				postforms.append("price", this.price);
+				postforms.append("createtime", this.createtime);
+				postforms.append("file", this.file);
+				postforms.append("videofile", this.videofile);
+				let config = {
+					headers: {
+						"Content-Type": "multipart/form-data"
+					}
+				};
+
+
+				axios
+					.post(
+						'http://127.0.0.1:8080/howhowS/api/testForign',
+						postforms,
+						config
+					)
+					.then(response => (this.imagesrc = response.data))
+					.catch(function (error) {
+						console.log(error);
+						
+					});
+				
+			},
+			handleFileUpload() {
+				this.file = this.$refs.file.files[0];
+			},
+			handleVideoUpload() {
+				this.videofile = this.$refs.videofile.files[0];
+			},
+		},
+
+	}).mount('#all')
+
+
+</script>
+
+
+</html>

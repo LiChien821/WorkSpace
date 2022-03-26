@@ -17,11 +17,16 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "courseID")
+=======
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+>>>>>>> origin/master
 @Entity @Table(name = "coursebasic")
 @Component
 public class CourseBasic {
@@ -34,7 +39,7 @@ public class CourseBasic {
 	private String courseName;
 	
 	@Column(name = "price")
-	private int price;
+	private long price;
 	
 	@Column(name = "discount")
 	private double discount;
@@ -74,7 +79,7 @@ public class CourseBasic {
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="creator_id")
 	private UserAccountDt creator;
 	
 	@JsonIgnore
@@ -85,6 +90,7 @@ public class CourseBasic {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<PurchasedCourse> purchasedCourses = new ArrayList<PurchasedCourse>();
 	
+<<<<<<< HEAD
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseID", cascade = CascadeType.ALL)
 	private List<OrderDt> orderDtList = new ArrayList<OrderDt>();
@@ -102,16 +108,29 @@ public class CourseBasic {
 	private List<FavoriteCourse> favoriteCourseList = new ArrayList<FavoriteCourse>();
 	
 	@JsonIgnore
+=======
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
+	private List<OrderDt> orderDtList = new ArrayList<OrderDt>();
+	
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
+	private List<ShoppingCart> shoppingCartList = new ArrayList<ShoppingCart>();
+	
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
+	private List<CFCourse> cfCourseList = new ArrayList<CFCourse>();
+	
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
+	private List<FavoriteCourse> favoriteCourseList = new ArrayList<FavoriteCourse>();
+	
+	
+>>>>>>> origin/master
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<CourseRank> courseRankList = new ArrayList<CourseRank>();
 
-	public int getCourseID() {
-		return courseID;
-	}
 
-	public void setCourseID(int courseID) {
-		this.courseID = courseID;
-	}
 
 	public String getCourseName() {
 		return courseName;
@@ -121,13 +140,7 @@ public class CourseBasic {
 		this.courseName = courseName;
 	}
 
-	public int getPrice() {
-		return price;
-	}
 
-	public void setPrice(int price) {
-		this.price = price;
-	}
 
 	public double getDiscount() {
 		return discount;
@@ -145,13 +158,7 @@ public class CourseBasic {
 		this.category = category;
 	}
 
-	public int getCourseStatus() {
-		return courseStatus;
-	}
 
-	public void setCourseStatus(int courseStatus) {
-		this.courseStatus = courseStatus;
-	}
 
 	public String getCourseCover() {
 		return courseCover;
@@ -241,6 +248,32 @@ public class CourseBasic {
 		this.courseRankList = courseRankList;
 	}
 
+
+
+
+	public long getPrice() {
+		return price;
+	}
+
+	public void setPrice(long price) {
+		this.price = price;
+	}
+
+	public int getCourseStatus() {
+		return courseStatus;
+	}
+
+	public void setCourseStatus(int courseStatus) {
+		this.courseStatus = courseStatus;
+	}
+
+	public int getCourseID() {
+		return courseID;
+	}
+
+	public void setCourseID(int courseID) {
+		this.courseID = courseID;
+	}
 
 	
 }

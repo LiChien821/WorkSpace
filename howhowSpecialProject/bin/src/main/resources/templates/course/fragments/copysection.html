@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<th:block th:fragment="content">
+
+	<div class="py-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="list-group">
+						<a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+							<div class="d-flex w-100 justify-content-between">
+								<h5 class="mb-1">章節名稱2<br></h5> <small>3 days ago</small>
+							</div>
+							<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget
+								risus varius blandit.</p> <small>Donec id elit non mi porta.</small>
+						</a>
+						<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+								<h5 class="mb-1">章節名稱1</h5> <small class="text-muted">3 days ago</small>
+							</div>
+							<p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget
+								risus varius blandit.</p> <small class="text-muted">Donec id elit non mi porta.</small>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="py-5">
+		<div class="container">
+			<div class="row">
+				<div class="ml-auto col-lg-7 text-center text-lg-left">
+					<h1>課程名稱</h1>
+					<p class="mb-0">顯示此課程</p>
+				</div>
+				<div class="col-lg-4 d-flex justify-content-center align-items-center p-3">
+					<form class="form-inline mb-0" >
+						<div class="input-group"> <input type="text" class="form-control" th:field="*{sectionList}" placeholder="章節編號"
+								id="form2"><input type="text" class="form-control"   placeholder="章節名稱" id="form2">
+							<div class="input-group-append"> <button class="btn btn-primary"
+									type="button">新增章節<br></button> </div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</th:block>
+
+</html>

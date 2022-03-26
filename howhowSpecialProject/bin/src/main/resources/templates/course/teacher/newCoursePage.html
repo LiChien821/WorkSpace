@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="course/fragments/fragments :: pagehead">
+
+</head>
+
+<body>
+	<th:block th:fragment="content">
+
+		<div class="container-fluid">
+			
+
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item presentation">
+						<a class="nav-link active" id="abstract-tab" data-toggle="tab" data-bs-target="#abstract"
+							href="#abstract" role="tab" aria-controls="abstract" aria-selected="true">課程大綱</a>
+					</li>
+					<li class="nav-item presentation">
+						<a class="nav-link" id="section-tab" data-toggle="tab" data-bs-target="#section" href="#section"
+							role="tab" aria-controls="section" aria-selected="false">課程章節</a>
+					</li>
+					<li class="nav-item presentation">
+						<a class="nav-link" id="lectures-tab" data-toggle="tab" data-bs-target="#lectures"
+							href="#lectures" role="tab" aria-controls="lectures" aria-selected="false">課程單元</a>
+					</li>
+					<li class="nav-item presentation">
+						<a class="nav-link" id="media-tab" data-toggle="tab" data-bs-target="#media" href="#media"
+							role="tab" aria-controls="media" aria-selected="false">影片上傳</a>
+					</li>
+					<li class="nav-item presentation">
+						<a class="nav-link" id="shipping-tab" data-toggle="tab" data-bs-target="#shipping"
+							role="tab">shipping</a>
+					</li>
+				</ul>
+
+				<!-- Tab panes -->
+				<div class="tab-content">
+
+					<div class="tab-pane active" id="abstract" role="tabpanel">
+						<div>
+							<th:block th:replace="course/fragments/courseAbstract :: content"></th:block>
+						
+						</div>
+
+					</div>
+
+					<div class="tab-pane" id="section" role="tabpanel">
+						<div>
+							<th:block th:replace="course/student/acoordin :: content"></th:block>
+						</div>
+
+					</div>
+
+					<div class="tab-pane" id="lectures" role="tabpanel">
+						<th:block th:replace="course/fragments/courseLectures :: content"></th:block>
+
+					</div>
+					<div class="tab-pane" id="media" role="tabpanel">
+						<th:block th:replace="course/fragments/courseMediaUpload :: content"></th:block>
+
+					</div>
+					<div class="tab-pane" id="shipping" role="tabpanel">
+						<div>
+							sdfsdf
+						</div>
+					</div>
+
+				</div>
+			
+		</div>
+	</th:block>
+</body>
+
+</html>

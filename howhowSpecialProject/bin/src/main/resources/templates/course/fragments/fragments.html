@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+ 
+ 
+<head th:fragment="pagehead">
+<meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
+<title>howhow學</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" th:href="@{/assets/css/main.css}"  />
+<noscript><link rel="stylesheet" th:href="@{/assets/css/noscript.css}" /></noscript>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+</head>
+ 
+ <th:block th:fragment="abstract">
+ <div class="row">
+					<div class="col-md-8 p-4">
+						<h1>新增一門課程</h1>
+						<p>Has taken possession of my entire soul, like these sweet mornings of spring which I enjoy
+							with my whole heart. I am alone, and feel the charm of existence in this spot.</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-5 p-4">
+						<h3>HOWHOW</h3>
+						<p>課程名稱</p>
+						<p class="lead mt-3"> <b>Support</b> </p>
+						<p> <a href="#">+1 234 567 89</a> </p>
+						<p> <a href="#">support@hello.com</a> </p>
+						<p class="lead mt-3"> <b>Sales</b> </p>
+						<p> <a href="#">+1 234 567 89</a> </p>
+						<p> <a href="#">sales@hello.com</a> </p>
+						<p class="lead mt-3"> <b>General</b> </p>
+						<p> <a href="#">info@hello.com</a> </p>
+					</div>
+					<div class="col-md-7 p-4">
+						<h3 class="mb-3">課程內容</h3>
+						<form>
+							<div class="form-row">
+								<div class="form-group col-md-6"> <input type="text" class="form-control" id="form36"
+										placeholder="First Name"> </div>
+								<div class="form-group col-md-6"> <input type="text" class="form-control" id="form37"
+										placeholder="Last Name"> </div>
+							</div>
+							<div class="form-group"> <input type="text" class="form-control" id="form38"
+									placeholder="Company"> </div>
+							<div class="form-group"> <input type="email" class="form-control" id="form39"
+									placeholder="Email"> </div>
+							<div class="form-row">
+								<div class="form-group col-md-6"> <input type="number" class="form-control" id="form40"
+										placeholder="Phone (optional)"> </div>
+								<div class="form-group col-md-6"> <input type="text" class="form-control" id="form41"
+										placeholder="Country"> </div>
+							</div>
+							<div class="form-group"> <input type="text" class="form-control" id="form42"
+									placeholder="Subject"> </div>
+							<div class="form-group"> <textarea class="form-control" id="form43" rows="3"
+									placeholder="Your message"></textarea> </div>
+						</form>
+					</div>
+				</div>
+ </th:block>
+ 
+ 
+</html>
