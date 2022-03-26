@@ -11,4 +11,7 @@ public interface FavoriteCourseRepository extends JpaRepository<FavoriteCourse, 
 	
 	@Query(value="select * from FavoriteCourse where user_id=?1", nativeQuery=true)
 	public List<FavoriteCourse> findByUserID(int id);
+	
+	@Query(value="select * from FavoriteCourse where user_id=?1 and course_id=?2", nativeQuery=true)
+	public FavoriteCourse findFavoriteCourseStatus(int userid, int courseid);
 }

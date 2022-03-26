@@ -34,6 +34,12 @@ public class ShoppingCartService {
 		return bean;
 	}
 	
+	public boolean findShoppingCartStatus(int userid, int courseid) {
+		if(repo.findShoppingCartStatus(userid, courseid)!=null) return true;
+		return false;
+	}
+	
+	
 	public boolean deleteByID(int id) {
 		if(repo.findById(id).isEmpty()) return false;
 	

@@ -1,4 +1,4 @@
-package com.howhow.shopping.DTO;
+package com.howhow.shopping.dto;
 
 public class CourseBasicDTO {
 	
@@ -14,6 +14,9 @@ public class CourseBasicDTO {
 	private String cover;
 	private String description;
 	private String creatorName;
+	private boolean favoriteCourseStatus;
+	private boolean shoppingCartStatus;
+	private boolean purchasedStatus;
 	
 	public CourseBasicDTO() {
 	}
@@ -100,6 +103,30 @@ public class CourseBasicDTO {
 
 	public void setCreatorName(String creatorName) {
 		this.creatorName = creatorName;
+	}
+
+	public boolean isFavoriteCourseStatus() {
+		return favoriteCourseStatus;
+	}
+
+	public void setFavoriteCourseStatus(boolean favoriteCourseStatus) {
+		this.favoriteCourseStatus = favoriteCourseStatus;
+	}
+
+	public boolean isShoppingCartStatus() {
+		return shoppingCartStatus;
+	}
+
+	public void setShoppingCartStatus(boolean shoppingCartStatus) {
+		this.shoppingCartStatus = shoppingCartStatus;
+	}
+
+	public boolean isPurchasedStatus() {
+		return purchasedStatus;
+	}
+
+	public void setPurchasedStatus(boolean purchasedStatus) {
+		this.purchasedStatus = purchasedStatus;
 	}
 	
 	
