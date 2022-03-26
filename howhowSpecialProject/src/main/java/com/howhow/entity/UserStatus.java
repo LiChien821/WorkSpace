@@ -32,7 +32,7 @@ public class UserStatus implements Serializable {
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
 	@Id
-	@Column(name = "USERID")
+	@Column(name = "user_id")
 	@GeneratedValue(generator = "generator")
 	private int userId;
 
@@ -60,7 +60,7 @@ public class UserStatus implements Serializable {
 	@JsonIgnore
 	@MapsId
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USERID", referencedColumnName = "USERID",insertable = false,updatable = false)
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id",insertable = false,updatable = false)
 	private UserAccountMt userAccountMt;
 	
 	@JsonIgnore

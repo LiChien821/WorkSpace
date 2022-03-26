@@ -58,7 +58,6 @@ public class CourseRankController {
 	@PostMapping("/insertcourserank")
 	@ResponseBody
 	public CourseRank insertCourseRank(@RequestBody CourseRankDTO courseRankDTO) {
-		
 		CourseBasic coursebasic = cbService.findByID(courseRankDTO.getCourseid());
 		UserAccountMt user = accService.findByID(courseRankDTO.getUserid());
 		CourseRank courseRank = new CourseRank(courseRankDTO.getRank(), courseRankDTO.getMessage(), UtilityTool.getSysTime(), UtilityTool.getSysTime(), user, coursebasic);

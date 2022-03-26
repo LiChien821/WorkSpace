@@ -32,41 +32,41 @@ public class UserAccountDt implements Serializable{
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
 	@Id
-	@Column(name = "USERID")
+	@Column(name = "user_id")
 	@GeneratedValue(generator = "generator")
 	private int userId;
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
-	@Column(name = "ACCOUNT", unique = true)
+	@Column(name = "account", unique = true)
 	private String account;
 
-	@Column(name = "EMAIL", unique = true)
+	@Column(name = "email", unique = true)
 	private String email;
 
-	@Column(name = "GIVENNAME")
+	@Column(name = "givenname")
 	private String givenName;
 
-	@Column(name = "FAMILYNAME")
+	@Column(name = "familyname")
 	private String familyName;
 
-	@Column(name = "GENDER")
+	@Column(name = "gender")
 	private String gender;
 
-	@Column(name = "BIRTH")
+	@Column(name = "birth")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private String birth;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "ACCOUNTCREATIONTIME")
+	@Column(name = "accountcreationtime")
 	private java.util.Date acountCreationTime;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "SYSTEMTIME")
+	@Column(name = "system_time")
 	private java.util.Date SystemTime;
 
 	@MapsId
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USERID", referencedColumnName = "USERID",insertable = false,updatable = false)
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id",insertable = false,updatable = false)
 	@JsonIgnore
 	private UserAccountMt userAccountMt;
 	

@@ -31,7 +31,7 @@ public class UserAccountMt implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Id @Column(name="userid")	
+	@Id @Column(name="user_id")	
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int userId;
 	
@@ -42,11 +42,11 @@ public class UserAccountMt implements Serializable{
 	String password;
 	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "systemtime")
+	@Column(name = "system_time")
 	private java.util.Date systemTime;
 	
 	@JsonIgnore
-	@Column(name = "VERIFICATIONCODE")
+	@Column(name = "verificationcode")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String verificationcode;
 	

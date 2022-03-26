@@ -61,15 +61,12 @@ public class UtilityTool {
 		helper.setSubject(subject);
 		String randomCode = RandomString.make(54);
 
-		acc.getUserstatus().setVerificationcode(randomCode);
-=======
 		acc.setVerificationcode(randomCode);
 
 		content = content.replace("[[name]]", acc.getAccount());
 		String myip = InetAddress.getLocalHost().getHostAddress();
 
 		String verifyURL = myip + UtilityTool.getSiteURL(request) + "/verify?code="
-				+ acc.getUserstatus().getVerificationcode() + "&email=" + toAddress;
 				+ acc.getVerificationcode() + "&email=" + toAddress;
 		System.out.println("/verify?code=" + randomCode + "&email=" + toAddress);
 		content = content.replace("[[URL]]", verifyURL);
@@ -77,12 +74,6 @@ public class UtilityTool {
 		helper.setText(content, true);
 		mailSender.send(message);
 
-	}
-
-	public static String getSysTime() {
-		DateTimeFormatter currentTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		String strSysTime = currentTime.format(LocalDateTime.now());
-		return strSysTime;
 	}
 
 	public static String getSysTime() {
