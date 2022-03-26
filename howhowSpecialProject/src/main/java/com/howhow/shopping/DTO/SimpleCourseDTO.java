@@ -6,12 +6,12 @@ public class SimpleCourseDTO {
 	private int courseID;
 	private int userID;
 	private String courseName;
-	private int price;
+	private long price;
 	private int discountPrice;
 	private double rank;
 	
 	
-	public SimpleCourseDTO(int id, int courseID, String courseName, int price, int discountPrice,
+	public SimpleCourseDTO(int id, int courseID, String courseName, long price, int discountPrice,
 			double rank) {
 		super();
 		this.id=id;
@@ -40,10 +40,10 @@ public class SimpleCourseDTO {
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
-	public int getPrice() {
+	public long getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(long price) {
 		this.price = price;
 	}
 	public int getDiscountPrice() {

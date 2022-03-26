@@ -17,16 +17,12 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "courseID")
-=======
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
->>>>>>> origin/master
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "courseID")
 @Entity @Table(name = "coursebasic")
 @Component
 public class CourseBasic {
@@ -47,7 +43,7 @@ public class CourseBasic {
 	public CourseBasic() {
 	}
 	
-	public CourseBasic(String courseName, int price, double discount, Category category, int courseStatus,
+	public CourseBasic(String courseName, long price, double discount, Category category, int courseStatus,
 			String courseCover, String description, String systemTime, UserAccountDt creator) {
 		this.courseName = courseName;
 		this.price = price;
@@ -82,7 +78,6 @@ public class CourseBasic {
 	@JoinColumn(name="creator_id")
 	private UserAccountDt creator;
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "courseBasic")
 	private List<Section> sectionList =new ArrayList<Section>();
 	
@@ -90,7 +85,6 @@ public class CourseBasic {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<PurchasedCourse> purchasedCourses = new ArrayList<PurchasedCourse>();
 	
-<<<<<<< HEAD
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseID", cascade = CascadeType.ALL)
 	private List<OrderDt> orderDtList = new ArrayList<OrderDt>();
@@ -108,25 +102,6 @@ public class CourseBasic {
 	private List<FavoriteCourse> favoriteCourseList = new ArrayList<FavoriteCourse>();
 	
 	@JsonIgnore
-=======
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
-	private List<OrderDt> orderDtList = new ArrayList<OrderDt>();
-	
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
-	private List<ShoppingCart> shoppingCartList = new ArrayList<ShoppingCart>();
-	
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
-	private List<CFCourse> cfCourseList = new ArrayList<CFCourse>();
-	
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
-	private List<FavoriteCourse> favoriteCourseList = new ArrayList<FavoriteCourse>();
-	
-	
->>>>>>> origin/master
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<CourseRank> courseRankList = new ArrayList<CourseRank>();
 

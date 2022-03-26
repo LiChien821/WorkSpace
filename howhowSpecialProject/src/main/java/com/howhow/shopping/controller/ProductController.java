@@ -185,7 +185,7 @@ public class ProductController {
 	private CourseBasicDTO dtoutils(CourseBasic courseBasic) {
 		int courseID = courseBasic.getCourseID();
 		String courseName = courseBasic.getCourseName();
-		int price = courseBasic.getPrice();
+		long price = courseBasic.getPrice();
 		double discount = courseBasic.getDiscount();
 		int discountprice = (int)(price*discount);
 		double rank = rankUtilsByCourseID(courseID);

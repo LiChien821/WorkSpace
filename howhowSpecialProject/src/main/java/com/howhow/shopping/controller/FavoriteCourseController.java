@@ -60,7 +60,7 @@ public class FavoriteCourseController {
 			int courseID = favoriteCourse.getCourseBasic().getCourseID();	
 			CourseBasic course = cService.findByID(courseID);
 			String courseName = course.getCourseName();		
-			int price = course.getPrice();		
+			long price = course.getPrice();		
 			double discount = course.getDiscount();
 			int discountPrice = (int) (price * discount);		
 			double rank = rankUtilsByCourseID(courseID);		
