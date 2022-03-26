@@ -75,7 +75,7 @@ public class CourseBasic {
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="creator_id")
+	@JoinColumn(name = "creator_id", referencedColumnName = "user_id")
 	private UserAccountDt creator;
 	
 	@OneToMany(mappedBy = "courseBasic")

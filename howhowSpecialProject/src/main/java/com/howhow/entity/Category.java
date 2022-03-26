@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "categoryForm")
+@Table(name = "categoryform")
 public class Category {
 
 	@Id

@@ -32,7 +32,7 @@ public class Section {
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="courseBasicID")
+	@JoinColumn(name="course_id")
 	private CourseBasic courseBasic;
 	
 	@OneToMany(mappedBy = "section")
