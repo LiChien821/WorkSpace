@@ -30,15 +30,15 @@ public class TestController {
 		return userBonus;
 	}
 	
-	@GetMapping("/login")
-	public String login() {
-		Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
-		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-			return "login";
-		}
-		return "redirect:/";
-	}
-	
-	
+//	@GetMapping("/login")
+//	public String login() {
+//		Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
+//		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+//			return "login";
+//		}
+//		return "redirect:/";
+//	}
+//	
+//	
 	
 }
