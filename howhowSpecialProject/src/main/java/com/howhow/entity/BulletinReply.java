@@ -13,7 +13,6 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,7 +26,6 @@ public class BulletinReply {
 	
 	@ManyToOne
 	@JoinColumn(name = "bulletin_id")
-//	@JsonBackReference
 	@JsonIgnore
 	private Bulletin bulletinid;
 	
@@ -35,9 +33,9 @@ public class BulletinReply {
 	private String replycontent;
 	
 	@ManyToOne
-	@JoinColumn(name = "respondent")
-	@JsonBackReference
-	private UserAccountDt respondent;
+	@JoinColumn(name = "respondent_id")
+	@JsonIgnore
+	private UserAccountDt respondentid;
 	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@Column(name = "creation_time")
@@ -67,12 +65,12 @@ public class BulletinReply {
 		this.replycontent = replycontent;
 	}
 
-	public UserAccountDt getRespondent() {
-		return respondent;
+	public UserAccountDt getRespondentid() {
+		return respondentid;
 	}
 
-	public void setRespondent(UserAccountDt respondent) {
-		this.respondent = respondent;
+	public void setRespondentid(UserAccountDt respondentid) {
+		this.respondentid = respondentid;
 	}
 
 	public Date getCreationtime() {

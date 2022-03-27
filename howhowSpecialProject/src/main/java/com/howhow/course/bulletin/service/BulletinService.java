@@ -18,18 +18,12 @@ public class BulletinService {
 	@Autowired
 	private BulletinRepository bRepo;
 	
+	//insert
 	public Bulletin insert(Bulletin bulletin) {
 		return bRepo.save(bulletin);
 	}
 	
-	public Bulletin update(Bulletin bulletin) {
-	return bRepo.save(bulletin);
-	}
-	
-	public void deleteById(Integer id) {
-		bRepo.deleteById(id);
-	}
-	
+	//findById
 	public Bulletin findById(Integer id) {
 		Optional<Bulletin> op1 = bRepo.findById(id);
 		if (op1.isEmpty()) {
@@ -38,11 +32,33 @@ public class BulletinService {
 		return op1.get();	
 	}
 	
-	public List<Bulletin> findAllBulletin() {
+	//findAllByCourseId
+	public List<Bulletin> findAllByCourseId(Integer id) {
+		 List<Bulletin> op1 = bRepo.findAllByCourseId(id);
+		if (op1.isEmpty()) {
+			return null;
+		}
+		return op1;	
+	}
+	
+	//findAll
+	public List<Bulletin> findAll() {
 		return bRepo.findAll();
 	}
 	
-	public void deleteBulletinById(Integer id) {
+	//update
+	public Bulletin update(Bulletin bulletin) {
+	return bRepo.save(bulletin);
+	}
+	
+	//deleteById
+	public void deleteById(Integer id) {
 		bRepo.deleteById(id);
 	}
+	
+	//deleteAll
+	public void deleteAll() {
+		bRepo.deleteAll();
+	}
+
 }

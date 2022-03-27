@@ -82,11 +82,11 @@ public class UserAccountDt implements Serializable{
 	private List<CourseBasic> createdCourseList = new ArrayList<CourseBasic>();
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "userAccountDt")
+	@OneToMany(mappedBy = "launcherid")
 	private List<Bulletin> bulletinList = new ArrayList<Bulletin>();
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "userAccountDt")
+	@OneToMany(mappedBy = "respondentid")
 	private List<BulletinReply> bulletinReplyList = new ArrayList<BulletinReply>();
 
 	@JsonIgnore

@@ -12,18 +12,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@Entity
-@Table(name = "coursebasic")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "courseID")
+@Entity @Table(name = "coursebasic")
 @Component
 public class CourseBasic {
 
@@ -70,21 +70,27 @@ public class CourseBasic {
 	@OneToMany(mappedBy = "courseBasic")
 	private List<Section> sectionList = new ArrayList<Section>();
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<PurchasedCourse> purchasedCourses = new ArrayList<PurchasedCourse>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseID", cascade = CascadeType.ALL)
 	private List<OrderDt> orderDtList = new ArrayList<OrderDt>();
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<ShoppingCart> shoppingCartList = new ArrayList<ShoppingCart>();
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<CFCourse> cfCourseList = new ArrayList<CFCourse>();
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<FavoriteCourse> favoriteCourseList = new ArrayList<FavoriteCourse>();
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<CourseRank> courseRankList = new ArrayList<CourseRank>();
 

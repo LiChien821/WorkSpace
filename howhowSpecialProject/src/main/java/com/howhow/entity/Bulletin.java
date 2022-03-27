@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,12 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity @Table(name = "bulletin")
 @Component
@@ -31,7 +29,7 @@ public class Bulletin {
 	
 	@ManyToOne
 	@JoinColumn(name = "lecture_id")
-	@JsonBackReference
+	@JsonIgnore
 	private Lectures lectureid;
 	
 	@Column(name = "title")
@@ -42,7 +40,7 @@ public class Bulletin {
 
 	@ManyToOne
 	@JoinColumn(name = "launcherid")
-	@JsonBackReference
+	@JsonIgnore
 	private UserAccountDt launcherid;
 	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -50,8 +48,7 @@ public class Bulletin {
 	private Date creationTime;
 
 	@OneToMany(mappedBy = "bulletinid")
-//	@JsonManagedReference
-//	@JsonIgnore
+	@JsonIgnore
 	private List<BulletinReply> replyList = new ArrayList<BulletinReply>(); 
 	
 	public Lectures getLectureid() {
