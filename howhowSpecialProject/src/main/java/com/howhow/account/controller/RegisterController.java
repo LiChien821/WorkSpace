@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.howhow.account.service.AccountService;
 import com.howhow.entity.UserAccountMt;
+import com.howhow.entity.UserStatus;
 import com.howhow.entity.UserAccountDt;
 import com.howhow.util.UtilityTool;
 
@@ -25,16 +26,17 @@ public class RegisterController {
 	public String registerPage(Model model) {
 		UserAccountMt useraccountmt = new UserAccountMt();
 		UserAccountDt useraccountdt = new UserAccountDt();
+	
 		model.addAttribute("Account", useraccountmt);
 		model.addAttribute("AccountDetail", useraccountdt);
 		return "register";
 	}
 
 	@PostMapping("/createUser")
-	public String createUser(@ModelAttribute("Account") UserAccountMt acc, @ModelAttribute("AccountDetail") UserAccountDt acd,
+	public String createUser(@ModelAttribute("Account") UserAccountMt acc, @ModelAttribute("AccountDetail") UserAccountDt acd,  UserStatus acs,
 			Model model, HttpServletRequest request) {
 		try {
-			service.createUser(acc, acd);
+			service.createUser(acc, acd , acs);
 			UtilityTool.sendVerificationEmail(acc, request);
 			
 			

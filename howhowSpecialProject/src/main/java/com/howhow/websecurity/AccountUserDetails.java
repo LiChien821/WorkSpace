@@ -67,6 +67,7 @@ public class AccountUserDetails implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 
+		//不須認證EMAIL即可登入
 		//return userAccount.getUserstatus().isEmailAuth();
 		return true;
 	}

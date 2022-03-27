@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.howhow.account.repository.AccountDetailRepository;
 import com.howhow.account.repository.AccountRepository;
+import com.howhow.entity.AccountLevel;
 import com.howhow.entity.UserAccountDt;
 import com.howhow.entity.UserAccountMt;
+import com.howhow.entity.UserStatus;
 
 @Service
 public class AccountService {
@@ -21,11 +23,21 @@ public class AccountService {
 	@Autowired
 	private PasswordEncoder bcryptoEncoder;
 
-	public void createUser(UserAccountMt account, UserAccountDt acd) {
+	//註冊功能 MT+DT+Status
+	public void createUser(UserAccountMt account, UserAccountDt acd , UserStatus acs) {
 		acd.setUserAccountMt(account);
 		account.setUserAccountDt(acd);
+		
 		account.setSystemTime(new java.util.Date());
 		acd.setSystemTime(new java.util.Date());
+		
+		acs.setUserAccountMt(account);
+		acs.setSystemTime(new java.util.Date());
+		acs.setAccountLevel(AccountLevel.Student);
+		acs.setAccountStatus(10);
+		acs.setEmailAuth(false);
+		
+		account.setUserstatus(acs);
 		//加密password
 		String userAccount = account.getAccount();
 		if (repo.findByAccount(userAccount) == null && detailRepo.findByEmail(acd.getEmail())== null) {
