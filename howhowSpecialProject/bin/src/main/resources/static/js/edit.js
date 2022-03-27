@@ -1,21 +1,22 @@
 import { createApp } from 'vue'
 
 const dataObj = {
-	blobSetting:"",
-	
+	blobSetting: "",
+
 	currentAccountID: "",
 	currentCourseID: "",
 	currentSectionID: "",
-	currentLectureID:"",
-	currentSectionIndex:"",
-	currentLectureIndex:"",
-	
-	categoryList:"",
+	currentLectureID: "",
+	currentSectionIndex: "",
+	currentLectureIndex: "",
+
+	categoryList: "",
 	category: "",
 	course: "",
-	currentSection:"",
-	videoSrc:"",
-	lecture:"",
+	currentSection: "",
+	videoSrc: "",
+	coverSrc: "",
+	lecture: "",
 
 	sectionList: "",
 	lectureList: "",
@@ -27,8 +28,12 @@ const dataObj = {
 	newLectureName: "",
 
 
-	coverFile:"",
-	videoFile:""
+	coverFile: "",
+	videoFile: "",
+
+
+	upLoadingText: "",
+	upLoadingCover:""
 
 };
 
@@ -39,46 +44,62 @@ createApp({
 	},
 	methods: {
 		changeCategory(id) {
-			this.category=this.categoryList[id-1];
-			this.course.category=this.category;
+			this.category = this.categoryList[id - 1];
+			this.course.category = this.category;
 		},
 		handleFileUpload() {
-				this.coverFile = this.$refs.file.files[0];
-			},
-		 createForm: function () {
-				if(this.coverFile !==""){
+			this.coverFile = this.$refs.file.files[0];
+		},
+		createForm: function() {
+			axios({
+				method: 'post',
+
+				url: '/howhow/api/updateCourseAbstract' ,
+				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+
+				data: this.course,
+			})
+
+				.then(response => (this.course = response.data))
+				.catch(function(error) {
+					console.log(error);
+
+				});
+			if (this.coverFile !== "") {
 				var postforms = new FormData();
 				postforms.append("file", this.coverFile);
-				postforms.append("courseID", this.course.courseId);
-			
+				postforms.append("courseID", this.course.courseID);
+
 				let config = {
 					headers: {
 						"Content-Type": "multipart/form-data"
 					}
 				};
 
-
+				this.upLoadingCover = `封面上傳中...`;
+				this.coverSrc="";
 				axios
 					.post(
 						'/howhow/api/updateCourseAbstractCover',
 						postforms,
 						config
 					)
-					.then(response => (this.course = response.data))
-					.catch(function (error) {
+					.then(response => (this.course = response.data,this.upLoadingCover="",this.$forceUpdate()))
+					.catch(function(error) {
+						this.upLoadingCover="";
 						console.log(error);
-						
+
 					});
-			
-				}	
-			
-			},
-			
-			handleVideoUpload() {
-				this.videoFile = this.$refs.videofile.files[0];
-			},
-		
+
+			}
+
 		},
+
+		handleVideoUpload() {
+			this.videoFile = this.$refs.videofile.files[0];
+		},
+
+	},
 	mounted: function() {
 		this.currentCourseID = document.getElementById("defaultCourseID").value;
 		axios({
@@ -99,7 +120,7 @@ createApp({
 			.catch(function(error) {
 				console.log(error);
 			});
-		
+
 		axios({
 			method: 'get',
 
@@ -114,6 +135,7 @@ createApp({
 				console.log(error);
 
 			});
+			
 
 	},
 
@@ -223,18 +245,34 @@ createApp({
 	},
 	methods: {
 		changeLectureList: function(id) {
-			this.lecture="";
-			this.lectureList=this.sectionList[id].lecturesList;
-		
+			this.lecture = "";
+			this.lectureList = this.sectionList[id].lecturesList;
+				axios({
+			method: 'get',
+
+			url: '/howhow/api/getCourse/' + this.currentCourseID,
+			headers: { "Access-Control-Allow-Origin": "*" },
+
+
+		})
+
+			.then(response => (this.course = response.data, this.sectionList = response.data.sectionList, this.category = response.data.category))
+			.catch(function(error) {
+				console.log(error);
+
+			});
+
 		},
-		selectLecture:function(id) {
-			this.lecture=this.lectureList[id];
-		
+		selectLecture: function(id) {
+			this.lecture = this.lectureList[id];
+
 		},
-		 createForm: function () {
-				var postforms = new FormData();
+		createForm: function() {
 			
-				
+			if (this.videoFile !== "") {
+				var postforms = new FormData();
+
+
 				postforms.append("videofile", this.videoFile);
 				postforms.append("lectureID", this.lecture.lecturesID);
 				let config = {
@@ -242,7 +280,7 @@ createApp({
 						"Content-Type": "multipart/form-data"
 					}
 				};
-
+				this.upLoadingText = `影片上傳中...`;
 
 				axios
 					.post(
@@ -250,18 +288,22 @@ createApp({
 						postforms,
 						config
 					)
-					.then(response => (this.lecture = response.data))
-					.catch(function (error) {
+					.then(response => (this.lecture = response.data,this.upLoadingText = ""))
+					.catch(function(error) {
+						this.upLoadingText = "";
 						console.log(error);
-						
+
 					});
-				
-			},
+
+			}
 			
-			handleVideoUpload() {
-				this.videoFile = this.$refs.videofile.files[0];
-			},
-		
+			
+		},
+
+		handleVideoUpload() {
+			this.videoFile = this.$refs.videofile.files[0];
+		},
+
 	}
 
 }).mount('#editCourseLectures')

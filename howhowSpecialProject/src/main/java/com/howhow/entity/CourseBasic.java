@@ -12,34 +12,82 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "courseID")
-@Entity @Table(name = "coursebasic")
+@Entity
+@Table(name = "coursebasic")
 @Component
 public class CourseBasic {
-	
-	@Id @Column(name = "course_id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
+	@Id
+	@Column(name = "course_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int courseID;
-	
+
 	@Column(name = "course_name")
 	private String courseName;
-	
+
 	@Column(name = "price")
 	private long price;
-	
+
 	@Column(name = "discount")
 	private double discount;
+
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
+
+	@Transient
+	private int courseStatus;
+
+	@Column(name = "course_cover")
+	private String courseCover;
+
+	@Column(name = "description")
+	private String description;
+
+	@Column(name = "system_time")
+	private String SystemTime;
+
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "creator_id")
+	private UserAccountDt creator;
 	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "course_status")
+	private CourseStatusType StatusType;
+
+	@OneToMany(mappedBy = "courseBasic")
+	private List<Section> sectionList = new ArrayList<Section>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
+	private List<PurchasedCourse> purchasedCourses = new ArrayList<PurchasedCourse>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
+	private List<OrderDt> orderDtList = new ArrayList<OrderDt>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
+	private List<ShoppingCart> shoppingCartList = new ArrayList<ShoppingCart>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
+	private List<CFCourse> cfCourseList = new ArrayList<CFCourse>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
+	private List<FavoriteCourse> favoriteCourseList = new ArrayList<FavoriteCourse>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
+	private List<CourseRank> courseRankList = new ArrayList<CourseRank>();
+
 	public CourseBasic() {
 	}
 	
@@ -55,58 +103,7 @@ public class CourseBasic {
 		SystemTime = systemTime;
 		this.creator = creator;
 	}
-
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="category_id")
-	private Category category;
 	
-	@Column(name="course_status")
-	private int courseStatus;
-	
-	@Column(name="course_cover")
-	private String courseCover;
-	
-	@Column(name = "description")
-	private String description;
-	
-	@Column(name = "system_time")
-	private String SystemTime;
-	
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "creator_id", referencedColumnName = "user_id")
-	private UserAccountDt creator;
-	
-	@OneToMany(mappedBy = "courseBasic")
-	private List<Section> sectionList =new ArrayList<Section>();
-	
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
-	private List<PurchasedCourse> purchasedCourses = new ArrayList<PurchasedCourse>();
-	
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseID", cascade = CascadeType.ALL)
-	private List<OrderDt> orderDtList = new ArrayList<OrderDt>();
-	
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
-	private List<ShoppingCart> shoppingCartList = new ArrayList<ShoppingCart>();
-	
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
-	private List<CFCourse> cfCourseList = new ArrayList<CFCourse>();
-	
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
-	private List<FavoriteCourse> favoriteCourseList = new ArrayList<FavoriteCourse>();
-	
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
-	private List<CourseRank> courseRankList = new ArrayList<CourseRank>();
-
-
-
 	public String getCourseName() {
 		return courseName;
 	}
@@ -114,8 +111,6 @@ public class CourseBasic {
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
-
-
 
 	public double getDiscount() {
 		return discount;
@@ -132,8 +127,6 @@ public class CourseBasic {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-
-
 
 	public String getCourseCover() {
 		return courseCover;
@@ -223,9 +216,6 @@ public class CourseBasic {
 		this.courseRankList = courseRankList;
 	}
 
-
-
-
 	public long getPrice() {
 		return price;
 	}
@@ -250,5 +240,4 @@ public class CourseBasic {
 		this.courseID = courseID;
 	}
 
-	
 }
