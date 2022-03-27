@@ -65,7 +65,7 @@ public class CourseBasic {
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "course_status")
-	private CourseStatusType StatusType;
+	private CourseStatusType statusType;
 
 	@OneToMany(mappedBy = "courseBasic")
 	private List<Section> sectionList = new ArrayList<Section>();
