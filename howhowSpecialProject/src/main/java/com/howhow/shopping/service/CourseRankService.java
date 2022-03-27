@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.howhow.entity.CourseRank;
+import com.howhow.shopping.exception.CourseRankNotFoundException;
+import com.howhow.shopping.exception.UserOrCourseNotFoundException;
 import com.howhow.shopping.repository.CourseRankRepository;
 
 @Service
@@ -25,26 +25,30 @@ public class CourseRankService {
 		return null;
 	}
 	
-	public CourseRank insertCourseRank(CourseRank courseRank) {
+	public CourseRank insertCourseRank(CourseRank courseRank) throws UserOrCourseNotFoundException {
 		
+		try {
 		CourseRank insertedCourseRank = repo.save(courseRank);
 		return insertedCourseRank;
+		} catch (Exception e) {
+			throw new UserOrCourseNotFoundException();
+		}
 	}
 	
-	public CourseRank updateCourseRank(CourseRank courseRank) {
+	public CourseRank updateCourseRank(CourseRank courseRank) throws CourseRankNotFoundException {
 		
 		int id = courseRank.getCourseRankID();
 		if(repo.findById(id)==null) {
-			System.out.println("此CourseRankID不存在於資料庫");
+			throw new CourseRankNotFoundException();
 		}
 		CourseRank insert = repo.save(courseRank);
 		return insert;
 	}
 	
-	public boolean deleteCourseRankByID(int id) {
+	public boolean deleteCourseRankByID(int id) throws CourseRankNotFoundException {
 		
 		if(repo.findById(id)==null) {
-			System.out.println("此CourseRankID不存在於資料庫，無法刪除");
+			throw new CourseRankNotFoundException();
 		}
 		
 		repo.deleteById(id);

@@ -15,6 +15,9 @@ import com.howhow.entity.OrderDt;
 import com.howhow.entity.OrderMt;
 import com.howhow.entity.ShoppingCart;
 import com.howhow.entity.UserAccountMt;
+import com.howhow.shopping.exception.OrderNotFoundException;
+import com.howhow.shopping.exception.ShoppingCartNotFoundException;
+import com.howhow.shopping.exception.UserOrCourseNotFoundException;
 import com.howhow.shopping.service.CourseBasicService;
 import com.howhow.shopping.service.OrderDtService;
 import com.howhow.shopping.service.OrderMtService;
@@ -42,7 +45,7 @@ public class OrderController {
 	
 	@GetMapping("/createorder/{id}")
 	@ResponseBody
-	public boolean createOrder(@PathVariable("id") int id) {
+	public boolean createOrder(@PathVariable("id") int id) throws ShoppingCartNotFoundException, UserOrCourseNotFoundException {
 		
 		List<ShoppingCart> shoppinglist = sService.findByUserID(id);
 		UserAccountMt user = accService.findByID(id);
@@ -95,9 +98,7 @@ public class OrderController {
 	
 	@GetMapping("/deleteorder/{id}")
 	@ResponseBody
-	public boolean deleteByID(@PathVariable("id") int id) {
-		
-		if(omtService.findByID(id)==null) return false;
+	public boolean deleteByID(@PathVariable("id") int id) throws OrderNotFoundException {
 		
 		omtService.deleteByID(id);
 		return true;

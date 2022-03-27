@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.howhow.account.service.AccountService;
-import com.howhow.entity.UserAccountMt;
 import com.howhow.entity.UserAccountDt;
+import com.howhow.entity.UserAccountMt;
+import com.howhow.entity.UserStatus;
 import com.howhow.util.UtilityTool;
 
 @Controller
@@ -25,6 +26,7 @@ public class RegisterController {
 	public String registerPage(Model model) {
 		UserAccountMt useraccountmt = new UserAccountMt();
 		UserAccountDt useraccountdt = new UserAccountDt();
+		UserStatus userstatus = new UserStatus();
 		model.addAttribute("Account", useraccountmt);
 		model.addAttribute("AccountDetail", useraccountdt);
 		return "register";
@@ -40,7 +42,7 @@ public class RegisterController {
 			
 			service.save(acc);
 			model.addAttribute("text", "註冊完成 請收取認證信  完成帳號啟動 ");
-			return "success";
+			return "index";
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			UserAccountMt useraccountmt = new UserAccountMt();
@@ -59,7 +61,7 @@ public class RegisterController {
 
 		String text = " verify  completed  your account is avaliable ";
 		model.addAttribute("text", text);
-		return "success";
+		return "index";
 	}
 
 }

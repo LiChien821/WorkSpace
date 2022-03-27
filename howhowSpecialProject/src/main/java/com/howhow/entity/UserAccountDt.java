@@ -57,7 +57,6 @@ public class UserAccountDt implements Serializable{
 	private String birth;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-
 	@Column(name = "accountcreationtime")
 	private java.util.Date acountCreationTime;
 
@@ -67,7 +66,6 @@ public class UserAccountDt implements Serializable{
 
 	@MapsId
 	@OneToOne(fetch = FetchType.LAZY)
-
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id",insertable = false,updatable = false)
 	@JsonIgnore
 	private UserAccountMt userAccountMt;

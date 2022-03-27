@@ -20,6 +20,8 @@ import com.howhow.entity.CourseRank;
 import com.howhow.entity.CourseStatusType;
 import com.howhow.entity.UserAccountDt;
 import com.howhow.shopping.dto.CourseBasicDTO;
+import com.howhow.shopping.exception.CourseNotFoundException;
+import com.howhow.shopping.exception.UserNotFoundException;
 import com.howhow.shopping.service.CategoryService;
 import com.howhow.shopping.service.CourseBasicService;
 import com.howhow.shopping.service.CourseRankService;
@@ -129,7 +131,7 @@ public class ProductController {
 
 	@PostMapping("/insertcourse")
 	@ResponseBody
-	public CourseBasic insertCourseBasic(@RequestBody CourseBasicDTO coursebasicDTO) {
+	public CourseBasic insertCourseBasic(@RequestBody CourseBasicDTO coursebasicDTO) throws UserNotFoundException {
 
 		int creatorid = coursebasicDTO.getCreatorid();
 		int categoryid = coursebasicDTO.getCategoryid();
@@ -147,7 +149,7 @@ public class ProductController {
 
 	@PostMapping("/updatecourse")
 	@ResponseBody
-	public CourseBasic updateCourseBasic(@RequestBody CourseBasicDTO coursebasicDTO) {
+	public CourseBasic updateCourseBasic(@RequestBody CourseBasicDTO coursebasicDTO) throws CourseNotFoundException {
 
 		int courseID = coursebasicDTO.getCourseID();
 		CourseBasic course = cService.findByID(courseID);
@@ -173,10 +175,7 @@ public class ProductController {
 
 	@GetMapping("/deletecourse/{id}")
 	@ResponseBody
-	public boolean deleteCourseBasic(@PathVariable("id") int id) {
-
-		if (cService.findByID(id) == null)
-			return false;
+	public boolean deleteCourseBasic(@PathVariable("id") int id) throws CourseNotFoundException {
 
 		cService.deleteById(id);
 		return true;

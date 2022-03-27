@@ -19,6 +19,9 @@ import com.howhow.entity.CourseRank;
 import com.howhow.entity.UserAccountDt;
 import com.howhow.entity.UserAccountMt;
 import com.howhow.shopping.dto.CourseRankDTO;
+import com.howhow.shopping.exception.CourseNotFoundException;
+import com.howhow.shopping.exception.CourseRankNotFoundException;
+import com.howhow.shopping.exception.UserOrCourseNotFoundException;
 import com.howhow.shopping.service.CourseBasicService;
 import com.howhow.shopping.service.CourseRankService;
 import com.howhow.student.service.PurchasedCourseService;
@@ -46,11 +49,9 @@ public class CourseRankController {
 	 * */
 	@GetMapping("/querycourserank/{courserankid}")
 	@ResponseBody
-	public CourseRankDTO findCourseRankByID(@PathVariable("courserankid") int courserankid) {
+	public CourseRankDTO findCourseRankByID(@PathVariable("courserankid") int courserankid) throws CourseNotFoundException {
 		
 		CourseRank courseRank = cService.findByID(courserankid);
-		if(courseRank==null) return null;
-		
 		CourseRankDTO dto = dtoutils(courseRank);
 		
 		return dto;
@@ -61,7 +62,7 @@ public class CourseRankController {
 	 * */
 	@PostMapping("/insertcourserank")
 	@ResponseBody
-	public CourseRank insertCourseRank(@RequestBody CourseRankDTO courseRankDTO) {
+	public CourseRank insertCourseRank(@RequestBody CourseRankDTO courseRankDTO) throws CourseRankNotFoundException, UserOrCourseNotFoundException {
 		
 		if(!pService.findPurchasedStatus(courseRankDTO.getUserid(), courseRankDTO.getCourseid())) return null;
 		
@@ -79,17 +80,9 @@ public class CourseRankController {
 	 * */
 	@GetMapping("/deletecourserank/{id}")
 	@ResponseBody
-	public boolean deleteCourseRank(@PathVariable("id") int id, Model m) {
+	public boolean deleteCourseRank(@PathVariable("id") int id, Model m) throws CourseRankNotFoundException {
 		
-		boolean status = cService.deleteCourseRankByID(id);
-		if(status==false) {
-//			m.addAttribute("status","刪除失敗");
-			
-			return false;
-		}
-		
-		System.out.println("刪除成功");
-		
+		cService.deleteCourseRankByID(id);
 		return true;
 	}
 	
@@ -98,7 +91,7 @@ public class CourseRankController {
 	 * */
 	@PostMapping("/updatecourserank")
 	@ResponseBody
-	public CourseRank updateCourseRank(@RequestBody CourseRankDTO courseRankDTO) {
+	public CourseRank updateCourseRank(@RequestBody CourseRankDTO courseRankDTO) throws CourseRankNotFoundException {
 		
 		int id = courseRankDTO.getCourserankid();
 		CourseRank courseRank = cService.findByID(id);
@@ -115,7 +108,7 @@ public class CourseRankController {
 	
 	@GetMapping("/querycourserankbycourseid/{id}")
 	@ResponseBody
-	public List<CourseRankDTO> findCourseRankByCourseID(@PathVariable("id") int id) {
+	public List<CourseRankDTO> findCourseRankByCourseID(@PathVariable("id") int id) throws CourseNotFoundException {
 		
 		List<CourseRankDTO> dtoList = new ArrayList<CourseRankDTO>();
 		
@@ -130,7 +123,7 @@ public class CourseRankController {
 	}
 	
 	
-	private CourseRankDTO dtoutils(CourseRank courseRank) {
+	private CourseRankDTO dtoutils(CourseRank courseRank) throws CourseNotFoundException {
 		int courseID = courseRank.getCourseBasic().getCourseID();	
 		int userid = courseRank.getUserAccountMt().getUserId();		
 		UserAccountDt userdetail = acdService.findByID(userid);

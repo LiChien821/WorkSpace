@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.howhow.util.UtilityTool;
 
 @Entity
 @Table(name = "userstatus")
@@ -35,14 +36,15 @@ public class UserStatus implements Serializable {
 	@Column(name = "user_id")
 	@GeneratedValue(generator = "generator")
 	private int userId;
-
+	
+	/*
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
 	@Column(name = "ACCOUNT", unique = true)
 	private String account;
+	*/
 	
-
 	@Column(name = "ACCOUNTSTATUS")
-	private int accountStatus;
+	private int accountStatus=1;
 
 	@Column(name="EMAILAUTH")
 	private boolean emailAuth = false;
@@ -51,11 +53,9 @@ public class UserStatus implements Serializable {
 	@Column(name = "ACCOUNTLEVEL")
 	private AccountLevel accountLevel =AccountLevel.Student;
 
-
-
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@Column(name = "SYSTEMTIME")
-	private java.util.Date systemTime;
+	private java.util.Date systemTime = new java.util.Date();
 
 	@JsonIgnore
 	@MapsId
@@ -63,11 +63,12 @@ public class UserStatus implements Serializable {
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id",insertable = false,updatable = false)
 	private UserAccountMt userAccountMt;
 	
+	/*
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "Account", referencedColumnName = "ACCOUNT",insertable = false,updatable = false)
 	private UserAccountMt userAccountMt2;
-
+*/
 
 	public int getUserId() {
 		return userId;
@@ -77,6 +78,7 @@ public class UserStatus implements Serializable {
 		this.userId = userId;
 	}
 
+	/*
 	public UserAccountMt getUserAccountMt2() {
 		return userAccountMt2;
 	}
@@ -84,7 +86,7 @@ public class UserStatus implements Serializable {
 	public void setUserAccountMt2(UserAccountMt userAccountMt2) {
 		this.userAccountMt2 = userAccountMt2;
 	}
-
+*/
 
 
 	public int getAccountStatus() {

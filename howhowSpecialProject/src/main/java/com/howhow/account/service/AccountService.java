@@ -10,6 +10,8 @@ import com.howhow.account.repository.AccountDetailRepository;
 import com.howhow.account.repository.AccountRepository;
 import com.howhow.entity.UserAccountDt;
 import com.howhow.entity.UserAccountMt;
+import com.howhow.entity.UserBonus;
+import com.howhow.entity.UserStatus;
 
 @Service
 public class AccountService {
@@ -26,8 +28,19 @@ public class AccountService {
 	public void createUser(UserAccountMt account, UserAccountDt acd) {
 		acd.setUserAccountMt(account);
 		account.setUserAccountDt(acd);
+		
+		UserBonus bonus = new UserBonus();
+		bonus.setUserID(account);
+		
+		UserStatus status = new UserStatus();
+		status.setUserAccountMt(account);
+		account.setUserstatus(status);
+		
+		account.setUserBonus(bonus);
 		account.setSystemTime(new java.util.Date());
 		acd.setSystemTime(new java.util.Date());
+		acd.setAcountCreationTime(new java.util.Date());
+		
 		//加密password
 		String userAccount = account.getAccount();
 		if (repo.findByAccount(userAccount) == null && detailRepo.findByEmail(acd.getEmail())== null) {

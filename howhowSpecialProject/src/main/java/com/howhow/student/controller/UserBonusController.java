@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.howhow.account.service.AccountService;
 import com.howhow.entity.UserAccountMt;
 import com.howhow.entity.UserBonus;
+import com.howhow.shopping.exception.UserNotFoundException;
+import com.howhow.student.exception.BonusTypeErrorException;
 import com.howhow.student.service.UserBonusService;
 import com.howhow.util.UtilityTool;
 
@@ -26,23 +28,11 @@ public class UserBonusController {
 	 * */
 	@GetMapping("/addbonusbyid/{id}/{bonus}")
 	@ResponseBody
-	public UserBonus updateBonusById(@PathVariable("id") int id, @PathVariable("bonus") int bonus) {
+	public UserBonus addBonusById(@PathVariable("id") int id, @PathVariable("bonus") int bonus) throws BonusTypeErrorException, UserNotFoundException {
+		
+		if(bonus<=0) throw new BonusTypeErrorException();
 		
 		UserBonus userbonus = bService.findByID(id);
-		if(userbonus==null) {
-			UserAccountMt mt = accService.findByID(id);
-			
-			UserBonus newbonus = new UserBonus();
-			newbonus.setBonusCount(bonus);
-			newbonus.setSystemTime(UtilityTool.getSysTime());
-			
-			mt.setUserBonus(userbonus);
-			newbonus.setUserID(mt);
-			
-			UserBonus createBonus = bService.updateUserBonus(newbonus);
-			
-			return createBonus;
-		}
 		
 		int bonusCount = userbonus.getBonusCount();
 		userbonus.setBonusCount(bonusCount+bonus);
@@ -58,7 +48,7 @@ public class UserBonusController {
 	 * */
 	@GetMapping("/findbonusbyid/{id}")
 	@ResponseBody
-	public UserBonus checkBonusById(@PathVariable("id") int id) {
+	public UserBonus checkBonusById(@PathVariable("id") int id) throws UserNotFoundException {
 		
 		UserBonus userbonus = bService.findByID(id);
 		return userbonus;
@@ -69,13 +59,15 @@ public class UserBonusController {
 	 * */
 	@GetMapping("/usebonus/{id}/{bonus}")
 	@ResponseBody
-	public UserBonus useBonus(@PathVariable("id") int id, @PathVariable("bonus") int bonus) {
+	public UserBonus useBonus(@PathVariable("id") int id, @PathVariable("bonus") int usebonus) throws UserNotFoundException, BonusTypeErrorException{
+		
+		if(usebonus<=0) throw new BonusTypeErrorException();
 		
 		UserBonus user = bService.findByID(id);
-		if(user==null) return null;
+		if(user==null) throw new UserNotFoundException();
 		int bonusCount = user.getBonusCount();
-		int finalbonus = bonusCount-bonus;
-		if(finalbonus<0) return null;
+		int finalbonus = bonusCount-usebonus;
+		if(finalbonus<0) throw new BonusTypeErrorException();
 		
 		user.setBonusCount(finalbonus);
 		

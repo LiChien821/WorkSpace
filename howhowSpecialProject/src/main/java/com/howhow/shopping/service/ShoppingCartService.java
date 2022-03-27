@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.howhow.entity.ShoppingCart;
+import com.howhow.shopping.exception.ShoppingCartNotFoundException;
+import com.howhow.shopping.exception.UserOrCourseNotFoundException;
 import com.howhow.shopping.repository.ShoppingCartRepository;
 
 @Service
@@ -27,11 +29,15 @@ public class ShoppingCartService {
 		return list;
 	}
 	
-	public ShoppingCart insertShoppingCart(ShoppingCart sc) {
+	public ShoppingCart insertShoppingCart(ShoppingCart sc) throws UserOrCourseNotFoundException {
 		
-		ShoppingCart bean = repo.save(sc);
+		try {
+			ShoppingCart bean = repo.save(sc);
+			return bean;
+		} catch (Exception e) {
+			throw new UserOrCourseNotFoundException();
+		}
 		
-		return bean;
 	}
 	
 	public boolean findShoppingCartStatus(int userid, int courseid) {
@@ -40,10 +46,12 @@ public class ShoppingCartService {
 	}
 	
 	
-	public boolean deleteByID(int id) {
-		if(repo.findById(id).isEmpty()) return false;
-	
-		repo.deleteById(id);
-		return true;
+	public boolean deleteByID(int id) throws ShoppingCartNotFoundException {
+		try {
+			repo.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			throw new ShoppingCartNotFoundException();
+		}
 	}
 }

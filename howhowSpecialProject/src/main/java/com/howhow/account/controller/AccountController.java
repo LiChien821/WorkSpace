@@ -34,11 +34,14 @@ public class AccountController {
 		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
 			return "login";
 		}
-		return "redirect:/";
+		return "redirect:/home";
 	}
 	
-	@GetMapping("/")
+	@GetMapping("/home")
 	public String index(@AuthenticationPrincipal AccountUserDetails loggedAccount ,Model model) {
+		
+		if(loggedAccount==null) return "redirect:/";
+		
 		UserAccountMt account=loggedAccount.getLoggedAccount();
 		model.addAttribute("account",account);
 		System.out.println(account.getUserId());

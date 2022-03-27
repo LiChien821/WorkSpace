@@ -20,6 +20,7 @@ import org.hibernate.annotations.Parameter;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.howhow.util.UtilityTool;
 
 @Entity @Table(name="userbonus")
 @Component
@@ -34,10 +35,10 @@ public class UserBonus implements Serializable{
 	private int userId;
 	
 	@Column(name="bonus_count")
-	private int bonusCount;
+	private int bonusCount=1000;
 	
 	@Column(name="system_time")
-	private String systemTime;
+	private String systemTime=UtilityTool.getSysTime();
 	
 	@MapsId
 	@JsonIgnore

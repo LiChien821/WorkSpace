@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.howhow.entity.OrderMt;
 import com.howhow.entity.PurchasedCourse;
+import com.howhow.shopping.exception.DuplicatedPurchasedCourseException;
+import com.howhow.shopping.exception.OrderNotFoundException;
 import com.howhow.shopping.service.OrderMtService;
 import com.howhow.student.dto.PurchasedCourseDTO;
+import com.howhow.student.exception.OrderStatusErrorException;
 import com.howhow.student.service.PurchasedCourseService;
 
 @Controller
@@ -20,14 +23,14 @@ public class PurchasedCourseController {
 
 	@Autowired
 	PurchasedCourseService pService;
-	
+
 	@Autowired
 	OrderMtService oService;
-	
+
 	@GetMapping("/findpurchasedcoursebyuserid/{id}")
 	@ResponseBody
 	public List<PurchasedCourseDTO> findPurchasedCourseByUserID(@PathVariable("id") int userId) {
-		
+
 		List<PurchasedCourseDTO> dtolist = new ArrayList<PurchasedCourseDTO>();
 		List<PurchasedCourse> list = pService.findByUserID(userId);
 		for (PurchasedCourse purchasedCourse : list) {
@@ -35,45 +38,48 @@ public class PurchasedCourseController {
 			PurchasedCourseDTO pcd = new PurchasedCourseDTO(userId, courseID);
 			dtolist.add(pcd);
 		}
-		
+
 		return dtolist;
 	}
-	
+
 	@GetMapping("/findpurchasedcoursebyid/{id}")
 	@ResponseBody
 	public PurchasedCourseDTO findbyID(@PathVariable("id") int id) {
 		PurchasedCourse bean = pService.findByID(id);
 		int userId = bean.getUserAccountMt().getUserId();
 		int courseID = bean.getCourseBasic().getCourseID();
-		
+
 		PurchasedCourseDTO dto = new PurchasedCourseDTO(userId, courseID);
-		
+
 		return dto;
 	}
-	
+
 	@GetMapping("/insertpurchasedcoursebyorderid/{id}")
 	@ResponseBody
-	public List<PurchasedCourseDTO> insertPurchasedCourse(@PathVariable("id") int orderid) {
-		
+	public List<PurchasedCourseDTO> insertPurchasedCourse(@PathVariable("id") int orderid)
+			throws OrderNotFoundException, OrderStatusErrorException, DuplicatedPurchasedCourseException {
+
 		List<PurchasedCourseDTO> dtolist = new ArrayList<PurchasedCourseDTO>();
-		List<PurchasedCourse> insertPurchasedCourse = pService.insertPurchasedCourse(orderid);
-		
-		OrderMt omt = oService.findByID(orderid);
-		if(omt==null) return null;
-		
-		omt.setOrderStatusTypeID(2);
-		oService.updateOrderMt(omt);
-		
-		for (PurchasedCourse purchasedCourse : insertPurchasedCourse) {
-			int courseID = purchasedCourse.getCourseBasic().getCourseID();
-			int userId = purchasedCourse.getUserAccountMt().getUserId();
-			PurchasedCourseDTO pcd = new PurchasedCourseDTO(userId, courseID);
-			dtolist.add(pcd);
+		try {
+			List<PurchasedCourse> insertPurchasedCourse = pService.insertPurchasedCourse(orderid);
+
+			OrderMt omt = oService.findByID(orderid);
+			omt.setOrderStatusTypeID(2);
+			oService.updateOrderMt(omt);
+
+			for (PurchasedCourse purchasedCourse : insertPurchasedCourse) {
+				int courseID = purchasedCourse.getCourseBasic().getCourseID();
+				int userId = purchasedCourse.getUserAccountMt().getUserId();
+				PurchasedCourseDTO pcd = new PurchasedCourseDTO(userId, courseID);
+				dtolist.add(pcd);
+			}
+
+			return dtolist;
+		} catch (Exception e) {
+			throw new DuplicatedPurchasedCourseException();
 		}
-		
-		return dtolist;
 	}
-	
+
 	@GetMapping("/findpurchasedcoursebycourseid/{id}")
 	@ResponseBody
 	public List<PurchasedCourseDTO> findByCourseID(@PathVariable("id") int courseid) {
@@ -86,5 +92,5 @@ public class PurchasedCourseController {
 		}
 		return dtolist;
 	}
-	
+
 }

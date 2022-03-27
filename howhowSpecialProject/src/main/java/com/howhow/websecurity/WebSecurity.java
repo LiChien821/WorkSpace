@@ -54,7 +54,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		         .formLogin()
 		         .loginPage("/login")
 		         .usernameParameter("account")
-		         .defaultSuccessUrl("/", true)
+		         .defaultSuccessUrl("/home", true)
 		         .permitAll()
 		         .and()
 		         .rememberMe()
@@ -62,6 +62,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		          .tokenValiditySeconds(12*24*60)
 		         .and()
 		          .logout()
+		          .logoutSuccessUrl("/")
 		          .deleteCookies("JSESSIONID","remember-me")
 		          .permitAll();
 									

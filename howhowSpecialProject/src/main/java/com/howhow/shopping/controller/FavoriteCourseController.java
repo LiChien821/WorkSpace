@@ -19,6 +19,8 @@ import com.howhow.entity.FavoriteCourse;
 import com.howhow.entity.ShoppingCart;
 import com.howhow.entity.UserAccountMt;
 import com.howhow.shopping.dto.SimpleCourseDTO;
+import com.howhow.shopping.exception.FavoriteCourseNotFoundException;
+import com.howhow.shopping.exception.UserOrCourseNotFoundException;
 import com.howhow.shopping.service.CourseBasicService;
 import com.howhow.shopping.service.CourseRankService;
 import com.howhow.shopping.service.FavoriteCourseService;
@@ -77,10 +79,9 @@ public class FavoriteCourseController {
 	 * */
 	@GetMapping("/deletefavoritecourse/{id}")
 	@ResponseBody
-	public boolean removeFavoriteCourseByID(@PathVariable("id") int id) {
+	public boolean removeFavoriteCourseByID(@PathVariable("id") int id) throws FavoriteCourseNotFoundException {
 		
 		boolean status = fService.deleteByID(id);
-		
 		return status;
 	}
 	
@@ -89,11 +90,10 @@ public class FavoriteCourseController {
 	 * */
 	@GetMapping("/movetoshoppingcart/{id}")
 	@ResponseBody
-	public boolean removeFavoriteCourseAndAddShopByFID(@PathVariable("id") int id) {
+	public boolean removeFavoriteCourseAndAddShopByFID(@PathVariable("id") int id) throws UserOrCourseNotFoundException, FavoriteCourseNotFoundException {
 		
 		FavoriteCourse favorite = fService.findByID(id);
-		if(favorite == null)
-			return false;
+		if(favorite == null) throw new FavoriteCourseNotFoundException();
 		
 		int courseID = favorite.getCourseBasic().getCourseID();
 		int userId = favorite.getUserAccountMt().getUserId();
@@ -102,7 +102,7 @@ public class FavoriteCourseController {
 		CourseBasic cb = cService.findByID(courseID);
 		
 		ShoppingCart sc = new ShoppingCart(UtilityTool.getSysTime(), mt, cb);
-		ShoppingCart insertShoppingCart = sService.insertShoppingCart(sc);
+		sService.insertShoppingCart(sc);
 		
 		fService.deleteByID(id);
 		
@@ -114,7 +114,7 @@ public class FavoriteCourseController {
 	 * */
 	@PostMapping("/insertfavoritecourse")
 	@ResponseBody
-	public FavoriteCourse insertFavoriteCourse(@RequestBody SimpleCourseDTO favoritecourseDTO) {
+	public FavoriteCourse insertFavoriteCourse(@RequestBody SimpleCourseDTO favoritecourseDTO) throws UserOrCourseNotFoundException {
 		
 		UserAccountMt mt = accService.findByID(favoritecourseDTO.getUserID());
 		CourseBasic cb = cService.findByID(favoritecourseDTO.getCourseID());

@@ -18,6 +18,8 @@ import com.howhow.entity.FavoriteCourse;
 import com.howhow.entity.ShoppingCart;
 import com.howhow.entity.UserAccountMt;
 import com.howhow.shopping.dto.SimpleCourseDTO;
+import com.howhow.shopping.exception.ShoppingCartNotFoundException;
+import com.howhow.shopping.exception.UserOrCourseNotFoundException;
 import com.howhow.shopping.service.CourseBasicService;
 import com.howhow.shopping.service.CourseRankService;
 import com.howhow.shopping.service.FavoriteCourseService;
@@ -80,10 +82,7 @@ public class ShoppingCartController {
 	 */
 	@GetMapping("/removeshoppingcartbyid/{id}")
 	@ResponseBody
-	public boolean removeProductByID(@PathVariable("id") int id) {
-
-		if (sService.findByID(id) == null)
-			return false;
+	public boolean removeProductByID(@PathVariable("id") int id) throws ShoppingCartNotFoundException {
 
 		sService.deleteByID(id);
 		return true;
@@ -94,12 +93,9 @@ public class ShoppingCartController {
 	 */
 	@GetMapping("/movetofavoritecourse/{id}")
 	@ResponseBody
-	public boolean removeProductAndAddFCBySID(@PathVariable("id") int id) {
+	public boolean removeProductAndAddFCBySID(@PathVariable("id") int id) throws UserOrCourseNotFoundException, ShoppingCartNotFoundException {
 		ShoppingCart shopping = sService.findByID(id);
-		if (shopping == null)
-			return false;
-		
-		System.out.println("TEST");
+		if (shopping == null) throw new ShoppingCartNotFoundException();
 		
 		int courseID = shopping.getCourseBasic().getCourseID();
 		int userId = shopping.getUserAccountMt().getUserId();
@@ -117,7 +113,7 @@ public class ShoppingCartController {
 
 	@PostMapping("/insertshoppingcart")
 	@ResponseBody
-	public ShoppingCart insertShoppingCart(@RequestBody SimpleCourseDTO simplecourseDTO) {
+	public ShoppingCart insertShoppingCart(@RequestBody SimpleCourseDTO simplecourseDTO) throws UserOrCourseNotFoundException {
 
 		UserAccountMt mt = accService.findByID(simplecourseDTO.getUserID());
 		CourseBasic cb = cService.findByID(simplecourseDTO.getCourseID());
