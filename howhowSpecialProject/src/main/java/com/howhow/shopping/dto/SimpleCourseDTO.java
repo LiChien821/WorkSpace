@@ -1,4 +1,4 @@
-package com.howhow.shopping.DTO;
+package com.howhow.shopping.dto;
 
 public class SimpleCourseDTO {
 	

@@ -30,9 +30,7 @@ public class CourseBasicService {
 	public List<CourseBasic> findAll() {
 		
 		List<CourseBasic> list = repo.findAll();
-		
 		if(list.size()==0) System.out.println("無CourseBasic存在於資料庫內");
-		
 		return list;
 		
 	}
@@ -40,15 +38,16 @@ public class CourseBasicService {
 	public List<CourseBasic> findByCourseNameLike(String name) {
 		
 		String query = "%"+name+"%";
-		
 		List<CourseBasic> list = repo.findByCourseNameLike(query);
 		return list;
+		
 	}
 	
 	public List<CourseBasic> findByCategoryID(int cid) {
 		
 		List<CourseBasic> list = repo.findByCategoryID(cid);
 		return list;
+		
 	}
 	
 	public CourseBasic insertCourseBasic(CourseBasic course) {

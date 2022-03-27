@@ -1,4 +1,4 @@
-package com.howhow.shopping.DTO;
+package com.howhow.shopping.dto;
 
 import com.howhow.entity.CourseRank;
 

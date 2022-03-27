@@ -35,6 +35,13 @@ public class OrderMtService {
 		return save;
 	}
 	
+	public OrderMt updateOrderMt(OrderMt omt) {
+		int orderID = omt.getOrderID();
+		if(repo.findById(orderID)==null) return null;
+		OrderMt save = repo.save(omt);
+		return save;
+	}
+	
 	
 	public boolean deleteByID(int id) {
 		

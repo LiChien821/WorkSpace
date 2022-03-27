@@ -18,9 +18,10 @@ import com.howhow.entity.CourseBasic;
 import com.howhow.entity.CourseRank;
 import com.howhow.entity.UserAccountDt;
 import com.howhow.entity.UserAccountMt;
-import com.howhow.shopping.DTO.CourseRankDTO;
+import com.howhow.shopping.dto.CourseRankDTO;
 import com.howhow.shopping.service.CourseBasicService;
 import com.howhow.shopping.service.CourseRankService;
+import com.howhow.student.service.PurchasedCourseService;
 import com.howhow.util.UtilityTool;
 
 @Controller
@@ -37,6 +38,9 @@ public class CourseRankController {
 	
 	@Autowired
 	AccountService accService;
+	
+	@Autowired
+	PurchasedCourseService pService;
 	/*
 	 * ID尋找
 	 * */
@@ -58,6 +62,9 @@ public class CourseRankController {
 	@PostMapping("/insertcourserank")
 	@ResponseBody
 	public CourseRank insertCourseRank(@RequestBody CourseRankDTO courseRankDTO) {
+		
+		if(!pService.findPurchasedStatus(courseRankDTO.getUserid(), courseRankDTO.getCourseid())) return null;
+		
 		CourseBasic coursebasic = cbService.findByID(courseRankDTO.getCourseid());
 		UserAccountMt user = accService.findByID(courseRankDTO.getUserid());
 		CourseRank courseRank = new CourseRank(courseRankDTO.getRank(), courseRankDTO.getMessage(), UtilityTool.getSysTime(), UtilityTool.getSysTime(), user, coursebasic);

@@ -1,5 +1,6 @@
 package com.howhow.shopping.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,5 +45,15 @@ public class FavoriteCourseService {
 		}
 		repo.deleteById(id);
 		return true;
+	}
+	
+	public List<Integer> findFavoriteCourseStatusForSearch(int userid) {
+		List<Integer> list = new ArrayList<Integer>();
+		List<FavoriteCourse> favorite = repo.findByUserID(userid);
+		for (FavoriteCourse favoriteCourse : favorite) {
+			int favoriteCourseID = favoriteCourse.getFavoriteCourseID();
+			list.add(favoriteCourseID);
+		}
+		return list;
 	}
 }

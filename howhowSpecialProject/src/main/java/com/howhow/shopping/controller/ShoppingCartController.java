@@ -17,7 +17,7 @@ import com.howhow.entity.CourseRank;
 import com.howhow.entity.FavoriteCourse;
 import com.howhow.entity.ShoppingCart;
 import com.howhow.entity.UserAccountMt;
-import com.howhow.shopping.DTO.SimpleCourseDTO;
+import com.howhow.shopping.dto.SimpleCourseDTO;
 import com.howhow.shopping.service.CourseBasicService;
 import com.howhow.shopping.service.CourseRankService;
 import com.howhow.shopping.service.FavoriteCourseService;

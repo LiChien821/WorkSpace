@@ -27,8 +27,8 @@ public class AccountUserDetails implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		AccountLevel role = userAccount.getUserstatus().getAccountLevel();
 		List<SimpleGrantedAuthority> authories = new ArrayList<>();
-
 		authories.add(new SimpleGrantedAuthority(role.name()));
+//		authories.add(new SimpleGrantedAuthority(userId));
 		return authories;
 	}
 

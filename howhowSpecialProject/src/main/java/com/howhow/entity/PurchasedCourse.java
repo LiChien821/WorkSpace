@@ -38,6 +38,16 @@ public class PurchasedCourse {
 	@JoinColumn(name="user_id")
 	private UserAccountMt userAccountMt;
 
+	public PurchasedCourse() {
+	}
+	
+	public PurchasedCourse(String systemTime, CourseBasic courseBasic, UserAccountMt userAccountMt) {
+		super();
+		this.systemTime = systemTime;
+		this.courseBasic = courseBasic;
+		this.userAccountMt = userAccountMt;
+	}
+
 	public String getSystemTime() {
 		return systemTime;
 	}

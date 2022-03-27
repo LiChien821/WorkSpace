@@ -1,7 +1,5 @@
 package com.howhow.account.controller;
 
-import java.security.Principal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,10 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.howhow.account.service.AccountService;
+import com.howhow.entity.UserAccountDt;
 import com.howhow.entity.UserAccountMt;
 import com.howhow.websecurity.AccountUserDetails;
-import com.howhow.entity.AccountLevel;
-import com.howhow.entity.UserAccountDt;
 
 
 @Controller
@@ -39,6 +36,7 @@ public class AccountController {
 	public String index(@AuthenticationPrincipal AccountUserDetails loggedAccount ,Model model) {
 		UserAccountMt account=loggedAccount.getLoggedAccount();
 		model.addAttribute("account",account);
+		System.out.println(account.getUserId());
 	 
 		return "main";
 	}
@@ -79,4 +77,5 @@ public class AccountController {
 		model.addAttribute("text","修改已完成");
 		return "success";
 	}
+	
 }
