@@ -20,10 +20,10 @@ import org.springframework.stereotype.Component;
 @Table(name = "coursestatustype")
 public class CourseStatusType {
 	@Id
-	@Column(name = "status")
+	@Column(name = "status_id")
 	@GenericGenerator(name = "native", strategy = "native")
 	@GeneratedValue(generator = "native")
-	private int status;
+	private int statusID=1;
 
 	@Column(name = "status_name")
 	private String statusName;
@@ -34,12 +34,12 @@ public class CourseStatusType {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "statusType")
 	private List<CourseAudit> audits = new ArrayList<CourseAudit>();
 
-	public int getStatus() {
-		return status;
+	public int getStatusID() {
+		return statusID;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
+	public void setStatusID(int statusID) {
+		this.statusID = statusID;
 	}
 
 	public String getStatusName() {

@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.howhow.account.service.AccountDetailService;
+import com.howhow.cms.service.CourseStatusTypeService;
 import com.howhow.entity.Category;
 import com.howhow.entity.CourseBasic;
 import com.howhow.entity.CourseRank;
+import com.howhow.entity.CourseStatusType;
 import com.howhow.entity.UserAccountDt;
 import com.howhow.shopping.dto.CourseBasicDTO;
 import com.howhow.shopping.service.CategoryService;
@@ -43,7 +44,10 @@ public class ProductController {
 
 	@Autowired
 	FavoriteCourseService fService;
-
+	
+	@Autowired
+	CourseStatusTypeService cstService;
+	
 	/*
 	 * Find BY ID
 	 */
@@ -131,10 +135,11 @@ public class ProductController {
 		int categoryid = coursebasicDTO.getCategoryid();
 		UserAccountDt dt = acdService.findByID(creatorid);
 		Category cat = catService.findByID(categoryid);
-
+		
 		CourseBasic cb = new CourseBasic(coursebasicDTO.getCourseName(), coursebasicDTO.getPrice(),
-				coursebasicDTO.getDiscount(), cat, coursebasicDTO.getCoursestatus(), coursebasicDTO.getCover(),
+				coursebasicDTO.getDiscount(), cat, coursebasicDTO.getCover(),
 				coursebasicDTO.getDescription(), UtilityTool.getSysTime(), dt);
+				cb.setStatusType(cstService.findById(1));
 		CourseBasic insertCourseBasic = cService.insertCourseBasic(cb);
 
 		return insertCourseBasic;
@@ -152,8 +157,6 @@ public class ProductController {
 		}
 		if (coursebasicDTO.getCourseName() != null)
 			course.setCourseName(coursebasicDTO.getCourseName());
-		if (coursebasicDTO.getCoursestatus() != 0)
-			course.setCourseStatus(coursebasicDTO.getCoursestatus());
 		if (coursebasicDTO.getDescription() != null)
 			course.setDescription(coursebasicDTO.getDescription());
 		if (coursebasicDTO.getCover() != null)

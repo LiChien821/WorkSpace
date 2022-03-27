@@ -45,9 +45,6 @@ public class CourseBasic {
 	@JoinColumn(name = "category_id")
 	private Category category;
 
-	@Transient
-	private int courseStatus;
-
 	@Column(name = "course_cover")
 	private String courseCover;
 
@@ -64,7 +61,7 @@ public class CourseBasic {
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "course_status")
+	@JoinColumn(name = "status_id")
 	private CourseStatusType statusType;
 
 	@OneToMany(mappedBy = "courseBasic")
@@ -97,13 +94,12 @@ public class CourseBasic {
 	public CourseBasic() {
 	}
 	
-	public CourseBasic(String courseName, long price, double discount, Category category, int courseStatus,
+	public CourseBasic(String courseName, long price, double discount, Category category,
 			String courseCover, String description, String systemTime, UserAccountDt creator) {
 		this.courseName = courseName;
 		this.price = price;
 		this.discount = discount;
 		this.category = category;
-		this.courseStatus = courseStatus;
 		this.courseCover = courseCover;
 		this.description = description;
 		SystemTime = systemTime;
@@ -230,14 +226,6 @@ public class CourseBasic {
 		this.price = price;
 	}
 
-	public int getCourseStatus() {
-		return courseStatus;
-	}
-
-	public void setCourseStatus(int courseStatus) {
-		this.courseStatus = courseStatus;
-	}
-
 	public int getCourseID() {
 		return courseID;
 	}
@@ -246,4 +234,12 @@ public class CourseBasic {
 		this.courseID = courseID;
 	}
 
+	public CourseStatusType getStatusType() {
+		return statusType;
+	}
+
+	public void setStatusType(CourseStatusType statusType) {
+		this.statusType = statusType;
+	}
+	
 }
