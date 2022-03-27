@@ -35,50 +35,31 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// TODO Auto-generated method stub
-		http 	
-		.csrf().disable()
-			.authorizeRequests() 
-					.antMatchers("/test","/querytest","/login","/querycourserank/**","/querybycourseid/**","/insertcourserank", "/weijie/**")
-					.permitAll()
-					.antMatchers("/student/**").hasAuthority("Teacher,Student")
-					.antMatchers("/course/**").hasAuthority("Admin")
-					.anyRequest()
-					.authenticated()
-								.and()
-									.formLogin()
-									.loginPage("/login")
-									.usernameParameter("Account")
-									.defaultSuccessUrl("/", true)
-									.permitAll()
-									.and()
-									.rememberMe()
-										.key("aaaaaaabbcccccc_1122334455")
-										.tokenValiditySeconds(12*24*60)
-									.and()
-										.logout()
-										.deleteCookies("JSESSIONID","remember-me")
-										.permitAll();
+		
+		  http  
+		  .csrf().disable()
+		   .authorizeRequests() 
+		     .antMatchers("/login.html","/login","/register","/createUser","/verify","/css","/**")
+		     .permitAll()
+		     .antMatchers("/student/**").hasAuthority("Teacher,Student")
+		     .antMatchers("/course/**").hasAuthority("Admin")
+		     .anyRequest()
+		     .authenticated()
+		        .and()
+		         .formLogin()
+		         .loginPage("/login")
+		         .usernameParameter("account")
+		         .defaultSuccessUrl("/", true)
+		         .permitAll()
+		         .and()
+		         .rememberMe()
+		          .key("aaaaaaabbcccccc_1122334455")
+		          .tokenValiditySeconds(12*24*60)
+		         .and()
+		          .logout()
+		          .deleteCookies("JSESSIONID","remember-me")
+		          .permitAll();
 									
-						
-				
-		
-					 
-		
-//		http.authorizeRequests().antMatchers("/*").permitAll();
-//		.antMatchers("/users/**","/product/**","/brand/**","/settings/**","/login/**").hasAuthority("Admin")
-//		.anyRequest().authenticated()
-//		.and()
-//		.formLogin()
-//			.loginPage("/login")
-//			.usernameParameter("email")
-//			.permitAll()
-//			.and().logout().permitAll()
-//			.and().rememberMe()
-//					.key("aaaaaaabbcccccc_1122334455")
-//					.tokenValiditySeconds(12*24*60);
-//		
-//		http.authorizeRequests().anyRequest().permitAll(); .and().formLogin().disable();
 	}
 
 	@Override

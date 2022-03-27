@@ -1,0 +1,80 @@
+*{
+/*border: solid 1px;*/
+  font-family: 微軟正黑體;
+  position: relative;
+  
+}
+html,body{
+  width:100%; height:100%;
+  padding:0px; margin:0px;
+}
+ body{
+  background-color: #d1d1d1;
+   border-top: solid 20px #f24;
+    border-bottom: solid 20px #f24;
+   
+   box-sizing: border-box
+}
+ .namecard{
+  width:350px; height: 200px;
+  padding : 20px;
+  margin-left : auto;
+  margin-right: auto;
+  margin-top:160px;
+  background-color: #eee;
+   letter-spacing: 1px;
+   font-weight: 150;
+   
+   color:rgba(0,0,0,0.5);
+   
+   overflow: hidden;
+   border: solid 1px rgba(0,0,0,0.15);
+   border-radius:6px;
+   
+   box-shadow: 0px 20px 15px -15px rgba(0,0,0,0.2);
+}
+.namecard h2{
+  font-size:25px;
+  
+}
+.namecard h2 span{
+  font-size:12px;
+}
+.namecard h5{
+  color: #f24;
+  font-weight:100;
+}
+.namecard p{
+  font-size:12px;
+  line-height:22px;
+}
+.circle{
+  width: 100px;
+  height: 100px;
+  border-radius : 100%;
+  position : absolute;
+  
+}
+.circle1{
+  right:100px;
+  background-color: #f24;
+}
+.circle2{
+  width:60px; height:60px;
+  right: -40px;
+  top: -40px;
+  border: solid 3px #f24;
+}
+.page_title{
+  
+  text-align: center;
+  color:#555;
+  font-weight:500;
+}
+.mark{
+  font-size:300px;
+  position: absolute;
+  bottom:150px;
+  font-weight:100;
+  color:rgba(0,0,0,0.025)
+}

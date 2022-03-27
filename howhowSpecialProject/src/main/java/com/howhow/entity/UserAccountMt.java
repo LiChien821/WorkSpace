@@ -18,19 +18,22 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 @Entity @Table(name = "useraccountmt")
 @Component
 public class UserAccountMt implements Serializable{
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
-	@Id @Column(name="user_id")
+	@Id @Column(name="user_id")	
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	int userID;
+	int userId;
 	
 	@Column(name = "account")
 	String account;
@@ -42,39 +45,63 @@ public class UserAccountMt implements Serializable{
 	@Column(name = "system_time")
 	private java.util.Date systemTime;
 	
+	@JsonIgnore
+	@Column(name = "verificationcode")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private String verificationcode;
+	
+	public String getVerificationcode() {
+		return verificationcode;
+	}
+
+	public void setVerificationcode(String verificationcode) {
+		this.verificationcode = verificationcode;
+	}
+
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
 	private UserAccountDt userAccountDt;
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
 	private List<PurchasedCourse> purchasedCourseList = new ArrayList<PurchasedCourse>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userID", cascade = CascadeType.ALL)
 	private List<OrderMt> orderMtList = new ArrayList<OrderMt>();
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
 	private List<ShoppingCart> shoppingCartList = new ArrayList<ShoppingCart>();
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
 	private List<CFCOrder> cfcOrderList = new ArrayList<CFCOrder>();
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
 	private List<FavoriteCourse> favoriteCourseList = new ArrayList<FavoriteCourse>();
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
 	private List<CourseRank> courseRankList = new ArrayList<CourseRank>();
 	
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
-	private UserBonus userBonus;
-	
+	@JsonIgnore
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userID", cascade = CascadeType.ALL)
+	private UserBonus userBonus;	
+
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
 	private UserStatus userstatus;
 
-	public int getUserID() {
-		return userID;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUserId(int userID) {
-		this.userID = userID;
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public String getAccount() {
@@ -173,6 +200,13 @@ public class UserAccountMt implements Serializable{
 	public void setUserBonus(UserBonus userBonus) {
 		this.userBonus = userBonus;
 	}
-		
+	
+	public void addCourseRankDetail(CourseRank courserank) {
+		this.courseRankList.add(courserank);
+	}
+	
+	public void addFavoriteCourseDetail(FavoriteCourse favoritecourse) {
+		this.favoriteCourseList.add(favoritecourse);
+	}
 	
 }

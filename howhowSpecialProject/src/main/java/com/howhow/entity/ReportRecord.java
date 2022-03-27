@@ -1,6 +1,5 @@
 package com.howhow.entity;
 
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +14,6 @@ import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Component
@@ -48,92 +46,75 @@ public class ReportRecord {
 	@JoinColumn(name = "reporttype")
 	private ReportType typeobj;
 
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@Column(name = "system_time")
-	private Date systemtime;
+	private String systemtime;
 
 	public int getUserID() {
-		return usermt.getUserID();
+		return usermt.getUserId();
 	}
-
 
 	public int getQuestionid() {
 		return question.getQuestionID();
 	}
 
-
 	public int getReporttype() {
 		return typeobj.getReporttype();
 	}
 
-
-	public Date getSystemtime() {
+	public String getSystemtime() {
 		return systemtime;
 	}
 
-	public void setSystemtime(Date systemtime) {
+	public void setSystemtime(String systemtime) {
 		this.systemtime = systemtime;
 	}
-
 
 	public int getReportID() {
 		return reportID;
 	}
 
-
 	public void setReportID(int reportID) {
 		this.reportID = reportID;
 	}
-
 
 	public int getQuestionID() {
 		return questionID;
 	}
 
-
 	public void setQuestionID(int questionID) {
 		this.questionID = questionID;
 	}
-
 
 	public UserAccountMt getUsermt() {
 		return usermt;
 	}
 
-
 	public void setUsermt(UserAccountMt usermt) {
 		this.usermt = usermt;
 	}
-
 
 	public Question getQuestion() {
 		return question;
 	}
 
-
 	public void setQuestion(Question question) {
 		this.question = question;
 	}
-
 
 	public ReportType getTypeobj() {
 		return typeobj;
 	}
 
-
 	public void setTypeobj(ReportType typeobj) {
 		this.typeobj = typeobj;
 	}
-
 
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
 
-
 	public void setReporttype(int reporttype) {
 		this.reporttype = reporttype;
 	}
 
-	
 }

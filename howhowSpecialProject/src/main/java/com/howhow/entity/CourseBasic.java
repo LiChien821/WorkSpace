@@ -14,90 +14,102 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
-@Entity @Table(name = "coursebasic")
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "coursebasic")
 @Component
 public class CourseBasic {
-	
-	@Id @Column(name = "course_id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
+	@Id
+	@Column(name = "course_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int courseID;
-	
+
 	@Column(name = "course_name")
 	private String courseName;
-	
+
 	@Column(name = "price")
-	private int price;
-	
+	private long price;
+
 	@Column(name = "discount")
 	private double discount;
-	
+
 	@ManyToOne
-	@JoinColumn(name="category_id")
+	@JoinColumn(name = "category_id")
 	private Category category;
-	
-	@Column(name="course_status")
+
+	@Transient
 	private int courseStatus;
-	
-	@Column(name="course_cover")
+
+	@Column(name = "course_cover")
 	private String courseCover;
-	
+
 	@Column(name = "description")
 	private String description;
-	
+
 	@Column(name = "system_time")
 	private String SystemTime;
-	
+
+	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "creator_id")
 	private UserAccountDt creator;
 	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "course_status")
+	private CourseStatusType StatusType;
+
 	@OneToMany(mappedBy = "courseBasic")
-	private List<Section> sectionList =new ArrayList<Section>();
-	
+	private List<Section> sectionList = new ArrayList<Section>();
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<PurchasedCourse> purchasedCourses = new ArrayList<PurchasedCourse>();
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<OrderDt> orderDtList = new ArrayList<OrderDt>();
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<ShoppingCart> shoppingCartList = new ArrayList<ShoppingCart>();
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<CFCourse> cfCourseList = new ArrayList<CFCourse>();
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<FavoriteCourse> favoriteCourseList = new ArrayList<FavoriteCourse>();
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<CourseRank> courseRankList = new ArrayList<CourseRank>();
 
-	public int getCourseID() {
-		return courseID;
+	public CourseBasic() {
 	}
-
-	public void setCourseID(int courseID) {
-		this.courseID = courseID;
+	
+	public CourseBasic(String courseName, long price, double discount, Category category, int courseStatus,
+			String courseCover, String description, String systemTime, UserAccountDt creator) {
+		this.courseName = courseName;
+		this.price = price;
+		this.discount = discount;
+		this.category = category;
+		this.courseStatus = courseStatus;
+		this.courseCover = courseCover;
+		this.description = description;
+		SystemTime = systemTime;
+		this.creator = creator;
 	}
-
+	
 	public String getCourseName() {
 		return courseName;
 	}
 
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
 	}
 
 	public double getDiscount() {
@@ -114,14 +126,6 @@ public class CourseBasic {
 
 	public void setCategory(Category category) {
 		this.category = category;
-	}
-
-	public int getCourseStatus() {
-		return courseStatus;
-	}
-
-	public void setCourseStatus(int courseStatus) {
-		this.courseStatus = courseStatus;
 	}
 
 	public String getCourseCover() {
@@ -212,6 +216,28 @@ public class CourseBasic {
 		this.courseRankList = courseRankList;
 	}
 
+	public long getPrice() {
+		return price;
+	}
 
-	
+	public void setPrice(long price) {
+		this.price = price;
+	}
+
+	public int getCourseStatus() {
+		return courseStatus;
+	}
+
+	public void setCourseStatus(int courseStatus) {
+		this.courseStatus = courseStatus;
+	}
+
+	public int getCourseID() {
+		return courseID;
+	}
+
+	public void setCourseID(int courseID) {
+		this.courseID = courseID;
+	}
+
 }

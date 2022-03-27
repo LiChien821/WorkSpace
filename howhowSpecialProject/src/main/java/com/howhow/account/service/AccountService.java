@@ -1,5 +1,7 @@
 package com.howhow.account.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,9 @@ public class AccountService {
 	public void createUser(UserAccountMt account, UserAccountDt acd) {
 		acd.setUserAccountMt(account);
 		account.setUserAccountDt(acd);
-
+		account.setSystemTime(new java.util.Date());
+		acd.setSystemTime(new java.util.Date());
+		//加密password
 		String userAccount = account.getAccount();
 		if (repo.findByAccount(userAccount) == null && detailRepo.findByEmail(acd.getEmail())== null) {
 			String encodePassword = bcryptoEncoder.encode(account.getPassword());
@@ -46,7 +50,7 @@ public class AccountService {
 			databaseAccount.setPassword(bcryptoEncoder.encode(pwd));
 		}
 		UserAccountDt newaccountDetail = account.getUserAccountDt();
-		newaccountDetail.setUserID(databaseAccount.getUserID());
+		newaccountDetail.setUserId(databaseAccount.getUserId());
 		databaseAccount.setUserAccountDt(newaccountDetail);
 		repo.save(databaseAccount);
 
@@ -54,8 +58,8 @@ public class AccountService {
 
 	public boolean activeAccount(String code, String userEmail) {
 		UserAccountDt acd = detailRepo.findByEmail(userEmail);
-		UserAccountMt user = repo.findById(acd.getUserID()).get();
-		if (code.equals(user.getUserstatus().getVerificationcode())) {
+		UserAccountMt user = repo.findById(acd.getUserId()).get();
+		if (code.equals(user.getVerificationcode())) {
 			user.getUserstatus().setEmailAuth(true);
 			repo.save(user);
 			return true;
@@ -69,7 +73,7 @@ public class AccountService {
 
 	public boolean deleteAccount(UserAccountMt userAccount) {
 		try {
-			int id = userAccount.getUserID();
+			int id = userAccount.getUserId();
 			repo.deleteById(id);
 			detailRepo.deleteById(id);
 			return true;
@@ -83,5 +87,10 @@ public class AccountService {
 	public void save(UserAccountMt acc) {
 		repo.save(acc);
 
+	}
+	
+	public UserAccountMt findByID(int id) {
+		Optional<UserAccountMt> bean = repo.findById(id);
+		return bean.get();
 	}
 }

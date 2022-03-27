@@ -1,5 +1,9 @@
 package com.howhow.entity;
 
-public enum AccountLevel {
+import java.io.Serializable;
+
+public enum AccountLevel implements Serializable{
+
+	
 	Teacher, Student, Admin
 }

@@ -1,6 +1,5 @@
 package com.howhow.entity;
 
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +10,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Component
 @Table(name = "reporttype")
@@ -26,9 +24,8 @@ public class ReportType {
 	@Column(name = "report_name")
 	private String reportname;
 
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@Column(name = "system_time")
-	private Date systemtime;
+	private String systemtime;
 
 	public int getReporttype() {
 		return reporttype;
@@ -46,11 +43,11 @@ public class ReportType {
 		this.reportname = reportname;
 	}
 
-	public Date getSystemtime() {
+	public String getSystemtime() {
 		return systemtime;
 	}
 
-	public void setSystemtime(Date systemtime) {
+	public void setSystemtime(String systemtime) {
 		this.systemtime = systemtime;
 	}
 

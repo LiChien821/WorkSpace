@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="course/fragments/fragments :: pagehead">
+
+</head>
+
+<body>
+
+	<div class="container-fluid">
+
+
+
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<li class="nav-item presentation">
+				<a class="nav-link active" id="courseList-tab" data-toggle="tab" data-bs-target="#courseList"
+					href="#abstract" role="tab" aria-controls="abstract" aria-selected="true">課程列表</a>
+			</li>
+			<li class="nav-item presentation">
+				<form method="get" th:action="@{/course/newCoursePage}">
+					<button class="nav-link" type="submit">新增課程</button>
+				</form>
+			</li>
+		</ul>
+
+		<div class="tab-content">
+
+			<div class="tab-pane active" id="courseList" role="tabpanel">
+				<div>
+					<th:block th:replace="course/fragments/courseListPage :: content"></th:block>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+</html>

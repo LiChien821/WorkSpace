@@ -13,6 +13,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity @Table(name = "paymethodtype")
 @Component
 public class PayMethodType {
@@ -25,9 +27,6 @@ public class PayMethodType {
 	
 	@Column(name = "system_time")
 	private String systemTime;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "payMethodType", cascade = CascadeType.ALL)
-	private List<OrderMt> orderMtList = new ArrayList<OrderMt>();
 
 	public int getPayMethodID() {
 		return payMethodID;
@@ -51,14 +50,6 @@ public class PayMethodType {
 
 	public void setSystemTime(String systemTime) {
 		this.systemTime = systemTime;
-	}
-
-	public List<OrderMt> getOrderMtList() {
-		return orderMtList;
-	}
-
-	public void setOrderMtList(List<OrderMt> orderMtList) {
-		this.orderMtList = orderMtList;
 	}
 	
 }

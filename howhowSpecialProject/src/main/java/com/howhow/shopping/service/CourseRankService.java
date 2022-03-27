@@ -1,5 +1,6 @@
 package com.howhow.shopping.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,33 +15,45 @@ import com.howhow.shopping.repository.CourseRankRepository;
 public class CourseRankService {
 	
 	@Autowired
-	CourseRankRepository cRepo;
+	CourseRankRepository repo;
 	
-	public Page<CourseRank> findCourseRankByCourseID(int categoryid, Pageable pageable) {
-		Page<CourseRank> courseRankPage = cRepo.findByCourseID(categoryid, pageable);
-		return courseRankPage;
-	}
-	
-	public CourseRank insertCourseRank(CourseRank courseRank) {
-		
-		CourseRank insertedCourseRank = cRepo.save(courseRank);
-		return insertedCourseRank;
-	}
-	
-	public CourseRank findByRID(int id) {
-		Optional<CourseRank> course = cRepo.findById(id);
+	public CourseRank findByID(int id) {
+		Optional<CourseRank> course = repo.findById(id);
 		if(course.isPresent()) {
 			return course.get();
 		}
 		return null;
 	}
 	
-	public boolean deleteByCID(int id) {
-		if(findByRID(id)!=null) {
-			cRepo.deleteById(id);
-			return true;
-		}
-		return false;
+	public CourseRank insertCourseRank(CourseRank courseRank) {
+		
+		CourseRank insertedCourseRank = repo.save(courseRank);
+		return insertedCourseRank;
 	}
 	
+	public CourseRank updateCourseRank(CourseRank courseRank) {
+		
+		int id = courseRank.getCourseRankID();
+		if(repo.findById(id)==null) {
+			System.out.println("此CourseRankID不存在於資料庫");
+		}
+		CourseRank insert = repo.save(courseRank);
+		return insert;
+	}
+	
+	public boolean deleteCourseRankByID(int id) {
+		
+		if(repo.findById(id)==null) {
+			System.out.println("此CourseRankID不存在於資料庫，無法刪除");
+		}
+		
+		repo.deleteById(id);
+		return true;
+	}
+	
+	public List<CourseRank> findByCourseID(int id) {
+		
+		List<CourseRank> list = repo.findByCourseID(id);
+		return list;
+	}
 }

@@ -21,6 +21,7 @@ import org.hibernate.annotations.Parameter;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "useraccountdt")
@@ -31,21 +32,21 @@ public class UserAccountDt implements Serializable{
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
 	@Id
-	@Column(name = "USERID")
+	@Column(name = "user_id")
 	@GeneratedValue(generator = "generator")
 	private int userId;
 
 	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
-	@Column(name = "ACCOUNT", unique = true)
-	private String Account;
+	@Column(name = "account", unique = true)
+	private String account;
 
 	@Column(name = "EMAIL", unique = true)
 	private String email;
 
-	@Column(name = "GIVENNAME")
+	@Column(name = "givenname")
 	private String givenName;
 
-	@Column(name = "FAMILYNAME")
+	@Column(name = "familyname")
 	private String familyName;
 
 	@Column(name = "GENDER")
@@ -53,10 +54,11 @@ public class UserAccountDt implements Serializable{
 
 	@Column(name = "BIRTH")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-	private String Birth;
+	private String birth;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "ACCOUNTCREATIONTIME")
+
+	@Column(name = "accountcreationtime")
 	private java.util.Date acountCreationTime;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -65,22 +67,29 @@ public class UserAccountDt implements Serializable{
 
 	@MapsId
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USERID", referencedColumnName = "USERID",insertable = false,updatable = false)
+
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id",insertable = false,updatable = false)
+	@JsonIgnore
 	private UserAccountMt userAccountMt;
 	
+	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "Account", referencedColumnName = "ACCOUNT",insertable = false,updatable = false)
 	private UserAccountMt userAccountMt2;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "creator")
 	private List<CourseBasic> createdCourseList = new ArrayList<CourseBasic>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "userAccountDt")
 	private List<Bulletin> bulletinList = new ArrayList<Bulletin>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "userAccountDt")
 	private List<BulletinReply> bulletinReplyList = new ArrayList<BulletinReply>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "author")
 	private List<Notes> notesList = new ArrayList<Notes>();
 
@@ -95,11 +104,11 @@ public class UserAccountDt implements Serializable{
 	}
 
 	public String getAccount() {
-		return Account;
+		return account;
 	}
 
 	public void setAccount(String account) {
-		Account = account;
+		this.account = account;
 	}
 
 	public String getEmail() {
@@ -134,12 +143,13 @@ public class UserAccountDt implements Serializable{
 		this.gender = gender;
 	}
 
+
 	public String getBirth() {
-		return Birth;
+		return birth;
 	}
 
 	public void setBirth(String birth) {
-		Birth = birth;
+		this.birth = birth;
 	}
 
 	public java.util.Date getAcountCreationTime() {

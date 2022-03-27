@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<title>Elements - Editorial by HTML5 UP</title>
+	<meta charset="utf-8" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link href="https://vjs.zencdn.net/7.17.0/video-js.css" rel="stylesheet" />
+
+	<link rel="stylesheet" th:href="@{/assets2/css/main.css}" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
+
+</head>
+
+<head th:replace="course/student/acoordin :: pagehead">
+
+</head>
+
+<body class="is-preload">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+
+				<!-- Content -->
+				<section>
+					<header class="main">
+						<h1>影片</h1>
+					</header>
+					<input th:value="${courseId}" id="playPageDeafultId">
+					<!-- Content -->
+
+
+					<div class="row ">
+
+						<div class="col-10 col-12-small">
+							<video id="my-video" class="video-js vjs-fluid vjs-big-play-centered">
+							</video>
+
+						</div>
+						<div class="col-2 col-12-small " id="form2">
+							<div class="border container-fluid border-secondary align-items-end d-flex ">
+
+								<ol class="mb-auto  bd-highlight">
+
+
+									<li class="list-item">
+										Aenean sit amet erat nunc
+									</li>
+									<li class="list-item">
+										Eget porttitor lorem
+									</li>
+									<li class="list-item">
+										Aenean sit amet erat nunc
+									</li>
+									<li class="list-item">
+										Eget porttitor lorem
+									</li>
+									<li class="list-item">
+										Aenean sit amet erat nunc
+									</li>
+									<li class="list-item">
+										Eget porttitor lorem
+									</li>
+								</ol>
+
+								<div class="mt-auto bd-highlight container-fluid">
+									<div class="row">
+
+										<input type="text" placeholder="筆記內容"><input type="button" value="紀錄">
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!-- Break -->
+
+					</div>
+
+					<hr class="major" />
+
+					<!-- Elements -->
+
+
+			</div>
+		</div>
+
+		<!-- Sidebar -->
+		<div id="playSectionList">
+			<nav id="menu">
+				<header class="major">
+					<h2>Menu</h2>
+				</header>
+				<ul v-for="section in sectionList">
+
+					<li><span class="opener">{{section.sectionNumber}}{{section.sectionName}}</span>
+						<ul>
+							<li >
+							<select name="videolecture" id="videolecture" v-model="lecture"
+								@change="handleVideoUrl" v-for="lecture in section.lecturesList"  >
+
+								<option  :value=lecture>
+									{{section.sectionNumber}}.{{section.sectionName}}</option>
+							</li>
+
+						</ul>
+					</li>
+
+				</ul>
+			</nav>
+		</div>
+
+
+
+
+		<!-- Section -->
+
+
+
+
+		<!-- Scripts -->
+		<script th:src="@{/assets2/js/jquery.min.js}"></script>
+		<script th:src="@{/assets2/js/browser.min.js}"></script>
+		<script th:src="@{/assets2/js/breakpoints.min.js}"></script>
+		<script th:src="@{/assets2/js/util.js}"></script>
+		<script th:src="@{/assets2/js/main.js}"></script>
+
+
+		<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+		<script src="https://vjs.zencdn.net/7.17.0/video.min.js"></script>
+
+		<script type="importmap">
+
+	{
+	  "imports": {
+		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+	  
+	  }
+	}
+	</script>
+
+		<script th:src="@{/js/playPage.js}" type="module"></script>
+</body>
+
+</html>

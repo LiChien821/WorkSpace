@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "section")
 public class Section {
@@ -27,7 +29,8 @@ public class Section {
 	
 	@Column(name = "section_name")
 	private String sectionName;
-
+	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="course_id")
 	private CourseBasic courseBasic;

@@ -9,10 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity @Table(name="orderdt",
 uniqueConstraints=@UniqueConstraint(columnNames={"order_id", "course_id"}))
@@ -23,35 +25,30 @@ public class OrderDt {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int OrderDtID;
 	
-	@Transient
-	private int OrderID;
-	
-	@Transient
-	private int CourseID;
-	
-	@Column(name = "discount")
-	private double discount;
-	
 	@Column(name = "unit_price")
 	private int unitPrice;
 	
 	@Column(name = "system_time")
 	private String systemTime;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
 	private OrderMt orderMt;
 	
+	@JsonIdentityReference(alwaysAsId = true)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "course_id")
-	private CourseBasic courseBasic;
+	private CourseBasic courseID;
 
-	public double getDiscount() {
-		return discount;
+	public OrderDt() {
 	}
-
-	public void setDiscount(double discount) {
-		this.discount = discount;
+	
+	public OrderDt(int unitPrice, CourseBasic courseID, String systemTime, OrderMt orderMt) {
+		this.unitPrice = unitPrice;
+		this.courseID = courseID;
+		this.systemTime = systemTime;
+		this.orderMt = orderMt;
 	}
 
 	public int getUnitPrice() {
@@ -78,22 +75,6 @@ public class OrderDt {
 		OrderDtID = orderDtID;
 	}
 
-	public int getOrderID() {
-		return OrderID;
-	}
-
-	public void setOrderID(int orderID) {
-		OrderID = orderID;
-	}
-
-	public int getCourseID() {
-		return CourseID;
-	}
-
-	public void setCourseID(int courseID) {
-		CourseID = courseID;
-	}
-
 	public OrderMt getOrderMt() {
 		return orderMt;
 	}
@@ -102,14 +83,13 @@ public class OrderDt {
 		this.orderMt = orderMt;
 	}
 
-	public CourseBasic getCourseBasic() {
-		return courseBasic;
+	public CourseBasic getCourseID() {
+		return courseID;
 	}
 
-	public void setCourseBasic(CourseBasic courseBasic) {
-		this.courseBasic = courseBasic;
+	public void setCourseID(CourseBasic courseID) {
+		this.courseID = courseID;
 	}
-	
 	
 	
 }

@@ -2,49 +2,55 @@ package com.howhow.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.springframework.stereotype.Component;
 
-@Entity @Table(name = "userbonus")
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity @Table(name="userbonus")
 @Component
-public class UserBonus implements Serializable {
+public class UserBonus implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
-	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userAccountMt"))
+	@GenericGenerator(name = "generator", strategy = "foreign", parameters = @Parameter(name = "property", value = "userID"))
 	@Id
-	@Column(name = "user_id", insertable = false,updatable = false)
+	@Column(name = "user_id")
 	@GeneratedValue(generator = "generator")
-	private int userID;
+	private int userId;
 	
-	@Column(name = "bonus_count")
+	@Column(name="bonus_count")
 	private int bonusCount;
 	
-	@Column(name = "system_time")
+	@Column(name="system_time")
 	private String systemTime;
 	
 	@MapsId
-	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private UserAccountMt userAccountMt;
-
-	public int getUserID() {
-		return userID;
-	}
+	@JsonIgnore
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", referencedColumnName = "USERID",insertable = false,updatable = false)
+	private UserAccountMt userID;
 	
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public int getBonusCount() {
@@ -63,12 +69,18 @@ public class UserBonus implements Serializable {
 		this.systemTime = systemTime;
 	}
 
-	public UserAccountMt getUserAccountMt() {
-		return userAccountMt;
+	public UserAccountMt getUserID() {
+		return userID;
 	}
 
-	public void setUserAccountMt(UserAccountMt userAccountMt) {
-		this.userAccountMt = userAccountMt;
+	public void setUserID(UserAccountMt userID) {
+		this.userID = userID;
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
 	
 }
