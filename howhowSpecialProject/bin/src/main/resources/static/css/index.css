@@ -1,0 +1,75 @@
+@charset "UTF-8";
+*{
+/*border: solid 1px;*/
+  font-family: 微軟正黑體;
+  
+}
+body{
+
+/* UI Properties */
+background: #E2C652 0% 0% no-repeat padding-box;
+opacity: 1;
+
+}
+.loginwordbox{
+	width: 1200px;
+	margin:0 auto;
+	height:200px;
+	 text-align:center;
+	 letter-spacing: 0px;
+}
+
+
+.accword{
+  /* Layout Properties */
+
+/* UI Properties */
+
+font:  Kohinoor Telugu;
+  font-size:30px;
+text-align:center;
+color: #FFFFFF;
+opacity: 1;
+}
+.singup{
+/* Layout Properties */
+
+width: 1200px;
+height:500px;
+/* UI Properties */
+text-align: center;
+font: normal normal 300 30px/42px Yuanti TC;
+letter-spacing: 0px;
+color: #FFFFFF;
+opacity: 1;
+margin:0px auto;
+
+}
+.logintitle{
+  /* Layout Properties */
+top: 285px;
+left: 791px;
+width: 120px;
+height: 84px;
+/* UI Properties */
+text-align: left;
+font: normal normal normal 50px Kohinoor Telugu;
+letter-spacing: 0px;
+color: #FFFFFF;
+opacity: 1;
+  font-family: 微軟正黑體;
+}
+.bt{
+	  /* Layout Properties */
+top: 537px;
+left: 885px;
+width: 151px;
+height: 59px;
+
+/* UI Properties */
+background: #FFFFFF 0% 0% no-repeat padding-box;
+border-radius: 51px;
+opacity: 1;
+    font-family: 微軟正黑體;
+   border:none;
+}
