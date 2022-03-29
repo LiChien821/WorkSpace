@@ -1,4 +1,3 @@
-import { createApp } from 'vue';
 const dataObj = {
 	baseUrl:"https://stoageno1.blob.core.windows.net/mycontainer/",
 	videoSrcUrl: "https://stoageno1.blob.core.windows.net/mycontainer/1單元測試.mp4",
@@ -7,25 +6,79 @@ const dataObj = {
 	currentTime: "",
 	skipTime: "",
 	duration: "",
+	notescontext:"",
+	notesList:"",
 
 	lecture:"",
 	course: "",
 	currentCourseID: "",
 	currentSectionID:"",
+	currentLecturesID:"",
+	userAccoountID:"",
 
 	sectionList: "",
 	lecturesList: "",
-	sectionID: ""
+	sectionID: "",
+	
 
 };
 
 
 
+Vue.createApp({
+	data() {
+		return dataObj;
+	},
+
+	methods: {
+		createNotes :function(){
+				axios({
+			method: 'post',
+			url: '/howhow/api/createNotes',
+			headers: { "Access-Control-Allow-Origin": "*" },
+			data:{
+				 UID : this.userAccoountID ,
+
+				lectureID: this.currentLecturesID,
+		
+				duration: this.duration,
+		
+				 notescontext:this.notescontext,
+				
+			},
+
+		})
+			.then(response => (this.notesList= response.data))
+			.catch(function(error) {
+				console.log(error);
+
+			});
+		}
+	
+	},
+	mounted: function() {
+	
+		this.userAccoountID=document.getElementById("deafultUID").value;
+		axios({
+			method: 'post',
+			url: '/howhow/api/getAllNotes/'+this.userAccoountID+'/'+this.currentLecturesID,
+			headers: { "Access-Control-Allow-Origin": "*" },
+		
+
+		})
+			.then(response => (this.notesList= response.data))
+			.catch(function(error) {
+				console.log(error);
+
+			});
+
+	},
+
+}).mount('notesVue')
 
 
 
-
-createApp({
+Vue.createApp({
 	data() {
 		return dataObj;
 	},
@@ -73,7 +126,7 @@ createApp({
 
 		})
 
-			.then(response => (this.course = response.data, this.sectionList = response.data.sectionList))
+			.then(response => (this.course = response.data, this.sectionList = response.data.sectionList,this.currentLecturesID=response.data.sectionList[0].lecturesList[0].lecturesID ))
 			.catch(function(error) {
 				console.log(error);
 
@@ -82,7 +135,7 @@ createApp({
 	},
 
 }).mount('#playSectionList')
-const app = createApp({
+const app = Vue.createApp({
 	data() {
 		return dataObj;
 	},

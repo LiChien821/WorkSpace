@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -36,6 +37,7 @@ import com.howhow.course.exception.NoCourseException;
 import com.howhow.entity.Category;
 import com.howhow.entity.CourseBasic;
 import com.howhow.entity.UserAccountMt;
+import com.howhow.websecurity.AccountUserDetails;
 
 @Controller
 @RequestMapping("/teacherPage")
@@ -54,8 +56,8 @@ public class TeacherPageController {
 	private CommonCategoryRepository caregoryRepo;
 
 	@GetMapping("/page")
-	public String homepage(Model model) {
-		int accountID = 1;
+	public String homepage(@AuthenticationPrincipal AccountUserDetails loggedAccount , Model model) {
+		int accountID = loggedAccount.getLoggedAccount().getUserId();
 		model.addAttribute("accountID", accountID);
 		return "course/teacherPage/page.html";
 	}
@@ -63,7 +65,7 @@ public class TeacherPageController {
 	@PostMapping("/play")
 	public String playpage(@RequestParam(name = "courseID") Integer courseID, Model model) {
 		model.addAttribute("courseID", courseID);
-		return "course/teacherPage/dashboard";
+		return "course/teacherPage/courseToPlay";
 	}
 
 	@PostMapping("/edit")

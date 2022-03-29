@@ -26,6 +26,7 @@ import com.howhow.course.common.CommonCategoryRepository;
 import com.howhow.course.common.LearningAccountService;
 import com.howhow.course.common.LearningCourseService;
 import com.howhow.course.common.LearningLecturesService;
+import com.howhow.course.common.LearningNotesService;
 import com.howhow.course.common.LearningSectionService;
 import com.howhow.course.exception.BadEequestException;
 import com.howhow.course.exception.BlobUploadException;
@@ -33,11 +34,13 @@ import com.howhow.course.exception.CourseDuplicatedException;
 import com.howhow.course.exception.LectureDuplicationException;
 import com.howhow.course.exception.NoCourseException;
 import com.howhow.course.exception.NoSectionException;
+import com.howhow.course.exception.NotesDuplicationException;
 import com.howhow.course.exception.SessionDuplicationException;
 import com.howhow.course.exception.updateLectureVideoIOException;
 import com.howhow.entity.Category;
 import com.howhow.entity.CourseBasic;
 import com.howhow.entity.Lectures;
+import com.howhow.entity.Notes;
 import com.howhow.entity.Section;
 import com.howhow.entity.UserAccountMt;
 
@@ -58,6 +61,9 @@ public class ApiRestController {
 
 	@Autowired
 	private LearningLecturesService lectureService;
+	
+	@Autowired
+	private LearningNotesService notesService;
 
 	@Autowired
 	private CommonCategoryRepository categoryRepo;
@@ -73,6 +79,10 @@ public class ApiRestController {
 	@GetMapping("/api/getAllCategory")
 	public Iterable<Category> getAllCategory() {
 		return categoryRepo.findAll();
+	}
+	@GetMapping("/api/getAllNotes/{UID}/{lecturesID}")
+	public Iterable<Notes> getAllNotes(@PathVariable("UID") int UID,@PathVariable("lecturesID") int lecturesID) {
+		return notesService.findAllNotesListByUIDAndLectureID(UID,lecturesID);
 	}
 
 	@GetMapping("/api/getLectureList/{sectionID}")
@@ -109,6 +119,21 @@ public class ApiRestController {
 		}
     	
 		
+	}
+	
+	@PostMapping(value = "/api/createNotes")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Iterable<Notes> createNoteAndReturnNotesList(
+	@RequestBody JsonNoteRecevier reciver) throws NoCourseException, SessionDuplicationException, NotesDuplicationException {
+		if(notesService.createNote(reciver)) {
+			
+			return notesService.findAllNotesListByUIDAndLectureID(reciver);
+		}else {
+			throw new NotesDuplicationException();
+		}
+
+	
+
 	}
 
 	@PostMapping("/api/updateCourseAbstract")
