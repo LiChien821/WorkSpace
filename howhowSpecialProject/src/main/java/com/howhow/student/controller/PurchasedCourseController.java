@@ -92,5 +92,10 @@ public class PurchasedCourseController {
 		}
 		return dtolist;
 	}
+	
+	@GetMapping("/checkout")
+	public String processCheckout() {
+		return "checkout/checkout.html";
+	}
 
 }
