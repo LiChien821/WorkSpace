@@ -84,4 +84,8 @@ public class CourseBasicService {
 		return updatecourse;
 	}
 	
+	public List<CourseBasic> findUnAuditCourses(int statusid){
+		return repo.findByStatusID(statusid);
+	}
+	
 }

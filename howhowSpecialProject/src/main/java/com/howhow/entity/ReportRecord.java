@@ -53,10 +53,6 @@ public class ReportRecord {
 		return usermt.getUserId();
 	}
 
-	public int getQuestionid() {
-		return question.getQuestionID();
-	}
-
 	public int getReporttype() {
 		return typeobj.getReporttype();
 	}
@@ -116,5 +112,6 @@ public class ReportRecord {
 	public void setReporttype(int reporttype) {
 		this.reporttype = reporttype;
 	}
+	
 
 }
