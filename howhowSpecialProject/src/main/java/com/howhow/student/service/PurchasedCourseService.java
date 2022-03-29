@@ -13,6 +13,7 @@ import com.howhow.entity.OrderDt;
 import com.howhow.entity.OrderMt;
 import com.howhow.entity.PurchasedCourse;
 import com.howhow.entity.UserAccountMt;
+import com.howhow.shopping.exception.CourseNotFoundException;
 import com.howhow.shopping.exception.OrderNotFoundException;
 import com.howhow.shopping.repository.CourseBasicRepository;
 import com.howhow.shopping.repository.OrderDtRepository;
@@ -98,6 +99,15 @@ public class PurchasedCourseService {
 		
 		List<PurchasedCourse> list = repo.findByCourseID(courseid);
 		return list;
+	}
+	
+	public Integer findStudentCount(int courseid) throws CourseNotFoundException{
+		try {
+			Integer count = repo.findStudentCount(courseid);
+			return count;
+		} catch (Exception e) {
+			throw new CourseNotFoundException();
+		}
 	}
 
 }

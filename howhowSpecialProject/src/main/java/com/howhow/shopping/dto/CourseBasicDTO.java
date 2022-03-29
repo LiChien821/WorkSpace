@@ -2,115 +2,148 @@ package com.howhow.shopping.dto;
 
 public class CourseBasicDTO {
 	
-	private int courseID;
-	private String courseName;
+	private int courseid;
+	private String coursename;
 	private long price;
-	private int discountPrice;
+	private int discountprice;
 	private double rank;
 	private int creatorid;
 	private int categoryid;
 	private double discount;
-	private int coursestatus;
+	private int coursestatusid;
 	private String cover;
 	private String description;
-	private String creatorName;
-	private boolean favoriteCourseStatus;
+	private String creatorname;
+	private boolean favoritecoursestatus;
 	private boolean shoppingCartStatus;
 	private boolean purchasedStatus;
+	private int studentnum;
+	private int ranknum;
+	
 	
 	public CourseBasicDTO() {
 	}
 	
-	public CourseBasicDTO(int courseID, String courseName, long price, int discountPrice,
-			double rank) {
-		this.courseID = courseID;
-		this.courseName = courseName;
+	public CourseBasicDTO(int courseid, String coursename, long price, int discountprice,
+			double rank, String creatorname, int categoryid, int coursestatusid, String cover,
+			String description, int creatorid, int studentnum, int ranknum) {
+		this.courseid = courseid;
+		this.coursename = coursename;
 		this.price = price;
-		this.discountPrice = discountPrice;
+		this.discountprice = discountprice;
 		this.rank = rank;
+		this.creatorname=creatorname;
+		this.categoryid=categoryid;
+		this.coursestatusid=coursestatusid;
+		this.cover=cover;
+		this.description=description;
+		this.creatorid=creatorid;
+		this.studentnum=studentnum;
+		this.ranknum=ranknum;
 	}
-	
-	public int getCourseID() {
-		return courseID;
+
+	public int getCourseid() {
+		return courseid;
 	}
-	public void setCourseID(int courseID) {
-		this.courseID = courseID;
+
+	public void setCourseid(int courseid) {
+		this.courseid = courseid;
 	}
-	public String getCourseName() {
-		return courseName;
+
+	public String getCoursename() {
+		return coursename;
 	}
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
+
+	public void setCoursename(String coursename) {
+		this.coursename = coursename;
 	}
+
 	public long getPrice() {
 		return price;
 	}
+
 	public void setPrice(long price) {
 		this.price = price;
 	}
-	public int getDiscountPrice() {
-		return discountPrice;
+
+	public int getDiscountprice() {
+		return discountprice;
 	}
-	public void setDiscountPrice(int discountPrice) {
-		this.discountPrice = discountPrice;
+
+	public void setDiscountprice(int discountprice) {
+		this.discountprice = discountprice;
 	}
+
 	public double getRank() {
 		return rank;
 	}
+
 	public void setRank(double rank) {
 		this.rank = rank;
 	}
+
 	public int getCreatorid() {
 		return creatorid;
 	}
+
 	public void setCreatorid(int creatorid) {
 		this.creatorid = creatorid;
 	}
+
 	public int getCategoryid() {
 		return categoryid;
 	}
+
 	public void setCategoryid(int categoryid) {
 		this.categoryid = categoryid;
 	}
+
 	public double getDiscount() {
 		return discount;
 	}
+
 	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
-	public int getCoursestatus() {
-		return coursestatus;
+
+	public int getCoursestatusid() {
+		return coursestatusid;
 	}
-	public void setCoursestatus(int coursestatus) {
-		this.coursestatus = coursestatus;
+
+	public void setCoursestatusid(int coursestatusid) {
+		this.coursestatusid = coursestatusid;
 	}
+
 	public String getCover() {
 		return cover;
 	}
+
 	public void setCover(String cover) {
 		this.cover = cover;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	public String getCreatorName() {
-		return creatorName;
+	public String getCreatorname() {
+		return creatorname;
 	}
 
-	public void setCreatorName(String creatorName) {
-		this.creatorName = creatorName;
+	public void setCreatorname(String creatorname) {
+		this.creatorname = creatorname;
 	}
 
-	public boolean isFavoriteCourseStatus() {
-		return favoriteCourseStatus;
+	public boolean isFavoritecoursestatus() {
+		return favoritecoursestatus;
 	}
 
-	public void setFavoriteCourseStatus(boolean favoriteCourseStatus) {
-		this.favoriteCourseStatus = favoriteCourseStatus;
+	public void setFavoritecoursestatus(boolean favoritecoursestatus) {
+		this.favoritecoursestatus = favoritecoursestatus;
 	}
 
 	public boolean isShoppingCartStatus() {
@@ -128,7 +161,25 @@ public class CourseBasicDTO {
 	public void setPurchasedStatus(boolean purchasedStatus) {
 		this.purchasedStatus = purchasedStatus;
 	}
+
+	public int getStudentnum() {
+		return studentnum;
+	}
+
+	public void setStudentnum(int studentnum) {
+		this.studentnum = studentnum;
+	}
+
+	public int getRanknum() {
+		return ranknum;
+	}
+
+	public void setRanknum(int ranknum) {
+		this.ranknum = ranknum;
+	}
 	
 	
+	
+
 	
 }

@@ -24,7 +24,6 @@ createApp({
 		this.currentAccountID = document.getElementById("defaultAccountID").value;
 		axios({
 			method: 'get',
-
 			url: '/howhow/api/getAllCourse/' + this.currentAccountID,
 			headers: { "Access-Control-Allow-Origin": "*" },
 
