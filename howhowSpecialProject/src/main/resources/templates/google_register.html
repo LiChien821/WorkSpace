@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+TYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
@@ -23,25 +23,25 @@
 <div class="container" style="margin-top: 30px">
 		<form action="#" th:action="@{/createUser}"  method="Post"
 			style="padding: 50px ; text-align:center ; margin: 0 auto ; position: absoluate;" >
-			<sapn class="accword">帳號註冊</span>
+			<sapn class="accword">�b�����U</span>
 			<div class="space">
 				<span class="accword">[[${text}]]</span>
-				<label for="account" class="accword">帳號: </label> <input id="account" name="" th:object="${Account}"
+				<label for="account" class="accword">�b��: </label> <input id="account" name="" th:object="${Account}"
 					class="accountp" type="text" th:field="*{account}" required
-					placeholder="請輸入帳號" />
+					placeholder="�п�J�b��" />
 			</div>
 
 			<div class="space">
-				<label class="accword" for="password">密碼:</label> <input id="password" th:object="${Account}"
+				<label class="accword" for="password">�K�X:</label> <input id="password" th:object="${Account}"
 					class="accountp" type="password" th:field="*{password}"
-					required="required" placeholder="請輸入密碼"
+					required="required" placeholder="�п�J�K�X"
 					oninput="checkPasswordMatch(document.getElementById('confirmPassword'))"
 					minlength="6" maxlength="15" />
 			</div>
 
 
 		 	<div class="space">
-				<label class="col-sm-4 col-form-label" for="confirmPassword">確認密碼</label> 
+				<label class="col-sm-4 col-form-label" for="confirmPassword">�T�{�K�X</label> 
 				<input type="password" id="confirmPassword" class="accountp"
 					minlength="6" maxlength="15" oninput="checkPasswordMatch(this)" />
 
@@ -49,43 +49,43 @@
 
 
 				<div class="space">
-					<label for="familyname">姓氏</label> <input id="familyName" th:object="${AccountDetail}"
+					<label for="familyname">�m��</label> <input id="familyName" th:object="${AccountDetail}"
 						class="accountp" type="text" th:field="*{familyName}" required
-						placeholder="請輸入姓氏" />
+						placeholder="�п�J�m��" />
 				</div>
 
 				<div class="space">
-					<label for="familyname">名</label> <input id="givenName" th:object="${AccountDetail}"
+					<label for="familyname">�W</label> <input id="givenName" th:object="${AccountDetail}"
 						class="accountp" type="text" th:field="*{givenName}" required
-						placeholder="請輸入名字" />
+						placeholder="�п�J�W�r" />
 				</div>
 			<div class="space">
-					<span>性別: </span>
+					<span>�ʧO: </span>
 					<div>
 						<input type="radio" name="gender" id="male" th:object="${AccountDetail}" th:field="*{gender}" 
-							value="Male" required /> <label for="male">男</label> 
+							value="Male" required /> <label for="male">�k</label> 
 							<input
 							type="radio" name="gender" id="female" th:object="${AccountDetail}" th:field="*{gender}" 
-							value="Female" /> <label for="female">女</label>
+							value="Female" /> <label for="female">�k</label>
 					</div>
 				</div>
 
 				<div class="space">
 					<label for="email">Email: </label> <input id="email" th:object="${AccountDetail}"
 						class="accountp" type="email" th:field="*{email}" required
-						placeholder="請輸入email" />
+						placeholder="�п�Jemail" />
 				</div>
 
 				<div class="space">
-					<label for="birth">生日: </label> <input id="birth" th:object="${AccountDetail}"
+					<label for="birth">�ͤ�: </label> <input id="birth" th:object="${AccountDetail}"
 						class="accountp" type="date" th:field="*{birth}" required />
 				</div>
 			</div>
 			<span class = "btd">
-			<input type="submit" class="bt1" value="註冊" />
+			<input type="submit" class="bt1" value="���U" />
                </span>
 			<div>
-				<a class= "singup"  href="login">回到登入頁面</a>
+				<a class= "singup"  href="login">�^��n�J����</a>
 			</div>
 
 		</form>
@@ -108,5 +108,3 @@
 	
 	</script>
 </body>
-
-</html>

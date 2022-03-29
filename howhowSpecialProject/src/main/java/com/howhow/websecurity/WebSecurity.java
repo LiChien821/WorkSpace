@@ -62,7 +62,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		         .and()
 		         .oauth2Login()
 		         .loginPage("/login")
-		         .defaultSuccessUrl("/home",true)
+		         .defaultSuccessUrl("/",true)
 		         .permitAll()
 		         .and()
 		         .rememberMe()
