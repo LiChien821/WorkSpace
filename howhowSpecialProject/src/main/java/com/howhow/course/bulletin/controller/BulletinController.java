@@ -6,12 +6,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.howhow.account.service.UserAccountDtService;
 import com.howhow.course.bulletin.dto.BulletinDTO;
@@ -23,8 +30,10 @@ import com.howhow.entity.Bulletin;
 import com.howhow.entity.BulletinReply;
 import com.howhow.entity.Lectures;
 import com.howhow.entity.UserAccountDt;
+import com.howhow.websecurity.AccountUserDetails;
 
 @Controller
+@SessionAttributes(names = {"courseid", "userid"})
 public class BulletinController {
 	
 	@Autowired
@@ -38,26 +47,21 @@ public class BulletinController {
 
 	@Autowired
 	private LearningLecturesService lService;
-
-	@PostMapping("/insertBulletin.controller")
-	@ResponseBody
-	public Bulletin insertBulletin(@RequestBody Bulletin bulletin) {
-		bulletin.setCreationTime(new Date());
-		UserAccountDt user1 = uadService.findById(1);
-		Lectures lec1 = lService.findByLectureID(1);
-		bulletin.setLauncherid(user1);
-		bulletin.setLectureid(lec1);
-		return bService.insert(bulletin);
+	
+	@GetMapping("/course/{courseid}.controller")
+	public String processBulletin(HttpServletRequest request, Model model, @PathVariable("courseid") Integer courseid) {
+		model.addAttribute("userid", request.getAttribute("userid"));
+		model.addAttribute("courseid", courseid);
+		return "course-demo-wj";
 	}
 
 	@PostMapping("/insertBulletin2.controller")
 	@ResponseBody
-	public Bulletin insertBulletin2(@RequestBody Map<String, Object> map) {
-//	public void insertBulletin2(@RequestBody Map<String, Object> map) {
+	public Bulletin insertBulletin2(@RequestBody Map<String, Object> map, @AuthenticationPrincipal AccountUserDetails loggedAccount) {
 		Bulletin bulletin = new Bulletin();
 		String title = (String) map.get("title");
 		String content = (String) map.get("content");
-		Integer launcherid = (Integer) map.get("launcherid");
+		Integer launcherid = loggedAccount.getLoggedAccount().getUserId();
 		Integer lectureid = (Integer) map.get("lectureid");
 		UserAccountDt user1 = uadService.findById(launcherid);
 		Lectures lec1 = lService.findByLectureID(lectureid);
@@ -70,70 +74,20 @@ public class BulletinController {
 		return bService.insert(bulletin);
 	}
 
-	@PostMapping("/queryBulletinById.controller")
+	@GetMapping("/findAllByCourseId.controller")
 	@ResponseBody
-	public Bulletin queryBulletinById(@RequestParam Integer id) {
-		return bService.findById(id);
+	public Bulletin findAllByCourseId(HttpServletRequest request) {
+		return (Bulletin) bService.findAllByCourseId((Integer)request.getAttribute("courseid"));
 	}
-
-	@PostMapping("/findBulletinUserNameById.controller")
-	@ResponseBody
-	public String findBulletinUserNameById(@RequestParam("id") Integer id) {
-		Bulletin btn = bService.findById(id);
-		String launchername = btn.getLauncherid().getFamilyName() + " " + btn.getLauncherid().getGivenName();
-		return launchername;
-	}
-
-//	@PostMapping("/init.controller")
-//	@ResponseBody
-//	public Map<Integer, Object> init() {
-//		Map<Integer, Object> map1 = new HashMap<Integer, Object>();
-//		int i = 0;
-//		List<Bulletin> list = bService.findAll();
-//		for (Bulletin btn : list) {
-//			i += 1;
-//			Map<String, Object> map2 = new HashMap<String, Object>();
-//			map2.put("bulletinid", btn.getBulletinid());
-//			map2.put("title", btn.getTitle());
-//			map2.put("content", btn.getContent());
-//			String launchername = btn.getLauncherid().getFamilyName() + " " + btn.getLauncherid().getGivenName();
-//			map2.put("launchername", launchername);
-//			map1.put(i, map2);
-//		}
-//		return map1;
-//	}
-
-//	@PostMapping("/init2.controller")
-//	@ResponseBody
-//	public Map<Integer, Object> init2(@RequestParam("id") Integer id) {
-//		Map<Integer, Object> map1 = new HashMap<Integer, Object>();
-//		int i = 0;
-//		List<Bulletin> list = bService.findAllByCourseId(id);
-//		for (Bulletin btn : list) {
-//			i += 1;
-//			Map<String, Object> map2 = new HashMap<String, Object>();
-//			map2.put("bulletinid", btn.getBulletinid());
-//			map2.put("title", btn.getTitle());
-//			map2.put("content", btn.getContent());
-//
-//			Date date = btn.getCreationTime();
-//			SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
-//			String creationtime = formatter.format(date);
-//
-//			map2.put("creationtime", creationtime);
-//			String launchername = btn.getLauncherid().getFamilyName() + " " + btn.getLauncherid().getGivenName();
-//			map2.put("launchername", launchername);
-//			map1.put(i, map2);
-//		}
-//		return map1;
-//	}
 
 	@PostMapping("/init3.controller")
 	@ResponseBody
-	public Map<Integer, BulletinDTO> init3(@RequestParam("id") Integer id) {
+	public Map<Integer, BulletinDTO> init3(@AuthenticationPrincipal AccountUserDetails loggedAccount, @RequestParam("courseid") Integer courseid) {
+		
 		Map<Integer, BulletinDTO> map1 = new HashMap<Integer, BulletinDTO>();
 		int i = 0;
-		List<Bulletin> blist = bService.findAllByCourseId(id);
+		
+		List<Bulletin> blist = bService.findAllByCourseId(courseid);
 		for (Bulletin btn : blist) {
 			i += 1;
 			Integer bulletinid = btn.getBulletinid();
@@ -142,7 +96,8 @@ public class BulletinController {
 			Date date = btn.getCreationTime();
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
 			String creationtime = formatter.format(date);
-			Integer lectureid = btn.getLectureid().getLecturesID();
+//			Integer lectureid = btn.getLectureid().getLecturesID();
+			Integer lectureid = loggedAccount.getLoggedAccount().getUserId();
 			String launchername = btn.getLauncherid().getFamilyName() + " " + btn.getLauncherid().getGivenName();
 
 			HashMap<Integer, BulletinReplyDTO> replymap = new HashMap<Integer, BulletinReplyDTO>();
@@ -164,7 +119,6 @@ public class BulletinController {
 			} else {
 				brlist = null;
 			}
-
 			BulletinDTO bDto = new BulletinDTO(bulletinid, title, content, creationtime, launchername, lectureid,
 					replymap);
 			map1.put(i, bDto);
