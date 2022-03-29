@@ -25,14 +25,16 @@ public class ECPayProcessController {
 	
 	private String genAioCheckOutALL(HttpServletRequest request ){	
 		AioCheckOutALL obj = new AioCheckOutALL();
+		
+		// 須改，由前面order產生時的orderID傳到這
 		obj.setMerchantTradeNo(String.format("III%d", new Date().getTime()));	
 		obj.setMerchantTradeDate(String.format("%tY/%<tm/%<td %<tH:%<tM:%<tS", new Date() ) );	
 		obj.setTotalAmount( request.getParameter("TotalAmount") );	
 		obj.setTradeDesc( request.getParameter("TradeDesc") );		
 		obj.setItemName( request.getParameter("ItemName") );		
 		obj.setNeedExtraPaidInfo("N");
-		obj.setReturnURL("https://220.133.103.95/ecpay/ECPayServer2");
-		obj.setOrderResultURL("http://localhost:8082/howhow/ECPayServer3"); 
+		obj.setReturnURL("https://220.133.103.95/howhow/ECPayResponse");
+		obj.setOrderResultURL("http://localhost:8082/howhow/ECPayResult"); 
 		String form = all.aioCheckOut(obj, null);
 		return form;
 	}	
