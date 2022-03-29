@@ -95,8 +95,7 @@ public class PurchasedCourseController {
 	}
 	
 	@GetMapping("/checkout")
-	public String processCheckoutTest() {
+	public String processCheckout() {
 		return "checkout/checkout.html";
 	}
-
 }
