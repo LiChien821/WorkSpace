@@ -1,4 +1,4 @@
-package com.howhow.shopping.controller;
+package com.howhow.ecpayment;
 
 import java.util.Date;
 
@@ -19,7 +19,7 @@ public class ECPayController {
 	@ResponseBody
 	public String processPayment(HttpServletRequest request) {		
 		String form = genAioCheckOutALL(request);		
-		System.out.printf("【ECPayServer.java】產生了讓消費者付款的表單：\n%s\n",form);	
+		System.out.printf("ECPayController 產生消費者付款的表單：\n%s\n",form);	
 		return form; 		
 	}
 	
