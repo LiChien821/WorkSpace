@@ -1,4 +1,4 @@
-package com.howhow.ecpayment;
+package com.howhow.ecpayment.controller;
 
 import java.util.Date;
 
@@ -12,7 +12,7 @@ import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
 
 @Controller
-public class ECPayController {	
+public class ECPayProcessController {	
 	private static AllInOne all = new AllInOne("");
 	
 	@RequestMapping(value="/ECPayProcess", produces="text/html;charset=utf-8")
