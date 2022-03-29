@@ -37,6 +37,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.passwordEncoder(bcryptoEncoder());
 				
 	}
+	
+
+    
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -44,7 +47,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		  http  
 		  .csrf().disable()
 		   .authorizeRequests() 
-		     .antMatchers("/login.html","/login","/register","/createUser","/verify","/css","/**")
+		     .antMatchers("/login.html","/login","/register","/createUser","/verify","/css","/home")
 		     .permitAll()
 		     .antMatchers("/student/**").hasAuthority("Teacher,Student")
 		     .antMatchers("/course/**").hasAuthority("Admin")
@@ -57,6 +60,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		         .defaultSuccessUrl("/home", true)
 		         .permitAll()
 		         .and()
+		         .oauth2Login()
+		         .loginPage("/login")
+		         .defaultSuccessUrl("/home",true)
+		         .permitAll()
+		         .and()
 		         .rememberMe()
 		          .key("aaaaaaabbcccccc_1122334455")
 		          .tokenValiditySeconds(12*24*60)
@@ -65,6 +73,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		          .logoutSuccessUrl("/")
 		          .deleteCookies("JSESSIONID","remember-me")
 		          .permitAll();
+		  
 									
 	}
 
