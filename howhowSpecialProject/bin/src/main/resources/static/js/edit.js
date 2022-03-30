@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+
 
 const dataObj = {
 	blobSetting: "",
@@ -38,7 +38,7 @@ const dataObj = {
 };
 
 
-createApp({
+Vue.createApp({
 	data() {
 		return dataObj;
 	},
@@ -145,7 +145,7 @@ createApp({
 
 
 
-createApp({
+Vue.createApp({
 	data() {
 		return dataObj;
 	},
@@ -174,7 +174,7 @@ createApp({
 }).mount('#createSection')
 
 
-createApp({
+Vue.createApp({
 	data() {
 		return dataObj;
 	},
@@ -227,7 +227,7 @@ createApp({
 
 
 
-createApp({
+Vue.createApp({
 	data() {
 		return dataObj;
 	},
@@ -239,7 +239,7 @@ createApp({
 
 }).mount('#header')
 
-createApp({
+Vue.createApp({
 	data() {
 		return dataObj;
 	},

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,6 +37,7 @@ import com.howhow.course.exception.NoCourseException;
 import com.howhow.course.exception.NoSectionException;
 import com.howhow.course.exception.NotesDuplicationException;
 import com.howhow.course.exception.SessionDuplicationException;
+import com.howhow.course.exception.WrongInputException;
 import com.howhow.course.exception.updateLectureVideoIOException;
 import com.howhow.entity.Category;
 import com.howhow.entity.CourseBasic;
@@ -79,10 +81,12 @@ public class ApiRestController {
 	@GetMapping("/api/getAllCategory")
 	public Iterable<Category> getAllCategory() {
 		return categoryRepo.findAll();
+				
 	}
 	@GetMapping("/api/getAllNotes/{UID}/{lecturesID}")
 	public Iterable<Notes> getAllNotes(@PathVariable("UID") int UID,@PathVariable("lecturesID") int lecturesID) {
 		return notesService.findAllNotesListByUIDAndLectureID(UID,lecturesID);
+				
 	}
 
 	@GetMapping("/api/getLectureList/{sectionID}")
@@ -101,8 +105,15 @@ public class ApiRestController {
 	}
 
 	@GetMapping("/api/getCourse/{courseID}")
-	public CourseBasic getCourseFromCourseID(@PathVariable("courseID") int courseID) {
-		return courseService.findCourseByCourseId(courseID);
+	public CourseBasic getCourseFromCourseID(@PathVariable("courseID") int courseID) throws WrongInputException   {
+		try {
+			return courseService.findCourseByCourseId(courseID);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new WrongInputException("無此ID"+courseID);
+		}
+				
 	}
 
 	@PostMapping("/api/updateCourseAbstractCover")
@@ -113,7 +124,6 @@ public class ApiRestController {
 			
 	    	return courseService.updateCourseAbstractCover(multipartfile,courseID);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new BlobUploadException("updateCourseAbstractCover fail");
 		}
@@ -137,7 +147,7 @@ public class ApiRestController {
 	}
 
 	@PostMapping("/api/updateCourseAbstract")
-	public CourseBasic updateCourseAbstract(@RequestBody CourseBasic course) throws BadEequestException {
+	public CourseBasic updateCourseAbstract(@RequestBody CourseBasic course) throws BadEequestException, IOException {
 		if(courseService.updateCourseAbstract(course)) {
 		
 			return courseService.findCourseByCourseId(course.getCourseID());
@@ -167,7 +177,7 @@ public class ApiRestController {
 	@PostMapping(value = "/api/createSection/{courseID}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Iterable<Section> createSectionAndReturnSectionList(@PathVariable("courseID") int courseID,
-			@RequestBody Section inputSection) throws NoCourseException, SessionDuplicationException {
+			@RequestBody Section inputSection) throws NoCourseException, SessionDuplicationException, IOException {
 		CourseBasic existedCourse = courseService.findCourseByCourseId(courseID);
 		inputSection.setCourseBasic(existedCourse);
 		if (!sectionService.createSection(inputSection)) {

@@ -1,5 +1,7 @@
 package com.howhow.course.common;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -16,7 +18,7 @@ public interface CommonCourseRepository extends PagingAndSortingRepository<Cours
 //	public Page<Lectures> findAllByKeyWord(String keyword,Pageable pageable);
 	
 	@Query("SELECT c FROM CourseBasic c WHERE c.creator.userId = ?1 AND c.courseName=?2")
-	public CourseBasic   findCourseByUIDAndCourseName(Integer UID,String CourseName);
+	public Optional<CourseBasic>   findCourseByUIDAndCourseName(Integer UID,String CourseName);
 	
 	
 	@Query("SELECT c FROM CourseBasic c WHERE c.creator.userId = ?1 ")

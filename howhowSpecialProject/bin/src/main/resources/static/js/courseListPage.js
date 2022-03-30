@@ -1,5 +1,3 @@
-import { createApp } from 'vue'
-
 const dataObj = {
 	currentAccountID: "",
 	
@@ -16,7 +14,7 @@ const dataObj = {
 
 
 
-createApp({
+Vue.createApp({
 	data() {
 		return dataObj;
 	},
