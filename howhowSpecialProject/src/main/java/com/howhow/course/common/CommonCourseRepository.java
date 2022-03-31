@@ -2,6 +2,7 @@ package com.howhow.course.common;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -22,6 +23,6 @@ public interface CommonCourseRepository extends PagingAndSortingRepository<Cours
 	
 	
 	@Query("SELECT c FROM CourseBasic c WHERE c.creator.userId = ?1 ")
-	public  Iterable<CourseBasic>   findAllCourseByUID(Integer UID);
+	public  Iterable<CourseBasic>   findAllCourseByUID(Integer UID, Sort sort);
 	
 }

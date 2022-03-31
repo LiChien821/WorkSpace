@@ -36,7 +36,7 @@ public class LearningNotesService {
 
 		try {
 			
-			if(checkDuplication(reciver)) {
+			if(!isDuplication(reciver)) {
 				buildNewNotesAndSave(reciver);
 			}	
 			return true;
@@ -46,7 +46,7 @@ public class LearningNotesService {
 	}
 
 	private void buildNewNotesAndSave(JsonNoteRecevier reciver) {
-		UserAccountMt theuser = accountRepo.findById(reciver.getUID()).get();
+		UserAccountMt theuser = accountRepo.findById(reciver.getUserID()).get();
 		UserAccountDt theUDT = theuser.getUserAccountDt();
 		Long duration = reciver.getDuration();
 		Lectures thelecture = lectureRepo.findById(reciver.getLectureID()).get();
@@ -60,15 +60,15 @@ public class LearningNotesService {
 		notesRepo.save(notes);
 	}
 
-	private boolean checkDuplication(JsonNoteRecevier reciver) throws NotesDuplicationException {
-		UserAccountMt theuser = accountRepo.findById(reciver.getUID()).get();
+	private boolean isDuplication(JsonNoteRecevier reciver)  {
+		UserAccountMt theuser = accountRepo.findById(reciver.getUserID()).get();
 		UserAccountDt theUDT = theuser.getUserAccountDt();
 		Long duration = reciver.getDuration();
 		Lectures thelecture = lectureRepo.findById(reciver.getLectureID()).get();
-		if (notesRepo.checkDuplication(theUDT,duration,thelecture) ==null) {
+		if (notesRepo.checkDuplication(theUDT,duration,thelecture) !=null) {
 			return true;
 		}else {
-			throw new NotesDuplicationException();
+			return false;
 		}
 		
 	}
@@ -80,7 +80,7 @@ public class LearningNotesService {
 
 	public Iterable<Notes> findAllNotesListByUIDAndLectureID(JsonNoteRecevier reciver) {
 		
-		return notesRepo.findAllByUIDAndLectureID(reciver.getUID(),reciver.getLectureID());
+		return notesRepo.findAllByUIDAndLectureID(reciver.getUserID(),reciver.getLectureID());
 	}
 
 	public Iterable<Notes> findAllNotesList() {

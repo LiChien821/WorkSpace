@@ -3,6 +3,7 @@ package com.howhow.course.common;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.howhow.course.exception.NoSectionException;
@@ -38,7 +39,8 @@ public class LearningSectionService {
 
 
 	public Iterable<Section> findAllByCourseId(int courseID) {
-		return 		sectionRepo.findAllByCourseID(courseID);
+			   Sort sort=Sort.by("sectionNumber").ascending();
+		return 		sectionRepo.findAllByCourseID(courseID,sort);
 
 	}
 	

@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
 import org.springframework.stereotype.Service;
@@ -70,7 +71,8 @@ public class LearningCourseService {
 	}
 
 	public Iterable<CourseBasic> findAllCourseByUID(int id) {
-		return repo.findAllCourseByUID(id);
+		  Sort sort=Sort.by("courseID").ascending();
+		return repo.findAllCourseByUID(id,sort);
 
 	}
 

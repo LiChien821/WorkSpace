@@ -45,7 +45,7 @@
 <body>
 
 	<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-		<a class="navbar-brand col-md-3 col-lg-2  col-xl-2 me-0 px-3" href="#">HowHow學</a>
+		<a class="navbar-brand col-md-3 col-lg-2  col-xl-2 me-0 px-3" th:href="@{/home}">HowHow學</a>
 		<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
 			data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
 			aria-label="Toggle navigation">
@@ -65,6 +65,7 @@
 			<nav id="sidebarMenu" class="col-md-3 col-lg-2 col-xl-2 d-md-block bg-light sidebar collapse">
 				<div class="position-sticky pt-3" id="playSectionList">
 					<input th:value="${courseID}" id="playPageDeafultId" hidden>
+					<input hidden id="defaultAccountID" th:value="${accountID}">
 					<ul class="nav flex-column" v-for="section in sectionList">
 						<li class="nav-item">
 							<button class="btn btn-toggle align-items-center rounded collapsed "
@@ -100,7 +101,7 @@
 
 						
 					</div>
-					<div  id="notesVue"   class="col-2 d-flex align-items-end flex-column bd-highlight mb-3">
+					<div  id="notesVue"   class="col-2 d-flex align-items-start flex-column bd-highlight mb-3">
 						<div class="align-content-center">
 							<h2 >Notes</h2>
 						</div>
@@ -110,13 +111,13 @@
 							<div class="chat-header clearfix p-2 bd-highlight">
 							</div>
 							
-							<div class="chat-history p-2 bd-highlight" v-if="notesList !== ''">
-								<ul class="m-b-0" >
-									<li class="clearfix " v-for="notes in notesList">
-										<div class="message-data text-right ">
-											<a href="#javescr" class="message-data-time">{{notes.duration}}</a>
+							<div class="chat-history p-2 bd-highlight" v-if="notesList !== null && notesList.length>0">
+								<ul  class="m-b-0">
+									<li  class="chat-history p-2 bd-highlight" v-for="notes in notesList">
+										<div>
+											<a href="#javescr"  @click="changetime(notes.duration)">{{notes.duration}}</a>
 										</div>
-										<div class="message other-message float-right">{{notes.context}} </div>
+										<div >{{notes.context}} </div>
 									</li>
 								
 								</ul>
@@ -131,7 +132,8 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text"><i class="fa fa-send"></i></span>
 									</div>
-									<input type="text" class="form-control" placeholder="Enter Notes here..." v-model="notescontext">
+									<input type="text" class="form-control" placeholder="Enter Notes here..." v-model="notescontext" >
+									<input type="submit" value="紀錄" @click="createNotes">
 								</div>
 							</div>
 						

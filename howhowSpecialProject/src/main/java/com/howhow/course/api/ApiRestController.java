@@ -134,26 +134,30 @@ public class ApiRestController {
 	@PostMapping(value = "/api/createNotes")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Iterable<Notes> createNoteAndReturnNotesList(
-	@RequestBody JsonNoteRecevier reciver) throws NoCourseException, SessionDuplicationException, NotesDuplicationException {
+	@RequestBody JsonNoteRecevier reciver) {
+		System.out.println(reciver.getLectureID());
+		System.err.println(reciver.getDuration());
+		System.err.println(reciver.getNotescontext());
+		System.err.println(reciver.getUserID());
 		if(notesService.createNote(reciver)) {
-			
+			System.out.println(reciver.getLectureID());
+			System.err.println(reciver.getDuration());
 			return notesService.findAllNotesListByUIDAndLectureID(reciver);
-		}else {
-			throw new NotesDuplicationException();
 		}
+		return null;
 
 	
 
 	}
 	
-	@GetMapping(value = "/api/getAllNotes")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Iterable<Notes> returnAllNotesList() {
-		
-		return notesService.findAllNotesList();
-	
-
-	}
+//	@GetMapping(value = "/api/getAllNotes")
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public Iterable<Notes> returnAllNotesList() {
+//		
+//		return notesService.findAllNotesList();
+//	
+//
+//	}
 	
 	
 

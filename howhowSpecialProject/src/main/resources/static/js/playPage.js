@@ -5,7 +5,7 @@ const dataObj = {
 
 	currentTime: "",
 	skipTime: "",
-	duration: "",
+	duration: 0,
 	notescontext:"",
 	notesList:"",
 
@@ -14,7 +14,7 @@ const dataObj = {
 	currentCourseID: "",
 	currentSectionID:"",
 	currentLecturesID:"",
-	userAccoountID:"",
+	userAccountID:"",
 
 	sectionList: "",
 	lecturesList: "",
@@ -32,12 +32,14 @@ Vue.createApp({
 
 	methods: {
 		createNotes :function(){
+			this.userAccountID = document.getElementById("defaultAccountID").value;
+			this.duration=player.currentTime();
 				axios({
 			method: 'post',
 			url: '/howhow/api/createNotes',
 			headers: { "Access-Control-Allow-Origin": "*" },
 			data:{
-				 UID : this.userAccoountID ,
+				 userID : this.userAccountID ,
 
 				lectureID: this.currentLecturesID,
 		
@@ -48,44 +50,26 @@ Vue.createApp({
 			},
 
 		})
-			.then(response => (this.notesList= response.data))
+			.then(response => (this.notesList= response.data,this.notescontext=""))
 			.catch(function(error) {
 				console.log(error);
 
 			});
 		},
 		
-		changetime: function() {
+		changetime: function(time) {
 			player.pause();
-
-			if (this.skipTime == 800) {
-				this.videoSrcUrl = "4565"
-				player.src(this.videoSrcUrl)
-			} else {
-				this.videoSrcUrl = "../course-videos/42/test.mp4"
-				player.src(this.videoSrcUrl)
-				player.currentTime(this.skipTime)
-			}
-
+			this.skipTime =time;
+			player.currentTime(this.skipTime);
+			player.play();
+			
 		}
 	
 	
 	},
 	mounted: function() {
 	
-		
-		axios({
-			method: 'get',
-			url: '/howhow/api/getAllNotes',
-			headers: { "Access-Control-Allow-Origin": "*" },
-		
-
-		})
-			.then(response => (this.notesList= response.data.content))
-			.catch(function(error) {
-				console.log(error);
-
-			});
+	
 
 	},
 
@@ -106,8 +90,24 @@ Vue.createApp({
 		sendlecturemessage: function(id) {
 
 		},
+		getAllNotesByUIDANDLectureID: function(){
+			axios({
+			method: 'get',
+			url: '/howhow/api/getAllNotes/'+this.userAccoountID +"/"+this.currentLecturesID,
+			headers: { "Access-Control-Allow-Origin": "*" },
+		
+
+		})
+			.then(response => (this.notesList= response.data))
+			.catch(function(error) {
+				console.log(error);
+
+			});
+			
+		},
 		handleVideoUrl: function(lecture) {
 			this.lecture=lecture;
+			this.currentLecturesID=this.lecture.lecturesID;
 			this.videoSrcUrl=this.baseUrl+this.lecture.videoSource;
 			player.src(this.videoSrcUrl)
 			},
@@ -132,16 +132,19 @@ Vue.createApp({
 	},
 	mounted: function() {
 		this.currentCourseID = document.getElementById("playPageDeafultId").value;
+		this.userAccountID = document.getElementById("defaultAccountID").value;
 		axios({
 			method: 'get',
 
-			url: '/howhow/api/getCourse/' + this.currentCourseID,
+			url: '/howhow/api/getSectionList/'+this.currentCourseID,
 			headers: { "Access-Control-Allow-Origin": "*" },
 
 
 		})
 
-			.then(response => (this.course = response.data, this.sectionList = response.data.sectionList,this.currentLecturesID=response.data.sectionList[0].lecturesList[0].lecturesID ))
+			.then(response => ( this.sectionList = response.data,
+			this.currentLecturesID=response.data[0].lecturesList[0].lecturesID,
+			this.getAllNotesByUIDANDLectureID() ))
 			.catch(function(error) {
 				console.log(error);
 

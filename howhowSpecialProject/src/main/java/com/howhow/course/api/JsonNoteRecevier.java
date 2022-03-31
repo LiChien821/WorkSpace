@@ -3,7 +3,7 @@ package com.howhow.course.api;
 public class JsonNoteRecevier {
 
 
-		private int UID;
+		private int userID;
 
 		private int lectureID;
 
@@ -11,12 +11,14 @@ public class JsonNoteRecevier {
 
 		private String notescontext;
 
-		public int getUID() {
-			return UID;
+	
+
+		public int getUserID() {
+			return userID;
 		}
 
-		public void setUID(int uID) {
-			UID = uID;
+		public void setUserID(int userID) {
+			this.userID = userID;
 		}
 
 		public int getLectureID() {

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -42,8 +43,8 @@ public class LearningLecturesService {
 	}
 
 	public Iterable<Lectures> findAllBySectionID(int sectionID) {
-
-		return lectureRepo.findAllBySectionID(sectionID);
+		Sort sort=Sort.by("lectureNumber").ascending();
+		return lectureRepo.findAllBySectionID(sectionID,sort);
 	}
 
 	public Lectures findByLectureID(int lectureID) {

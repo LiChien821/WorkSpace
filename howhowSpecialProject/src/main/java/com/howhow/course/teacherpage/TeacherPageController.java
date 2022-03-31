@@ -63,7 +63,9 @@ public class TeacherPageController {
 	}
 
 	@PostMapping("/play")
-	public String playpage(@RequestParam(name = "courseID") Integer courseID, Model model) {
+	public String playpage(@AuthenticationPrincipal AccountUserDetails loggedAccount ,@RequestParam(name = "courseID") Integer courseID, Model model) {
+		int accountID = loggedAccount.getLoggedAccount().getUserId();
+		model.addAttribute("accountID", accountID);
 		model.addAttribute("courseID", courseID);
 		return "course/teacherPage/courseToPlay";
 	}
