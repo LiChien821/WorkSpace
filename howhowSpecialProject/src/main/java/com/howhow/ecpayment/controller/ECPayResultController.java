@@ -17,7 +17,7 @@ public class ECPayResultController {
 	
 	public static AllInOne all = new AllInOne("");		 
 	
-	@PostMapping(value="/ECPayResult",  produces="text/html;charset=utf-8") //預設response的字元編碼為ISO-8859-1
+	@PostMapping(value="/ECPayResult",  produces="text/html;charset=utf-8")
 	@ResponseBody
 	public String processPaymentResult2(HttpServletRequest request) {		
 		
@@ -29,7 +29,7 @@ public class ECPayResultController {
 			dict.put(paramName, paramValue);			
 		}
 		System.out.printf("【ECPayResult.java】用戶端付款成功後回傳「付款結果」通知給伺服端的參數們：\n%s\n", dict.toString());
-		boolean checkStatus = all.compareCheckMacValue(dict); //true：表示資料未被竄改
+		boolean checkStatus = all.compareCheckMacValue(dict); 
 		if ("1".equals(dict.get("RtnCode")) && checkStatus==true ){
 			return "<h1>付款成功</h1>";			 
 		}
