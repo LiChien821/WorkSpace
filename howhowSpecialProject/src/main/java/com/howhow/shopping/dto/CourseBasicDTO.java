@@ -1,5 +1,10 @@
 package com.howhow.shopping.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.howhow.entity.Section;
+
 public class CourseBasicDTO {
 	
 	private int courseid;
@@ -19,14 +24,17 @@ public class CourseBasicDTO {
 	private boolean purchasedStatus;
 	private int studentnum;
 	private int ranknum;
-	
+	private String url;
+	private List<CourseRankDTO> rdto = new ArrayList<CourseRankDTO>();
+	private List<Section> sectionList = new ArrayList<Section>();
+	private String category;
 	
 	public CourseBasicDTO() {
 	}
 	
 	public CourseBasicDTO(int courseid, String coursename, long price, int discountprice,
 			double rank, String creatorname, int categoryid, int coursestatusid, String cover,
-			String description, int creatorid, int studentnum, int ranknum) {
+			String description, int creatorid, int studentnum, int ranknum, String url) {
 		this.courseid = courseid;
 		this.coursename = coursename;
 		this.price = price;
@@ -40,6 +48,7 @@ public class CourseBasicDTO {
 		this.creatorid=creatorid;
 		this.studentnum=studentnum;
 		this.ranknum=ranknum;
+		this.url=url;
 	}
 
 	public int getCourseid() {
@@ -176,6 +185,38 @@ public class CourseBasicDTO {
 
 	public void setRanknum(int ranknum) {
 		this.ranknum = ranknum;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public List<CourseRankDTO> getRdto() {
+		return rdto;
+	}
+
+	public void setRdto(List<CourseRankDTO> rdto) {
+		this.rdto = rdto;
+	}
+
+	public List<Section> getSectionList() {
+		return sectionList;
+	}
+
+	public void setSectionList(List<Section> sectionList) {
+		this.sectionList = sectionList;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	
 	

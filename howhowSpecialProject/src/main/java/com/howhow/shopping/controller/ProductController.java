@@ -9,11 +9,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.howhow.account.service.AccountDetailService;
@@ -21,8 +21,10 @@ import com.howhow.cms.service.CourseStatusTypeService;
 import com.howhow.entity.Category;
 import com.howhow.entity.CourseBasic;
 import com.howhow.entity.CourseRank;
+import com.howhow.entity.Section;
 import com.howhow.entity.UserAccountDt;
 import com.howhow.shopping.dto.CourseBasicDTO;
+import com.howhow.shopping.dto.CourseRankDTO;
 import com.howhow.shopping.exception.CourseNotFoundException;
 import com.howhow.shopping.exception.UserNotFoundException;
 import com.howhow.shopping.service.CategoryService;
@@ -49,12 +51,13 @@ public class ProductController {
 
 	@Autowired
 	FavoriteCourseService fService;
-	
+
 	@Autowired
 	CourseStatusTypeService cstService;
-	
+
 	@Autowired
 	PurchasedCourseService pService;
+	
 	/*
 	 * Find BY ID
 	 */
@@ -72,11 +75,32 @@ public class ProductController {
 		String description = course.getDescription();
 		UserAccountDt userbean = acdService.findByID(creatorid);
 		String creatorName = userbean.getGivenName();
+		String category = catService.findByID(id).getName();
+		/*
+		 * if(loggedAccount!=null) { int userId =
+		 * loggedAccount.getLoggedAccount().getUserId(); boolean fstatus =
+		 * fService.findFavoriteCourseStatus(userId, courseid);
+		 * dto.setFavoritecoursestatus(fstatus); }
+		 */
 
 		dto.setCategoryid(id);
 		dto.setDescription(description);
 		dto.setCover(courseCover);
 		dto.setCreatorname(creatorName);
+		dto.setCategory(category);
+		
+		CourseRankController cc = new CourseRankController();
+		
+		List<CourseRank> rank = crService.findByCourseID(courseid);
+		
+		
+		if(rank.size()!=0) {
+		List<CourseRankDTO> rdto = cc.findCourseRankByCourseID(courseid);
+			dto.setRdto(rdto);
+		}
+		
+		List<Section> sectionList = course.getSectionList();
+		dto.setSectionList(sectionList);
 
 		return dto;
 	}
@@ -86,35 +110,32 @@ public class ProductController {
 	 */
 	@GetMapping("/findallcourses/{pageNo}")
 	@ResponseBody
-	public Page<CourseBasicDTO> findAllCourse(@PathVariable("pageNo") int pageNo) throws CourseNotFoundException {
-		
+	public Page<CourseBasicDTO> findAllCourse(@PathVariable("pageNo") int pageNo, Model m)
+			throws CourseNotFoundException {
 		int pageSize = 1;
-		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
-		
-		
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+
 		List<CourseBasicDTO> dtoList = new ArrayList<CourseBasicDTO>();
 		List<CourseBasic> list = cService.findAll();
 
 		for (CourseBasic courseBasic : list) {
 			CourseBasicDTO cb = dtoutils(courseBasic);
 			dtoList.add(cb);
-			
+
 		}
-		
+
 		Page<CourseBasicDTO> page = toPage(dtoList, pageable);
-		
-		
+
 		return page;
 	}
-	
-	  public Page<CourseBasicDTO> toPage(List<CourseBasicDTO> list, Pageable pageable) {
-	        int start = (int) pageable.getOffset();
-	        int end = Math.min((start + pageable.getPageSize()), list.size());
-	        if(start > list.size())
-	            return new PageImpl<>(new ArrayList<>(), pageable, list.size());
-	        return new PageImpl<>(list.subList(start, end), pageable, list.size());
-	    }
-	
+
+	public Page<CourseBasicDTO> toPage(List<CourseBasicDTO> list, Pageable pageable) {
+		int start = (int) pageable.getOffset();
+		int end = Math.min((start + pageable.getPageSize()), list.size());
+		if (start > list.size())
+			return new PageImpl<>(new ArrayList<>(), pageable, list.size());
+		return new PageImpl<>(list.subList(start, end), pageable, list.size());
+	}
 
 	/*
 	 * 依照課程類別查詢課程
@@ -137,9 +158,12 @@ public class ProductController {
 	/*
 	 * 依照課程名稱關鍵字搜尋
 	 */
-	@GetMapping("/findcoursebynamelike/{name}")
+	@GetMapping("/findcoursebynamelike/{name}/{pageNo}")
 	@ResponseBody
-	public List<CourseBasicDTO> findCourseListByNameLike(@PathVariable("name") String name) throws CourseNotFoundException {
+	public Page<CourseBasicDTO> findCourseListByNameLike(@PathVariable("name") String name, @PathVariable("pageNo") int pageNo)
+			throws CourseNotFoundException {
+		int pageSize = 1;
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
 
 		List<CourseBasicDTO> dtoList = new ArrayList<CourseBasicDTO>();
 		List<CourseBasic> list = cService.findByCourseNameLike(name);
@@ -148,7 +172,9 @@ public class ProductController {
 			CourseBasicDTO cb = dtoutils(courseBasic);
 			dtoList.add(cb);
 		}
-		return dtoList;
+
+		Page<CourseBasicDTO> page = toPage(dtoList, pageable);
+		return page;
 	}
 
 	@PostMapping("/insertcourse")
@@ -159,11 +185,11 @@ public class ProductController {
 		int categoryid = coursebasicDTO.getCategoryid();
 		UserAccountDt dt = acdService.findByID(creatorid);
 		Category cat = catService.findByID(categoryid);
-		
+
 		CourseBasic cb = new CourseBasic(coursebasicDTO.getCoursename(), coursebasicDTO.getPrice(),
-				coursebasicDTO.getDiscount(), cat, coursebasicDTO.getCover(),
-				coursebasicDTO.getDescription(), UtilityTool.getSysTime(), dt);
-				cb.setStatusType(cstService.findById(1));
+				coursebasicDTO.getDiscount(), cat, coursebasicDTO.getCover(), coursebasicDTO.getDescription(),
+				UtilityTool.getSysTime(), dt);
+		cb.setStatusType(cstService.findById(1));
 		CourseBasic insertCourseBasic = cService.insertCourseBasic(cb);
 
 		return insertCourseBasic;
@@ -227,15 +253,17 @@ public class ProductController {
 		int discountprice = (int) (price * discount);
 		int creatorid = courseBasic.getCreator().getUserId();
 		String givenName = acdService.findByID(creatorid).getGivenName();
-		
+
 		int catid = courseBasic.getCategory().getId();
 		int statusID = courseBasic.getStatusType().getStatusID();
 		String cover = courseBasic.getCourseCover();
 		String description = courseBasic.getDescription();
 		Integer studentnum = pService.findStudentCount(courseID);
-		
+
 		int ranknum = 0;
 		double totalrank = 0;
+
+		String url = "http://localhost:8082/howhow/product?id=" + Integer.toString(courseID);
 
 		List<CourseRank> list = crService.findByCourseID(courseID);
 		for (CourseRank courseRank : list) {
@@ -244,10 +272,10 @@ public class ProductController {
 		}
 
 		ranknum = list.size();
-		double rank = totalrank/ranknum;
-		
-		CourseBasicDTO cb = new CourseBasicDTO(courseID, courseName, price, discountprice, rank,
-				givenName, catid, statusID, cover, description, creatorid, studentnum, ranknum);
+		double rank = totalrank / ranknum;
+
+		CourseBasicDTO cb = new CourseBasicDTO(courseID, courseName, price, discountprice, rank, givenName, catid,
+				statusID, cover, description, creatorid, studentnum, ranknum, url);
 		return cb;
 	}
 

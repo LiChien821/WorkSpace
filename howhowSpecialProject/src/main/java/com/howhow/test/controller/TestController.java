@@ -3,6 +3,7 @@ package com.howhow.test.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.howhow.entity.UserBonus;
 import com.howhow.test.service.TestService;
+import com.howhow.websecurity.AccountUserDetails;
 
 @Controller
 public class TestController {
@@ -43,9 +45,21 @@ public class TestController {
 //	
 	
 	@GetMapping("/courses")
-	public String ac(@RequestParam("pageNo") int pageNo, Model m) {
-		m.addAttribute("pageNo", pageNo);
+	public String ac(Model m) {
+		m.addAttribute("pageNo", 1);
 		return "shopping/browse";
+	}
+	
+	@GetMapping("/product")
+	public String unit(@AuthenticationPrincipal AccountUserDetails loggedAccount,	@RequestParam("id") int id ,Model m) {
+		m.addAttribute("courseid", id);
+		int userid=-1;
+		if(loggedAccount!=null) {
+			userid = loggedAccount.getLoggedAccount().getUserId();
+		}
+		m.addAttribute("userid",userid);
+		
+		return "shopping/product";
 	}
 	
 	

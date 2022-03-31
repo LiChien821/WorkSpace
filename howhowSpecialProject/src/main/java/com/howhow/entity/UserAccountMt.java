@@ -61,15 +61,12 @@ public class UserAccountMt implements Serializable{
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
 	private UserAccountDt userAccountDt;
 	
-	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
 	private List<PurchasedCourse> purchasedCourseList = new ArrayList<PurchasedCourse>();
 	
-	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userID", cascade = CascadeType.ALL)
 	private List<OrderMt> orderMtList = new ArrayList<OrderMt>();
 	
-	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
 	private List<ShoppingCart> shoppingCartList = new ArrayList<ShoppingCart>();
 	
@@ -77,7 +74,6 @@ public class UserAccountMt implements Serializable{
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
 	private List<CFCOrder> cfcOrderList = new ArrayList<CFCOrder>();
 	
-	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userAccountMt", cascade = CascadeType.ALL)
 	private List<FavoriteCourse> favoriteCourseList = new ArrayList<FavoriteCourse>();
 	

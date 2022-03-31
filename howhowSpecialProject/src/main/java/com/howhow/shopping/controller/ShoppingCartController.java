@@ -138,4 +138,12 @@ public class ShoppingCartController {
 
 		return totalrank / count;
 	}
+	
+	@GetMapping("/removeshoppingcart/{userid}/{courseid}")
+	@ResponseBody
+	public boolean removeShoppingCart(@PathVariable("userid") int userid, @PathVariable("courseid") int courseid) {
+		boolean status = sService.removeShoppingCart(userid, courseid);
+		return status;
+	}
+	
 }

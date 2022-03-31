@@ -123,7 +123,7 @@ public class CourseRankController {
 	}
 	
 	
-	private CourseRankDTO dtoutils(CourseRank courseRank) throws CourseNotFoundException {
+	private CourseRankDTO dtoutils(CourseRank courseRank) {
 		int courseID = courseRank.getCourseBasic().getCourseID();	
 		int userid = courseRank.getUserAccountMt().getUserId();		
 		UserAccountDt userdetail = acdService.findByID(userid);

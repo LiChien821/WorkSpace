@@ -1,7 +1,9 @@
 package com.howhow.shopping.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -126,6 +128,22 @@ public class FavoriteCourseController {
 		return insertFavoriteCourse;
 	}
 	
+	@GetMapping("/findfavoritecoursestatus/{userid}/{courseid}")
+	@ResponseBody
+	public boolean findFavoriteCourseStatus(@PathVariable("userid") int userid,@PathVariable("courseid") int courseid) {
+		
+		boolean status = fService.findFavoriteCourseStatus(userid, courseid);
+		
+		return status;
+	}
+	
+	@GetMapping("/removefavoritecourse/{userid}/{courseid}")
+	@ResponseBody
+	public boolean removeFavoriteCourse(@PathVariable("userid") int userid, @PathVariable("courseid") int courseid) {
+		boolean status = fService.removeFavoriteCourse(userid, courseid);
+		return status;
+	}
+	
 	private double rankUtilsByCourseID(int id) {
 		double count = 0;
 		double totalrank = 0;
@@ -140,4 +158,7 @@ public class FavoriteCourseController {
 		
 		return totalrank/count;
 	}
+	
+	
+	
 }

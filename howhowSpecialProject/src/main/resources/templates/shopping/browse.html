@@ -46,7 +46,13 @@
                     </div><!-- .breadcrumbs -->
                 </div><!-- .col -->
             </div><!-- .row -->
-
+			<div class="row">
+				<div class="col-4">
+					<input id="search" v-model="search" placeholder="尋找" v-on:keyup.enter="goSearch(search)">
+				</div>
+			</div>
+			
+			
             <div class="row">
                 <div class="col-12 col-lg-12">
                     <div class="featured-courses courses-wrap">
@@ -61,14 +67,14 @@
                                         <div class="course-content-wrap">
 
                                             <header class="entry-header">
-                                                <h2 class="entry-title"><a href="#">{{course.coursename}}</a>
+                                                <h2 class="entry-title"><a :href="course.url">{{course.coursename}}</a>
                                                 </h2>
                                                 <div class="flex flex-wrap justify-content-between align-items-center">
                                                     <div class="course-author"><a href="#">{{course.creatorname}}</a>
                                                     </div><!-- .course-date -->
                                                     <div class="flex justify-content-end align-items-center">
-                                                        <div v-if="course.favstatus==false"><button class="btn btn-light shadow-none far fa-bookmark" style="color:green" v-on:click="addFav"></button></div>
-                                                        <div v-else><button class="btn btn-success shadow-none far fa-bookmark " style="color:white" v-on:click="dropFav"></button></div>
+                                                        <div v-if="course.favstatus==false"><button class="btn btn-light shadow-none far fa-bookmark" style="color:green" @click=></button></div>
+                                                        <div v-else><button class="btn btn-success shadow-none far fa-bookmark " style="color:white"></button></div>
                                                     </div>
                                                 </div>
                                                 
@@ -115,9 +121,9 @@
                     <div class="pagination flex flex-wrap justify-content-between align-items-center">
                         <div class="col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0">
                             <ul class="flex flex-wrap align-items-center order-2 order-lg-1 p-0 m-0">
-                            	<li class="page-item" :class="{'disabled':res.first}"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
-                                <li v-for="page in courses.totalPages" :key="page" :class="{'active':pageNo==page}"><a href="#">{{page}}</a></li>
-                                <li class="page-item" :class="{'disabled':res.last}"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
+                            	<li class="page-item" :class="{'disabled':res.first}"><a class="page-link" href="#" @click.prevent=previousPage()><i class="fa fa-angle-left"></i></a></li>
+                                <li v-for="page in courses.totalPages" :key="page" :class="{'active':pageNo==page}"><a id="page" href="#" @click.prevent="changePage(page)" >{{page}}</a></li>
+                                <li class="page-item" :class="{'disabled':res.last}"><a class="page-link" href="#" @click.prevent="nextPage()"><i class="fa fa-angle-right"></i></a></li>
                             </ul>
                         </div>
 
