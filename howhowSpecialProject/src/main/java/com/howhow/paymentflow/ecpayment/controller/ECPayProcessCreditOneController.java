@@ -10,21 +10,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
+import ecpay.payment.integration.domain.AioCheckOutOneTime;
 
 @Controller
-public class ECPayProcessController {	
+public class ECPayProcessCreditOneController {	
 	private static AllInOne all = new AllInOne("");
 	
-	@RequestMapping(value="/ECPayProcess", produces="text/html;charset=utf-8")
+	@RequestMapping(value="/ECPayProcessCreditOne", produces="text/html;charset=utf-8")
 	@ResponseBody
 	public String processPayment(HttpServletRequest request) {		
-		String form = genAioCheckOutALL(request);		
+		String form = genAioCheckOutOneTime(request);		
 		System.out.printf("ECPayController 產生消費者付款的表單：\n%s\n",form);	
 		return form; 		
 	}
 	
-	private String genAioCheckOutALL(HttpServletRequest request ){	
-		AioCheckOutALL obj = new AioCheckOutALL();
+	private String genAioCheckOutOneTime(HttpServletRequest request ){	
+		AioCheckOutOneTime obj = new AioCheckOutOneTime();
 		
 		// 須改，由前面order產生時的orderID傳到這
 		obj.setMerchantTradeNo(String.format("III%d", new Date().getTime()));	
