@@ -4,7 +4,7 @@ TYPE html>
 
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=""UTF-8">
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 <meta name="viewpor"
 	content="width=device-width,initial-scale=1.0, minimum0scale=1.0">
 <link rel="icon" type="image/x-icon" th:href="@{/images/sheep.ico}" />
@@ -21,71 +21,54 @@ TYPE html>
 
 <body>
 <div class="container" style="margin-top: 30px">
-		<form action="#" th:action="@{/createUser}"  method="Post"
+		<form action="#" th:action="@{/gcreateUser}"  method="Post"
 			style="padding: 50px ; text-align:center ; margin: 0 auto ; position: absoluate;" >
-			<sapn class="accword">±b¸¹µù¥U</span>
+			<sapn class="accword">GOOLEè¨»å†Š</span>
 			<div class="space">
 				<span class="accword">[[${text}]]</span>
-				<label for="account" class="accword">±b¸¹: </label> <input id="account" name="" th:object="${Account}"
-					class="accountp" type="text" th:field="*{account}" required
-					placeholder="½Ð¿é¤J±b¸¹" />
-			</div>
+
 
 			<div class="space">
-				<label class="accword" for="password">±K½X:</label> <input id="password" th:object="${Account}"
+				<label class="accword" for="password">å¯†ç¢¼</label> <input id="password" th:object="${Account}"
 					class="accountp" type="password" th:field="*{password}"
-					required="required" placeholder="½Ð¿é¤J±K½X"
+					required="required" 
 					oninput="checkPasswordMatch(document.getElementById('confirmPassword'))"
 					minlength="6" maxlength="15" />
 			</div>
 
 
 		 	<div class="space">
-				<label class="col-sm-4 col-form-label" for="confirmPassword">½T»{±K½X</label> 
+				<label class="col-sm-4 col-form-label" for="confirmPassword">ç¢ºèªå¯†ç¢¼</label> 
 				<input type="password" id="confirmPassword" class="accountp"
 					minlength="6" maxlength="15" oninput="checkPasswordMatch(this)" />
 
 			</div> 
 
 
-				<div class="space">
-					<label for="familyname">©m¤ó</label> <input id="familyName" th:object="${AccountDetail}"
-						class="accountp" type="text" th:field="*{familyName}" required
-						placeholder="½Ð¿é¤J©m¤ó" />
-				</div>
 
-				<div class="space">
-					<label for="familyname">¦W</label> <input id="givenName" th:object="${AccountDetail}"
-						class="accountp" type="text" th:field="*{givenName}" required
-						placeholder="½Ð¿é¤J¦W¦r" />
-				</div>
 			<div class="space">
-					<span>©Ê§O: </span>
+					<span>æ€§åˆ¥: </span>
 					<div>
 						<input type="radio" name="gender" id="male" th:object="${AccountDetail}" th:field="*{gender}" 
-							value="Male" required /> <label for="male">¨k</label> 
+							value="Male" required /> <label for="male">ç”·</label> 
 							<input
 							type="radio" name="gender" id="female" th:object="${AccountDetail}" th:field="*{gender}" 
-							value="Female" /> <label for="female">¤k</label>
+							value="Female" /> <label for="female">å¥³</label>
 					</div>
 				</div>
 
-				<div class="space">
-					<label for="email">Email: </label> <input id="email" th:object="${AccountDetail}"
-						class="accountp" type="email" th:field="*{email}" required
-						placeholder="½Ð¿é¤Jemail" />
-				</div>
+		
 
 				<div class="space">
-					<label for="birth">¥Í¤é: </label> <input id="birth" th:object="${AccountDetail}"
+					<label for="birth">ç”Ÿæ—¥:</label> <input id="birth" th:object="${AccountDetail}"
 						class="accountp" type="date" th:field="*{birth}" required />
 				</div>
 			</div>
 			<span class = "btd">
-			<input type="submit" class="bt1" value="µù¥U" />
+			<input type="submit" class="bt1" value="é€å‡º" />
                </span>
 			<div>
-				<a class= "singup"  href="login">¦^¨ìµn¤J­¶­±</a>
+				<a class= "singup"  href="login">ç™»å…¥</a>
 			</div>
 
 		</form>

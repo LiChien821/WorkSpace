@@ -89,7 +89,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		         .and()
 		         .oauth2Login()
 		         .loginPage("/login")
-		         .defaultSuccessUrl("/",true)
+		         .defaultSuccessUrl("/google_register",true)
 		         .permitAll()
 		         .and()
 		         .rememberMe()
