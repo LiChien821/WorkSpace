@@ -11,6 +11,7 @@ import com.howhow.entity.Bulletin;
 @Repository
 public interface BulletinRepository extends JpaRepository<Bulletin, Integer> {
 	
+	
 	@Query(nativeQuery = true,
 	           value = "SELECT \n"
 	           		+ "    *\n"
@@ -29,6 +30,12 @@ public interface BulletinRepository extends JpaRepository<Bulletin, Integer> {
 	           		+ "                WHERE\n"
 	           		+ "                    course_id = ?1))\n"
 	           		+ "ORDER BY creation_time DESC;")
-		public List<Bulletin> findAllByCourseId(Integer id);
+	public List<Bulletin> findAllByCourseId(Integer id);
+	
+	@Query(nativeQuery = true,
+	           value = "SELECT creator_id\n"
+	           		+ "FROM CourseBasic\n"
+	           		+ "WHERE course_id = ?1")
+	public Integer findCreatorIdByCourseId(Integer id);
 	
 }

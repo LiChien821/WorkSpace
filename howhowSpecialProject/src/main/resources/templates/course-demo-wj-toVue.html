@@ -16,10 +16,13 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script th:src="@{/assets_wj/js/main.js}"></script>
+    <!-- <script src="https://unpkg.com/vue@3"></script> -->
+    <link rel="stylesheet" th:href="@{/assets_wj/css/main2.css}">
+    </link>
+    <!-- <script th:src="@{/assets_wj/js/main.js}"></script> -->
     <style>
         .blt-inner-container {
-            display: none;
+            /* display: none; */
         }
     </style>
 </head>
@@ -105,7 +108,7 @@
                     dicit copiosae invidunt qui. Pertinax democritum reformidans ea pro, quo facilis honestatis eu.
                 </article>
                 <hr />
-                <div class="card border border-0">
+                <div class="card border border-0" id="bulletin">
                     <div class="card-header border border-0 d-flex a justify-content-between">
                         <div>留言回覆</div>
 
@@ -140,44 +143,41 @@
                                         <div class=" d-flex justify-content-between">
                                             <div class="dropdown d-flex">
                                                 <button type="button" class="btn-sm btn-primary dropdown-toggle"
-                                                    data-bs-toggle="dropdown">選擇單元</button>
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <h5 class="dropdown-header">章節1</h5>
-                                                    </li>
-                                                    <li><small class="dropdown-item"><span>單元1</span></small> </li>
-                                                    <li><a class="dropdown-item" href="#">Link 2</a></li>
-                                                    <li><a class="dropdown-item" href="#">Link 3</a></li>
-                                                    <li>
-                                                        <h5 class="dropdown-header">Dropdown header 2</h5>
-                                                    </li>
-                                                    <li><a class="dropdown-item" href="#">Another link</a></li>
+                                                    data-bs-toggle="dropdown">{{ currQuestionSelection }}</button>
+                                                <ul class="dropdown-menu" >
+                                                    <div v-for="sec in sectiones">
+                                                        <li v-for="lec in sec.lectiones" @click="toggleQuestionLectionId(lec.lectionId, sec.sectionName, lec.lectionName)"><small
+                                                                class="dropdown-item"><span>{{ sec.sectionName }} .
+                                                                    {{lec.lectionName}}</span></small> </li>
+                                                    </div>
                                                 </ul>
                                             </div>
 
                                             <input id="blt-qst-title" class="rounded form-control mb-1" type="text"
+                                                @focus="toggleQuestionBar" v-model="currQuestionTitle"
                                                 placeholder="請留下您的問題標題...">
                                         </div>
-                                        <div id="blt-qst-toggle" style="display: none;">
-                                            <div id="d1c1">
-                                                <textarea class="rounded form-control mb-1" rows="5" id="c1"
-                                                    placeholder="請留下您的問題內容..."></textarea>
+                                        <transition name="question">
+                                            <div id="blt-qst-toggle" v-if="showQuestionBar">
+                                                <div id="d1c1">
+                                                    <textarea class="rounded form-control mb-1" rows="5" id="c1"
+                                                        v-model="currQuestionContent"
+                                                        placeholder="請留下您的問題內容..."></textarea>
+                                                </div>
+                                                <div class="d-flex justify-content-end" id="d1b1">
+                                                    <button class="btn btn-dark btn-primary me-1"
+                                                        id="blt-qst-toggle-cancel" type="button"
+                                                        @click="showQuestionBar = false">取消</button>
+                                                    <button class="btn btn-dark btn-primary" id="blt-qst-submit"
+                                                        @click="sendQuestion()" type="button">送出</button>
+                                                </div>
                                             </div>
-                                            <div class="d-flex justify-content-end" id="d1b1">
-                                                <button class="btn btn-dark btn-primary me-1" id="blt-qst-toggle-cancel"
-                                                    type="button">取消</button>
-                                                <button class="btn btn-dark btn-primary" id="blt-qst-submit"
-                                                    type="button">送出</button>
-                                            </div>
-                                        </div>
+                                        </transition>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div id="show-all-bulletin">...</div>
-
-                        <div id="show-all-bluuetin2">
+                        <div id="show-all-bluuetin">
                             <div class="d-flex mb-3">
                                 <div class="flex-shrink-0">
                                     <h1><i class="fa fa-user-circle" aria-hidden="true"></i>
@@ -254,107 +254,87 @@
                                 </div>
                             </div>
 
-                            <div class="d-flex">
+                            <div class="d-flex mb-3" v-for="blt in bulletins">
                                 <div class="flex-shrink-0">
                                     <h1><i class="fa fa-user-circle" aria-hidden="true"></i>
                                     </h1>
                                 </div>
                                 <div class="flex-grow-1 ms-2 d-block">
-                                    <span>Lorem ipsum dolor sit amet, per veritus dissentiunt ea, id eum
-                                        soluta deleniti. Usu</span>
+                                    <span>{{ blt.title }}</span>
                                     <div class="d-flex justify-content-start align-items-center mb-1">
-                                        <div class="me-3"><small><span>王韋傑</span></small></div>
-                                        <div class="me-3"><small><span>2022.03.12</span></small></div>
-                                        <div class="me-3 blt-inner-flip">
+                                        <div class="me-3"><small><span>{{ blt.launcherName }}</span></small></div>
+                                        <div class="me-3"><small><span>{{ blt.creationTime}}</span></small></div>
+                                        <div class="me-3 blt-inner-flip" @click="toggleReplyContent(blt.bulletinId)"
+                                            key="blt.bulletinId">
                                             <small><span><i class="fa fa-comment" aria-hidden="true"></i></span></small>
                                         </div>
                                     </div>
-                                    <div class="blt-inner-container">
-                                        <div class="blt-inner-content">
-                                            <div class="blt-content">
-                                                Lorem ipsum dolor sit amet, per veritus dissentiunt ea, id eum
-                                                soluta deleniti. Usu labore delenit ullamcorper ex, cu pri consul
-                                                integre voluptatum, simul cetero
-                                                moderatius cum et. Vim cu eius
-                                            </div>
-                                            <div class="blt-reply-content d-flex mt-3">
-                                                <div class="flex-shrink-0">
-                                                    <h3><i class="fa fa-user-circle" aria-hidden="true"></i>
-                                                    </h3>
+                                    <transition name="reply">
+                                        <div class="blt-inner-container" v-if="showReply == blt.bulletinId">
+                                            <div class="blt-inner-content">
+                                                <div class="my-3 blt-title">
+                                                    <p>{{ blt.content }}</p>
                                                 </div>
-                                                <div class="container px-0 ms-2 mt-1">
-                                                    <div class="d-flex justify-content-start align-items-center">
-                                                        <div class="me-2">授課老師</div>
-                                                        <div class="me-2">王韋傑</div>
-                                                        <div class="me-2">2022.03.12</div>
+                                                <div class="blt-reply-content d-flex mt-2" v-for="bRep in blt.replies">
+                                                    <div class="flex-shrink-0">
+                                                        <h3><i class="fa fa-user-circle" aria-hidden="true"></i>
+                                                        </h3>
                                                     </div>
-                                                    <div class="flex-grow-1 m-0">
-                                                        ullamcorper ex, cu pri consul integre
-                                                        voluptatum, simul cetero
-                                                        moderatius cum et.
-                                                        Vim cu eius
-                                                        phaedrum,
-                                                        duo dolore atomorum theophrastus no. No mei dicat honestatis,
-                                                        mea aperiam vocibus
-                                                        assueverit ei,
-                                                        fastidii delectus est no.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="blt-reply-content d-flex mt-3">
-                                                <div class="flex-shrink-0">
-                                                    <h3><i class="fa fa-user-circle" aria-hidden="true"></i>
-                                                    </h3>
-                                                </div>
-                                                <div class="container px-0 ms-2 mt-1">
-                                                    <div class="d-flex justify-content-start align-items-center">
-                                                        <div class="me-2">授課老師</div>
-                                                        <div class="me-2">王韋傑</div>
-                                                        <div class="me-2">2022.03.12</div>
-                                                    </div>
-                                                    <div class="flex-grow-1 m-0">
-                                                        ullamcorper ex, cu pri consul integre
-                                                        voluptatum, simul cetero
-                                                        moderatius cum et.
-                                                        Vim cu eius
-                                                        phaedrum,
-                                                        duo dolore atomorum theophrastus no. No mei dicat honestatis,
-                                                        mea aperiam vocibus
-                                                        assueverit ei,
-                                                        fastidii delectus est no.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="blt-reply-content d-flex mt-3">
-                                                <div class="flex-shrink-0">
-                                                    <h3><i class="fa fa-user-circle" aria-hidden="true"></i>
-                                                    </h3>
-                                                </div>
-                                                <div class="container px-0 ms-2 mt-1">
-                                                    <div class="d-flex justify-content-start align-items-center">
-                                                        <div class="me-2">授課老師</div>
-                                                        <div class="me-2">王韋傑</div>
-                                                    </div>
-                                                    <div class="flex-grow-1 m-0 d-grid ">
-                                                        <textarea class="reply-input" type="text" style="height:30px;"
-                                                            placeholder="請留言..."></textarea>
-                                                    </div>
-                                                    <div class="mt-1 d-flex justify-content-end ">
-                                                        <div class="reply-input-toggle" style="display: none;">
-                                                            <button
-                                                                class="btn btn-dark btn-primary me-1 reply-input-toggle-cancel"
-                                                                type="button">取消</button>
-                                                            <button class="btn btn-dark btn-primary "
-                                                                id="reply-input-submit" type="button">送出</button>
+                                                    <div class="container px-0 ms-2 mt-1">
+                                                        <div class="d-flex justify-content-start align-items-center">
+                                                            <div class="me-2" v-if="bRep.bulletinreplyId == courseCreatorId"><small><span>授課老師</span></small></div>
+                                                            <div class="me-2"><small><span>{{ bRep.respondentName
+                                                                        }}</span></small></div>
+                                                            <div class="me-2"><small><span>{{ bRep.creationTime
+                                                                        }}</span></small></div>
                                                         </div>
+                                                        <div class="flex-grow-1 m-0">
+                                                            {{ bRep.replyContent }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="blt-reply-content d-flex mt-2">
+                                                    <div class="flex-shrink-0">
+                                                        <h3><i class="fa fa-user-circle" aria-hidden="true"></i>
+                                                        </h3>
+                                                    </div>
+                                                    <div class="container px-0 ms-2 mt-1">
+                                                        <div class="d-flex justify-content-start align-items-center">
+                                                            <div class="me-2" v-if="userId == courseCreatorId"><small><span>授課老師</span></small></div>
+                                                            <div class="me-2"><small><span>{{ userName }}</span></small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex-grow-1 m-0 d-grid ">
+                                                            <textarea class="reply-input" type="text"
+                                                                @focus="toggleReplyInput(blt.bulletinId)"
+                                                                v-model="currReplyInputContent" style="height:30px;"
+                                                                placeholder="請留言..."></textarea>
+                                                        </div>
+                                                        <transition name="replyInput">
+                                                            <div class="mt-1 d-flex justify-content-end"
+                                                                v-if="showReplyInput == blt.bulletinId">
+                                                                <div class="reply-input-toggle">
+                                                                    <button
+                                                                        class="btn btn-dark btn-primary me-1 reply-input-toggle-cancel"
+                                                                        @click="cancelReplyInput()"
+                                                                        type="button">取消</button>
+                                                                    <button class="btn btn-dark btn-primary"
+                                                                        @click="sendReplyInput(blt.bulletinId)"
+                                                                        id="reply-input-submit"
+                                                                        type="button">送出</button>
+                                                                </div>
+                                                            </div>
+                                                        </transition>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </transition>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -371,8 +351,15 @@
         </div>
     </div>
 
-
-
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <script type="importmap">
+	{
+	  "imports": {
+		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+	  }
+	}
+    </script>
+    <script type="module" th:src="@{/assets_wj/js/main2.js}"></script>
 
 
     <footer class="bg-light py-4 mt-3">
@@ -383,9 +370,7 @@
                 <div class="mx-1">icon2</div>
                 <div class="mx-1">icon3</div>
             </div>
-
         </div>
-
     </footer>
 </body>
 

@@ -2,8 +2,12 @@ package com.howhow.course.bulletin.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,8 +18,11 @@ import com.howhow.course.bulletin.service.BulletinReplyService;
 import com.howhow.course.bulletin.service.BulletinService;
 import com.howhow.entity.Bulletin;
 import com.howhow.entity.BulletinReply;
+import com.howhow.entity.Lectures;
 import com.howhow.entity.UserAccountDt;
+import com.howhow.websecurity.AccountUserDetails;
 
+@Controller
 public class BulletinReplyController {
 	
 	@Autowired
@@ -26,15 +33,26 @@ public class BulletinReplyController {
 	
 	@Autowired
 	private UserAccountDtService uadService;
-
+	
 	@PostMapping("/insertBulletinReply.controller")
 	@ResponseBody
-	public BulletinReply insertBulletinReply(@RequestBody BulletinReply bReply) {
+	public BulletinReply insertBulletinReply(@RequestBody Map<String, Object> map, @AuthenticationPrincipal AccountUserDetails loggedAccount) {
+		BulletinReply bReply = new BulletinReply();
+		String replycontent = (String) map.get("replycontent");
+		Integer bulletinid = (Integer) map.get("bulletinid");
+		Bulletin blt = bService.findById(bulletinid);
+			
+		try {
+			Integer respondentid = loggedAccount.getLoggedAccount().getUserId();
+			UserAccountDt user = uadService.findById(respondentid);
+			bReply.setRespondentid(user);
+		} catch (NullPointerException e) {
+			System.out.println("loggedAccount is null");
+		}
+		
+		bReply.setReplycontent(replycontent);
+		bReply.setBulletinid(blt);
 		bReply.setCreationtime(new Date());
-		Bulletin blt1 = bService.findById(1);
-		UserAccountDt user1 = uadService.findById(1);
-		bReply.setRespondentid(user1);
-		bReply.setBulletinid(blt1);
 		return brService.insert(bReply);
 	}
 

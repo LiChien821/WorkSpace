@@ -41,6 +41,12 @@ public class BulletinService {
 		return op1;	
 	}
 	
+	//findCreatorIdByCourseId
+		public Integer findCreatorIdByCourseId(Integer id) {
+			Integer creatorid = bRepo.findCreatorIdByCourseId(id);
+			return creatorid;	
+		}
+	
 	//findAll
 	public List<Bulletin> findAll() {
 		return bRepo.findAll();
