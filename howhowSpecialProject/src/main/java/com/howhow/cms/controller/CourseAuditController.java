@@ -28,10 +28,10 @@ public class CourseAuditController {
 
 	@GetMapping("/courseaudit")
 	public String guidToCourse() {
-		return "/cms/courseauditmain.html";
+		return "cms/courseauditmain.html";
 	}
 	
-	// 顯示指定審核狀態(通過或未通過)的課程
+	// 顯示所有未審核課程
 	@ResponseBody
 	@GetMapping("/coursedata/")
 	public List<CourseBasic> showAllPendingApproval() {

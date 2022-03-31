@@ -14,24 +14,32 @@ public class CategoryService {
 
 	@Autowired
 	CategoryRepository repo;
-	
+
 	public Category findByID(int id) {
 		Optional<Category> bean = repo.findById(id);
 		return bean.get();
 	}
-	
-	public List<Category> findAllCategory(){
+
+	public List<Category> findAllCategory() {
 		return repo.findAll();
 	}
-	
+
 	public Category addCategory(Category category) {
 		return repo.save(category);
 	}
-	
+
 	public boolean checkExist(String name) {
-		if(null != repo.findByname(name)) {
+		if (null != repo.findByname(name)) {
 			return true;
 		}
 		return false;
+	}
+
+	public void deleteCategory(Category category) {
+		repo.delete(category);
+	}
+	
+	public Category updateCategory(Category category) {
+		return repo.save(category);
 	}
 }
