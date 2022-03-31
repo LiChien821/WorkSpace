@@ -60,10 +60,10 @@
 	</header>
 
 
-	<div class="container-fluid" id="playSectionList">
+	<div class="container-fluid" >
 		<div class="row">
 			<nav id="sidebarMenu" class="col-md-3 col-lg-2 col-xl-2 d-md-block bg-light sidebar collapse">
-				<div class="position-sticky pt-3">
+				<div class="position-sticky pt-3" id="playSectionList">
 					<input th:value="${courseID}" id="playPageDeafultId" hidden>
 					<ul class="nav flex-column" v-for="section in sectionList">
 						<li class="nav-item">
@@ -100,7 +100,7 @@
 
 						
 					</div>
-					<div class="col-2 d-flex align-items-end flex-column bd-highlight mb-3" id="notesVue">
+					<div  id="notesVue"   class="col-2 d-flex align-items-end flex-column bd-highlight mb-3">
 						<div class="align-content-center">
 							<h2 >Notes</h2>
 						</div>
@@ -114,9 +114,9 @@
 								<ul class="m-b-0" >
 									<li class="clearfix " v-for="notes in notesList">
 										<div class="message-data text-right ">
-											<a href="#javescr" class="message-data-time">{{notes,duration}}</a>
+											<a href="#javescr" class="message-data-time">{{notes.duration}}</a>
 										</div>
-										<div class="message other-message float-right">{{notes.notescontext}} </div>
+										<div class="message other-message float-right">{{notes.context}} </div>
 									</li>
 								
 								</ul>

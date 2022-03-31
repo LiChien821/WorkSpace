@@ -53,20 +53,35 @@ Vue.createApp({
 				console.log(error);
 
 			});
+		},
+		
+		changetime: function() {
+			player.pause();
+
+			if (this.skipTime == 800) {
+				this.videoSrcUrl = "4565"
+				player.src(this.videoSrcUrl)
+			} else {
+				this.videoSrcUrl = "../course-videos/42/test.mp4"
+				player.src(this.videoSrcUrl)
+				player.currentTime(this.skipTime)
+			}
+
 		}
+	
 	
 	},
 	mounted: function() {
 	
-		this.userAccoountID=document.getElementById("deafultUID").value;
+		
 		axios({
-			method: 'post',
-			url: '/howhow/api/getAllNotes/'+this.userAccoountID+'/'+this.currentLecturesID,
+			method: 'get',
+			url: '/howhow/api/getAllNotes',
 			headers: { "Access-Control-Allow-Origin": "*" },
 		
 
 		})
-			.then(response => (this.notesList= response.data))
+			.then(response => (this.notesList= response.data.content))
 			.catch(function(error) {
 				console.log(error);
 
@@ -74,7 +89,7 @@ Vue.createApp({
 
 	},
 
-}).mount('notesVue')
+}).mount('#notesVue')
 
 
 
@@ -135,26 +150,7 @@ Vue.createApp({
 	},
 
 }).mount('#playSectionList')
-const app = Vue.createApp({
-	data() {
-		return dataObj;
-	},
-	methods: {
-		changetime: function() {
-			player.pause();
 
-			if (this.skipTime == 800) {
-				this.videoSrcUrl = "4565"
-				player.src(this.videoSrcUrl)
-			} else {
-				this.videoSrcUrl = "../course-videos/42/test.mp4"
-				player.src(this.videoSrcUrl)
-				player.currentTime(this.skipTime)
-			}
-
-		}
-	}
-}).mount('#form2')
 
 var player = videojs('my-video', {
 	sources: [{ src: dataObj.videoSrcUrl }],

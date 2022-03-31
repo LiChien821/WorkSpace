@@ -145,6 +145,17 @@ public class ApiRestController {
 	
 
 	}
+	
+	@GetMapping(value = "/api/getAllNotes")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Iterable<Notes> returnAllNotesList() {
+		
+		return notesService.findAllNotesList();
+	
+
+	}
+	
+	
 
 	@PostMapping("/api/updateCourseAbstract")
 	public CourseBasic updateCourseAbstract(@RequestBody CourseBasic course) throws BadEequestException, IOException {

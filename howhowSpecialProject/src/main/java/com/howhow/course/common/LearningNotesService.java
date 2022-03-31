@@ -1,6 +1,9 @@
 package com.howhow.course.common;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -78,5 +81,11 @@ public class LearningNotesService {
 	public Iterable<Notes> findAllNotesListByUIDAndLectureID(JsonNoteRecevier reciver) {
 		
 		return notesRepo.findAllByUIDAndLectureID(reciver.getUID(),reciver.getLectureID());
+	}
+
+	public Iterable<Notes> findAllNotesList() {
+		Pageable pageable= PageRequest.of(0, 3);
+		
+		return notesRepo.findAll(pageable);
 	}
 }
