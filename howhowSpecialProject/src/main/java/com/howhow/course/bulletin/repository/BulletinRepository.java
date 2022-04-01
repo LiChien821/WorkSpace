@@ -38,4 +38,14 @@ public interface BulletinRepository extends JpaRepository<Bulletin, Integer> {
 	           		+ "WHERE course_id = ?1")
 	public Integer findCreatorIdByCourseId(Integer id);
 	
+	@Query(nativeQuery = true,
+	           value = "SELECT \n"
+	           		+ "    *\n"
+	           		+ "FROM\n"
+	           		+ "    bulletin\n"
+	           		+ "WHERE\n"
+	           		+ "    lecture_id  = ?1 "
+	           		+ "ORDER BY creation_time DESC;")
+	public List<Bulletin> findAllByLectureId(Integer id);
+	
 }

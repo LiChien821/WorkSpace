@@ -1,6 +1,7 @@
 package com.howhow.course.bulletin.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -26,19 +27,27 @@ import com.howhow.course.bulletin.dto.BulletinReplyDTO;
 import com.howhow.course.bulletin.service.BulletinReplyService;
 import com.howhow.course.bulletin.service.BulletinService;
 import com.howhow.course.common.LearningLecturesService;
+import com.howhow.course.common.LearningSectionService;
 import com.howhow.entity.Bulletin;
 import com.howhow.entity.BulletinReply;
 import com.howhow.entity.Lectures;
+import com.howhow.entity.Section;
 import com.howhow.entity.UserAccountDt;
 import com.howhow.websecurity.AccountUserDetails;
 
 @Controller
-@SessionAttributes(names = {"courseid", "userid"})
+@SessionAttributes(names = { "courseid", "userid" })
 public class BulletinController {
-	
+
 	@Autowired
 	private BulletinService bService;
 
+	@Autowired
+	private LearningSectionService lsService;
+	
+	@Autowired
+	private LearningLecturesService llService;
+	
 	@Autowired
 	private BulletinReplyService brService;
 
@@ -47,7 +56,7 @@ public class BulletinController {
 
 	@Autowired
 	private LearningLecturesService lService;
-	
+
 	@GetMapping("/course/{courseid}.controller")
 	public String processBulletin(HttpServletRequest request, Model model, @PathVariable("courseid") Integer courseid) {
 		model.addAttribute("userid", request.getAttribute("userid"));
@@ -55,23 +64,29 @@ public class BulletinController {
 //		return "course-demo-wj";
 		return "course-demo-wj-toVue";
 	}
-	
+
 	@GetMapping("/findCreatorIdByCourseId.controller")
 	@ResponseBody
 	public Integer findCreatorIdByCourseId(@RequestParam("courseid") Integer courseid) {
 		return bService.findCreatorIdByCourseId(courseid);
 	}
-	
-	@GetMapping("/findLoggedUserId.controller")
+
+	@GetMapping("/findLoggedUser.controller")
 	@ResponseBody
-	public Integer findLoggedUserId(@AuthenticationPrincipal AccountUserDetails loggedAccount) {
+	public Map<String, Object> findLoggedUser(@AuthenticationPrincipal AccountUserDetails loggedAccount) {
+		Map<String, Object> map1 = new HashMap<String, Object>();
 		Integer loggedUserId = loggedAccount.getLoggedAccount().getUserId();
-		return loggedUserId;
+		UserAccountDt user = uadService.findById(loggedUserId);
+		String loggedUserName = user.getFamilyName() + " " + user.getGivenName();
+		map1.put("loggedUserId", loggedUserId);
+		map1.put("loggedUserName", loggedUserName);
+		return map1;
 	}
-	
+
 	@PostMapping("/insertBulletin2.controller")
 	@ResponseBody
-	public Bulletin insertBulletin2(@RequestBody Map<String, Object> map, @AuthenticationPrincipal AccountUserDetails loggedAccount) {
+	public Bulletin insertBulletin2(@RequestBody Map<String, Object> map,
+			@AuthenticationPrincipal AccountUserDetails loggedAccount) {
 		Bulletin bulletin = new Bulletin();
 		String title = (String) map.get("title");
 		String content = (String) map.get("content");
@@ -90,19 +105,15 @@ public class BulletinController {
 	@GetMapping("/findAllByCourseId.controller")
 	@ResponseBody
 	public Bulletin findAllByCourseId(HttpServletRequest request) {
-		return (Bulletin) bService.findAllByCourseId((Integer)request.getAttribute("courseid"));
+		return (Bulletin) bService.findAllByCourseId((Integer) request.getAttribute("courseid"));
 	}
 
 	@GetMapping("/initBulletin.controller")
 	@ResponseBody
-	public Map<Integer, BulletinDTO> initBulletin(@AuthenticationPrincipal AccountUserDetails loggedAccount, @RequestParam("courseid") Integer courseid) {
-		
-		Map<Integer, BulletinDTO> map1 = new HashMap<Integer, BulletinDTO>();
-		int i = 0;
-		
+	public List<Object> initBulletin(@RequestParam("courseid") Integer courseid) {
+		List<Object> list = new ArrayList<Object>();
 		List<Bulletin> blist = bService.findAllByCourseId(courseid);
 		for (Bulletin btn : blist) {
-			i += 1;
 			Integer bulletinid = btn.getBulletinid();
 			String title = btn.getTitle();
 			String content = btn.getContent();
@@ -110,12 +121,14 @@ public class BulletinController {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
 			String creationTime = formatter.format(date);
 			Integer lectureid = btn.getLectureid().getLecturesID();
-//			Integer lectureid = loggedAccount.getLoggedAccount().getUserId();
 			String launchername = btn.getLauncherid().getFamilyName() + " " + btn.getLauncherid().getGivenName();
-
-			HashMap<Integer, BulletinReplyDTO> replies = new HashMap<Integer, BulletinReplyDTO>();
+			Lectures lecture = llService.findByLectureID(lectureid);
+			String lecturename = lecture.getLecturesName();
+		    String sectionname = lecture.getSection().getSectionName();
+			List<BulletinReplyDTO> replies = new ArrayList<BulletinReplyDTO>();
 			int j = 0;
 			List<BulletinReply> brlist = brService.findAllByBulletinId(bulletinid);
+			Integer replyCount = 0;
 			if (brlist != null) {
 				for (BulletinReply bReply : brlist) {
 					j += 1;
@@ -123,28 +136,127 @@ public class BulletinController {
 					String brcontent = bReply.getReplycontent();
 					Date brdate = bReply.getCreationtime();
 					String brcreationtime = formatter.format(brdate);
+					Integer respondentId = bReply.getRespondentid().getUserId();
 					String respondentname = bReply.getRespondentid().getFamilyName() + " "
 							+ bReply.getRespondentid().getGivenName();
 					BulletinReplyDTO brDto = new BulletinReplyDTO(bulletinreplyid, brcontent, brcreationtime,
-							respondentname);
-					replies.put(j, brDto);
+							respondentname, respondentId);
+					replies.add(brDto);
 				}
+				replyCount = brlist.size();
 			} else {
 				brlist = null;
-			}
+			} 
+			
 			BulletinDTO bDto = new BulletinDTO(bulletinid, title, content, creationTime, launchername, lectureid,
-					replies);
-			map1.put(i, bDto);
+					replies, replyCount, sectionname, lecturename);
+			list.add(bDto);
 		}
-		return map1;
+		return list;
 	}
-
+//	@GetMapping("/initBulletin.controller")
+//	@ResponseBody
+//	public Map<Integer, Object> initBulletin(@RequestParam("courseid") Integer courseid) {
+//		Map<Integer, Object> map1 = new HashMap<Integer, Object>();
+//		int i = 0;
+//		List<Bulletin> blist = bService.findAllByCourseId(courseid);
+//		for (Bulletin btn : blist) {
+//			i += 1; 
+//			Integer bulletinid = btn.getBulletinid();
+//			String title = btn.getTitle();
+//			String content = btn.getContent();
+//			Date date = btn.getCreationTime();
+//			SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
+//			String creationTime = formatter.format(date);
+//			Integer lectureid = btn.getLectureid().getLecturesID();
+//			String launchername = btn.getLauncherid().getFamilyName() + " " + btn.getLauncherid().getGivenName();
+//			Lectures lecture = llService.findByLectureID(lectureid);
+//			String lecturename = lecture.getLecturesName();
+//		    String sectionname = lecture.getSection().getSectionName();
+//			HashMap<Integer, BulletinReplyDTO> replies = new HashMap<Integer, BulletinReplyDTO>();
+//			int j = 0;
+//			List<BulletinReply> brlist = brService.findAllByBulletinId(bulletinid);
+//			Integer replyCount = 0;
+//			if (brlist != null) {
+//				for (BulletinReply bReply : brlist) {
+//					j += 1;
+//					Integer bulletinreplyid = bReply.getBulletinreplyid();
+//					String brcontent = bReply.getReplycontent();
+//					Date brdate = bReply.getCreationtime();
+//					String brcreationtime = formatter.format(brdate);
+//					Integer respondentId = bReply.getRespondentid().getUserId();
+//					String respondentname = bReply.getRespondentid().getFamilyName() + " "
+//							+ bReply.getRespondentid().getGivenName();
+//					BulletinReplyDTO brDto = new BulletinReplyDTO(bulletinreplyid, brcontent, brcreationtime,
+//							respondentname, respondentId);
+//					replies.put(j, brDto);
+//				}
+//				replyCount = brlist.size();
+//			} else {
+//				brlist = null;
+//			} 
+//			
+//			BulletinDTO bDto = new BulletinDTO(bulletinid, title, content, creationTime, launchername, lectureid,
+//					replies, replyCount, sectionname, lecturename);
+//			map1.put(i, bDto);
+//		}
+//		return map1;
+//	}
+//	@GetMapping("/initBulletinByLectureId.controller")
+//	@ResponseBody
+//	public Map<Integer, Object> initBulletinByLectureId(@RequestParam("lectureid") Integer lectureid) {
+//		Map<Integer, Object> map1 = new HashMap<Integer, Object>();
+//		int i = 0;
+//		List<Bulletin> blist = bService.findAllByLectureId(lectureid);
+//		for (Bulletin btn : blist) {
+//			i += 1; 
+//			Integer bulletinid = btn.getBulletinid();
+//			String title = btn.getTitle();
+//			String content = btn.getContent();
+//			Date date = btn.getCreationTime();
+//			SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
+//			String creationTime = formatter.format(date);
+//			Integer lectureid1 = btn.getLectureid().getLecturesID();
+//			String launchername = btn.getLauncherid().getFamilyName() + " " + btn.getLauncherid().getGivenName();
+//			Lectures lecture = llService.findByLectureID(lectureid1);
+//			String lecturename = lecture.getLecturesName();
+//		    String sectionname = lecture.getSection().getSectionName();
+//			HashMap<Integer, BulletinReplyDTO> replies = new HashMap<Integer, BulletinReplyDTO>();
+//			int j = 0;
+//			List<BulletinReply> brlist = brService.findAllByBulletinId(bulletinid);
+//			Integer replyCount = 0;
+//			if (brlist != null) {
+//				for (BulletinReply bReply : brlist) {
+//					j += 1;
+//					Integer bulletinreplyid = bReply.getBulletinreplyid();
+//					String brcontent = bReply.getReplycontent();
+//					Date brdate = bReply.getCreationtime();
+//					String brcreationtime = formatter.format(brdate);
+//					Integer respondentId = bReply.getRespondentid().getUserId();
+//					String respondentname = bReply.getRespondentid().getFamilyName() + " "
+//							+ bReply.getRespondentid().getGivenName();
+//					BulletinReplyDTO brDto = new BulletinReplyDTO(bulletinreplyid, brcontent, brcreationtime,
+//							respondentname, respondentId);
+//					replies.put(j, brDto);
+//				}
+//				replyCount = brlist.size();
+//			} else {
+//				brlist = null;
+//			} 
+//			
+//			BulletinDTO bDto = new BulletinDTO(bulletinid, title, content, creationTime, launchername, lectureid1,
+//					replies, replyCount, sectionname, lecturename);
+//			map1.put(i, bDto);
+//		}
+//		return map1;
+//	}
+	
 	@GetMapping("/findAllBulletin.controller")
 	@ResponseBody
 	public List<Bulletin> findAllBulletin() {
 		return bService.findAll();
 	}
-	
+
 	@PostMapping("/deleteBulletinById.controller")
 	@ResponseBody
 	public void deleteBulletinById(@RequestParam Integer id) {

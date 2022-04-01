@@ -42,10 +42,19 @@ public class BulletinService {
 	}
 	
 	//findCreatorIdByCourseId
-		public Integer findCreatorIdByCourseId(Integer id) {
-			Integer creatorid = bRepo.findCreatorIdByCourseId(id);
-			return creatorid;	
+	public Integer findCreatorIdByCourseId(Integer id) {
+		Integer creatorid = bRepo.findCreatorIdByCourseId(id);
+		return creatorid;	
+	}
+	
+	//findCreatorIdByCourseId
+	public List<Bulletin> findAllByLectureId(Integer id) {
+		List<Bulletin> op1 = bRepo.findAllByLectureId(id);
+		if (op1.isEmpty()) {
+			return null;
 		}
+		return op1;
+	}
 	
 	//findAll
 	public List<Bulletin> findAll() {

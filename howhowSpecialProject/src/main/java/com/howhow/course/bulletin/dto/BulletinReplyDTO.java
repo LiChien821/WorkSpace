@@ -5,14 +5,24 @@ public class BulletinReplyDTO {
 	private Integer bulletinreplyId;
 	private String replyContent;
 	private String creationTime;
+	private Integer resondentId;
 	private String respondentName;
 	
 	public BulletinReplyDTO(Integer bulletinreplyid, String replycontent, 
-			String creationtime, String respondentname) {
+			String creationtime, String respondentname, Integer resondentId) {
 		this.bulletinreplyId = bulletinreplyid;
 		this.replyContent = replycontent;
 		this.creationTime = creationtime;
 		this.respondentName = respondentname;
+		this.resondentId = resondentId;
+	}
+
+	public Integer getResondentId() {
+		return resondentId;
+	}
+
+	public void setResondentId(Integer resondentId) {
+		this.resondentId = resondentId;
 	}
 
 	public Integer getBulletinreplyId() {

@@ -46,60 +46,60 @@ const dataObj = {
 			]
 		}
 	],
+	bulletins: ""
+	// bulletins: [
+	// 	{
+	// 		bulletinId: 11,
+	// 		lectureId: 21,
+	// 		title: "this a title in vue",
+	// 		content: "this is a content in vue.",
+	// 		launcherName: "WeiJ",
+	// 		creationTime: "2022-02-22",
+	// 		replies: [
+	// 			{
+	// 				bulletinReplyId: 31,
+	// 				replyContent: "replyContent1",
+	// 				respondentName: "Apple",
+	// 				creationTime: "2022-02-12"
+	// 			},
+	// 			{
+	// 				bulletinReplyId: 32,
+	// 				replyContent: "replyContent1",
+	// 				respondentName: "Bed",
+	// 				creationTime: "2022-02-12"
+	// 			},
+	// 		]
+	// 	},
+	// 	{
+	// 		bulletinId: 12,
+	// 		lectureId: 23,
+	// 		title: "this a title in vue",
+	// 		content: "this is a content in vue.",
+	// 		launcherName: "WillJ",
+	// 		creationTime: "2022-02-22",
+	// 		replies: [
+	// 			{
+	// 				bulletinReplyId: 33,
+	// 				replyContent: "replyContent1",
+	// 				respondentName: "Cat",
+	// 				creationTime: "2022-02-12"
+	// 			},
+	// 			{
+	// 				bulletinReplyId: 34,
+	// 				replyContent: "replyContent1",
+	// 				respondentName: "Dog",
+	// 				creationTime: "2022-02-12"
+	// 			},
+	// 			{
+	// 				bulletinReplyId: 31,
+	// 				replyContent: "replyContent1",
+	// 				respondentName: "WillJ",
+	// 				creationTime: "2022-02-12"
+	// 			}
+	// 		]
+	// 	}
 
-	bulletins: [
-		{
-			bulletinId: 11,
-			lectureId: 21,
-			title: "this a title in vue",
-			content: "this is a content in vue.",
-			launcherName: "WeiJ",
-			creationTime: "2022-02-22",
-			replies: [
-				{
-					bulletinReplyId: 31,
-					replyContent: "replyContent1",
-					respondentName: "Apple",
-					creationTime: "2022-02-12"
-				},
-				{
-					bulletinReplyId: 32,
-					replyContent: "replyContent1",
-					respondentName: "Bed",
-					creationTime: "2022-02-12"
-				},
-			]
-		},
-		{
-			bulletinId: 12,
-			lectureId: 23,
-			title: "this a title in vue",
-			content: "this is a content in vue.",
-			launcherName: "WillJ",
-			creationTime: "2022-02-22",
-			replies: [
-				{
-					bulletinReplyId: 33,
-					replyContent: "replyContent1",
-					respondentName: "Cat",
-					creationTime: "2022-02-12"
-				},
-				{
-					bulletinReplyId: 34,
-					replyContent: "replyContent1",
-					respondentName: "Dog",
-					creationTime: "2022-02-12"
-				},
-				{
-					bulletinReplyId: 31,
-					replyContent: "replyContent1",
-					respondentName: "WillJ",
-					creationTime: "2022-02-12"
-				}
-			]
-		}
-
-	]
+	// ]
 };
 
 createApp({
@@ -149,7 +149,7 @@ createApp({
 			);
 		}
 		function getLoggedUserId(){
-			return axios.get("/howhow/findLoggedUserId.controller");
+			return axios.get("/howhow/findLoggedUser.controller");
 		}
 		// console.log(this.bulletins);
 		// axios({
@@ -180,11 +180,11 @@ createApp({
 			const resp3 = responses[2];
 			this.bulletins = resp1.data;
 			this.courseCreatorId = resp2.data;
-			this.userId = resp3.data;
-
+			this.userId = resp3.data["loggedUserId"];
+			this.userName = resp3.data["loggedUserName"];
 			console.log(this.bulletins);
 			console.log(this.courseCreatorId);
-			console.log(this.userId);
+			console.log("now uid, uname cid",this.userId, this.userName, this.courseCreatorId);
 		})).catch(errors => {
 			console.log(errors);
 		})
@@ -208,31 +208,51 @@ createApp({
 			console.log("lecId: ",lecId);
 		},
 		sendQuestion: function () {
-			axios({
-				method: 'post',
-				url: '/howhow/insertBulletin2.controller',
-				headers: { 
-					// 'Authorization': 'Basic xxxxxxxxxxxxxxxxxxx',
-					'Content-Type': 'application/json',
-					"dataType": "JSON",
-					"Access-Control-Allow-Origin": "*"
-				},
-				data: {
-					lectureid: this.currQuestionLectionId,
-					title: this.currQuestionTitle,
-					content: this.currQuestionContent
-				}
-			})
-			.then(function (response) {
-				console.log("resp: ");
-				console.log(response);
-			})
-			.catch(function (error) {
-				console.log("error: ");
-				console.log(error);
-			})
+			// axios({
+			// 	method: 'post',
+			// 	url: '/howhow/insertBulletin2.controller',
+			// 	headers: { 
+			// 		// 'Authorization': 'Basic xxxxxxxxxxxxxxxxxxx',
+			// 		'Content-Type': 'application/json',
+			// 		"dataType": "JSON",
+			// 		"Access-Control-Allow-Origin": "*"
+			// 	},
+			// 	data: {
+			// 		lectureid: this.currQuestionLectionId,
+			// 		title: this.currQuestionTitle,
+			// 		content: this.currQuestionContent
+			// 	}
+			// })
+			// .then(function (response) {
+			// 	console.log("resp: ");
+			// 	console.log(response);
+			// })
+			// .catch(function (error) {
+			// 	console.log("error: ");
+			// 	console.log(error);
+			// })
 
 			console.log("sendQuestion finish");
+			var today = new Date();
+			var currCreationTime = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();	
+			this.bulletins.unshift(
+				{
+					bulletinId: 11,
+					lectureId: this.currQuestionLectionId,
+					title: this.currQuestionTitle,
+					content: this.currQuestionContent+"(剛剛)",
+					launcherName: this.userName,
+					creationTime: currCreationTime,
+					replies: [],
+					replyCount: 0,
+					sectionName: this.currQuestionSelection.split('.')[0],
+					lectureName: this.currQuestionSelection.split('.')[1]
+				}
+			);
+			
+			
+			console.log(this.bulletins);
+
 		},
 		toggleReplyContent: function (bltId) {
 			if (this.showReply == bltId) {
@@ -253,32 +273,105 @@ createApp({
 			this.showReplyInput = false;
 		},
 		sendReplyInput: function(bltId) {
-			axios({
-				method: 'post',
-				url: '/howhow/insertBulletinReply.controller',
-				headers: { 
-					// 'Authorization': 'Basic xxxxxxxxxxxxxxxxxxx',
-					'Content-Type': 'application/json',
-					"dataType": "JSON",
-					"Access-Control-Allow-Origin": "*"
-				},
-				data: {
-					bulletinid: bltId,
-					replycontent: this.currReplyInputContent
-				}
-			})
-			.then(function (response) {
-				console.log("resp: ");
-				console.log(response);
-			})
-			.catch(function (error) {
-				console.log("error: ");
-				console.log(error);
-			})
+			// axios({
+			// 	method: 'post',
+			// 	url: '/howhow/insertBulletinReply.controller',
+			// 	headers: { 
+			// 		// 'Authorization': 'Basic xxxxxxxxxxxxxxxxxxx',
+			// 		'Content-Type': 'application/json',
+			// 		"dataType": "JSON",
+			// 		"Access-Control-Allow-Origin": "*"
+			// 	},
+			// 	data: {
+			// 		bulletinid: bltId,
+			// 		replycontent: this.currReplyInputContent
+			// 	}
+			// })
+			// .then(function (response) {
+			// 	console.log("resp: ");
+			// 	console.log(response);
+			// })
+			// .catch(function (error) {
+			// 	console.log("error: ");
+			// 	console.log(error);
+			// })
 
 
 			console.log(bltId);
 			console.log(this.currReplyInputContent);
+
+			console.log("sendReplyInput finish");
+			var date = new Date();
+			var currCreationTime = date.pattern("yyyy.MM.dd");	
+
+			for(var i = 0; i < this.bulletins.length; i++) {
+				if (this.bulletins[i]["bulletinId"] == bltId) {
+					this.bulletins[i]["replies"].push(
+						{
+							bulletinreplyId: 6,
+							creationTime: currCreationTime,
+							replyContent: this.currReplyInputContent,
+							resondentId: this.userId,
+							respondentName: this.userName
+						}
+					);
+				}
+				continue;
+			}
+
+		},
+		getBulletinByLectureId: function (lectureId){
+			axios.get(
+				"/howhow/initBulletinByLectureId.controller",
+				{
+					params: {
+						lectureid: lectureId
+					},
+					headers: { 
+						'Content-Type': 'application/x-www-form-urlencoded',
+						"data-Type": "JSON",
+						"Access-Control-Allow-Origin": "*"
+					}
+				}
+			)
+			.then((response) => {
+				console.log("resp: ");
+				console.log(response);
+				this.bulletins = response.data;
+			})
+			.catch((error) => {
+				console.log("error: ");
+				console.log(error);
+			})
+		},
+		getBulletinByCourseId: function () {
+			var urls = window.location.href.split('/');
+			var target = urls[urls.length - 1];
+			var courseId = target.split('.')[0];
+			console.log(courseId);
+
+			axios.get(
+				"/howhow/initBulletin.controller",
+				{
+					params: {
+						courseid: courseId
+					},
+					headers: { 
+						'Content-Type': 'application/x-www-form-urlencoded',
+						"data-Type": "JSON",
+						"Access-Control-Allow-Origin": "*"
+					}
+				}
+			)
+			.then((response) => {
+				console.log("resp: ");
+				console.log(response);
+				this.bulletins = response.data;
+			})
+			.catch((error) => {
+				console.log("error: ");
+				console.log(error);
+			})
 		}
 
 	}

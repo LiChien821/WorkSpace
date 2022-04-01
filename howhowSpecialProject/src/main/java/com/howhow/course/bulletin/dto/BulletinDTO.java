@@ -1,6 +1,7 @@
 package com.howhow.course.bulletin.dto;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class BulletinDTO {
 
@@ -10,11 +11,14 @@ public class BulletinDTO {
 	private String creationTime;
 	private String launcherName;
 	private Integer lectureId;
-	private HashMap<Integer, BulletinReplyDTO> replies;
+	private List<BulletinReplyDTO> replies;
+	private Integer replyCount;
+	private String sectionName;
+	private String lectureName;
 	
 	public BulletinDTO(Integer bulletinId, String title, String content, 
 			String creationTime, String launcherName, Integer lectureId, 
-			HashMap<Integer, BulletinReplyDTO> replies) {
+			List<BulletinReplyDTO> replies, Integer replyCount, String sectionName, String lectureName) {
 		this.bulletinId = bulletinId;
 		this.title = title;
 		this.content = content;
@@ -22,17 +26,33 @@ public class BulletinDTO {
 		this.launcherName = launcherName;
 		this.lectureId = lectureId;
 		this.replies = replies;
+		this.replyCount = replyCount;
+		this.sectionName = sectionName;
+		this.lectureName = lectureName;
 	}
-	
-	public BulletinDTO(Integer bulletinId, String title, String content, 
-			String creationTime, String launcherName,
-			HashMap<Integer, BulletinReplyDTO> replies) {
-		this.bulletinId = bulletinId;
-		this.title = title;
-		this.content = content;
-		this.creationTime = creationTime;
-		this.launcherName = launcherName;
-		this.replies = replies;
+
+	public String getSectionName() {
+		return sectionName;
+	}
+
+	public void setSectionName(String sectionName) {
+		this.sectionName = sectionName;
+	}
+
+	public String getLectureName() {
+		return lectureName;
+	}
+
+	public void setLectureName(String lectureName) {
+		this.lectureName = lectureName;
+	}
+
+	public Integer getReplyCount() {
+		return replyCount;
+	}
+
+	public void setReplyCount(Integer replyCount) {
+		this.replyCount = replyCount;
 	}
 
 	public Integer getBulletinId() {
@@ -83,11 +103,11 @@ public class BulletinDTO {
 		this.lectureId = lectureId;
 	}
 
-	public HashMap<Integer, BulletinReplyDTO> getReplies() {
+	public List<BulletinReplyDTO> getReplies() {
 		return replies;
 	}
 
-	public void setReplies(HashMap<Integer, BulletinReplyDTO> replies) {
+	public void setReplies(List<BulletinReplyDTO> replies) {
 		this.replies = replies;
 	}
 
