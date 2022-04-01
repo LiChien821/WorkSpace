@@ -1,6 +1,6 @@
 *{
 /*border: solid 1px;*/
-  font-family: å¾®è»Ÿæ­£é»‘é«”;
+  font-family: ·L³n¥¿¶ÂÅé;
   
 }
 body{
@@ -57,7 +57,7 @@ font: normal normal normal 30px Kohinoor Telugu;
 letter-spacing: 0px;
 color: #FFFFFF;
 opacity: 1;
-  font-family: å¾®è»Ÿæ­£é»‘é«”;
+  font-family: ·L³n¥¿¶ÂÅé;
 }
 .errme{
  letter-spacing: 0px;
@@ -156,4 +156,15 @@ margin-left:200px;
 	
 	width:600px;
 	height:200px;
+}
+form {
+
+/* set width in form, not fieldset (still takes up more room w/ fieldset width */
+font:100% verdana,arial,sans-serif;
+margin: 0 auto;
+padding: 0;
+
+width: 560px;
+position:absolute; height:280px;
+top:0; bottom:0; left:0; right:0;
 }
