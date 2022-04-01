@@ -34,13 +34,13 @@
     
 </head>
 <body>
-    <div id="app">
+    <div id="browse">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="breadcrumbs">
                         <ul class="flex flex-wrap align-items-center p-0 m-0">
-                            <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                            <li><a href="/howhow/"><i class="fa fa-home"></i> Home</a></li>
                             <li>Courses</li>
                         </ul>
                     </div><!-- .breadcrumbs -->
@@ -73,8 +73,8 @@
                                                     <div class="course-author"><a href="#">{{course.creatorname}}</a>
                                                     </div><!-- .course-date -->
                                                     <div class="flex justify-content-end align-items-center">
-                                                        <div v-if="course.favstatus==false"><button class="btn btn-light shadow-none far fa-bookmark" style="color:green" @click=></button></div>
-                                                        <div v-else><button class="btn btn-success shadow-none far fa-bookmark " style="color:white"></button></div>
+                                                        <div v-if="favstatus.includes(course.courseid)"><button class="btn btn-success shadow-none far fa-bookmark " style="color:white" @click="removeFavorite(course.courseid)"></button></div>
+                                                        <div v-else><button class="btn btn-light shadow-none far fa-bookmark" style="color:green" @click="addFavorite(course.courseid)"></button></div>
                                                     </div>
                                                 </div>
                                                 
@@ -147,6 +147,7 @@
             </div><!-- .row -->
         </div><!-- .container -->
         <input id="pageNo" name="pageNo" hidden th:value="${pageNo}"/>
+        <input id="userid" name="userid" hidden th:value="${userid}" />
     </div>
     </footer><!-- .site-footer -->
 	

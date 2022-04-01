@@ -263,7 +263,7 @@ public class ProductController {
 		int ranknum = 0;
 		double totalrank = 0;
 
-		String url = "http://localhost:8082/howhow/product?id=" + Integer.toString(courseID);
+		String url = "/howhow/product?id=" + Integer.toString(courseID);
 
 		List<CourseRank> list = crService.findByCourseID(courseID);
 		for (CourseRank courseRank : list) {
