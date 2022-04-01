@@ -18,6 +18,8 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
 
+import com.howhow.entity.UserAccountDt;
+
 
 @Configuration
 @EnableWebSecurity
@@ -74,7 +76,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		  http  
 		  .csrf().disable()
 		   .authorizeRequests() 
-		     .antMatchers("/login.html","/login","/register","/createUser","/verify","/css","/home")
+		     .antMatchers("/login.html","/login","/register","/createUser","/verify","/css")
 		     .permitAll()
 		     .antMatchers("/student/**").hasAuthority("Teacher,Student")
 		     .antMatchers("/course/**").hasAuthority("Admin")

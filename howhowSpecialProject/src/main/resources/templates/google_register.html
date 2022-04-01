@@ -23,54 +23,16 @@ TYPE html>
 <div class="container" style="margin-top: 30px">
 		<form action="#" th:action="@{/gcreateUser}"  method="Post"
 			style="padding: 50px ; text-align:center ; margin: 0 auto ; position: absoluate;" >
-			<sapn class="accword">GOOLE註冊</span>
+			<sapn class="accword">感謝您使用GOOGLE註冊</span>
 			<div class="space">
 				<span class="accword">[[${text}]]</span>
 
 
-			<div class="space">
-				<label class="accword" for="password">密碼</label> <input id="password" th:object="${Account}"
-					class="accountp" type="password" th:field="*{password}"
-					required="required" 
-					oninput="checkPasswordMatch(document.getElementById('confirmPassword'))"
-					minlength="6" maxlength="15" />
-			</div>
-
-
-		 	<div class="space">
-				<label class="col-sm-4 col-form-label" for="confirmPassword">確認密碼</label> 
-				<input type="password" id="confirmPassword" class="accountp"
-					minlength="6" maxlength="15" oninput="checkPasswordMatch(this)" />
-
-			</div> 
-
-
-
-			<div class="space">
-					<span>性別: </span>
-					<div>
-						<input type="radio" name="gender" id="male" th:object="${AccountDetail}" th:field="*{gender}" 
-							value="Male" required /> <label for="male">男</label> 
-							<input
-							type="radio" name="gender" id="female" th:object="${AccountDetail}" th:field="*{gender}" 
-							value="Female" /> <label for="female">女</label>
-					</div>
-				</div>
-
-		
-
-				<div class="space">
-					<label for="birth">生日:</label> <input id="birth" th:object="${AccountDetail}"
-						class="accountp" type="date" th:field="*{birth}" required />
-				</div>
 			</div>
 			<span class = "btd">
-			<input type="submit" class="bt1" value="送出" />
+			<input type="submit" class="bt1" value="回首頁" />
                </span>
-			<div>
-				<a class= "singup"  href="login">登入</a>
-			</div>
-
+		
 		</form>
 
 	</div>

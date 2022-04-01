@@ -7,12 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -65,12 +67,30 @@ public class OAuth2Controller {
     }
 	
 	@GetMapping("/google_register")
-	public String registerPage(Model model) {
+	public String registerPage(Model model, UserAccountDt acd,OAuth2AuthenticationToken authentication) {
 		UserAccountMt useraccountmt = new UserAccountMt();
 		UserAccountDt useraccountdt = new UserAccountDt();
 		UserStatus userstatus = new UserStatus();
 		model.addAttribute("Account", useraccountmt);
 		model.addAttribute("AccountDetail", useraccountdt);
+		
+		//get google email 比對 DB 內 EMAIL (findByEmail) 判定若存在即跳轉回index 若不存在則在google_register進行註冊
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String email="";
+		email = ((DefaultOidcUser)principal).getEmail();
+		if(service.findByEmail(email)!=null) {
+			
+			UserAccountDt udt=  service.findByEmail(email);
+
+			  UserAccountMt account = udt.getUserAccountMt();
+			  model.addAttribute("account", account);
+			  System.out.println(account.getUserId());
+			return "main";
+			
+			
+		}
+		
+		
 		return "google_register";
 	}
 	
@@ -92,7 +112,10 @@ public class OAuth2Controller {
 					.filter(oauth2Credentials(authorizedClient))
 					.build().get().uri(userInfoEndpointUri).retrieve().bodyToMono(Map.class).block();
 			}
-			
+		
+//			if(acd.getEmail()!=null) {
+//				 return "redirect:/";
+//			}
 			acc.setAccount(userAttributes.get("email").toString());
 			acd.setAccount(userAttributes.get("email").toString());
 			//acc.setUserId(Integer.valueOf(userAttributes.get("sub").toString()));
@@ -107,6 +130,7 @@ public class OAuth2Controller {
 			
 			UserStatus status = new UserStatus();
 			status.setUserAccountMt(acc);
+			status.setEmailAuth(true);
 			acc.setUserstatus(status);
 			
 			acc.setUserBonus(bonus);
@@ -115,26 +139,32 @@ public class OAuth2Controller {
 			acd.setAcountCreationTime(new java.util.Date());
 			model.addAttribute("userAttributes", userAttributes);
 			//加密password
-			String userAccount = acc.getAccount();
-			if (repo.findByAccount(userAccount) == null && detailRepo.findByEmail(acd.getEmail())== null) {
-				String encodePassword = bcryptoEncoder.encode(acc.getPassword());
-				acc.setPassword(encodePassword);
-				repo.save(acc);
+//			String userAccount = acc.getAccount();
+//			if (repo.findByAccount(userAccount) == null && detailRepo.findByEmail(acd.getEmail())== null) {
+//				String encodePassword = bcryptoEncoder.encode(acc.getPassword());
+//				acc.setPassword(encodePassword);
+			repo.save(acc);
+		service.save(acc);
+			System.out.println(service.findByEmail(userAttributes.get("email").toString()));
+			
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String email="";
+			email = ((DefaultOidcUser)principal).getEmail();
+			UserAccountDt udt=  service.findByEmail(email);
+
+			  UserAccountMt account = udt.getUserAccountMt();
+			  model.addAttribute("account", account);
+			  System.out.println(account.getUserId());
+				return "main";
 				
-			
-				//service.save(acc);
-				model.addAttribute("text", "註冊完成 請收取認證信  完成帳號啟動 ");
-				return "index";
-			
-		}else {
-			throw new RuntimeException("duplicated ");
-		}
-		
+	
+	}
+	
 	
 
 		
 		
-	}
+	
 
 
 	
