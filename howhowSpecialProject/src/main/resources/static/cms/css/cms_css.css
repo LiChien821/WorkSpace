@@ -1,6 +1,7 @@
 .container-all{
     display: flex;
     align-items: stretch;
+    /* justify-content: space-between; */
 }
 
 #sidebar{
@@ -44,4 +45,11 @@ a.active{
 .fa-duotone{
     background-color: white;
     float:right;
+}
+
+.field{
+	/* width: 400px;
+    height: 800px; */
+    margin-top: 10px;
+    border: black solid 1px;
 }
