@@ -78,12 +78,16 @@
 								<ul class="nav flex-column btn-toggle-nav list-unstyled fw-normal pb-1 small"
 									v-for="lecture in section.lecturesList">
 									<li class="nav-item border rounded-pill">
+									<div v-if="lecture.videoSource !== null">
 										<a href="#" class="link-dark rounded " @click="handleVideoUrl(lecture)">
+											
 											<h5><span data-feather="fast-forward"></span>{{lecture.lectureNumber}}.
 												{{lecture.lecturesName}}</h5>
+											
 										</a>
 
 										<button>附加連結</button>
+										</div >
 									</li>
 								</ul>
 							</div>

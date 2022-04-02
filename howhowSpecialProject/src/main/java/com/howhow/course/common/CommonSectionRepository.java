@@ -13,4 +13,7 @@ public interface CommonSectionRepository extends PagingAndSortingRepository<Sect
 	
 	@Query("SELECT s FROM Section s WHERE s.courseBasic.courseID = ?1")
 	public Iterable<Section>  findAllByCourseID(int courseID, Sort sort);
+	
+	@Query("SELECT s FROM Section s join s.lecturesList l WHERE s.courseBasic.courseID = ?1 AND l.isAvailableToPreview = 1 ")
+	public Iterable<Section> findAllPreviewableSectionByCourseID(int courseID, Sort sort);
 }

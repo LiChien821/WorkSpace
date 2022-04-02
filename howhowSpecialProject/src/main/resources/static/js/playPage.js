@@ -1,25 +1,25 @@
 const dataObj = {
-	baseUrl:"https://stoageno1.blob.core.windows.net/mycontainer/",
-	videoSrcUrl: "https://stoageno1.blob.core.windows.net/mycontainer/1單元測試.mp4",
+	baseUrl: "",
+	videoSrcUrl: "",
 	videotype: "video/mp4",
 
 	currentTime: "",
 	skipTime: "",
 	duration: 0,
-	notescontext:"",
-	notesList:"",
+	notescontext: "",
+	notesList: "",
 
-	lecture:"",
+	lecture: "",
 	course: "",
 	currentCourseID: "",
-	currentSectionID:"",
-	currentLecturesID:"",
-	userAccountID:"",
+	currentSectionID: "",
+	currentLecturesID: "",
+	userAccountID: "",
 
 	sectionList: "",
 	lecturesList: "",
 	sectionID: "",
-	
+
 
 };
 
@@ -31,45 +31,45 @@ Vue.createApp({
 	},
 
 	methods: {
-		createNotes :function(){
+		createNotes: function() {
 			this.userAccountID = document.getElementById("defaultAccountID").value;
-			this.duration=player.currentTime();
-				axios({
-			method: 'post',
-			url: '/howhow/api/createNotes',
-			headers: { "Access-Control-Allow-Origin": "*" },
-			data:{
-				 userID : this.userAccountID ,
+			this.duration = player.currentTime();
+			axios({
+				method: 'post',
+				url: '/howhow/api/createNotes',
+				headers: { "Access-Control-Allow-Origin": "*" },
+				data: {
+					userID: this.userAccountID,
 
-				lectureID: this.currentLecturesID,
-		
-				duration: this.duration,
-		
-				 notescontext:this.notescontext,
-				
-			},
+					lectureID: this.currentLecturesID,
 
-		})
-			.then(response => (this.notesList= response.data,this.notescontext=""))
-			.catch(function(error) {
-				console.log(error);
+					duration: this.duration,
 
-			});
+					notescontext: this.notescontext,
+
+				},
+
+			})
+				.then(response => (this.notesList = response.data, this.notescontext = ""))
+				.catch(function(error) {
+					console.log(error);
+
+				});
 		},
-		
+
 		changetime: function(time) {
 			player.pause();
-			this.skipTime =time;
+			this.skipTime = time;
 			player.currentTime(this.skipTime);
-			player.play();
 			
+
 		}
-	
-	
+
+
 	},
 	mounted: function() {
-	
-	
+
+
 
 	},
 
@@ -90,27 +90,35 @@ Vue.createApp({
 		sendlecturemessage: function(id) {
 
 		},
-		getAllNotesByUIDANDLectureID: function(){
+		getAllNotesByUIDANDLectureID: function() {
 			axios({
-			method: 'get',
-			url: '/howhow/api/getAllNotes/'+this.userAccoountID +"/"+this.currentLecturesID,
-			headers: { "Access-Control-Allow-Origin": "*" },
-		
+				method: 'get',
+				url: '/howhow/api/getAllNotes/' + this.userAccountID + "/" + this.currentLecturesID,
+				headers: { "Access-Control-Allow-Origin": "*" },
 
-		})
-			.then(response => (this.notesList= response.data))
-			.catch(function(error) {
-				console.log(error);
 
-			});
-			
+			})
+				.then(response => (this.notesList = response.data))
+				.catch(function(error) {
+					console.log(error);
+
+				});
+
 		},
 		handleVideoUrl: function(lecture) {
-			this.lecture=lecture;
-			this.currentLecturesID=this.lecture.lecturesID;
-			this.videoSrcUrl=this.baseUrl+this.lecture.videoSource;
+			this.lecture = lecture;
+			this.currentLecturesID = this.lecture.lecturesID;
+			this.videoSrcUrl = this.baseUrl + this.lecture.videoSource;
+			player.src(this.videoSrcUrl);
+			this.notesList="";
+			this.getAllNotesByUIDANDLectureID();
+		},
+		handlefirstVideoUrl: function() {
+
+			this.currentLecturesID = this.lecture.lecturesID;
+			this.videoSrcUrl = this.baseUrl + this.lecture.videoSource;
 			player.src(this.videoSrcUrl)
-			},
+		},
 		getLectureListFromSection: function(id) {
 			this.currentSectionID = id;
 			axios({
@@ -130,33 +138,48 @@ Vue.createApp({
 
 		},
 	},
+	beforeMount: function(){
+		axios({
+			method: 'get',
+			url: '/howhow/api/getBlobUrl',
+			headers: { "Access-Control-Allow-Origin": "*" },
+		})
+			.then(response => (this.baseUrl = response.data))
+			.catch(function(error) {
+				console.log(error);
+			});
+		
+	},
 	mounted: function() {
 		this.currentCourseID = document.getElementById("playPageDeafultId").value;
 		this.userAccountID = document.getElementById("defaultAccountID").value;
 		axios({
 			method: 'get',
 
-			url: '/howhow/api/getSectionList/'+this.currentCourseID,
+			url: '/howhow/api/getSectionList/' + this.currentCourseID,
 			headers: { "Access-Control-Allow-Origin": "*" },
-
-
 		})
 
-			.then(response => ( this.sectionList = response.data,
-			this.currentLecturesID=response.data[0].lecturesList[0].lecturesID,
-			this.getAllNotesByUIDANDLectureID() ))
+			.then(response => (this.sectionList = response.data,
+				this.currentLecturesID = response.data[0].lecturesList[0].lecturesID,
+				this.lecture = response.data[0].lecturesList[0],
+				this.videoSrcUrl = response.data[0].lecturesList[0].videoSource,
+				this.handlefirstVideoUrl(),
+			this.getAllNotesByUIDANDLectureID()
+			))
 			.catch(function(error) {
 				console.log(error);
-
 			});
-
+			
+		
+		
 	},
-
+	
 }).mount('#playSectionList')
 
 
 var player = videojs('my-video', {
-	sources: [{ src: dataObj.videoSrcUrl }],
+	
 	loop: true,
 	muted: true,
 	width: "800px",

@@ -19,6 +19,7 @@ const dataObj = {
 	lecture: "",
 
 	sectionList: "",
+	previewableSectionList: "",
 	lectureList: "",
 
 
@@ -30,6 +31,7 @@ const dataObj = {
 
 	coverFile: "",
 	videoFile: "",
+	previewVideoFile:"",
 
 
 	upLoadingText: "",
@@ -307,3 +309,75 @@ Vue.createApp({
 	}
 
 }).mount('#editCourseLectures')
+
+
+Vue.createApp({
+	data() {
+		return dataObj;
+	},
+	methods: {
+		changePreviewLectureList: function(id) {
+			this.lecture = "";
+			this.lectureList = this.sectionList[id].lecturesList;
+				axios({
+			method: 'get',
+
+			url: '/howhow/api/getCourse/' + this.currentCourseID,
+			headers: { "Access-Control-Allow-Origin": "*" },
+
+
+		})
+
+			.then(response => (this.course = response.data, this.sectionList = response.data.sectionList, this.category = response.data.category))
+			.catch(function(error) {
+				console.log(error);
+
+			});
+
+		},
+		selectPreviewLecture: function(id) {
+			this.lecture = this.lectureList[id];
+
+		},
+		createPreviewForm: function() {
+			
+			if (this.previewVideoFile !== "") {
+				var postforms = new FormData();
+
+
+				postforms.append("previewVideofile", this.previewVideoFile);
+				postforms.append("lectureID", this.lecture.lecturesID);
+				let config = {
+					headers: {
+						"Content-Type": "multipart/form-data"
+					}
+				};
+				this.upLoadingText = `影片上傳中...`;
+
+				axios
+					.post(
+						'/howhow/api/updateLecturePreviewVideoReturnPreviewableSectionlist',
+						postforms,
+						config
+					)
+					.then(response => (this.previewableSectionList = response.data,this.upLoadingText = ""))
+					.catch(function(error) {
+						this.upLoadingText = "";
+						console.log(error);
+
+					});
+
+			}
+			
+			
+		},
+
+		handlePreviewVideoUpload() {
+			this.previewVideoFile = this.$refs.previewVideofile.files[0];
+		},
+
+	}
+
+}).mount('#editPreviewLectures')
+
+

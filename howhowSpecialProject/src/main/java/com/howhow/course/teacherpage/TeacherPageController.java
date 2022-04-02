@@ -63,10 +63,11 @@ public class TeacherPageController {
 	}
 
 	@PostMapping("/play")
-	public String playpage(@AuthenticationPrincipal AccountUserDetails loggedAccount ,@RequestParam(name = "courseID") Integer courseID, Model model) {
+	public String playpage(@AuthenticationPrincipal AccountUserDetails loggedAccount ,@RequestParam(name = "courseID") String courseID, Model model) {
 		int accountID = loggedAccount.getLoggedAccount().getUserId();
+		int courseIntID=Integer.parseInt(courseID);
 		model.addAttribute("accountID", accountID);
-		model.addAttribute("courseID", courseID);
+		model.addAttribute("courseID", courseIntID);
 		return "course/teacherPage/courseToPlay";
 	}
 
@@ -94,14 +95,14 @@ public class TeacherPageController {
 	}
 
 	@PostMapping("/processedCreateCourse")
-	public String processedCreateCourse(CourseBasic courseBasic, @RequestParam("poster") MultipartFile multipartfile,
+	public String processedCreateCourse(@AuthenticationPrincipal AccountUserDetails loggedAccount,CourseBasic courseBasic, @RequestParam("poster") MultipartFile multipartfile,
 			Model model) throws NoCourseException, IOException, CourseDuplicatedException {
-		int uid = 1;
-		UserAccountMt userAccount = accountService.findById(uid).get();
+		int accountID = loggedAccount.getLoggedAccount().getUserId();
+		UserAccountMt userAccount = accountService.findById(accountID).get();
 		courseBasic.setCreator(userAccount.getUserAccountDt());
 		
 		if (courseService.createCourseSucessed(courseBasic)) {
-			CourseBasic existedCourse = courseService.findCourseByUIDAndName(uid, courseBasic.getCourseName());
+			CourseBasic existedCourse = courseService.findCourseByUIDAndName(accountID, courseBasic.getCourseName());
 			Integer courseID= existedCourse.getCourseID();
 			if(multipartfile !=null && !multipartfile.isEmpty()) {
 			courseService.updateCourseAbstractCover(multipartfile,courseID);

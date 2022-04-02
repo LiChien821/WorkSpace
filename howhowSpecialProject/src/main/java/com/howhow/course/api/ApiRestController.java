@@ -84,8 +84,11 @@ public class ApiRestController {
 				
 	}
 	@GetMapping("/api/getAllNotes/{UID}/{lecturesID}")
-	public Iterable<Notes> getAllNotes(@PathVariable("UID") int UID,@PathVariable("lecturesID") int lecturesID) {
-		return notesService.findAllNotesListByUIDAndLectureID(UID,lecturesID);
+	public Iterable<Notes> getAllNotes(@PathVariable("UID") String UID,@PathVariable("lecturesID") String lecturesID) {
+		int uidInt=Integer.parseInt(UID);
+		int lecturesIDInt=Integer.parseInt(lecturesID);
+
+		return notesService.findAllNotesListByUIDAndLectureID(uidInt,lecturesIDInt);
 				
 	}
 
@@ -135,30 +138,11 @@ public class ApiRestController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Iterable<Notes> createNoteAndReturnNotesList(
 	@RequestBody JsonNoteRecevier reciver) {
-		System.out.println(reciver.getLectureID());
-		System.err.println(reciver.getDuration());
-		System.err.println(reciver.getNotescontext());
-		System.err.println(reciver.getUserID());
-		if(notesService.createNote(reciver)) {
-			System.out.println(reciver.getLectureID());
-			System.err.println(reciver.getDuration());
+		if(notesService.createNote(reciver)) {		
 			return notesService.findAllNotesListByUIDAndLectureID(reciver);
 		}
 		return null;
-
-	
-
 	}
-	
-//	@GetMapping(value = "/api/getAllNotes")
-//	@ResponseStatus(HttpStatus.CREATED)
-//	public Iterable<Notes> returnAllNotesList() {
-//		
-//		return notesService.findAllNotesList();
-//	
-//
-//	}
-	
 	
 
 	@PostMapping("/api/updateCourseAbstract")
@@ -168,14 +152,12 @@ public class ApiRestController {
 			return courseService.findCourseByCourseId(course.getCourseID());
 		}else {
 			throw new BadEequestException("錯誤提交");
-		}
-		
-		
+		}	
 	}
 	
 	@PostMapping("/api/updateLectureVideo")
 	public Lectures updateLectureVideo(@RequestParam("videofile") MultipartFile multipartfile,
-			@RequestParam("lectureID") int lectureID) throws IOException, updateLectureVideoIOException {
+			@RequestParam("lectureID") int lectureID) throws  updateLectureVideoIOException {
 		
 		try {	
 	    	return lectureService.updateLecturesWithVideoSource(multipartfile, lectureID);
@@ -221,6 +203,25 @@ public class ApiRestController {
 			return newcourse;
 		} catch (Exception e) {
 			throw new CourseDuplicatedException();
+		}
+		
+
+	}
+	
+	@PostMapping(path = "/api/updateLecturePreviewVideoReturnPreviewableSectionlist")
+	public List<Section> updateLecturePreviewVideoReturnPreviewableSectionlist(@RequestParam("previewVideofile") MultipartFile multipartfile,
+			@RequestParam("lectureID") int lectureID) throws updateLectureVideoIOException, IOException  {
+
+		if(multipartfile.isEmpty() || multipartfile==null) {
+//			Lectures lecture=lectureService.updateLecturesWithPreviewVideo(multipartfile, lectureID);
+//			int courseID=lecture.getSection().getCourseBasic().getCourseID();
+//			return sectionService.findAllPreviewableSectionByCourseID(courseID);
+			throw new updateLectureVideoIOException();
+		} else  {
+			Lectures lecture=lectureService.updateLecturesWithPreviewVideo(multipartfile, lectureID);
+			int courseID=lecture.getSection().getCourseBasic().getCourseID();
+			
+			return sectionService.findAllPreviewableSectionByCourseID(courseID);
 		}
 		
 
@@ -357,5 +358,13 @@ public class ApiRestController {
 		System.out.println(jsonString);
 		return ResponseEntity.ok().headers(headers).body("ok");
 	}
+//	@GetMapping(value = "/api/getAllNotes")
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public Iterable<Notes> returnAllNotesList() {
+//		
+//		return notesService.findAllNotesList();
+//	
+//
+//	}
 
 }

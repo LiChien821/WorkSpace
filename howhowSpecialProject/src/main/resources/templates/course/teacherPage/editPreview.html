@@ -10,7 +10,7 @@
 						<div class="card-header">
 							<label>章節</label>
 							<select name="editSection" id="editSection" v-model="currentSectionIndex"
-								@change="changeLectureList(currentSectionIndex)">
+								@change="changePreviewLectureList(currentSectionIndex)">
 
 								<option v-for="(section,index) in sectionList" :key="index" :value=index>
 									{{section.sectionNumber}}.{{section.sectionName}}</option>
@@ -19,7 +19,7 @@
 							</select>
 							<label>單元</label>
 							<select name="editLecture" id="editLecture" v-model="currentLectureIndex"
-								@change="selectLecture(currentLectureIndex)">
+								@change="selectPreviewLecture(currentLectureIndex)">
 
 
 								<option v-for="(lecture,index) in lectureList" :value=index>
@@ -33,9 +33,9 @@
 										<p class="card-text">{{upLoadingText}}</p>
 									</div>
 									<div v-else>
-										<div v-if="lecture.videoSource !== null">
-											<h5 class="card-title">{{lecture.lecturesName}} 影片</h5>
-											<p class="card-text">已上傳完成
+										<div v-if="lecture.previewViedeoUrl !== null">
+											<h5 class="card-title">{{lecture.lecturesName}} 預覽影片</h5>
+											<p class="card-text">預覽影片已上傳完成
 											</p>
 										</div>
 										<div v-else>
@@ -52,7 +52,7 @@
 									</div>
 								</div>
 								<div v-else>
-									<p class="card-text">請先選擇單元與章節</p>
+									<p class="card-text">請先選擇要新增的預覽單元並上傳預覽影片</p>
 								</div>
 
 
@@ -64,18 +64,18 @@
 
 									<!-- Button trigger modal -->
 									<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-										data-bs-target="#staticBackdrop" @click="createPreviewForm">
+										data-bs-target="#previewBackdrop" @click="createPreviewForm">
 										新增預覽教學影片
 									</button>
 
 									<!-- Modal -->
-									<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-										data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+									<div class="modal fade" id="previewBackdrop" data-bs-backdrop="static"
+										data-bs-keyboard="false" tabindex="-1" aria-labelledby="previewBackdropLabel"
 										aria-hidden="true">
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header">
-													<h5 class="modal-title" id="staticBackdropLabel">影片上傳中</h5>
+													<h5 class="modal-title" id="previewBackdropLabel">影片上傳中</h5>
 
 												</div>
 												<div class="modal-body">
@@ -95,8 +95,9 @@
 							
 						</div>
 						<div>
+							<h2>可預覽清單</h2>
 							<div class="accordion accordion-flush" id="previewSectionList">
-								<div class="accordion-item rounded-pill" v-for="sectionunit in previewSectionList">
+								<div class="accordion-item rounded-pill" v-for="sectionunit in previewableSectionList">
 									<h2 class="accordion-header " :id="'flush-heading'+sectionunit.sectionNumber">
 										<a class="accordion-button collapsed border-secondary border-2 rounded-pill border"
 											type="button" data-bs-toggle="collapse"
@@ -104,7 +105,7 @@
 											aria-expanded="false"
 											:aria-controls="'flush-collapse'+sectionunit.sectionNumber"
 											:href="'#flush-collapse'+sectionunit.sectionNumber"
-											@click="getLectureListFromSection(sectionunit.sectionID)">
+											>
 											<div class="d-flex justify-content-around ">
 												<h2 class="p-0 m-0">{{sectionunit.sectionNumber}} . </h2>
 												<h2 class="p-0 m-0">{{sectionunit.sectionName}}</h2>
@@ -116,14 +117,11 @@
 									<div :id="'flush-collapse'+sectionunit.sectionNumber"
 										class="accordion-collapse collapse "
 										:aria-labelledby="'flush-heading'+sectionunit.sectionNumber"
-										data-bs-parent="#createSectionList">
-										<div class="accordion-body " v-for="lecture in lectureList">
-											<div class="d-flex justify-content-around border rounded-pill">
+										data-bs-parent="#previewSectionList">
+										<div class="accordion-body " v-for="lecture in sectionunit.lecturesList">
+											<div class="d-flex justify-content-around border rounded-pill" v-if="lecture.availableToPreview">
 												<p class="p-0 m-0">{{lecture.lectureNumber}} . </p>
 												<h5 class="p-0 m-0">{{lecture.lecturesName}}</h5>
-
-
-
 											</div>
 										</div>
 

@@ -1,6 +1,10 @@
 package com.howhow.course.common;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -75,6 +79,22 @@ public class LearningSectionService {
 	public void saveSection(Section section) {
 		sectionRepo.save(section);
 
+	}
+
+
+	public List<Section> findAllPreviewableSectionByCourseID(int courseID) {
+		List<Section> list=new ArrayList<>();
+		Sort sort=Sort.by("sectionNumber").ascending();
+		Iterable<Section>  setIter=sectionRepo.findAllPreviewableSectionByCourseID(courseID,sort);
+		for (Section sec : setIter   ) {
+			if (list.contains(sec)) {
+				continue;
+			}
+			list.add(sec);
+		}
+		return list;
+		
+		
 	}
 	
 }

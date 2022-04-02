@@ -76,4 +76,34 @@ public class LearningLecturesService {
 		lectureRepo.save(existedLectures);
 		return existedLectures;
 	}
+
+	public Lectures updateLecturesWithPreviewVideo(
+			MultipartFile multipartfile, int lectureID) throws IOException {
+		Lectures existedLectures = findByLectureID(lectureID);
+		
+		String fileName = StringUtils.cleanPath(multipartfile.getOriginalFilename());
+
+		String extension = "";
+
+		int i = fileName.lastIndexOf('.');
+		if (i > 0) {
+			extension = fileName.substring(i);
+		}
+		InputStream inputStream;
+		
+		inputStream = multipartfile.getInputStream();
+		BlobClient blobClient = containerClient
+				.getBlobClient("preview"+existedLectures.getLectureNumber() + existedLectures.getLecturesName() + extension);
+
+		blobClient.upload(inputStream, inputStream.available(), true);
+		existedLectures
+				.setPreviewViedeoUrl("preview"+existedLectures.getLectureNumber() + existedLectures.getLecturesName() + extension);
+		existedLectures.setAvailableToPreview(true);
+		lectureRepo.save(existedLectures);
+		return existedLectures;
+		
+
+		
+	
+	}
 }
