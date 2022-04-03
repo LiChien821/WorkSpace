@@ -5,13 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.howhow.course.api.JsonNoteRecevier;
-import com.howhow.course.exception.NotesDuplicationException;
 import com.howhow.entity.Lectures;
 import com.howhow.entity.Notes;
-import com.howhow.entity.Section;
 import com.howhow.entity.UserAccountDt;
 import com.howhow.entity.UserAccountMt;
 

@@ -1,17 +1,11 @@
 package com.howhow.course.api;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +15,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.azure.storage.blob.BlobClient;
-import com.azure.storage.blob.BlobContainerClient;
 import com.howhow.course.common.CommonCategoryRepository;
 import com.howhow.course.common.LearningAccountService;
 import com.howhow.course.common.LearningCourseService;
@@ -35,7 +27,6 @@ import com.howhow.course.exception.CourseDuplicatedException;
 import com.howhow.course.exception.LectureDuplicationException;
 import com.howhow.course.exception.NoCourseException;
 import com.howhow.course.exception.NoSectionException;
-import com.howhow.course.exception.NotesDuplicationException;
 import com.howhow.course.exception.SessionDuplicationException;
 import com.howhow.course.exception.WrongInputException;
 import com.howhow.course.exception.updateLectureVideoIOException;
@@ -213,9 +204,6 @@ public class ApiRestController {
 			@RequestParam("lectureID") int lectureID) throws updateLectureVideoIOException, IOException  {
 
 		if(multipartfile.isEmpty() || multipartfile==null) {
-//			Lectures lecture=lectureService.updateLecturesWithPreviewVideo(multipartfile, lectureID);
-//			int courseID=lecture.getSection().getCourseBasic().getCourseID();
-//			return sectionService.findAllPreviewableSectionByCourseID(courseID);
 			throw new updateLectureVideoIOException();
 		} else  {
 			Lectures lecture=lectureService.updateLecturesWithPreviewVideo(multipartfile, lectureID);
@@ -246,125 +234,5 @@ public class ApiRestController {
 	
 	
 	
-	
-	
-	
-
-//	@PostMapping(value = "/api/askForSectionList")
-//	public ResponseEntity returnSectionList(@RequestBody Map<String, String> data)
-//			throws NumberFormatException, NoCourseException {
-//		int courseID = Integer.parseInt("courseID");
-//		CourseBasic existedCourse = courseService.findCourseByCourseId(courseID);
-//		List<Section> seciontist = existedCourse.getSectionList();
-//		return ResponseEntity.ok().body(seciontist);
-//	}
-
-	@PostMapping(value = "/api/testForign")
-	public ResponseEntity testForign(@RequestParam("file") MultipartFile multipartfile,
-			@RequestParam("videofile") MultipartFile videofile, @RequestParam("courseName") String courseName,
-			@RequestParam("category") String category, @RequestParam("price") String price,
-			@RequestParam("createtime") String createtime) throws IOException, NoCourseException {
-
-		//////////////// video/////////////////
-		CourseBasic course = new CourseBasic();
-		if (!multipartfile.isEmpty()) {
-			String fileName = StringUtils.cleanPath(multipartfile.getOriginalFilename());
-			course.setCourseCover(fileName);
-			CourseBasic saveCourse = null;
-//			if(service.editCourse(course)) {
-//				 saveCourse =service.findCourseByUIDAndName(course.getCreator().getUid(), course.getCourseName());
-//			}
-
-			String uploadDir = "course-photos/" + saveCourse.getCourseID();
-
-			FileUploadUtil.cleanDir(uploadDir);
-			FileUploadUtil.saveFile(uploadDir, fileName, multipartfile);
-			///////////////////////////////////////////////
-//			Path ImageDir=Paths.get("../course-photos");
-//			String ImageDirPath =ImageDir.toFile().getAbsolutePath();
-//			
-//			String src="file:\\"+ ImageDirPath +"\\"+fileName;
-
-			String src = "../course-photos/" + saveCourse.getCourseID() + "/" + fileName;
-
-//			String images="/howhow/images"+"/"+fileName;
-			/////////////////////////////////////////////
-
-//			    System.out.println("ImageDirPath="+ImageDirPath);
-			System.out.println(src);
-
-			//////////////////////////////////////////////////////////////////////////
-			if (!videofile.isEmpty()) {
-				String videofileName = StringUtils.cleanPath(videofile.getOriginalFilename());
-				String videouploadDir = "course-videos/" + saveCourse.getCourseID() + "/" + videofileName;
-
-				FileUploadUtil.cleanDir(videouploadDir);
-				FileUploadUtil.saveFile(videouploadDir, videofileName, videofile);
-
-			}
-
-			//////////////////////////////////////////////////////////////////////////
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Access-Control-Allow-Origin", "*");
-			headers.add("Content-Type", "application/json");
-
-			return ResponseEntity.ok().headers(headers).body(src);
-		} else {
-//			if(user.getPhotos().isEmpty() ) user.setPhotos(null);
-			course.setCourseCover(null);
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Access-Control-Allow-Origin", "*");
-			headers.add("Content-Type", "application/json");
-
-//			service.saveCourse(course);
-			return ResponseEntity.ok().headers(headers).body("ok");
-		}
-
-	}
-
-	@PostMapping(value = "/api/testForignAll")
-	public ResponseEntity testForignAll() {
-//		TestUser tuser=new TestUser();
-//		TestUserDetail tuserDetail=new TestUserDetail();
-//		tuserDetail.setAddress("高雄");
-//		tuser.setUserdetail(tuserDetail);
-//		tuserDetail.setTestUser(tuser);
-//		tuser.setEmail("addd@gmail.com");
-//		tuser.setName("addd");
-//		tuser.setPassword("addddddddd");
-//		tuser.setRoles("addd");
-//		repo.save(tuser);
-
-//		Iterable<TestUser> userIter= repo.findAll();
-		String jsonString = null;
-
-		courseService.encrypto("paword");
-
-//		for( TestUser theuser : userIter) {
-//			TestUser dto= new TestUser();
-////			dto.setEmail(theuser.getEmail());
-////			dto.setName(theuser.getName());
-////			dto.setPassword(theuser.getPassword());
-////			dto.setRoles(theuser.getRoles());
-////			dto.setUserdetail(theuser.getUserdetail());
-////			dto.setUserID(theuser.getUserID());
-////			jsonuserListDe.add(dto);
-//			 dto= theuser;
-//			 userList.add(dto);
-//		}
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Access-Control-Allow-Origin", "*");
-		headers.add("Content-Type", "application/json");
-		System.out.println(jsonString);
-		return ResponseEntity.ok().headers(headers).body("ok");
-	}
-//	@GetMapping(value = "/api/getAllNotes")
-//	@ResponseStatus(HttpStatus.CREATED)
-//	public Iterable<Notes> returnAllNotesList() {
-//		
-//		return notesService.findAllNotesList();
-//	
-//
-//	}
 
 }

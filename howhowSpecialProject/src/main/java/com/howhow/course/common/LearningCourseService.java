@@ -2,10 +2,6 @@ package com.howhow.course.common;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +16,7 @@ import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.howhow.course.exception.CourseDuplicatedException;
 import com.howhow.course.exception.NoCourseException;
-import com.howhow.course.exception.WrongInputException;
 import com.howhow.entity.CourseBasic;
-import com.howhow.entity.Lectures;
-import com.howhow.entity.Section;
 
 @Service
 public class LearningCourseService {
@@ -31,8 +24,7 @@ public class LearningCourseService {
 	@Autowired
 	private CommonCourseRepository repo;
 
-	@Autowired
-	private CommonSectionRepository sectionRepo;
+
 
 	@Autowired
 	private BlobContainerClient containerClient;
@@ -42,6 +34,9 @@ public class LearningCourseService {
 		String courseName = course.getCourseName();
 		CourseBasic existedCourse = repo.findCourseByUIDAndCourseName(uid, courseName).orElse(null);
 		if (existedCourse == null) {
+//			CourseStatusType type= findby(typeid);
+//			course.setStatusType(type);
+			course.setDiscount(1);
 			repo.save(course);
 
 			return true;
