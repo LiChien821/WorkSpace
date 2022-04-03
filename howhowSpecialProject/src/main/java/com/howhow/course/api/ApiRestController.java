@@ -231,7 +231,26 @@ public class ApiRestController {
 		return lectureService.findAllBySectionID(sectionID);
 
 	}
-	
+	@PostMapping(value = "/api/updateSectionName/{courseID}")
+	@ResponseStatus(HttpStatus.OK)
+	public Iterable<Section> updateSectionName(@PathVariable("courseID") int courseID, @RequestBody Section upSection) throws NoSectionException
+			{
+		Section existedSection= sectionService.findSectionByID(upSection.getSectionID());  
+		existedSection.setSectionName(upSection.getSectionName());
+		sectionService.saveSection(existedSection);  
+		return sectionService.findAllByCourseId(courseID);
+
+	}
+	@PostMapping(value = "/api/updateLecturesName/{sectionID}")
+	@ResponseStatus(HttpStatus.OK)
+	public Iterable<Lectures> updateLecturesName(@PathVariable("sectionID") int sectionID, @RequestBody Lectures upLectures) throws NoSectionException
+			{
+		Lectures existedLectures= lectureService.findByLectureID(upLectures.getLecturesID());
+		existedLectures.setLecturesName(upLectures.getLecturesName());
+		lectureService.saveLectures(existedLectures);  
+		return lectureService.findAllBySectionID(sectionID);
+
+	}
 	
 	
 

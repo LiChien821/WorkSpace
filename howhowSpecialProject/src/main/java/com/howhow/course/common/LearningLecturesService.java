@@ -104,4 +104,9 @@ public class LearningLecturesService {
 		
 	
 	}
+
+	public void saveLectures(Lectures existedLectures) {
+		
+		lectureRepo.save(existedLectures);
+	}
 }

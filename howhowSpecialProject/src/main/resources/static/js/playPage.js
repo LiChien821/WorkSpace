@@ -177,6 +177,26 @@ Vue.createApp({
 	
 }).mount('#playSectionList')
 
+Vue.createApp({
+	data() {
+		return dataObj;
+	},
+
+	methods: {
+	
+	
+		
+
+
+	},
+	mounted: function() {
+
+
+
+	},
+
+}).mount('#introduceBlock')
+
 
 var player = videojs('my-video', {
 	
@@ -187,7 +207,3 @@ var player = videojs('my-video', {
 	controls: true
 });
 
-player.on("playing", () => {
-	dataObj.duration = player.duration();
-	dataObj.currentTime = player.currentTime();
-})

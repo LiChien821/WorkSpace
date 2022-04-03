@@ -4,6 +4,7 @@ package com.howhow.course.common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.howhow.course.api.JsonNoteRecevier;
@@ -71,13 +72,14 @@ public class LearningNotesService {
 	}
 
 	public Iterable<Notes> findAllNotesListByUIDAndLectureID(int UID, int lecturesID) {
-		return notesRepo.findAllByUIDAndLectureID(UID,lecturesID);
+		   Sort sort=Sort.by("duration").ascending();
+		return notesRepo.findAllByUIDAndLectureID(UID,lecturesID,sort);
 		
 	}
 
 	public Iterable<Notes> findAllNotesListByUIDAndLectureID(JsonNoteRecevier reciver) {
-		
-		return notesRepo.findAllByUIDAndLectureID(reciver.getUserID(),reciver.getLectureID());
+		   Sort sort=Sort.by("duration").ascending();
+		return notesRepo.findAllByUIDAndLectureID(reciver.getUserID(),reciver.getLectureID(),sort);
 	}
 
 	public Iterable<Notes> findAllNotesList() {

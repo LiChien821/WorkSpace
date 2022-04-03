@@ -1,5 +1,6 @@
 package com.howhow.course.common;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -13,7 +14,7 @@ public interface CommonNotesRepo extends PagingAndSortingRepository<Notes, Integ
 	Notes checkDuplication(UserAccountDt theUDT, Long duration, Lectures thelecture);
 
 	@Query("SELECT n FROM Notes n WHERE n.author.userId=?1 AND n.notedlecture.lecturesID=?2")
-	Iterable<Notes> findAllByUIDAndLectureID(int uid, int lectureID);
+	Iterable<Notes> findAllByUIDAndLectureID(int uid, int lectureID, Sort sort);
 
 
 

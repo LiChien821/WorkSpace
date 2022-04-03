@@ -35,7 +35,12 @@ const dataObj = {
 
 
 	upLoadingText: "",
-	upLoadingCover:""
+	upLoadingCover:"",
+	
+	editingSectionName:0,
+	editSectionName:"",
+	editingLectureName:0,
+	editLectureName:""
 
 };
 
@@ -151,6 +156,12 @@ Vue.createApp({
 	data() {
 		return dataObj;
 	},
+	computed:{
+		sectionNum: function(){
+			return this.sectionList.length+1;
+		}
+		
+	},
 	methods: {
 		sendsectionmessage() {
 			axios({
@@ -159,7 +170,7 @@ Vue.createApp({
 				url: '/howhow/api/createSection/' + this.currentCourseID,
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 
-				data: { sectionNumber: this.newSectionNum, sectionName: this.newSectionName }
+				data: { sectionNumber: this.sectionNum, sectionName: this.newSectionName }
 			})
 
 				.then(response => (this.sectionList = response.data))
@@ -180,8 +191,62 @@ Vue.createApp({
 	data() {
 		return dataObj;
 	},
+	computed:{
+		lectureNum: function(){
+			return this.lectureList.length+1;
+		}
+		
+	},
 
 	methods: {
+		rejectSection:function(){
+			this.editingSectionName=0;
+		},
+		changeToEditSectionName:function(num){
+			this.editingSectionName=num;
+		},
+		changeSectionName:function(sectionID){
+				axios({
+				method: 'post',
+
+				url: '/howhow/api/updateSectionName/'+  this.currentCourseID,
+				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+
+				data: { sectionID:sectionID, sectionName: this.editSectionName }
+			})
+
+				.then(response => (this.sectionList = response.data,this.editingSectionName=0,this.editSectionName=""))
+				.catch(function(error) {
+					console.log(error);
+
+				});
+			
+			
+		},
+		rejectLecture:function(){
+			this.editingLectureName=0;
+		},
+		changeToEditLectureName:function(num){
+			this.editingLectureName=num;
+		},
+		changeLectureName:function(lecturesID){
+				axios({
+				method: 'post',
+
+				url: '/howhow/api/updateLecturesName/'+  this.currentSectionID,
+				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+
+				data: { lecturesID:lecturesID, lecturesName: this.editLectureName }
+			})
+
+				.then(response => (this.lectureList = response.data,this.editingLectureName=0,this.editLectureName=""))
+				.catch(function(error) {
+					console.log(error);
+
+				});
+			
+			
+		},
 		sendlecturemessage: function(id) {
 			this.currentSectionID = id;
 			axios({
@@ -190,7 +255,7 @@ Vue.createApp({
 				url: '/howhow/api/createLecture/' + this.currentSectionID,
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 
-				data: { lectureNumber: this.newLectureNum, lecturesName: this.newLectureName }
+				data: { lectureNumber: this.lectureNum, lecturesName: this.newLectureName }
 			})
 
 				.then(response => (this.lectureList = response.data))
