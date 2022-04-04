@@ -36,6 +36,11 @@
 			<div class="form-control">
 				<a th:href="@{/editAccount}">修改個人資料</a>
 			</div>
+			
+		<div class="form-control">
+				<a th:href="@{/editpwd}">修改密碼</a>
+			</div>
+			
 
 			<div sec:authorize="hasAuthority('Admin')" class="form-control">
 				<a th:href="@{/progessDeleteAccount}">刪除帳號
