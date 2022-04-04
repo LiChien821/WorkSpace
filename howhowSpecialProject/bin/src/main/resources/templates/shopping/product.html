@@ -154,19 +154,19 @@
 
 								<div
 									class="course-ratings flex justify-content-center align-items-center">
-									<div v-if="course.ranknum>0">
-										<span class="fas fa-star checked"></span> <span v-if="course.rank>=2"
+									<div v-if="ranknum>5">
+										<span class="fas fa-star checked"></span> <span v-if="rank>=2"
 											class="fas fa-star checked"></span> <span
-											v-else-if="course.rank>=1.5" class="fas fa-star-half-alt checked"></span>
+											v-else-if="rank>=1.5" class="fas fa-star-half-alt checked"></span>
 										<span v-else class="far fa-star checked"></span> <span
-											v-if="course.rank>=3" class="fas fa-star checked"></span> <span
-											v-else-if="course.rank>=2.5" class="fas fa-star-half-alt checked"></span>
+											v-if="rank>=3" class="fas fa-star checked"></span> <span
+											v-else-if="rank>=2.5" class="fas fa-star-half-alt checked"></span>
 										<span v-else class="far fa-star checked"></span> <span
-											v-if="course.rank>=4" class="fas fa-star checked"></span> <span
-											v-else-if="course.rank>=3.5" class="fas fa-star-half-alt checked"></span>
+											v-if="rank>=4" class="fas fa-star checked"></span> <span
+											v-else-if="rank>=3.5" class="fas fa-star-half-alt checked"></span>
 										<span v-else class="far fa-star checked"></span> <span
-											v-if="course.rank>=4.8" class="fas fa-star checked"></span> <span
-											v-else-if="course.rank>=4.3" class="fas fa-star-half-alt checked"></span>
+											v-if="rank>=4.8" class="fas fa-star checked"></span> <span
+											v-else-if="rank>=4.3" class="fas fa-star-half-alt checked"></span>
 										<span v-else class="far fa-star checked"></span> <span
 											class="course-ratings-count">{{course.ranknum}}則評價</span>
 									</div>
@@ -247,12 +247,7 @@
 							<!-- .course-students -->
 
 							<div class="course-students mt-3">
-								<div v-if="purchasedstatus==true">
-									<a class="btn"
-										style="color: white; background: black; border: solid black 2px"
-										href="#javascript" @click.prevent="">已購買</a>
-								</div>
-								<div v-else-if="shopstatus==false">
+								<div v-if="shopstatus==false">
 									<a class="btn" href="#" @click.prevent="addShoppingCart()">加入購物車</a>
 								</div>
 								<div v-else>
@@ -263,7 +258,7 @@
 							<div class="buy-course mt-3">
 								<div v-if="favstatus==false">
 									<a class="btn" href="#" @click.prevent=addFavorite()>加入最愛</a>
-								</div>
+								</div> 
 								<div v-else>
 									<a class="btn" href="#" @click.prevent=removeFavorite()>從最愛移除</a>
 								</div>
@@ -293,11 +288,9 @@
 						<!-- .entry-heading -->
 
 						<div class="instructor-short-info">
-							<div v-if="ranks.empty==true">
-								目前尚無評價
-							</div>
 
-							<div v-for="ranker in ranks.content">
+
+							<div v-for="ranker in course.rankdto">
 								<div class="instructors-details">
 									<div class="ratings">
 										<div class="course-teacher mt-3">
@@ -315,29 +308,19 @@
 										留言者: <a href="#" disabled>{{ranker.usergivenname}}</a></br> 留言日期:<a
 											href="#">{{ranker.rankdate}}</a>
 									</div>
-											 {{ranker.message}}
+									.course-teacher
+									{{ranker.rankmessage}}
 									<hr>
-								</div>
-							</div>
-							<div
-								class="pagination flex flex-wrap justify-content-between align-items-center" v-if="ranks.empty==false">
-								<div class="col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0">
-									<ul
-										class="flex flex-wrap align-items-center order-2 order-lg-1 p-0 m-0">
-										<li class="page-item" :class="{'disabled':ranks.first}"><a
-											class="page-link" href="#" @click.prevent=previousPage()><i
-												class="fa fa-angle-left"></i></a></li>
-										<li class="page-item" :class="{'disabled':ranks.last}"><a
-											class="page-link" href="#" @click.prevent="nextPage()"><i
-												class="fa fa-angle-right"></i></a></li>
-									</ul>
-								</div>
-							</div>
 
+								</div>
+								.instructors-details
+							</div>
 						</div>
 						<!-- .instructor-short-info -->
 					</div>
 					<!-- .instructors-info -->
+					<a href="#" @Click.prevent="viewRank(rankpage)"
+						style="color: rgb(9, 112, 32)">查看更多</a>
 					<div class="related-courses">
 						<header
 							class="entry-heading flex flex-wrap justify-content-between align-items-center">
@@ -396,7 +379,6 @@
 				</div>
 				<input id="courseid" name="courseid" hidden th:value="${courseid}" />
 				<input id="userid" name="userid" hidden th:value="${userid}" />
-				<input id="pageNo" name="pageNo" hidden th:value="${pageNo}" />
 				<!-- .col -->
 			</div>
 			<!-- .row -->

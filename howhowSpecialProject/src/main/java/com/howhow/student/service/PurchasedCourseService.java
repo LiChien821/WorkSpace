@@ -74,7 +74,7 @@ public class PurchasedCourseService {
 		try {
 			OrderMt omt = omtrepo.findById(orderid).get();
 			
-			if(omt.getOrderStatusTypeID()!=1) throw new OrderStatusErrorException();
+			if(omt.getOrderStatusTypeID()!=10) throw new OrderStatusErrorException();
 			
 			List<OrderDt> odt = odtrepo.findByOrderID(orderid);
 			UserAccountMt user = omt.getUserID();
@@ -109,5 +109,4 @@ public class PurchasedCourseService {
 			throw new CourseNotFoundException();
 		}
 	}
-
 }

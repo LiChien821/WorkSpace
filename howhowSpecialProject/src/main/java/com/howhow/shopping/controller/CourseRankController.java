@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +22,7 @@ import com.howhow.entity.CourseBasic;
 import com.howhow.entity.CourseRank;
 import com.howhow.entity.UserAccountDt;
 import com.howhow.entity.UserAccountMt;
+import com.howhow.shopping.dto.CourseBasicDTO;
 import com.howhow.shopping.dto.CourseRankDTO;
 import com.howhow.shopping.exception.CourseNotFoundException;
 import com.howhow.shopping.exception.CourseRankNotFoundException;
@@ -29,6 +34,8 @@ import com.howhow.util.UtilityTool;
 
 @Controller
 public class CourseRankController {
+	
+	public final int PAGESIZE=2;
 	
 	@Autowired
 	CourseRankService cService;
@@ -106,9 +113,11 @@ public class CourseRankController {
 		return updateCourseRank;
 	}
 	
-	@GetMapping("/querycourserankbycourseid/{id}")
+	@GetMapping("/querycourserankbycourseid/{id}/{pageNo}")
 	@ResponseBody
-	public List<CourseRankDTO> findCourseRankByCourseID(@PathVariable("id") int id) throws CourseNotFoundException {
+	public Page<CourseRankDTO> findCourseRankByCourseID(@PathVariable("id") int id, @PathVariable("pageNo") int pageNo) throws CourseNotFoundException {
+		
+		Pageable pageable = PageRequest.of(pageNo - 1, PAGESIZE);
 		
 		List<CourseRankDTO> dtoList = new ArrayList<CourseRankDTO>();
 		
@@ -118,9 +127,19 @@ public class CourseRankController {
 		
 			dtoList.add(dto);
 		}
-
-		return dtoList;
+		
+		Page<CourseRankDTO> page = toPage(dtoList, pageable);
+		return page;
 	}
+	
+	public Page<CourseRankDTO> toPage(List<CourseRankDTO> list, Pageable pageable) {
+		int start = (int) pageable.getOffset();
+		int end = Math.min((start + pageable.getPageSize()), list.size());
+		if (start > list.size())
+			return new PageImpl<>(new ArrayList<>(), pageable, list.size());
+		return new PageImpl<>(list.subList(start, end), pageable, list.size());
+	}
+	
 	
 	
 	private CourseRankDTO dtoutils(CourseRank courseRank) {

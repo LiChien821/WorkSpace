@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.howhow.entity.FavoriteCourse;
 import com.howhow.entity.OrderMt;
 import com.howhow.entity.PurchasedCourse;
 import com.howhow.shopping.exception.DuplicatedPurchasedCourseException;
 import com.howhow.shopping.exception.OrderNotFoundException;
+import com.howhow.shopping.service.FavoriteCourseService;
 import com.howhow.shopping.service.OrderMtService;
+import com.howhow.shopping.service.ShoppingCartService;
 import com.howhow.student.dto.PurchasedCourseDTO;
 import com.howhow.student.exception.OrderStatusErrorException;
 import com.howhow.student.service.PurchasedCourseService;
@@ -26,7 +29,10 @@ public class PurchasedCourseController {
 
 	@Autowired
 	OrderMtService oService;
-
+	
+	@Autowired
+	ShoppingCartService sService;
+	
 	@GetMapping("/findpurchasedcoursebyuserid/{id}")
 	@ResponseBody
 	public List<PurchasedCourseDTO> findPurchasedCourseByUserID(@PathVariable("id") int userId) {
@@ -35,7 +41,9 @@ public class PurchasedCourseController {
 		List<PurchasedCourse> list = pService.findByUserID(userId);
 		for (PurchasedCourse purchasedCourse : list) {
 			int courseID = purchasedCourse.getCourseBasic().getCourseID();
-			PurchasedCourseDTO pcd = new PurchasedCourseDTO(userId, courseID);
+			String courseName = purchasedCourse.getCourseBasic().getCourseName();
+			String categoryname = purchasedCourse.getCourseBasic().getCategory().getName();
+			PurchasedCourseDTO pcd = new PurchasedCourseDTO(userId, courseID, courseName, categoryname);
 			dtolist.add(pcd);
 		}
 
@@ -64,13 +72,18 @@ public class PurchasedCourseController {
 			List<PurchasedCourse> insertPurchasedCourse = pService.insertPurchasedCourse(orderid);
 
 			OrderMt omt = oService.findByID(orderid);
-			omt.setOrderStatusTypeID(2);
+			omt.setOrderStatusTypeID(20);
 			oService.updateOrderMt(omt);
 
 			for (PurchasedCourse purchasedCourse : insertPurchasedCourse) {
 				int courseID = purchasedCourse.getCourseBasic().getCourseID();
 				int userId = purchasedCourse.getUserAccountMt().getUserId();
 				PurchasedCourseDTO pcd = new PurchasedCourseDTO(userId, courseID);
+				
+				if(sService.findShoppingCartStatus(userId, courseID)) {
+					sService.removeShoppingCart(userId, courseID);
+				}
+				
 				dtolist.add(pcd);
 			}
 
@@ -91,6 +104,27 @@ public class PurchasedCourseController {
 			dtolist.add(pcd);
 		}
 		return dtolist;
+	}
+	
+	@GetMapping("/findpurchasedcoursestatusbyuserid/{userid}")
+	@ResponseBody
+	public List<Integer> findPurchasedCourseListStatusByUserID(@PathVariable("userid") int userid) {
+		List<Integer> purchasedstatus = new ArrayList<Integer>();
+		
+		List<PurchasedCourse> list = pService.findByUserID(userid);
+		for (PurchasedCourse purchasedCourse : list) {
+			int courseID = purchasedCourse.getCourseBasic().getCourseID();
+			purchasedstatus.add(courseID);
+		}
+		
+		return purchasedstatus;
+	}
+	
+	@GetMapping("/findpurchasedcoursestatus/{userid}/{courseid}")
+	@ResponseBody
+	public boolean findPurchasedCourseStatus(@PathVariable("userid") int userid, @PathVariable("courseid") int courseid) {
+		boolean status = pService.findPurchasedStatus(userid, courseid);
+		return status;
 	}
 
 }

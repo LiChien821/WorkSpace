@@ -59,13 +59,16 @@ public class OrderMt {
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="orderMt", cascade = CascadeType.ALL)
 	private PaymentFlow paymentFlow;
 	
+	@Column(name="payment_flow_id")
+	private String paymentFlowID;
+	
 	public OrderMt() {
 	}
 	
 	public OrderMt(UserAccountMt userID) {
 		this.userID = userID;
-		this.payMethodTypeID = 1;
-		this.orderStatusTypeID = 1;
+		this.payMethodTypeID = 10;
+		this.orderStatusTypeID = 10;
 	}
 
 	public int getOrderID() {
@@ -138,6 +141,14 @@ public class OrderMt {
 
 	public void setOrderStatusTypeID(int orderStatusTypeID) {
 		this.orderStatusTypeID = orderStatusTypeID;
+	}
+
+	public String getPaymentFlowID() {
+		return paymentFlowID;
+	}
+
+	public void setPaymentFlowID(String paymentFlowID) {
+		this.paymentFlowID = paymentFlowID;
 	}
 	
 }

@@ -1,10 +1,7 @@
 package com.howhow.test.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,7 +42,14 @@ public class TestController {
 //	
 	
 	@GetMapping("/courses")
-	public String ac(Model m) {
+	public String ac(@AuthenticationPrincipal AccountUserDetails loggedAccount,	Model m) {
+		int userid=-1;
+		if(loggedAccount!=null) {
+			userid = loggedAccount.getLoggedAccount().getUserId();
+		}
+		
+		//===================================//
+		m.addAttribute("userid",userid);
 		m.addAttribute("pageNo", 1);
 		return "shopping/browse";
 	}
@@ -58,9 +62,31 @@ public class TestController {
 			userid = loggedAccount.getLoggedAccount().getUserId();
 		}
 		m.addAttribute("userid",userid);
+		m.addAttribute("pageNo", 1);
 		
 		return "shopping/product";
 	}
 	
+	@GetMapping("/myshop")
+	public String enterMyShop(@AuthenticationPrincipal AccountUserDetails loggedAccount, Model m) {
+		int userid=-1;
+		if(loggedAccount!=null) {
+			userid = loggedAccount.getLoggedAccount().getUserId();
+		}
+		m.addAttribute("userid",userid);
+		
+		return "shopping/myshoppingpage";
+	}
+	
+	@GetMapping("/mycourse")
+	public String enterMyCourse(@AuthenticationPrincipal AccountUserDetails loggedAccount, Model m) {
+		int userid=-1;
+		if(loggedAccount!=null) {
+			userid = loggedAccount.getLoggedAccount().getUserId();
+		}
+		m.addAttribute("userid",userid);
+		
+		return "shopping/mypurchasedpage";
+	}
 	
 }

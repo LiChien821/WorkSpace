@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html" ; charset="UTF-8">
+<title>howhow學</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+	crossorigin="anonymous"></script>
+
+<link rel="stylesheet" th:href="@{/shopping/css/font-awesome.min.css}">
+
+<link rel="stylesheet" th:href="@{/shopping/css/elegant-fonts.css}">
+
+<link rel="stylesheet" th:href="@{/shopping/css/themify-icons.css}">
+
+<link rel="stylesheet" th:href="@{/shopping/css/swiper.min.css}">
+
+<link rel="stylesheet" th:href="@{/shopping/style.css}">
+
+<link rel="stylesheet"
+	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css}">
+
+</head>
+<body class="single-courses-page">
+	<div id="myshop">
+		<div class="page-header">
+			<header class="site-header">
+				<div class="top-header-bar">
+					<div class="container-fluid">
+						<div class="row">
+							<div
+								class="col-12 col-lg-6 d-none d-md-flex flex-wrap justify-content-center justify-content-lg-start mb-3 mb-lg-0">
+								<div class="header-bar-email d-flex align-items-center">
+									<i class="fa fa-envelope"></i><a href="#">tuanna.design@gmail.com</a>
+								</div>
+								<!-- .header-bar-email -->
+
+								<div class="header-bar-text lg-flex align-items-center">
+									<p>
+										<i class="fa fa-phone"></i>001-1234-88888
+									</p>
+								</div>
+								<!-- .header-bar-text -->
+							</div>
+							<!-- .col -->
+
+							<div
+								class="col-12 col-lg-6 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center">
+								<div class="header-bar-search">
+									<form class="flex align-items-stretch">
+										<input type="search"
+											placeholder="What would you like to learn?">
+										<button type="submit" value=""
+											class="flex justify-content-center align-items-center">
+											<i class="fa fa-search"></i>
+										</button>
+									</form>
+								</div>
+								<!-- .header-bar-search -->
+
+								<div class="header-bar-menu">
+									<ul
+										class="flex justify-content-center align-items-center py-2 pt-md-0">
+										<li><a href="#">Register</a></li>
+										<li><a href="#">Login</a></li>
+									</ul>
+								</div>
+								<!-- .header-bar-menu -->
+							</div>
+							<!-- .col -->
+						</div>
+						<!-- .row -->
+					</div>
+					<!-- .container-fluid -->
+				</div>
+				<!-- .top-header-bar -->
+
+				<div class="nav-bar">
+					<div class="container">
+						<div class="row">
+							<div class="col-9 col-lg-3">
+								<div class="site-branding">
+									<h1 class="site-title">
+										<a href="index.html" rel="home">Ezu<span>ca</span></a>
+									</h1>
+								</div>
+								<!-- .site-branding -->
+							</div>
+							<!-- .col -->
+
+							<div
+								class="col-3 col-lg-9 flex justify-content-end align-content-center">
+								<nav
+									class="site-navigation flex justify-content-end align-items-center">
+									<ul
+										class="flex flex-column flex-lg-row justify-content-lg-end align-content-center">
+										<li class="current-menu-item"><a href="index.html">Home</a></li>
+										<li><a href="#">About</a></li>
+										<li><a href="#">Courses</a></li>
+										<li><a href="#">blog</a></li>
+										<li><a href="#">Contact</a></li>
+									</ul>
+
+									<div class="hamburger-menu d-lg-none">
+										<span></span> <span></span> <span></span> <span></span>
+									</div>
+									<!-- .hamburger-menu -->
+
+									<div class="header-bar-cart">
+										<a href="#"
+											class="flex justify-content-center align-items-center"><span
+											aria-hidden="true" class="icon_bag_alt"></span></a>
+									</div>
+									<!-- .header-bar-search -->
+								</nav>
+								<!-- .site-navigation -->
+							</div>
+							<!-- .col -->
+						</div>
+						<!-- .row -->
+					</div>
+					<!-- .container -->
+				</div>
+				<!-- .nav-bar -->
+			</header>
+			<!-- .site-header -->
+
+			<div class="page-header-overlay">
+				<div class="container">
+					<div class="row">
+						<div class="col-12"></div>
+						<!-- .col -->
+					</div>
+					<!-- .row -->
+				</div>
+				<!-- .container -->
+			</div>
+			<!-- .page-header-overlay -->
+		</div>
+		<!-- .page-header -->
+
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-lg-8">
+					<div class="single-course-wrap">
+						<div class="container">
+							<div class="instructors-info">
+								<header>
+									<h2 class="entry-title">購物車</h2>
+								</header>
+								<!-- .entry-heading -->
+
+								<div class="instructor-short-info flex-wrap">
+									<div class="self-course-page">
+										<table class="table">
+											<thead>
+												<tr>
+													<th scope="col" width="70%">課程名稱</th>
+													<th scope="col" width="15%">課程狀態</th>
+													<th scope="col" width="15%">售價</th>
+												</tr>
+										</table>
+										<div v-for="shop in shopdetail">
+											<table class="table">
+												<tr>
+													<td width="70%">{{shop.coursename}}</td>
+													<td width="15%">{{shop.coursestatus}}</td>
+													<td width="15%">NT${{shop.discountprice}}</td>
+												</tr>
+												</thead>
+											</table>
+											<div
+												class="flex flex-wrap justify-content-end align-items-center">
+												<div v-if="!favstatus.includes(shop.courseid)">
+													<button class="btn btn-outline-success" style="margin: 2px"
+														@click="moveToFavorite(shop.courseid)">移至收藏</button>
+												</div>
+												<button class="btn btn-outline-dark" style="margin: 2px"
+													@click="removeShoppingCart(shop.courseid)">刪除</button>
+											</div>
+										</div>
+
+
+									</div>
+									<!-- .instructors-details -->
+
+								</div>
+								<!-- .instructor-short-info -->
+							</div>
+							<!-- .instructors-info -->
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-lg-4 mt-5">
+					<div class="course-content-wrap">
+
+						<header class="entry-header">
+							<h2 class="entry-title">
+								<p>訂單明細</p>
+
+							</h2>
+							<hr
+								 />
+							<div
+								class="flex flex-wrap justify-content-between align-items-center">
+								小計</div>
+						</header>
+						<!-- .entry-header -->
+
+						<footer>
+							<div class="course-cost">NT${{totalprice}}</div>
+							<!-- .course-cost -->
+							<div
+								class="flex flex-wrap justify-content-end align-items-center">
+								<button class="button-new button-new2 mt-4"
+									@onclick="createorder(userid)">來去結帳</button>
+							</div>
+							<!-- .course-cost -->
+						</footer>
+						<!-- .entry-footer -->
+					</div>
+					<!-- .course-content-wrap -->
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-lg-8">
+					<div class="instructors-info">
+						<header class="entry-heading" style="height: 20px">
+							<h2 class="entry-title">最愛課程</h2>
+						</header>
+						<!-- .entry-heading -->
+
+						<div class="instructor-short-info flex flex-wrap">
+							<div v-for="fav in favdetail">
+								<div class="col-12 col-lg-12 px-25">
+									<div class="course-content">
+										<div class="course-content-wrap">
+
+											<header class="entry-header">
+												<h2 class="entry-title">
+													<a href="#">{{fav.coursename}}</a>
+												</h2>
+												<div
+													class="flex flex-wrap justify-content-between align-items-center">
+													<div class="flex justify-content-end align-items-center">
+														<div>
+															<button class="btn btn-success btn-sm"
+																@onclick="removeFavorite(fav.courseid)">移除最愛</button>
+														</div>
+														<div v-if="!shopstatus.includes(fav.courseid)">
+															<button class="btn btn-outline-warning btn-sm"
+																@onclick="addShoppingCart(fav.courseid)" style="margin:10px">加入購物車</button>
+														</div>
+														<div v-else>
+															<button disabled class="btn btn-warning btn-sm" style="margin:10px">已在購物車</button>
+														</div>
+													</div>
+												</div>
+											</header>
+											<!-- .entry-header -->
+
+											<footer
+												class="entry-footer flex flex-wrap justify-content-between align-items-center">
+												<div class="course-cost">NT${{fav.discountprice}}</div>
+												<!-- .course-cost -->
+												<div
+													class="course-ratings flex justify-content-end align-items-center">
+													<div v-if="fav.ranknum>5">
+														<span class="fa fa-star checked"></span> <span
+															v-if="fav.rank>=2" class="fa fa-star checked"></span> <span
+															v-else-if="fav.rank>=1.5"
+															class="fa fa-star-half-o checked"></span> <span v-else
+															class="fa fa-star-o"></span> <span v-if="fav.rank>=3"
+															class="fa fa-star checked"></span> <span
+															v-else-if="fav.rank>=2.5"
+															class="fa fa-star-half-o checked"></span> <span v-else
+															class="fa fa-star-o"></span> <span v-if="fav.rank>=4"
+															class="fa fa-star checked"></span> <span
+															v-else-if="fav.rank>=3.5"
+															class="fa fa-star-half-o checked"></span> <span v-else
+															class="fa fa-star-o"></span> <span v-if="fav.rank>=4.8"
+															class="fa fa-star checked"></span> <span
+															v-else-if="fav.rank>=4.3"
+															class="fa fa-star-half-o checked"></span> <span v-else
+															class="fa fa-star-o"></span> <span
+															class="course-ratings-count">{{fav.ranknum}}則評價</span>
+													</div>
+												</div>
+												<!-- .course-ratings -->
+												<div class="course-stunum col-12 justify-content-start"
+													v-if="fav.studentnum>=5">同學{{fav.studentnum}}人</div>
+												<!-- .course-cost -->
+											</footer>
+											<!-- .entry-footer -->
+										</div>
+									</div>
+								</div>
+								<!-- .course-content-wrap -->
+							</div>
+							<!-- .instructor-short-info -->
+						</div>
+						<!-- .instructors-info -->
+					</div>
+					<!-- .single-course-wrap -->
+				</div>
+				<!-- .col -->
+
+
+			</div>
+			<!-- .row -->
+		</div>
+		<!-- .container -->
+
+		<div class="clients-logo">
+			<div class="container">
+				
+				<input id="userid" name="userid" hidden th:value="${userid}" />
+				<!-- .row -->
+			</div>
+			<!-- .container -->
+		</div>
+		<!-- .clients-logo -->
+
+	</div>
+
+	<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+
+	<script type="importmap">
+
+	{
+	  "imports": {
+		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+	  }
+	}
+</script>
+
+
+	<script type="module" th:src="@{/js/myshop.js}"></script>
+
+
+
+
+	</div>
+</body>
+
+</html>

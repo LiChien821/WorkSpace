@@ -1,5 +1,6 @@
 package com.howhow.shopping.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,4 +19,10 @@ public class CategoryService {
 		Optional<Category> bean = repo.findById(id);
 		return bean.get();
 	}
+	
+	public List<Category> findAll() {
+		List<Category> all = repo.findAll();
+		return all;
+	}
+	
 }

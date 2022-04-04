@@ -82,7 +82,7 @@ public class CourseBasic {
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<CFCourse> cfCourseList = new ArrayList<CFCourse>();
-
+	
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<FavoriteCourse> favoriteCourseList = new ArrayList<FavoriteCourse>();

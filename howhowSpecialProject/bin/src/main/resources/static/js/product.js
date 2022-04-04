@@ -8,15 +8,7 @@ const dataObj = {
 	
 	shopstatus:"",
 	
-	addFav:"",
-	
-	purchasedstatus:"",
-	
-	ranks:"",
-	
-	res:"",
-	
-	pageNo:""
+	addFav:""
 
 };
 
@@ -57,26 +49,7 @@ createApp({
 			.catch(function(error) {
 				console.log(error);
 			});
-		this.userid = document.getElementById("userid").value;
-		axios({
-			method: 'get',
-			url: '/howhow/findpurchasedcoursestatus/'+this.userid+'/'+this.courseid,
-			headers: { "Access-Control-Allow-Origin": "*" }
-		})
-			.then(response =>(this.purchasedstatus = response.data))
-			.catch(function(error) {
-				console.log(error);
-			});
-		this.pageNo = document.getElementById("pageNo").value;
-		axios({
-			method: 'get',
-			url: '/howhow/querycourserankbycourseid/'+this.courseid +"/" +this.pageNo,
-			headers: { "Access-Control-Allow-Origin": "*" }
-		})
-			.then(response => (this.ranks = response.data, this.res = response))
-			.catch(function(error) {
-				console.log(error)
-			});
+
 	},
 	
 	methods: {
@@ -147,40 +120,6 @@ createApp({
 					console.log(this.userid);
 					console.log(this.courseid);
 					console.log(error);
-				});
-		},
-		
-		nextPage: function() {
-			if (document.getElementById("pageNo").value != this.ranks.totalPages) {
-				document.getElementById("pageNo").value = (document.getElementById("pageNo").value) * 1 + 1;
-			}
-				this.pageNo = document.getElementById("pageNo").value;
-				axios({
-					method: 'get',
-					url: '/howhow/querycourserankbycourseid/' + this.courseid + "/" + this.pageNo,
-					headers: { "Access-Control-Allow-Origin": "*" }
-				})
-					.then(response => (
-						this.ranks = response.data, this.res = response))
-					.catch(function(error) {
-						console.log(error);
-				});
-		},
-		
-		previousPage: function() {
-			if (document.getElementById("pageNo").value != 1) {
-				document.getElementById("pageNo").value = (document.getElementById("pageNo").value) * 1 - 1;
-			}
-				this.pageNo = document.getElementById("pageNo").value;
-				axios({
-					method: 'get',
-					url: '/howhow/querycourserankbycourseid/' + this.courseid + "/" + this.pageNo,
-					headers: { "Access-Control-Allow-Origin": "*" }
-				})
-					.then(response => (
-						this.ranks = response.data, this.res = response))
-					.catch(function(error) {
-						console.log(error);
 				});
 		},
 	}

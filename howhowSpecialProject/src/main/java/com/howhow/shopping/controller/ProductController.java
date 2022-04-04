@@ -36,6 +36,8 @@ import com.howhow.util.UtilityTool;
 
 @Controller
 public class ProductController {
+	
+	public final int PAGESIZE=2;
 
 	@Autowired
 	CourseBasicService cService;
@@ -93,12 +95,6 @@ public class ProductController {
 		
 		List<CourseRank> rank = crService.findByCourseID(courseid);
 		
-		
-		if(rank.size()!=0) {
-		List<CourseRankDTO> rdto = cc.findCourseRankByCourseID(courseid);
-			dto.setRdto(rdto);
-		}
-		
 		List<Section> sectionList = course.getSectionList();
 		dto.setSectionList(sectionList);
 
@@ -110,10 +106,9 @@ public class ProductController {
 	 */
 	@GetMapping("/findallcourses/{pageNo}")
 	@ResponseBody
-	public Page<CourseBasicDTO> findAllCourse(@PathVariable("pageNo") int pageNo, Model m)
+	public Page<CourseBasicDTO> findAllCourse(@PathVariable("pageNo") int pageNo)
 			throws CourseNotFoundException {
-		int pageSize = 1;
-		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+		Pageable pageable = PageRequest.of(pageNo - 1, PAGESIZE);
 
 		List<CourseBasicDTO> dtoList = new ArrayList<CourseBasicDTO>();
 		List<CourseBasic> list = cService.findAll();
@@ -140,10 +135,12 @@ public class ProductController {
 	/*
 	 * 依照課程類別查詢課程
 	 */
-	@GetMapping("/findcoursebycategoryid/{id}")
+	@GetMapping("/findcoursebycategoryid/{id}/{pageNo}")
 	@ResponseBody
-	public List<CourseBasicDTO> findCourseListByCategory(@PathVariable("id") int catID) throws CourseNotFoundException {
-
+	public Page<CourseBasicDTO> findCourseListByCategory(@PathVariable("id") int catID, @PathVariable("pageNo") int pageNo) throws CourseNotFoundException {
+		
+		Pageable pageable = PageRequest.of(pageNo - 1, PAGESIZE);
+		
 		List<CourseBasicDTO> dtoList = new ArrayList<CourseBasicDTO>();
 		List<CourseBasic> list = cService.findByCategoryID(catID);
 
@@ -151,8 +148,9 @@ public class ProductController {
 			CourseBasicDTO cb = dtoutils(courseBasic);
 			dtoList.add(cb);
 		}
-
-		return dtoList;
+		
+		Page<CourseBasicDTO> page = toPage(dtoList, pageable);
+		return page;
 	}
 
 	/*
@@ -162,8 +160,7 @@ public class ProductController {
 	@ResponseBody
 	public Page<CourseBasicDTO> findCourseListByNameLike(@PathVariable("name") String name, @PathVariable("pageNo") int pageNo)
 			throws CourseNotFoundException {
-		int pageSize = 1;
-		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+		Pageable pageable = PageRequest.of(pageNo - 1, PAGESIZE);
 
 		List<CourseBasicDTO> dtoList = new ArrayList<CourseBasicDTO>();
 		List<CourseBasic> list = cService.findByCourseNameLike(name);
@@ -263,7 +260,7 @@ public class ProductController {
 		int ranknum = 0;
 		double totalrank = 0;
 
-		String url = "http://localhost:8082/howhow/product?id=" + Integer.toString(courseID);
+		String url = "/howhow/product?id=" + Integer.toString(courseID);
 
 		List<CourseRank> list = crService.findByCourseID(courseID);
 		for (CourseRank courseRank : list) {

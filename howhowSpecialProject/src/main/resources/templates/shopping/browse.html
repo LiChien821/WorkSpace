@@ -34,24 +34,35 @@
     
 </head>
 <body>
-    <div id="app">
+    <div id="browse">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="breadcrumbs">
                         <ul class="flex flex-wrap align-items-center p-0 m-0">
-                            <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                            <li><a href="/howhow/"><i class="fa fa-home"></i> Home</a></li>
                             <li>Courses</li>
                         </ul>
                     </div><!-- .breadcrumbs -->
                 </div><!-- .col -->
             </div><!-- .row -->
-			<div class="row">
-				<div class="col-4">
-					<input id="search" v-model="search" placeholder="尋找" v-on:keyup.enter="goSearch(search)">
+            <div class="row">
+            	<div class="col-2">
+					<a href="#" @click.prevent="searchAll()">所有課程</a>
+				</div>
+				<div v-for="category in categories" class="col-1">
+					<a href="#" @click.prevent="searchByCategory(category.id)">{{category.name}}</a>
 				</div>
 			</div>
-			
+			<div class="row">
+				<div class="col-4" v-if="currentcategoryid==0">
+					<input id="search" v-model="search" placeholder="尋找" @keyup.enter="goSearch(search)">
+					<button class="px-25" @click="goSearch(search)">搜尋</button>
+				</div>
+				<div class="col-4" v-if="currentcategoryid!=0">
+					{{currentcategoryname}}  -  {{currentcategorydescription}}
+				</div>
+			</div>
 			
             <div class="row">
                 <div class="col-12 col-lg-12">
@@ -73,8 +84,8 @@
                                                     <div class="course-author"><a href="#">{{course.creatorname}}</a>
                                                     </div><!-- .course-date -->
                                                     <div class="flex justify-content-end align-items-center">
-                                                        <div v-if="course.favstatus==false"><button class="btn btn-light shadow-none far fa-bookmark" style="color:green" @click=></button></div>
-                                                        <div v-else><button class="btn btn-success shadow-none far fa-bookmark " style="color:white"></button></div>
+                                                        <div v-if="favstatus.includes(course.courseid)"><button class="btn btn-success shadow-none far fa-bookmark " style="color:white" @click="removeFavorite(course.courseid)"></button></div>
+                                                        <div v-else><button class="btn btn-light shadow-none far fa-bookmark" style="color:green" @click="addFavorite(course.courseid)"></button></div>
                                                     </div>
                                                 </div>
                                                 
@@ -90,7 +101,7 @@
                                                     NT${{course.price}}
                                                 </div><!-- .course-cost -->
                                                 <div class="course-ratings flex justify-content-end align-items-center">
-                                                    <div v-if="course.ranknum>5">
+                                                    <div v-if="course.ranknum>0">
                                                         <span class="fas fa-star checked"></span>
                                                         <span v-if="course.rank>=2"class="fas fa-star checked"></span>
                                                         <span v-else-if="course.rank>=1.5" class="fas fa-star-half-alt checked"></span> 
@@ -147,6 +158,7 @@
             </div><!-- .row -->
         </div><!-- .container -->
         <input id="pageNo" name="pageNo" hidden th:value="${pageNo}"/>
+        <input id="userid" name="userid" hidden th:value="${userid}" />
     </div>
     </footer><!-- .site-footer -->
 	

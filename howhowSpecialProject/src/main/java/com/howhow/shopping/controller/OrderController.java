@@ -69,11 +69,6 @@ public class OrderController {
 		omt.setSystemTime(UtilityTool.getSysTime());
 		omt.setOrderDate(new java.util.Date());
 		
-		for (ShoppingCart shoppingCart : shoppinglist) {
-			int shoppingCartID = shoppingCart.getShoppingCartID();
-			sService.deleteByID(shoppingCartID);
-		}
-		
 		omtService.insertOrderMt(omt);
 		return true;
 	}
