@@ -32,17 +32,22 @@
 			<div>
 
 				<div class="form-group">
-						<label for="password">密碼:</label>
-				<input id="password" class="form-control" type="password" th:field="*{password}" 
-					placeholder="請輸入新密碼" oninput="checkPasswordMatch(document.getElementById('confirmPassword'))"
+					<label for="password">密碼</label>
+					 <input id="password" class="form-control" type="password" th:field="*{password}"placeholder="請輸入新密碼" 
+					 oninput="checkPasswordMatch(document.getElementById('confirmPassword'))"
 					minlength="6" maxlength="15" />
-			</div>
+				</div>
+				
+			
+				
+				
+				<div class="form-group">
+					<label  for="confirmPassword">確認密碼</label>
+					<input type="password" id="confirmPassword" class="form-control"
+						minlength="6" maxlength="15" oninput="checkPasswordMatch(this)" />
 
+				</div>
 
-			<div class="form-group">
-				<label class="col-sm-4 col-form-label">確認密碼</label>
-				<input type="password"  class="form-control" minlength="6" maxlength="15"
-					oninput="checkPasswordMatch(this)" id="confirmPassword"/>
 
 			</div>
 			<input type="submit" class="btn btn-primary" value="送出" />
