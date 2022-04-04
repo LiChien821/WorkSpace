@@ -13,8 +13,10 @@
     <div class="row align-items-md-stretch">
       <div class="col-md-6">
         <div class="h-100 p-5  bg-light  rounded-3">
-          <h2>課程 {{course.courseName}}</h2>
-          <p>課程介紹  {{course.description}}</p>
+          <h2>課程 [[${theCourse.courseName}]]</h2>
+          <p>課程介紹  [[${theCourse.description}]]</p>
+          <h5>總共[[${#lists.size(theCourse.sectionList)}]]  .章 
+         [[${leactureTotalNum}]] .單元</h5>
           
         </div>
       </div>
@@ -23,11 +25,13 @@
 	        <div class=" col-3 ">
 				<div id="logo">
 					<span class="image"><img class=" border rounded-circle border-dark"th:src="@{/images/avatar.jpg}" alt="" /></span>
-					<h1 id="title">howhow</h1>
-					<p>課程創作者</p>
+					<h1 id="title">[[${creator.givenName}]] [[${creator.familyName}]]</h1>
+					<p>課程創作者</p><p>[[${creator.acountCreationTime}]]</p>
 				</div>
 	        </div>
-	        <div class="col-9 ">inforamtion
+	        <div class="col-9 ">
+	        	<p>account description</p>
+	        	<h5>目前已創造課程數：[[${#lists.size(creator.createdCourseList)}]]</h5>
 	        </div >
       	</div>
       </div>

@@ -2,6 +2,7 @@ package com.howhow.course.common;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,7 @@ public class LearningCourseService {
 //			CourseStatusType type= findby(typeid);
 //			course.setStatusType(type);
 			course.setDiscount(1);
+			course.setSystemTime(new Date().toString());
 			repo.save(course);
 
 			return true;

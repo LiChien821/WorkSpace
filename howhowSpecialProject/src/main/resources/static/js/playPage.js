@@ -15,11 +15,16 @@ const dataObj = {
 	currentSectionID: "",
 	currentLecturesID: "",
 	userAccountID: "",
+	userAccountCreatTime:"",
 
 	sectionList: "",
 	lecturesList: "",
 	sectionID: "",
-
+	
+	totalSection:"",
+	totalLecture:"",
+	
+	
 
 };
 
@@ -181,17 +186,44 @@ Vue.createApp({
 	data() {
 		return dataObj;
 	},
-
+	computed:{
+		
+	},
 	methods: {
+		getCourse:function(){
+			
+			axios({
+				method: 'get',
 	
+				url: '/howhow/api/getCourse/' + this.currentCourseID,
+				headers: { "Access-Control-Allow-Origin": "*" },
+			})
 	
+				.then(response => (this.course = response.data,this.gettotalSection(),
+		this.gettotalLecture()))
+				.catch(function(error) {
+					console.log(error);
+	
+				});
+		},
+		gettotalSection:function (){
+			this.totalSection= this.course.sectionList.length;
+		},
+		gettotalLecture:function(){
+			var num;
+			
+			this.course.sectionList.forEach((section) =>{ num+=section.lecturesList.length  }    );
+			
+			this.totalLecture=num;
+		}
 		
 
 
 	},
 	mounted: function() {
-
-
+			this.userAccountCreatTime = document.getElementById("userAccountCreatTime").value;
+		this.getCourse();
+		
 
 	},
 

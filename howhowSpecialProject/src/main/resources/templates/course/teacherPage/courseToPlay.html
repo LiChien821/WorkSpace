@@ -66,7 +66,10 @@
 			<nav id="sidebarMenu" class="col-md-3 col-lg-2 col-xl-2 d-md-block bg-light sidebar collapse">
 				<div class="position-sticky pt-3" id="playSectionList">
 					<input th:value="${courseID}" id="playPageDeafultId" hidden>
-					<input hidden id="defaultAccountID" th:value="${accountID}">
+					<input hidden id="defaultAccountID" th:value="${accountDt.userId}">
+					<input hidden id="userAccountCreatTime" th:value="${accountDt.acountCreationTime}">
+					
+					
 					<ul class="nav flex-column" v-for="section in sectionList">
 						<li class="nav-item">
 							<button class="btn btn-toggle align-items-center rounded collapsed "
