@@ -4,12 +4,8 @@
   
 }
 body{
-  top: 0px;
-left: 0px;
-/* UI Properties */
 background: #E2C652 0% 0% no-repeat padding-box;
 opacity: 1;
-
 }
 
 .accountp{
@@ -47,7 +43,7 @@ opacity: 1;
 }
 .logintitle{
   /* Layout Properties */
-top: 485px;
+top: 285px;
 left: 791px;
 width: 120px;
 height: 84px;
@@ -97,7 +93,6 @@ opacity: 1;
    border:none;
      transform:scale(0.7);
 }
-
 .accword{
   /* Layout Properties */
 
@@ -165,6 +160,8 @@ margin: 0 auto;
 padding: 0;
 
 width: 560px;
-position:absolute; height:280px;
+height:730px;
 top:0; bottom:0; left:0; right:0;
 }
+
+	

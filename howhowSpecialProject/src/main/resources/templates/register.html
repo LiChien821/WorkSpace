@@ -20,11 +20,15 @@
 
 
 <body>
+<div class="box1">
+<a th:href="@{/}"> <img border="0" th:src="@{/images/logo.png}"
+     alt=""></a>
+</div>
 <div class="container" style="margin-top: 30px">
 		<form action="#" th:action="@{/createUser}"  method="Post"
-			style="padding: 50px ; text-align:center ; margin: 0 auto ; position: absoluate;" >
+			style=" text-align:center ; margin: 0 auto ; position: absoluate" >
 			<sapn class="accword">帳號註冊TEST</span>
-			<div class="space">
+			<div class="space" >
 				<span class="accword">[[${text}]]</span>
 				<label for="account" class="accword">帳號: </label> <input id="account" name="" th:object="${Account}"
 					class="accountp" type="text" th:field="*{account}" required
@@ -49,13 +53,13 @@
 
 
 				<div class="space">
-					<label for="familyname">姓氏</label> <input id="familyName" th:object="${AccountDetail}"
+					<label for="familyname">姓氏:</label> <input id="familyName" th:object="${AccountDetail}"
 						class="accountp" type="text" th:field="*{familyName}" required
 						placeholder="請輸入姓氏" />
 				</div>
 
 				<div class="space">
-					<label for="givenname">名</label> <input id="givenName" th:object="${AccountDetail}"
+					<label for="givenName">名:</label> <input id="givenName" th:object="${AccountDetail}"
 						class="accountp" type="text" th:field="*{givenName}" required
 						placeholder="請輸入名字" />
 				</div>
@@ -81,11 +85,9 @@
 						class="accountp" type="date" th:field="*{birth}" required />
 				</div>
 			</div>
-			<span class = "btd">
-			<input type="submit" class="bt1" value="註冊" />
+			<div align="center">
+			<span class = "btd"><input type="submit" class="bt1" value="註冊" />
                </span>
-			<div>
-				<a class= "singup"  href="login">回到登入頁面</a>
 			</div>
 
 		</form>

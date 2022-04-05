@@ -15,11 +15,11 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <body>
 <div class="box1">
-<a th:href="@{/index}"> <img border="0" th:src="@{/image/unnamed.png}"
+<a th:href="@{/}"> <img border="0" th:src="@{/images/logo.png}"
      alt=""></a>
 </div>
 	
-<form class="form" method="POST" th:action="@{/login}"  style="max-width: 500px; margin: 0 auto">
+<form class="form" method="POST" th:action="@{/login}"  style="max-width: 500px; margin: 0 auto ; height:300px">
 
 
 		<br>
@@ -59,7 +59,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 				</span>
 </div>
 
-<spqn class = "btd"><input type="submit" class="bt1" clavalue="log in"/> 
+<spqn class = "btd"><input type="submit" class="bt1" value="log in"/> 
 </span>
 	</form>
 	
