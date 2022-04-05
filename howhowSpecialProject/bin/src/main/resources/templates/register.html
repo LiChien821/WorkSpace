@@ -4,7 +4,7 @@
 
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=""UTF-8">
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 <meta name="viewpor"
 	content="width=device-width,initial-scale=1.0, minimum0scale=1.0">
 <link rel="icon" type="image/x-icon" th:href="@{/images/sheep.ico}" />
@@ -13,52 +13,60 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
+	<link rel="stylesheet" href="../static/css/register.css"/>
+	<link rel="stylesheet" th:href="@{/css/register.css}"/>
 <title>RegisterPage</title>
 </head>
 
 
 <body>
 <div class="container" style="margin-top: 30px">
-		<form action="#" th:action="@{/createUser}" class="offset-sm-3 col-sm-6 my-5 p-5 border shadow" method="Post"
-			style="padding: 30px" >
-			<h2>帳號註冊</h2>
-			<div class="form-group">
-				<h2>[[${text}]]</h2>
-				<label for="account">帳號: </label> <input id="account" name="" th:object="${Account}"
-					class="form-control" type="text" th:field="*{account}" required
+		<form action="#" th:action="@{/createUser}"  method="Post"
+			style="padding: 50px ; text-align:center ; margin: 0 auto ; position: absoluate;" >
+			<sapn class="accword">帳號註冊TEST</span>
+			<div class="space">
+				<span class="accword">[[${text}]]</span>
+				<label for="account" class="accword">帳號: </label> <input id="account" name="" th:object="${Account}"
+					class="accountp" type="text" th:field="*{account}" required
 					placeholder="請輸入帳號" />
 			</div>
 
-			<div class="form-group">
-				<label for="password">密碼:</label> <input id="password" th:object="${Account}"
-					class="form-control" type="password" th:field="*{password}"
+			<div class="space">
+				<label class="accword" for="password">密碼:</label> <input id="password" th:object="${Account}"
+					class="accountp" type="password" th:field="*{password}"
 					required="required" placeholder="請輸入密碼"
 					oninput="checkPasswordMatch(document.getElementById('confirmPassword'))"
 					minlength="6" maxlength="15" />
 			</div>
 
 
+<<<<<<< HEAD
 		 	<div class="form-group">
 				<label class="col-sm-4 col-form-label" for="confirmPassword">confirm
 					密碼</label> <input type="password" id="confirmPassword" class="form-control"
+=======
+		 	<div class="space">
+				<label class="col-sm-4 col-form-label" for="confirmPassword">確認密碼</label> 
+				<input type="password" id="confirmPassword" class="accountp"
+>>>>>>> 4ff1c78c981cb37cde638c57c1b9b0b3175d4be2
 					minlength="6" maxlength="15" oninput="checkPasswordMatch(this)" />
 
 			</div> 
 
 
-				<div class="form-group">
+				<div class="space">
 					<label for="familyname">姓氏</label> <input id="familyName" th:object="${AccountDetail}"
-						class="form-control" type="text" th:field="*{familyName}" required
+						class="accountp" type="text" th:field="*{familyName}" required
 						placeholder="請輸入姓氏" />
 				</div>
 
-				<div class="form-group">
-					<label for="familyname">名</label> <input id="givenName" th:object="${AccountDetail}"
-						class="form-control" type="text" th:field="*{givenName}" required
-						placeholder="請輸入" />
+				<div class="space">
+					<label for="givenname">名</label> <input id="givenName" th:object="${AccountDetail}"
+						class="accountp" type="text" th:field="*{givenName}" required
+						placeholder="請輸入名字" />
 				</div>
-				<div class="form-group">
-					<label>性別: </label>
+			<div class="space">
+					<span>性別: </span>
 					<div>
 						<input type="radio" name="gender" id="male" th:object="${AccountDetail}" th:field="*{gender}" 
 							value="Male" required /> <label for="male">男</label> 
@@ -68,21 +76,22 @@
 					</div>
 				</div>
 
-				<div class="form-group">
+				<div class="space">
 					<label for="email">Email: </label> <input id="email" th:object="${AccountDetail}"
-						class="form-control" type="email" th:field="*{email}" required
+						class="accountp" type="email" th:field="*{email}" required
 						placeholder="請輸入email" />
 				</div>
 
-				<div class="form-group">
+				<div class="space">
 					<label for="birth">生日: </label> <input id="birth" th:object="${AccountDetail}"
-						class="form-control" type="date" th:field="*{birth}" required />
+						class="accountp" type="date" th:field="*{birth}" required />
 				</div>
 			</div>
-			<input type="submit" class="btn btn-primary" value="註冊" />
-
+			<span class = "btd">
+			<input type="submit" class="bt1" value="註冊" />
+               </span>
 			<div>
-				<a href="login">回到登入頁面</a>
+				<a class= "singup"  href="login">回到登入頁面</a>
 			</div>
 
 		</form>

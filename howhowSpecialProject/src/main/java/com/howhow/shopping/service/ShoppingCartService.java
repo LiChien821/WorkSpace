@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.howhow.entity.FavoriteCourse;
 import com.howhow.entity.ShoppingCart;
 import com.howhow.shopping.exception.ShoppingCartNotFoundException;
 import com.howhow.shopping.exception.UserOrCourseNotFoundException;
@@ -54,4 +55,14 @@ public class ShoppingCartService {
 			throw new ShoppingCartNotFoundException();
 		}
 	}
+	
+	public boolean removeShoppingCart(int userid, int courseid) {
+		ShoppingCart status = repo.findShoppingCartStatus(userid, courseid);
+		if(status!=null) {
+			repo.deleteById(status.getShoppingCartID());
+			return true;
+		}
+		return false;
+	}
+	
 }
