@@ -1,4 +1,4 @@
-package com.howhow.student.controller;
+package com.howhow.student.api;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class PurchasedCourseController {
 	@Autowired
 	ShoppingCartService sService;
 	
-	@GetMapping("/findpurchasedcoursebyuserid/{id}")
+	@GetMapping("/api/findpurchasedcoursebyuserid/{id}")
 	@ResponseBody
 	public List<PurchasedCourseDTO> findPurchasedCourseByUserID(@PathVariable("id") int userId) {
 
@@ -50,7 +50,7 @@ public class PurchasedCourseController {
 		return dtolist;
 	}
 
-	@GetMapping("/findpurchasedcoursebyid/{id}")
+	@GetMapping("/api/findpurchasedcoursebyid/{id}")
 	@ResponseBody
 	public PurchasedCourseDTO findbyID(@PathVariable("id") int id) {
 		PurchasedCourse bean = pService.findByID(id);
@@ -62,7 +62,7 @@ public class PurchasedCourseController {
 		return dto;
 	}
 
-	@GetMapping("/insertpurchasedcoursebyorderid/{id}")
+	@GetMapping("/api/insertpurchasedcoursebyorderid/{id}")
 	@ResponseBody
 	public List<PurchasedCourseDTO> insertPurchasedCourse(@PathVariable("id") int orderid)
 			throws OrderNotFoundException, OrderStatusErrorException, DuplicatedPurchasedCourseException {
@@ -93,7 +93,7 @@ public class PurchasedCourseController {
 		}
 	}
 
-	@GetMapping("/findpurchasedcoursebycourseid/{id}")
+	@GetMapping("/api/findpurchasedcoursebycourseid/{id}")
 	@ResponseBody
 	public List<PurchasedCourseDTO> findByCourseID(@PathVariable("id") int courseid) {
 		List<PurchasedCourseDTO> dtolist = new ArrayList<PurchasedCourseDTO>();
@@ -106,7 +106,7 @@ public class PurchasedCourseController {
 		return dtolist;
 	}
 	
-	@GetMapping("/findpurchasedcoursestatusbyuserid/{userid}")
+	@GetMapping("/api/findpurchasedcoursestatusbyuserid/{userid}")
 	@ResponseBody
 	public List<Integer> findPurchasedCourseListStatusByUserID(@PathVariable("userid") int userid) {
 		List<Integer> purchasedstatus = new ArrayList<Integer>();
@@ -120,7 +120,7 @@ public class PurchasedCourseController {
 		return purchasedstatus;
 	}
 	
-	@GetMapping("/findpurchasedcoursestatus/{userid}/{courseid}")
+	@GetMapping("/api/findpurchasedcoursestatus/{userid}/{courseid}")
 	@ResponseBody
 	public boolean findPurchasedCourseStatus(@PathVariable("userid") int userid, @PathVariable("courseid") int courseid) {
 		boolean status = pService.findPurchasedStatus(userid, courseid);

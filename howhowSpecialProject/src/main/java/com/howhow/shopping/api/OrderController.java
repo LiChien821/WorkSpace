@@ -1,4 +1,4 @@
-package com.howhow.shopping.controller;
+package com.howhow.shopping.api;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,7 @@ public class OrderController {
 	AccountService accService;
 	
 	
-	@GetMapping("/createorder/{id}")
+	@GetMapping("/api/createorder/{id}")
 	@ResponseBody
 	public boolean createOrder(@PathVariable("id") int id) throws ShoppingCartNotFoundException, UserOrCourseNotFoundException {
 		
@@ -73,7 +73,7 @@ public class OrderController {
 		return true;
 	}
 	
-	@GetMapping("/findorder/{id}")
+	@GetMapping("/api/findorder/{id}")
 	@ResponseBody
 	public OrderMt findByID(@PathVariable("id") int id) {
 		OrderMt omt = omtService.findByID(id);
@@ -82,7 +82,7 @@ public class OrderController {
 	}
 	
 	
-	@GetMapping("/findorderbyuserid/{userid}")
+	@GetMapping("/api/findorderbyuserid/{userid}")
 	@ResponseBody
 	public List<OrderMt> findByUserID(@PathVariable("userid") int userid) {
 		
@@ -91,7 +91,7 @@ public class OrderController {
 		return list;
 	}
 	
-	@GetMapping("/deleteorder/{id}")
+	@GetMapping("/api/deleteorder/{id}")
 	@ResponseBody
 	public boolean deleteByID(@PathVariable("id") int id) throws OrderNotFoundException {
 		

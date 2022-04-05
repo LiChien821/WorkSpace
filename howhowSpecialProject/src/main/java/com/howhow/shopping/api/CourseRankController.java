@@ -1,4 +1,4 @@
-package com.howhow.shopping.controller;
+package com.howhow.shopping.api;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +54,7 @@ public class CourseRankController {
 	/*
 	 * ID尋找
 	 * */
-	@GetMapping("/querycourserank/{courserankid}")
+	@GetMapping("/api/querycourserank/{courserankid}")
 	@ResponseBody
 	public CourseRankDTO findCourseRankByID(@PathVariable("courserankid") int courserankid) throws CourseNotFoundException {
 		
@@ -67,7 +67,7 @@ public class CourseRankController {
 	/*
 	 * 新增評價
 	 * */
-	@PostMapping("/insertcourserank")
+	@PostMapping("/api/insertcourserank")
 	@ResponseBody
 	public CourseRank insertCourseRank(@RequestBody CourseRankDTO courseRankDTO) throws CourseRankNotFoundException, UserOrCourseNotFoundException {
 		
@@ -85,7 +85,7 @@ public class CourseRankController {
 	/*
 	 * 刪除課程評價
 	 * */
-	@GetMapping("/deletecourserank/{id}")
+	@GetMapping("/api/deletecourserank/{id}")
 	@ResponseBody
 	public boolean deleteCourseRank(@PathVariable("id") int id, Model m) throws CourseRankNotFoundException {
 		
@@ -96,7 +96,7 @@ public class CourseRankController {
 	/*
 	 * 更新課程評價
 	 * */
-	@PostMapping("/updatecourserank")
+	@PostMapping("/api/updatecourserank")
 	@ResponseBody
 	public CourseRank updateCourseRank(@RequestBody CourseRankDTO courseRankDTO) throws CourseRankNotFoundException {
 		
@@ -113,7 +113,7 @@ public class CourseRankController {
 		return updateCourseRank;
 	}
 	
-	@GetMapping("/querycourserankbycourseid/{id}/{pageNo}")
+	@GetMapping("/api/querycourserankbycourseid/{id}/{pageNo}")
 	@ResponseBody
 	public Page<CourseRankDTO> findCourseRankByCourseID(@PathVariable("id") int id, @PathVariable("pageNo") int pageNo) throws CourseNotFoundException {
 		

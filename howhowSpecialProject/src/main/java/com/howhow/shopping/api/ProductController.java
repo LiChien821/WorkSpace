@@ -1,4 +1,4 @@
-package com.howhow.shopping.controller;
+package com.howhow.shopping.api;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +63,7 @@ public class ProductController {
 	/*
 	 * Find BY ID
 	 */
-	@GetMapping("/findcoursebyid/{id}")
+	@GetMapping("/api/findcoursebyid/{id}")
 	@ResponseBody
 	public CourseBasicDTO findCourseByID(@PathVariable("id") int courseid) throws CourseNotFoundException {
 		CourseBasic course = cService.findByID(courseid);
@@ -104,7 +104,7 @@ public class ProductController {
 	/*
 	 * 查詢所有課程
 	 */
-	@GetMapping("/findallcourses/{pageNo}")
+	@GetMapping("/api/findallcourses/{pageNo}")
 	@ResponseBody
 	public Page<CourseBasicDTO> findAllCourse(@PathVariable("pageNo") int pageNo)
 			throws CourseNotFoundException {
@@ -135,7 +135,7 @@ public class ProductController {
 	/*
 	 * 依照課程類別查詢課程
 	 */
-	@GetMapping("/findcoursebycategoryid/{id}/{pageNo}")
+	@GetMapping("/api/findcoursebycategoryid/{id}/{pageNo}")
 	@ResponseBody
 	public Page<CourseBasicDTO> findCourseListByCategory(@PathVariable("id") int catID, @PathVariable("pageNo") int pageNo) throws CourseNotFoundException {
 		
@@ -156,7 +156,7 @@ public class ProductController {
 	/*
 	 * 依照課程名稱關鍵字搜尋
 	 */
-	@GetMapping("/findcoursebynamelike/{name}/{pageNo}")
+	@GetMapping("/api/findcoursebynamelike/{name}/{pageNo}")
 	@ResponseBody
 	public Page<CourseBasicDTO> findCourseListByNameLike(@PathVariable("name") String name, @PathVariable("pageNo") int pageNo)
 			throws CourseNotFoundException {
@@ -174,7 +174,7 @@ public class ProductController {
 		return page;
 	}
 
-	@PostMapping("/insertcourse")
+	@PostMapping("/api/insertcourse")
 	@ResponseBody
 	public CourseBasic insertCourseBasic(@RequestBody CourseBasicDTO coursebasicDTO) throws UserNotFoundException {
 
@@ -192,7 +192,7 @@ public class ProductController {
 		return insertCourseBasic;
 	}
 
-	@PostMapping("/updatecourse")
+	@PostMapping("/api/updatecourse")
 	@ResponseBody
 	public CourseBasic updateCourseBasic(@RequestBody CourseBasicDTO coursebasicDTO) throws CourseNotFoundException {
 
@@ -218,7 +218,7 @@ public class ProductController {
 		return insertCourseBasic;
 	}
 
-	@GetMapping("/deletecourse/{id}")
+	@GetMapping("/api/deletecourse/{id}")
 	@ResponseBody
 	public boolean deleteCourseBasic(@PathVariable("id") int id) throws CourseNotFoundException {
 

@@ -39,7 +39,7 @@ createApp({
 		
 		axios({
 			method: 'get',
-			url: '/howhow/findfavoritecoursestatusbyuserid/' + this.userid,
+			url: '/howhow/api/findfavoritecoursestatusbyuserid/' + this.userid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.favstatus = response.data))
@@ -48,7 +48,7 @@ createApp({
 			});
 		axios({
 			method: 'get',
-			url: '/howhow/findshoppingcartstatusbyuserid/' + this.userid,
+			url: '/howhow/api/findshoppingcartstatusbyuserid/' + this.userid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.shopstatus = response.data))
@@ -57,7 +57,7 @@ createApp({
 			});
 		axios({
 			method: 'get',
-			url: '/howhow/findpurchasedcoursestatusbyuserid/'+ this.userid,
+			url: '/howhow/api/findpurchasedcoursestatusbyuserid/'+ this.userid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.purchasedstatus = response.data))
@@ -74,7 +74,7 @@ createApp({
 			this.refresh = false;
 			axios({
 				method: 'get',
-				url: '/howhow/movetofavoritecourse/' + this.userid + "/" + courseid,
+				url: '/howhow/api/movetofavoritecourse/' + this.userid + "/" + courseid,
 				headers: { "Access-Control-Allow-Origin": "*" },
 			})
 				.then(response => (this.favstatus.push(courseid),
@@ -97,7 +97,7 @@ createApp({
 			this.refresh=false;
 			axios({
 				method: 'get',
-				url: '/howhow/removeshoppingcart/'+this.userid+'/'+courseid,
+				url: '/howhow/api/removeshoppingcart/'+this.userid+'/'+courseid,
 				headers: { "Access-Control-Allow-Origin": "*" },
 			})
 				.then(response => (this.shopstatus.splice(index, 1)))
@@ -118,7 +118,7 @@ createApp({
 			this.refresh=false;
 			axios({
 				method: 'get',
-				url: '/howhow/removefavoritecourse/'+this.userid+'/'+courseid,
+				url: '/howhow/api/removefavoritecourse/'+this.userid+'/'+courseid,
 				headers: { "Access-Control-Allow-Origin": "*" },
 			})
 				.then(response => (this.favstatus.splice(index, 1)))
@@ -134,7 +134,7 @@ createApp({
 			this.userid = document.getElementById("userid").value;
 			axios({
 				method: 'get',
-				url: '/howhow/createorder/'+this.userid,
+				url: '/howhow/api/createorder/'+this.userid,
 				headers: { "Access-Control-Allow-Origin": "*" }
 			})
 				.then(window.location.href='/howhow/')
@@ -148,7 +148,7 @@ createApp({
 			this.refresh=false;
 			axios({
 				method: 'post',
-				url: '/howhow/insertshoppingcart',
+				url: '/howhow/api/insertshoppingcart',
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 				data: { userID: this.userid, courseID: courseid }
 			})
@@ -166,7 +166,7 @@ createApp({
 		findfavoritecourse() {
 			axios({
 				method: 'get',
-				url: '/howhow/findfavoritecoursedetailbyuserid/' + this.userid,
+				url: '/howhow/api/findfavoritecoursedetailbyuserid/' + this.userid,
 				headers: { "Access-Control-Allow-Origin": "*" }
 			})
 				.then(response => (this.favdetail = response.data))
@@ -177,7 +177,7 @@ createApp({
 		findshoppingcart() {
 			axios({
 				method: 'get',
-				url: '/howhow/findshoppingcartdetailbyuserid/' + this.userid,
+				url: '/howhow/api/findshoppingcartdetailbyuserid/' + this.userid,
 				headers: { "Access-Control-Allow-Origin": "*" }
 			})
 				.then(response => (this.shopdetail = response.data))

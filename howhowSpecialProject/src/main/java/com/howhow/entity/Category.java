@@ -31,9 +31,12 @@ public class Category {
 	@Column(name = "descriptior", length = 200)
 	private String descriptior;
 	
+	@Column(name = "system_time")
+	private String systemTime;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "category")
-	private List<CourseBasic> courseBasicList =new ArrayList<CourseBasic>() ;
+	private List<CourseBasic> courseBasicList =new ArrayList<CourseBasic>();
 
 	public Integer getId() {
 		return id;
@@ -67,7 +70,12 @@ public class Category {
 		this.courseBasicList = courseBasicList;
 	}
 
-	
+	public String getSystemTime() {
+		return systemTime;
+	}
 
-	
+	public void setSystemTime(String systemTime) {
+		this.systemTime = systemTime;
+	}
+
 }

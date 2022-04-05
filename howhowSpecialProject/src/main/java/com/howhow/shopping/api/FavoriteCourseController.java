@@ -1,4 +1,4 @@
-package com.howhow.shopping.controller;
+package com.howhow.shopping.api;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.howhow.account.controller.AccountController;
 import com.howhow.account.service.AccountDetailService;
 import com.howhow.account.service.AccountService;
 import com.howhow.cms.service.CourseStatusTypeService;
@@ -19,6 +23,7 @@ import com.howhow.entity.CourseRank;
 import com.howhow.entity.CourseStatusType;
 import com.howhow.entity.FavoriteCourse;
 import com.howhow.entity.ShoppingCart;
+import com.howhow.entity.UserAccountDt;
 import com.howhow.entity.UserAccountMt;
 import com.howhow.shopping.dto.SearchingCourseDTO;
 import com.howhow.shopping.dto.SimpleCourseDTO;
@@ -34,7 +39,10 @@ import com.howhow.util.UtilityTool;
 
 @Controller
 public class FavoriteCourseController {
-
+	
+	@Autowired
+	AccountController aController;
+	
 	@Autowired
 	FavoriteCourseService fService;
 	
@@ -62,7 +70,7 @@ public class FavoriteCourseController {
 	 * 利用登入的帳號bean去查詢此用戶加入最愛的課程
 	 * */
 	
-	@GetMapping("/findfavoritecourse/{id}")
+	@GetMapping("/api/findfavoritecourse/{id}")
 	@ResponseBody
 	public List<SimpleCourseDTO> findAllFavoriteCourseByUserID(@PathVariable("id") int userid) {
 		
@@ -88,7 +96,7 @@ public class FavoriteCourseController {
 	/*
 	 * 用戶將指定最愛課程移除
 	 * */
-	@GetMapping("/deletefavoritecourse/{id}")
+	@GetMapping("/api/deletefavoritecourse/{id}")
 	@ResponseBody
 	public boolean removeFavoriteCourseByID(@PathVariable("id") int id) throws FavoriteCourseNotFoundException {
 		
@@ -99,7 +107,7 @@ public class FavoriteCourseController {
 	/*
 	 * 用戶將指定課程加入購物車，並移除最愛列表
 	 * */
-	@GetMapping("/movetoshoppingcart/{id}")
+	@GetMapping("/api/movetoshoppingcart/{id}")
 	@ResponseBody
 	public boolean removeFavoriteCourseAndAddShopByFID(@PathVariable("id") int id) throws UserOrCourseNotFoundException, FavoriteCourseNotFoundException {
 		
@@ -123,7 +131,7 @@ public class FavoriteCourseController {
 	/*
 	 * 新增最愛課程
 	 * */
-	@PostMapping("/insertfavoritecourse")
+	@PostMapping("/api/insertfavoritecourse")
 	@ResponseBody
 	public FavoriteCourse insertFavoriteCourse(@RequestBody SimpleCourseDTO favoritecourseDTO) throws UserOrCourseNotFoundException {
 		
@@ -137,7 +145,7 @@ public class FavoriteCourseController {
 		return insertFavoriteCourse;
 	}
 	
-	@GetMapping("/findfavoritecoursestatus/{userid}/{courseid}")
+	@GetMapping("/api/findfavoritecoursestatus/{userid}/{courseid}")
 	@ResponseBody
 	public boolean findFavoriteCourseStatus(@PathVariable("userid") int userid,@PathVariable("courseid") int courseid) {
 		
@@ -146,14 +154,14 @@ public class FavoriteCourseController {
 		return status;
 	}
 	
-	@GetMapping("/removefavoritecourse/{userid}/{courseid}")
+	@GetMapping("/api/removefavoritecourse/{userid}/{courseid}")
 	@ResponseBody
 	public boolean removeFavoriteCourse(@PathVariable("userid") int userid, @PathVariable("courseid") int courseid) {
 		boolean status = fService.removeFavoriteCourse(userid, courseid);
 		return status;
 	}
 	
-	@GetMapping("/findfavoritecoursestatusbyuserid/{userid}")
+	@GetMapping("/api/findfavoritecoursestatusbyuserid/{userid}")
 	@ResponseBody
 	public List<Integer> findFavoriteCourseByUserID(@PathVariable("userid") int userid) {
 		List<Integer> favstatus = new ArrayList<Integer>();
@@ -167,7 +175,7 @@ public class FavoriteCourseController {
 		return favstatus;
 	}
 	
-	@GetMapping("/findfavoritecoursedetailbyuserid/{userid}")
+	@GetMapping("/api/findfavoritecoursedetailbyuserid/{userid}")
 	@ResponseBody
 	public List<SearchingCourseDTO> findFavoriteCourseDetailByUserID(@PathVariable("userid") int userid) throws CourseNotFoundException {
 		

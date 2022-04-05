@@ -1,4 +1,4 @@
-package com.howhow.shopping.controller;
+package com.howhow.shopping.api;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +61,7 @@ public class ShoppingCartController {
 	@Autowired
 	CategoryService catService;
 	
-	@GetMapping("/findshoppingcartbyid/{id}")
+	@GetMapping("/api/findshoppingcartbyid/{id}")
 	@ResponseBody
 	public ShoppingCart findById(@PathVariable("id") int id) {
 		ShoppingCart bean = sService.findByID(id);
@@ -71,7 +71,7 @@ public class ShoppingCartController {
 	/*
 	 * 利用用戶bean物件查詢存在購物車的課程
 	 */
-	@GetMapping("/findshoppingcartbyuserid/{userid}")
+	@GetMapping("/api/findshoppingcartbyuserid/{userid}")
 	@ResponseBody
 	public List<SimpleCourseDTO> findAllProductByID(@PathVariable("userid") int userid) {
 
@@ -97,7 +97,7 @@ public class ShoppingCartController {
 	/*
 	 * 移除購物車指定商品
 	 */
-	@GetMapping("/removeshoppingcartbyid/{id}")
+	@GetMapping("/api/removeshoppingcartbyid/{id}")
 	@ResponseBody
 	public boolean removeProductByID(@PathVariable("id") int id) throws ShoppingCartNotFoundException {
 
@@ -108,7 +108,7 @@ public class ShoppingCartController {
 	/*
 	 * 移除購物車課程並加入最愛
 	 */
-	@GetMapping("/movetofavoritecoursebyid/{id}")
+	@GetMapping("/api/movetofavoritecoursebyid/{id}")
 	@ResponseBody
 	public boolean removeProductAndAddFCBySID(@PathVariable("id") int id)
 			throws UserOrCourseNotFoundException, ShoppingCartNotFoundException {
@@ -130,7 +130,7 @@ public class ShoppingCartController {
 		return true;
 	}
 
-	@GetMapping("/findshoppingcartdetailbyuserid/{userid}")
+	@GetMapping("/api/findshoppingcartdetailbyuserid/{userid}")
 	@ResponseBody
 	public List<SearchingCourseDTO> findFavoriteCourseDetailByUserID(@PathVariable("userid") int userid)
 			throws CourseNotFoundException {
@@ -149,7 +149,7 @@ public class ShoppingCartController {
 		return searchList;
 	}
 
-	@PostMapping("/insertshoppingcart")
+	@PostMapping("/api/insertshoppingcart")
 	@ResponseBody
 	public ShoppingCart insertShoppingCart(@RequestBody SimpleCourseDTO simplecourseDTO)
 			throws UserOrCourseNotFoundException, AlreadyPurchasedException {
@@ -181,14 +181,14 @@ public class ShoppingCartController {
 		return totalrank / count;
 	}
 
-	@GetMapping("/removeshoppingcart/{userid}/{courseid}")
+	@GetMapping("/api/removeshoppingcart/{userid}/{courseid}")
 	@ResponseBody
 	public boolean removeShoppingCart(@PathVariable("userid") int userid, @PathVariable("courseid") int courseid) {
 		boolean status = sService.removeShoppingCart(userid, courseid);
 		return status;
 	}
 
-	@GetMapping("/findshoppingcartstatusbyuserid/{userid}")
+	@GetMapping("/api/findshoppingcartstatusbyuserid/{userid}")
 	@ResponseBody
 	public List<Integer> findShoppingCartStatusByUserID(@PathVariable("userid") int userid) {
 		List<Integer> shopstatus = new ArrayList<Integer>();
@@ -202,7 +202,7 @@ public class ShoppingCartController {
 		return shopstatus;
 	}
 	
-	@GetMapping("/findshoppingcartstatus/{userid}/{courseid}")
+	@GetMapping("/api/findshoppingcartstatus/{userid}/{courseid}")
 	@ResponseBody
 	public boolean findShoppingCartStatus(@PathVariable("userid") int userid,@PathVariable("courseid") int courseid) {
 		
@@ -211,7 +211,7 @@ public class ShoppingCartController {
 		return status;
 	}
 	
-	@GetMapping("/movetofavoritecourse/{userid}/{courseid}")
+	@GetMapping("/api/movetofavoritecourse/{userid}/{courseid}")
 	@ResponseBody
 	public boolean moveToFavoriteCourse(@PathVariable("userid") int userid, @PathVariable("courseid") int courseid) throws UserOrCourseNotFoundException {
 		

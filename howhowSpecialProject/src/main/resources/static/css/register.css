@@ -1,0 +1,170 @@
+*{
+/*border: solid 1px;*/
+  font-family: 微軟正黑體;
+  
+}
+body{
+  top: 0px;
+left: 0px;
+/* UI Properties */
+background: #E2C652 0% 0% no-repeat padding-box;
+opacity: 1;
+
+}
+
+.accountp{
+  top: 367px;
+left: 791px;
+width: 338px;
+height: 59px;
+text-align:center;
+  float:right;
+  clear:right;
+background: #FFFFFF 0% 0% no-repeat padding-box;
+border-radius: 51px;
+opacity: 1;
+  border:none;
+  
+}
+.accwordspan{
+  text-align:right;
+  
+}
+.passwordp{
+  /* Layout Properties */
+top: 452px;
+left: 791px;
+width: 338px;
+  text-align:center;
+  float:right;
+  clear:right;
+height: 59px;
+/* UI Properties */
+background: #FFFFFF 0% 0% no-repeat padding-box;
+border-radius: 51px;
+opacity: 1;
+  border:none;
+}
+.logintitle{
+  /* Layout Properties */
+top: 485px;
+left: 791px;
+width: 120px;
+height: 84px;
+/* UI Properties */
+text-align: left;
+font: normal normal normal 30px Kohinoor Telugu;
+letter-spacing: 0px;
+color: #FFFFFF;
+opacity: 1;
+  font-family: 微軟正黑體;
+}
+.errme{
+ letter-spacing: 0px;
+color: #FFFFFF; 
+transform:scale(0.6);
+  
+}
+.singup{
+/* Layout Properties */
+top: 326px;
+left: 1082px;
+width: 125px;
+height: 42px;
+/* UI Properties */
+text-align: right;
+font: normal normal 300 30px/42px Yuanti TC;
+letter-spacing: 0px;
+color: #FFFFFF;
+opacity: 1;
+margin:0px 380px;
+  transform:scale(0.7);
+
+}
+
+.bt1{
+  /* Layout Properties */
+top: 537px;
+left: 885px;
+width: 151px;
+height: 59px;
+
+/* UI Properties */
+background: #FFFFFF 0% 0% no-repeat padding-box;
+border-radius: 51px;
+opacity: 1;
+  
+   border:none;
+     transform:scale(0.7);
+}
+
+.accword{
+  /* Layout Properties */
+
+/* UI Properties */
+
+font:  Kohinoor Telugu;
+  font-size:30px;
+text-align: left;
+color: #FFFFFF;
+opacity: 1;
+}
+.remp{
+  /* Layout Properties */
+top: 326px;
+left: 1082px;
+width: 125px;
+height: 42px;
+/* UI Properties */
+text-align: left;
+font:  Kohinoor Telugu;
+  font-size:23px;
+letter-spacing: 0px;
+color: #FFFFFF;
+opacity: 1;
+    margin:80px auto;
+  transform:scale(0.8);
+}
+.btd{
+  text-align:right;
+margin-left:200px;
+  
+}
+.remeberdiv{
+  height:30px;
+  margin:80px auto;
+  margin-left:180px;
+  vertical-align:middle
+ 
+}
+.space{
+  width:500px;
+  height:70px;
+  transform:scale(0.7);
+
+}
+.checkbox{
+ width:20px;
+  height:20px;
+  vertical-align:middle
+  
+}
+.box1{
+	position:absolute;
+}
+.loginwordbox{
+	
+	width:600px;
+	height:200px;
+}
+form {
+
+/* set width in form, not fieldset (still takes up more room w/ fieldset width */
+font:100% verdana,arial,sans-serif;
+margin: 0 auto;
+padding: 0;
+
+width: 560px;
+position:absolute; height:280px;
+top:0; bottom:0; left:0; right:0;
+}

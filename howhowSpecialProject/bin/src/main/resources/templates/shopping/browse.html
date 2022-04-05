@@ -46,12 +46,23 @@
                     </div><!-- .breadcrumbs -->
                 </div><!-- .col -->
             </div><!-- .row -->
-			<div class="row">
-				<div class="col-4">
-					<input id="search" v-model="search" placeholder="尋找" v-on:keyup.enter="goSearch(search)">
+            <div class="row">
+            	<div class="col-2">
+					<a href="#" @click.prevent="searchAll()">所有課程</a>
+				</div>
+				<div v-for="category in categories" class="col-1">
+					<a href="#" @click.prevent="searchByCategory(category.id)">{{category.name}}</a>
 				</div>
 			</div>
-			
+			<div class="row">
+				<div class="col-4" v-if="currentcategoryid==0">
+					<input id="search" v-model="search" placeholder="尋找" @keyup.enter="goSearch(search)">
+					<button class="px-25" @click="goSearch(search)">搜尋</button>
+				</div>
+				<div class="col-4" v-if="currentcategoryid!=0">
+					{{currentcategoryname}}  -  {{currentcategorydescription}}
+				</div>
+			</div>
 			
             <div class="row">
                 <div class="col-12 col-lg-12">
@@ -90,7 +101,7 @@
                                                     NT${{course.price}}
                                                 </div><!-- .course-cost -->
                                                 <div class="course-ratings flex justify-content-end align-items-center">
-                                                    <div v-if="course.ranknum>5">
+                                                    <div v-if="course.ranknum>0">
                                                         <span class="fas fa-star checked"></span>
                                                         <span v-if="course.rank>=2"class="fas fa-star checked"></span>
                                                         <span v-else-if="course.rank>=1.5" class="fas fa-star-half-alt checked"></span> 

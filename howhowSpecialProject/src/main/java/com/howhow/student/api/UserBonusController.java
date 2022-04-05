@@ -1,4 +1,4 @@
-package com.howhow.student.controller;
+package com.howhow.student.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class UserBonusController {
 	/*
 	 * 更新用戶紅利點數
 	 * */
-	@GetMapping("/addbonusbyid/{id}/{bonus}")
+	@GetMapping("/api/addbonusbyid/{id}/{bonus}")
 	@ResponseBody
 	public UserBonus addBonusById(@PathVariable("id") int id, @PathVariable("bonus") int bonus) throws BonusTypeErrorException, UserNotFoundException {
 		
@@ -46,7 +46,7 @@ public class UserBonusController {
 	/*
 	 * 查看用戶紅利點數
 	 * */
-	@GetMapping("/findbonusbyid/{id}")
+	@GetMapping("/api/findbonusbyid/{id}")
 	@ResponseBody
 	public UserBonus checkBonusById(@PathVariable("id") int id) throws UserNotFoundException {
 		
@@ -57,7 +57,7 @@ public class UserBonusController {
 	/*
 	 * 使用紅利點數
 	 * */
-	@GetMapping("/usebonus/{id}/{bonus}")
+	@GetMapping("/api/usebonus/{id}/{bonus}")
 	@ResponseBody
 	public UserBonus useBonus(@PathVariable("id") int id, @PathVariable("bonus") int usebonus) throws UserNotFoundException, BonusTypeErrorException{
 		

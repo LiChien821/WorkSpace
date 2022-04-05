@@ -1,19 +1,23 @@
 package com.howhow.test.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.howhow.account.service.AccountService;
+import com.howhow.entity.UserAccountDt;
 import com.howhow.entity.UserBonus;
 import com.howhow.test.service.TestService;
-import com.howhow.websecurity.AccountUserDetails;
+import com.howhow.util.UtilityTool;
 
 @Controller
 public class TestController {
+	
+	@Autowired
+	AccountService service;
 	
 	@Autowired
 	TestService tService;
@@ -42,12 +46,10 @@ public class TestController {
 //	
 	
 	@GetMapping("/courses")
-	public String ac(@AuthenticationPrincipal AccountUserDetails loggedAccount,	Model m) {
+	public String ac(Model m) {
 		int userid=-1;
-		if(loggedAccount!=null) {
-			userid = loggedAccount.getLoggedAccount().getUserId();
-		}
-		
+		 UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
+		 if(accountDetail!= null) userid = accountDetail.getUserId();
 		//===================================//
 		m.addAttribute("userid",userid);
 		m.addAttribute("pageNo", 1);
@@ -55,12 +57,12 @@ public class TestController {
 	}
 	
 	@GetMapping("/product")
-	public String unit(@AuthenticationPrincipal AccountUserDetails loggedAccount,	@RequestParam("id") int id ,Model m) {
-		m.addAttribute("courseid", id);
+	public String unit(@RequestParam("id") int id ,Model m) {
 		int userid=-1;
-		if(loggedAccount!=null) {
-			userid = loggedAccount.getLoggedAccount().getUserId();
-		}
+		UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
+		if(accountDetail!= null) userid = accountDetail.getUserId();
+		
+		m.addAttribute("courseid", id);
 		m.addAttribute("userid",userid);
 		m.addAttribute("pageNo", 1);
 		
@@ -68,22 +70,22 @@ public class TestController {
 	}
 	
 	@GetMapping("/myshop")
-	public String enterMyShop(@AuthenticationPrincipal AccountUserDetails loggedAccount, Model m) {
+	public String enterMyShop(Model m) {
 		int userid=-1;
-		if(loggedAccount!=null) {
-			userid = loggedAccount.getLoggedAccount().getUserId();
-		}
+		UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
+		if(accountDetail!= null) userid = accountDetail.getUserId();
+		
 		m.addAttribute("userid",userid);
 		
 		return "shopping/myshoppingpage";
 	}
 	
 	@GetMapping("/mycourse")
-	public String enterMyCourse(@AuthenticationPrincipal AccountUserDetails loggedAccount, Model m) {
+	public String enterMyCourse(Model m) {
 		int userid=-1;
-		if(loggedAccount!=null) {
-			userid = loggedAccount.getLoggedAccount().getUserId();
-		}
+		UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
+		if(accountDetail!= null) userid = accountDetail.getUserId();
+		
 		m.addAttribute("userid",userid);
 		
 		return "shopping/mypurchasedpage";

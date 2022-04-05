@@ -29,7 +29,7 @@ createApp({
 		this.courseid = document.getElementById("courseid").value;
 		axios({
 			method: 'get',
-			url: '/howhow/findcoursebyid/'+this.courseid,
+			url: '/howhow/api/findcoursebyid/'+this.courseid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 
 		})
@@ -40,7 +40,7 @@ createApp({
 		this.userid = document.getElementById("userid").value;
 		axios({
 			method: 'get',
-			url: '/howhow/findfavoritecoursestatus/'+this.userid+'/'+this.courseid,
+			url: '/howhow/api/findfavoritecoursestatus/'+this.userid+'/'+this.courseid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.favstatus = response.data))
@@ -50,7 +50,7 @@ createApp({
 		this.userid = document.getElementById("userid").value;
 		axios({
 			method: 'get',
-			url: '/howhow/findshoppingcartstatus/'+this.userid+'/'+this.courseid,
+			url: '/howhow/api/findshoppingcartstatus/'+this.userid+'/'+this.courseid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response =>(this.shopstatus = response.data))
@@ -60,7 +60,7 @@ createApp({
 		this.userid = document.getElementById("userid").value;
 		axios({
 			method: 'get',
-			url: '/howhow/findpurchasedcoursestatus/'+this.userid+'/'+this.courseid,
+			url: '/howhow/api/findpurchasedcoursestatus/'+this.userid+'/'+this.courseid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response =>(this.purchasedstatus = response.data))
@@ -70,7 +70,7 @@ createApp({
 		this.pageNo = document.getElementById("pageNo").value;
 		axios({
 			method: 'get',
-			url: '/howhow/querycourserankbycourseid/'+this.courseid +"/" +this.pageNo,
+			url: '/howhow/api/querycourserankbycourseid/'+this.courseid +"/" +this.pageNo,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.ranks = response.data, this.res = response))
@@ -85,7 +85,7 @@ createApp({
 			this.courseid = document.getElementById("courseid").value;
 			axios({
 				method: 'post',
-				url: '/howhow/insertfavoritecourse',
+				url: '/howhow/api/insertfavoritecourse',
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 
 				data: { userID: this.userid, courseID: this.courseid }
@@ -103,7 +103,7 @@ createApp({
 			this.courseid = document.getElementById("courseid").value;
 			axios({
 				method: 'get',
-				url: '/howhow/removefavoritecourse/'+this.userid+"/"+this.courseid,
+				url: '/howhow/api/removefavoritecourse/'+this.userid+"/"+this.courseid,
 				headers : {"Access-Control-Allow-Origin": "*" }
 
 			})
@@ -120,7 +120,7 @@ createApp({
 			this.courseid = document.getElementById("courseid").value;
 			axios({
 				method: 'post',
-				url: '/howhow/insertshoppingcart',
+				url: '/howhow/api/insertshoppingcart',
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 
 				data: { userID: this.userid, courseID: this.courseid }
@@ -138,7 +138,7 @@ createApp({
 			this.courseid = document.getElementById("courseid").value;
 			axios({
 				method: 'get',
-				url: '/howhow/removeshoppingcart/'+this.userid+"/"+this.courseid,
+				url: '/howhow/api/removeshoppingcart/'+this.userid+"/"+this.courseid,
 				headers : {"Access-Control-Allow-Origin": "*" }
 
 			})
@@ -157,7 +157,7 @@ createApp({
 				this.pageNo = document.getElementById("pageNo").value;
 				axios({
 					method: 'get',
-					url: '/howhow/querycourserankbycourseid/' + this.courseid + "/" + this.pageNo,
+					url: '/howhow/api/querycourserankbycourseid/' + this.courseid + "/" + this.pageNo,
 					headers: { "Access-Control-Allow-Origin": "*" }
 				})
 					.then(response => (
@@ -174,7 +174,7 @@ createApp({
 				this.pageNo = document.getElementById("pageNo").value;
 				axios({
 					method: 'get',
-					url: '/howhow/querycourserankbycourseid/' + this.courseid + "/" + this.pageNo,
+					url: '/howhow/api/querycourserankbycourseid/' + this.courseid + "/" + this.pageNo,
 					headers: { "Access-Control-Allow-Origin": "*" }
 				})
 					.then(response => (

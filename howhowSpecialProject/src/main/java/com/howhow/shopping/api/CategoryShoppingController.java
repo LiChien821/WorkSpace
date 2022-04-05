@@ -1,4 +1,4 @@
-package com.howhow.shopping.controller;
+package com.howhow.shopping.api;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,12 +14,12 @@ import com.howhow.entity.Category;
 import com.howhow.shopping.service.CategoryService;
 
 @Controller
-public class CategoryController {
+public class CategoryShoppingController {
 	
 	@Autowired
 	CategoryService cService;
 	
-	@GetMapping("/getallcategory")
+	@GetMapping("/api/getallcategory")
 	@ResponseBody
 	public List<Category> getCategoryInfo() {
 		
@@ -28,7 +28,7 @@ public class CategoryController {
 	}
 	
 
-	@GetMapping("/findcategorydetail/{catid}")
+	@GetMapping("/api/findcategorydetail/{catid}")
 	@ResponseBody
 	public Category findById(@PathVariable("catid") int id) {
 		
