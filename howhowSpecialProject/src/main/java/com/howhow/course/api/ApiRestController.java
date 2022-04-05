@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -251,7 +253,11 @@ public class ApiRestController {
 		return lectureService.findAllBySectionID(sectionID);
 
 	}
-	
+	@GetMapping("/api/getPageAllCourse/{accountID}/{pageNum}")
+	public Iterable<CourseBasic> getPageCourseListFromAccountID(@PathVariable("accountID") int accountID,@PathVariable("pageNum") int pageNum) {
+		Pageable pageable=PageRequest.of(pageNum-1,3);
+		return courseService.findAllCourseByUID(accountID,pageable);
+	}
 	
 
 }

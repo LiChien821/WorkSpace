@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
@@ -137,6 +138,13 @@ public class LearningCourseService {
 			return false;
 		}
 
+	}
+
+
+
+	public Iterable<CourseBasic> findAllCourseByUID(int accountID, Pageable pageable) {
+		return repo.findAllCourseByUID(accountID, pageable);
+		
 	}
 
 }

@@ -101,6 +101,32 @@
 						</article>
 						
 					</div>
+					<div id="pagination">
+						<ul class="pagination justify-content-center flex-wrap">
+						      <li  v-bind:class="[currentPage >1 ? '' : 'disabled','page-item']">
+						      <a  class="page-link" @click="pageLinkToCourse(1)">first</a>
+						      </li>
+						      
+						        <li v-bind:class="[currentPage >1 ? '' : 'disabled','page-item']">
+						      <a  class="page-link"@click="pageLinkToCourse(currentPage-1)">previos</a>
+							    </li>
+							  
+						
+						      
+						       <li v-bind:class="[currentPage !=index? '' : 'disabled','page-item']" 
+							  v-for="index in totalPages" :key="index">
+							    <a class="page-link" @click="pageLinkToCourse(index)">{{index}}</a>
+							    </li>
+							    
+							   
+							   
+							   
+						      <li v-bind:class="[currentPage < totalPages? '' : 'disabled','page-item']">
+						      	<a class="page-link"  @click="pageLinkToCourse(currentPage+1)">next</a>
+							    </li>
+						</ul>
+					</div>
+					
 					
 				</div>
 
@@ -164,7 +190,6 @@
 		<!-- Copyright -->
 		<ul class="copyright">
 			<li>&copy; Untitled. All rights reserved.</li>
-			<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 		</ul>
 
 	</div>
