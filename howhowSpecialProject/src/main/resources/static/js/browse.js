@@ -273,7 +273,7 @@ createApp({
 				})
 		},
 		
-		removeFavoriteAction: function(courseid,userid) {
+		removeFavoriteAction (courseid,userid) {
 			const index = this.favstatus.indexOf(courseid);
 			axios({
 				method: 'get',

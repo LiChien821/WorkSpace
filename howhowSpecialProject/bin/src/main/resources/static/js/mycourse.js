@@ -17,7 +17,7 @@ createApp({
 		
 		axios({
 			method: 'get',
-			url: '/howhow/findpurchasedcoursebyuserid/' + this.userid,
+			url: '/howhow/api/findpurchasedcoursebyuserid/' + this.userid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.purchasedcourses = response.data))

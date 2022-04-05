@@ -76,7 +76,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		  http  
 		  .csrf().disable()
 		   .authorizeRequests() 
-		     .antMatchers("/login.html","/login","/register","/createUser","/verify","/css","/courses","/product","/api/**","/shopping/**")
+		     .antMatchers("/login.html","/login","/register","/createUser","/verify","/css/","/courses","/product","/api/**","/shopping/**")
 		     .permitAll()
 		     .antMatchers("/student/**").hasAnyAuthority("Teacher","Student")
 		     .antMatchers("/course/**").hasAuthority("Admin")
@@ -112,7 +112,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	public void configure(org.springframework.security.config.annotation.web.builders.WebSecurity web)
 			throws Exception {
 		// TODO Auto-generated method stub
-		web.ignoring().antMatchers("/images/**","/js/**","/webjars/**","/course-photos/**","/assets/**","/static/**",  "/css/**", "/img/**", "/json/**");
+		web.ignoring().antMatchers("/image/**","/images/**","/js/**","/webjars/**","/course-photos/**","/assets/**","/static/**",  "/css/**", "/img/**", "/json/**");
 
 	}
 
