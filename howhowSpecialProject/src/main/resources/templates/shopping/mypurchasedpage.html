@@ -28,7 +28,6 @@
 
 
 
-<link rel="stylesheet" th:href="@{/css/courserank.css}">
 
 <link rel="stylesheet" th:href="@{/shopping/css/font-awesome.min.css}">
 
@@ -212,18 +211,17 @@
 
 																		<div class="modal-body">
 
-																			<form action="/insertcourserank" method="post">
-																				<div class="form-group">
-																					<label>課程評分</label> <input type="text"
-																						name="courserank" class="form-control"> <br>
 
-																					<label>課程評價</label>
+																			<div class="form-group">
+																				<label>課程評分</label> <input type="text" id="rank"
+																					name="courserank" class="form-control"> <br>
 
-																					<textarea id="rankmessage" name="rankmessage" rows="4"
-																						cols="50">我認為這門課...</textarea><br>
-																					<button type="submit" class="btn btn-primary">儲存</button>
-																				</div>
-																			</form>
+																				<label>課程評價</label>
+
+																				<textarea id="message" name="rankmessage" rows="4"
+																					cols="50">我認為這門課...</textarea>
+																			</div>
+
 
 																		</div>
 
@@ -232,7 +230,8 @@
 																		<div class="modal-footer">
 																			<button type="button" class="btn btn-secondary"
 																				data-bs-dismiss="modal">取消</button>
-																			<button type="button" class="btn btn-primary">儲存</button>
+																			<button type="submit" class="btn btn-primary"
+																					@click="insertcourserank(course.courseid)">儲存</button>
 																		</div>
 																	</div>
 																</div>
