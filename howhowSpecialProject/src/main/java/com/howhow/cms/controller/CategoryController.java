@@ -65,6 +65,7 @@ public class CategoryController {
 	@ResponseBody
 	@PutMapping("/categorydata")
 	public List<Category> updateCategory(@RequestBody Category category){
+		
 		cs.updateCategory(category);
 		return showCategory();
 	}

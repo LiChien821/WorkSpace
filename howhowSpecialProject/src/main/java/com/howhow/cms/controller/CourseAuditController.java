@@ -11,10 +11,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.howhow.account.service.UserAccountDtService;
 import com.howhow.cms.service.CourseStatusTypeService;
+import com.howhow.cms.service.SystemMessageService;
 import com.howhow.entity.CourseBasic;
+import com.howhow.entity.SystemMessage;
+import com.howhow.entity.UserAccountDt;
 import com.howhow.shopping.exception.CourseNotFoundException;
 import com.howhow.shopping.service.CourseBasicService;
+import com.howhow.util.UtilityTool;
 
 @Controller
 @RequestMapping("/cms")
@@ -22,34 +27,54 @@ public class CourseAuditController {
 
 	@Autowired
 	private CourseBasicService cbs;
-	
+
 	@Autowired
 	private CourseStatusTypeService csts;
+
+	@Autowired
+	private SystemMessageService sms;
 
 	@GetMapping("/courseaudit")
 	public String guidToCourse() {
 		return "cms/courseauditmain.html";
 	}
-	
+
 	// 顯示所有未審核課程
 	@ResponseBody
 	@GetMapping("/coursedata/")
 	public List<CourseBasic> showAllPendingApproval() {
 		return cbs.findUnAuditCourses(2);
 	}
-	
+
 	// 審核課程
 	@ResponseBody
 	@PutMapping("/coursedata/{status}")
-	public List<CourseBasic> auditCourse(@RequestBody CourseBasic courseBasic, @PathVariable("status") int status) throws CourseNotFoundException {
+	public List<CourseBasic> auditCourse(@RequestBody CourseBasic courseBasic, @PathVariable("status") int status)
+			throws CourseNotFoundException {
 		CourseBasic course = cbs.findByID(courseBasic.getCourseID());
-		
+
 		course.setStatusType(csts.findById(status));
-		
+
 		cbs.updateCourseBasic(course);
-		
+
+
+		if (status == 1) {
+			setMessage(course, "y", course.getCourseName() + " 課程審核通過");
+		} else if (status == 3) {
+			setMessage(course, "y", course.getCourseName() + " 課程審核未通過");
+		}
+
 		return showAllPendingApproval();
 	}
-	
-	
+
+	public void setMessage(CourseBasic course, String display, String note) {
+		SystemMessage message = new SystemMessage();
+		
+		message.setUserdt(course.getCreator());
+		message.setDisplay(display);
+		message.setMessageContext(note);
+		message.setSystemTime(UtilityTool.getSysTime());
+
+		sms.insertSystemMessage(message);
+	}
 }
