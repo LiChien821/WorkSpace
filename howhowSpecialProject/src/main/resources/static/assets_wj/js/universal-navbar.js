@@ -120,7 +120,7 @@ createApp({
 		var target = urls[urls.length - 1];
 		var courseId = target.split('.')[0];
 		console.log(courseId);
-		this.getBulletinByCourseId();
+
 		function getBulletinByCourseId(courseId){
 			var urls = window.location.href.split('/');
 			var target = urls[urls.length - 1];
@@ -140,6 +140,7 @@ createApp({
 				}
 			);
 		}
+		
 		function getCreatorIdByCourseId(courseId){
 			
 			return axios.get(
@@ -185,6 +186,7 @@ createApp({
 			this.courseCreatorId = resp2.data;
 			this.userId = resp3.data["loggedUserId"];
 			this.userName = resp3.data["loggedUserName"];
+			console.log("here", resp4.data);
 			this.sections = resp4.data;
 			console.log(this.bulletins);
 			console.log(this.courseCreatorId);

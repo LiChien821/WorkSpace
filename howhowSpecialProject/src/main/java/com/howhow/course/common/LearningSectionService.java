@@ -1,5 +1,6 @@
 package com.howhow.course.common;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,16 @@ public class LearningSectionService {
 	public Iterable<Section> findAllByCourseId(int courseID) {
 		return 		sectionRepo.findAllByCourseID(courseID);
 
+	}
+	
+	//findSectionByCourseId - by weijie
+	public List<Section> findAllSectionsByCourseId(Integer id) {
+		List<Section> op1 = sectionRepo.findAllSectionsByCourseId(id);
+		System.out.println();
+		if (op1.isEmpty()) {
+			return null;
+		}
+		return op1;
 	}
 	
 	public Section findSectionByID(int id) throws NoSectionException {

@@ -33,6 +33,7 @@ import com.howhow.entity.BulletinReply;
 import com.howhow.entity.Lectures;
 import com.howhow.entity.Section;
 import com.howhow.entity.UserAccountDt;
+import com.howhow.shopping.exception.UserNotFoundException;
 import com.howhow.websecurity.AccountUserDetails;
 
 @Controller
@@ -41,12 +42,12 @@ public class BulletinController {
 
 	@Autowired
 	private BulletinService bService;
-
-	@Autowired
-	private LearningSectionService lsService;
 	
 	@Autowired
 	private LearningLecturesService llService;
+	
+	@Autowired
+	private LearningSectionService lsService;
 	
 	@Autowired
 	private BulletinReplyService brService;
@@ -71,6 +72,30 @@ public class BulletinController {
 		return bService.findCreatorIdByCourseId(courseid);
 	}
 
+	@GetMapping("/findAllSectionByCourseId.controller")
+	@ResponseBody
+	public List<Object> findAllLectureByCourseId(@RequestParam("courseid") Integer courseid) {
+		List<Object> list = new ArrayList<Object>();		
+		List<Section> slist = lsService.findAllSectionsByCourseId(courseid);		
+		for (Section sec : slist) {
+			Map<String, Object> object = new HashMap<String, Object>();
+			Integer sectionid = sec.getSectionID();
+			object.put("sectionId", sectionid);
+			object.put("sectionName", sec.getSectionName());
+			List<Lectures> llist = llService.findAllLecturesBySectionId(sectionid);
+			List<Object> olist = new ArrayList<Object>();
+			for (Lectures lec : llist) {
+				Map<String, Object> object2 = new HashMap<String, Object>();
+				object2.put("lectureId", lec.getLecturesID());
+				object2.put("lectureName", lec.getLecturesName());
+				olist.add(object2);
+			}
+			object.put("lectures", olist);
+			list.add(object);
+		}
+		return list;
+	}
+	
 	@GetMapping("/findLoggedUser.controller")
 	@ResponseBody
 	public Map<String, Object> findLoggedUser(@AuthenticationPrincipal AccountUserDetails loggedAccount) {
@@ -85,9 +110,12 @@ public class BulletinController {
 
 	@PostMapping("/insertBulletin2.controller")
 	@ResponseBody
-	public Bulletin insertBulletin2(@RequestBody Map<String, Object> map,
-			@AuthenticationPrincipal AccountUserDetails loggedAccount) {
+	public BulletinDTO insertBulletin2(@RequestBody Map<String, Object> map,
+			@AuthenticationPrincipal AccountUserDetails loggedAccount) throws UserNotFoundException{
 		Bulletin bulletin = new Bulletin();
+		if (loggedAccount == null) {
+			throw new UserNotFoundException();
+		}
 		String title = (String) map.get("title");
 		String content = (String) map.get("content");
 		Integer launcherid = loggedAccount.getLoggedAccount().getUserId();
@@ -99,7 +127,22 @@ public class BulletinController {
 		bulletin.setLauncherid(user);
 		bulletin.setLectureid(lecture);
 		bulletin.setCreationTime(new Date());
-		return bService.insert(bulletin);
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		System.out.println(bulletin);
+		
+		Bulletin output = bService.insert(bulletin);
+		Date date = output.getCreationTime();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
+		String creationTime = formatter.format(date);
+		String launchername = output.getLauncherid().getFamilyName() + " " + output.getLauncherid().getGivenName();
+		Lectures lecture1 = llService.findByLectureID(lectureid);
+		String lecturename = lecture1.getLecturesName();
+	    String sectionname = lecture1.getSection().getSectionName();
+		BulletinDTO bDto = new BulletinDTO(
+				output.getBulletinid(), output.getTitle(), output.getContent(),
+				creationTime, launchername, lectureid,
+				null, 0, sectionname, lecturename);
+		return bDto;
 	}
 
 	@GetMapping("/findAllByCourseId.controller")
@@ -113,6 +156,7 @@ public class BulletinController {
 	public List<Object> initBulletin(@RequestParam("courseid") Integer courseid) {
 		List<Object> list = new ArrayList<Object>();
 		List<Bulletin> blist = bService.findAllByCourseId(courseid);
+		if (blist == null) return list;
 		for (Bulletin btn : blist) {
 			Integer bulletinid = btn.getBulletinid();
 			String title = btn.getTitle();
@@ -126,12 +170,10 @@ public class BulletinController {
 			String lecturename = lecture.getLecturesName();
 		    String sectionname = lecture.getSection().getSectionName();
 			List<BulletinReplyDTO> replies = new ArrayList<BulletinReplyDTO>();
-			int j = 0;
 			List<BulletinReply> brlist = brService.findAllByBulletinId(bulletinid);
 			Integer replyCount = 0;
 			if (brlist != null) {
 				for (BulletinReply bReply : brlist) {
-					j += 1;
 					Integer bulletinreplyid = bReply.getBulletinreplyid();
 					String brcontent = bReply.getReplycontent();
 					Date brdate = bReply.getCreationtime();
@@ -154,102 +196,97 @@ public class BulletinController {
 		}
 		return list;
 	}
-//	@GetMapping("/initBulletin.controller")
-//	@ResponseBody
-//	public Map<Integer, Object> initBulletin(@RequestParam("courseid") Integer courseid) {
-//		Map<Integer, Object> map1 = new HashMap<Integer, Object>();
-//		int i = 0;
-//		List<Bulletin> blist = bService.findAllByCourseId(courseid);
-//		for (Bulletin btn : blist) {
-//			i += 1; 
-//			Integer bulletinid = btn.getBulletinid();
-//			String title = btn.getTitle();
-//			String content = btn.getContent();
-//			Date date = btn.getCreationTime();
-//			SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
-//			String creationTime = formatter.format(date);
-//			Integer lectureid = btn.getLectureid().getLecturesID();
-//			String launchername = btn.getLauncherid().getFamilyName() + " " + btn.getLauncherid().getGivenName();
-//			Lectures lecture = llService.findByLectureID(lectureid);
-//			String lecturename = lecture.getLecturesName();
-//		    String sectionname = lecture.getSection().getSectionName();
-//			HashMap<Integer, BulletinReplyDTO> replies = new HashMap<Integer, BulletinReplyDTO>();
-//			int j = 0;
-//			List<BulletinReply> brlist = brService.findAllByBulletinId(bulletinid);
-//			Integer replyCount = 0;
-//			if (brlist != null) {
-//				for (BulletinReply bReply : brlist) {
-//					j += 1;
-//					Integer bulletinreplyid = bReply.getBulletinreplyid();
-//					String brcontent = bReply.getReplycontent();
-//					Date brdate = bReply.getCreationtime();
-//					String brcreationtime = formatter.format(brdate);
-//					Integer respondentId = bReply.getRespondentid().getUserId();
-//					String respondentname = bReply.getRespondentid().getFamilyName() + " "
-//							+ bReply.getRespondentid().getGivenName();
-//					BulletinReplyDTO brDto = new BulletinReplyDTO(bulletinreplyid, brcontent, brcreationtime,
-//							respondentname, respondentId);
-//					replies.put(j, brDto);
-//				}
-//				replyCount = brlist.size();
-//			} else {
-//				brlist = null;
-//			} 
-//			
-//			BulletinDTO bDto = new BulletinDTO(bulletinid, title, content, creationTime, launchername, lectureid,
-//					replies, replyCount, sectionname, lecturename);
-//			map1.put(i, bDto);
-//		}
-//		return map1;
-//	}
-//	@GetMapping("/initBulletinByLectureId.controller")
-//	@ResponseBody
-//	public Map<Integer, Object> initBulletinByLectureId(@RequestParam("lectureid") Integer lectureid) {
-//		Map<Integer, Object> map1 = new HashMap<Integer, Object>();
-//		int i = 0;
-//		List<Bulletin> blist = bService.findAllByLectureId(lectureid);
-//		for (Bulletin btn : blist) {
-//			i += 1; 
-//			Integer bulletinid = btn.getBulletinid();
-//			String title = btn.getTitle();
-//			String content = btn.getContent();
-//			Date date = btn.getCreationTime();
-//			SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
-//			String creationTime = formatter.format(date);
-//			Integer lectureid1 = btn.getLectureid().getLecturesID();
-//			String launchername = btn.getLauncherid().getFamilyName() + " " + btn.getLauncherid().getGivenName();
-//			Lectures lecture = llService.findByLectureID(lectureid1);
-//			String lecturename = lecture.getLecturesName();
-//		    String sectionname = lecture.getSection().getSectionName();
-//			HashMap<Integer, BulletinReplyDTO> replies = new HashMap<Integer, BulletinReplyDTO>();
-//			int j = 0;
-//			List<BulletinReply> brlist = brService.findAllByBulletinId(bulletinid);
-//			Integer replyCount = 0;
-//			if (brlist != null) {
-//				for (BulletinReply bReply : brlist) {
-//					j += 1;
-//					Integer bulletinreplyid = bReply.getBulletinreplyid();
-//					String brcontent = bReply.getReplycontent();
-//					Date brdate = bReply.getCreationtime();
-//					String brcreationtime = formatter.format(brdate);
-//					Integer respondentId = bReply.getRespondentid().getUserId();
-//					String respondentname = bReply.getRespondentid().getFamilyName() + " "
-//							+ bReply.getRespondentid().getGivenName();
-//					BulletinReplyDTO brDto = new BulletinReplyDTO(bulletinreplyid, brcontent, brcreationtime,
-//							respondentname, respondentId);
-//					replies.put(j, brDto);
-//				}
-//				replyCount = brlist.size();
-//			} else {
-//				brlist = null;
-//			} 
-//			
-//			BulletinDTO bDto = new BulletinDTO(bulletinid, title, content, creationTime, launchername, lectureid1,
-//					replies, replyCount, sectionname, lecturename);
-//			map1.put(i, bDto);
-//		}
-//		return map1;
-//	}
+
+	@GetMapping("/initBulletinByLectureId.controller")
+	@ResponseBody
+	public List<Object> initBulletinByLectureId(@RequestParam("lectureid") Integer lectureid) {
+		List<Object> list = new ArrayList<Object>();
+		List<Bulletin> blist = bService.findAllByLectureId(lectureid);
+		if (blist == null) return list; 
+		for (Bulletin btn : blist) {
+			Integer bulletinid = btn.getBulletinid();
+			String title = btn.getTitle();
+			String content = btn.getContent();
+			Date date = btn.getCreationTime();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
+			String creationTime = formatter.format(date);
+			Integer lectureid1 = btn.getLectureid().getLecturesID();
+			String launchername = btn.getLauncherid().getFamilyName() + " " + btn.getLauncherid().getGivenName();
+			Lectures lecture = llService.findByLectureID(lectureid1);
+			String lecturename = lecture.getLecturesName();
+		    String sectionname = lecture.getSection().getSectionName();
+			List<BulletinReplyDTO> replies = new ArrayList<BulletinReplyDTO>();
+			List<BulletinReply> brlist = brService.findAllByBulletinId(bulletinid);
+			Integer replyCount = 0;
+			if (brlist != null) {
+				for (BulletinReply bReply : brlist) {
+					Integer bulletinreplyid = bReply.getBulletinreplyid();
+					String brcontent = bReply.getReplycontent();
+					Date brdate = bReply.getCreationtime();
+					String brcreationtime = formatter.format(brdate);
+					Integer respondentId = bReply.getRespondentid().getUserId();
+					String respondentname = bReply.getRespondentid().getFamilyName() + " "
+							+ bReply.getRespondentid().getGivenName();
+					BulletinReplyDTO brDto = new BulletinReplyDTO(bulletinreplyid, brcontent, brcreationtime,
+							respondentname, respondentId);
+					replies.add(brDto);
+				}
+				replyCount = brlist.size();
+			} else {
+				brlist = null;
+			} 
+			BulletinDTO bDto = new BulletinDTO(bulletinid, title, content, creationTime, launchername, lectureid1,
+					replies, replyCount, sectionname, lecturename);
+			list.add(bDto);
+		}
+		return list;
+	}
+	
+	@GetMapping("/findBulletinBySearch.controller")
+	@ResponseBody
+	public List<Object> findBulletinBySearch(@RequestParam("query") String query) {
+		List<Object> list = new ArrayList<Object>();
+		List<Bulletin> blist = bService.findAllBySearch(query);
+		if (blist == null) return list;
+		
+		for (Bulletin btn : blist) {
+			Integer bulletinid = btn.getBulletinid();
+			String title = btn.getTitle();
+			String content = btn.getContent();
+			Date date = btn.getCreationTime();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
+			String creationTime = formatter.format(date);
+			Integer lectureid1 = btn.getLectureid().getLecturesID();
+			String launchername = btn.getLauncherid().getFamilyName() + " " + btn.getLauncherid().getGivenName();
+			Lectures lecture = llService.findByLectureID(lectureid1);
+			String lecturename = lecture.getLecturesName();
+		    String sectionname = lecture.getSection().getSectionName();
+			List<BulletinReplyDTO> replies = new ArrayList<BulletinReplyDTO>();
+			List<BulletinReply> brlist = brService.findAllByBulletinId(bulletinid);
+			Integer replyCount = 0;
+			if (brlist != null) {
+				for (BulletinReply bReply : brlist) {
+					Integer bulletinreplyid = bReply.getBulletinreplyid();
+					String brcontent = bReply.getReplycontent();
+					Date brdate = bReply.getCreationtime();
+					String brcreationtime = formatter.format(brdate);
+					Integer respondentId = bReply.getRespondentid().getUserId();
+					String respondentname = bReply.getRespondentid().getFamilyName() + " "
+							+ bReply.getRespondentid().getGivenName();
+					BulletinReplyDTO brDto = new BulletinReplyDTO(bulletinreplyid, brcontent, brcreationtime,
+							respondentname, respondentId);
+					replies.add(brDto);
+				}
+				replyCount = brlist.size();
+			} else {
+				brlist = null;
+			} 
+			BulletinDTO bDto = new BulletinDTO(bulletinid, title, content, creationTime, launchername, lectureid1,
+					replies, replyCount, sectionname, lecturename);
+			list.add(bDto);
+		}
+		return list;
+	}
 	
 	@GetMapping("/findAllBulletin.controller")
 	@ResponseBody

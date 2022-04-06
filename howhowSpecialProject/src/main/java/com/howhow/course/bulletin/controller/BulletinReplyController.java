@@ -1,5 +1,7 @@
 package com.howhow.course.bulletin.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.howhow.account.service.UserAccountDtService;
+import com.howhow.course.bulletin.dto.BulletinReplyDTO;
 import com.howhow.course.bulletin.service.BulletinReplyService;
 import com.howhow.course.bulletin.service.BulletinService;
 import com.howhow.entity.Bulletin;
@@ -36,7 +39,7 @@ public class BulletinReplyController {
 	
 	@PostMapping("/insertBulletinReply.controller")
 	@ResponseBody
-	public BulletinReply insertBulletinReply(@RequestBody Map<String, Object> map, @AuthenticationPrincipal AccountUserDetails loggedAccount) {
+	public BulletinReplyDTO insertBulletinReply(@RequestBody Map<String, Object> map, @AuthenticationPrincipal AccountUserDetails loggedAccount) {
 		BulletinReply bReply = new BulletinReply();
 		String replycontent = (String) map.get("replycontent");
 		Integer bulletinid = (Integer) map.get("bulletinid");
@@ -49,11 +52,23 @@ public class BulletinReplyController {
 		} catch (NullPointerException e) {
 			System.out.println("loggedAccount is null");
 		}
-		
 		bReply.setReplycontent(replycontent);
 		bReply.setBulletinid(blt);
 		bReply.setCreationtime(new Date());
-		return brService.insert(bReply);
+		
+		BulletinReply output = brService.insert(bReply);
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
+		Integer bulletinreplyid = output.getBulletinreplyid();
+		String brcontent = output.getReplycontent();
+		Date brdate = output.getCreationtime();
+		String brcreationtime = formatter.format(brdate);
+		Integer respondentId = output.getRespondentid().getUserId();
+		String respondentname = output.getRespondentid().getFamilyName() + " "
+				+ output.getRespondentid().getGivenName();
+		
+		BulletinReplyDTO brDto = new BulletinReplyDTO(bulletinreplyid, brcontent, brcreationtime,
+				respondentname, respondentId);
+		return brDto;
 	}
 
 	@PostMapping("/queryBulletinReplyById.controller")

@@ -2,6 +2,8 @@ package com.howhow.course.common;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +46,15 @@ public class LearningLecturesService {
 	public Iterable<Lectures> findAllBySectionID(int sectionID) {
 
 		return lectureRepo.findAllBySectionID(sectionID);
+	}
+	
+	//findLectureBySectionId - by weijie
+	public List<Lectures> findAllLecturesBySectionId(Integer id){
+		List<Lectures> op1 = lectureRepo.findAllLecturesBySectionId(id);
+		if (op1.isEmpty()) {
+			return null;
+		}
+		return op1;
 	}
 
 	public Lectures findByLectureID(int lectureID) {
