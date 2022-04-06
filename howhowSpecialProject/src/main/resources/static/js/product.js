@@ -1,35 +1,65 @@
-import { createApp } from 'vue'
-
 const dataObj = {
 
 	course: "",
-	
+
 	favstatus: "",
+
+	shopstatus: "",
+
+	addFav: "",
+
+	purchasedstatus: "",
+
+	ranks: "",
+
+	res: "",
+
+	pageNo: "",
+
+	currentLecturesID: "",
+
+	lecture: "",
+
+	videoSrcUrl: "",
+
+	notesList: "",
 	
-	shopstatus:"",
+	baseUrl:"",
 	
-	addFav:"",
+	courseid:"",
 	
-	purchasedstatus:"",
+	lecturesList: "",
 	
-	ranks:"",
+	sectionList:"",
 	
-	res:"",
-	
-	pageNo:""
+	skipTime: ""
 
 };
 
 
-createApp({
+Vue.createApp({
 	data() {
 		return dataObj;
 	},
+	
+	beforeMount: function(){
+		axios({
+			method: 'get',
+			url: '/howhow/api/getBlobUrl',
+			headers: { "Access-Control-Allow-Origin": "*" },
+		})
+			.then(response => (this.baseUrl = response.data))
+			.catch(function(error) {
+				console.log(error);
+			});
+		
+	},
+	
 	mounted: function() {
 		this.courseid = document.getElementById("courseid").value;
 		axios({
 			method: 'get',
-			url: '/howhow/api/findcoursebyid/'+this.courseid,
+			url: '/howhow/api/findcoursebyid/' + this.courseid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 
 		})
@@ -40,7 +70,7 @@ createApp({
 		this.userid = document.getElementById("userid").value;
 		axios({
 			method: 'get',
-			url: '/howhow/api/findfavoritecoursestatus/'+this.userid+'/'+this.courseid,
+			url: '/howhow/api/findfavoritecoursestatus/' + this.userid + '/' + this.courseid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.favstatus = response.data))
@@ -50,36 +80,65 @@ createApp({
 		this.userid = document.getElementById("userid").value;
 		axios({
 			method: 'get',
-			url: '/howhow/api/findshoppingcartstatus/'+this.userid+'/'+this.courseid,
+			url: '/howhow/api/findshoppingcartstatus/' + this.userid + '/' + this.courseid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
-			.then(response =>(this.shopstatus = response.data))
+			.then(response => (this.shopstatus = response.data))
 			.catch(function(error) {
 				console.log(error);
 			});
+
 		this.userid = document.getElementById("userid").value;
 		axios({
 			method: 'get',
-			url: '/howhow/api/findpurchasedcoursestatus/'+this.userid+'/'+this.courseid,
+			url: '/howhow/api/findpurchasedcoursestatus/' + this.userid + '/' + this.courseid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
-			.then(response =>(this.purchasedstatus = response.data))
+			.then(response => (this.purchasedstatus = response.data))
 			.catch(function(error) {
 				console.log(error);
 			});
 		this.pageNo = document.getElementById("pageNo").value;
 		axios({
 			method: 'get',
-			url: '/howhow/api/querycourserankbycourseid/'+this.courseid +"/" +this.pageNo,
+			url: '/howhow/api/querycourserankbycourseid/' + this.courseid + "/" + this.pageNo,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.ranks = response.data, this.res = response))
 			.catch(function(error) {
 				console.log(error)
 			});
+
+		axios({
+			method: 'get',
+
+			url: '/howhow/api/getSectionList/' + this.courseid,
+			headers: { "Access-Control-Allow-Origin": "*" },
+		})
+
+			.then(response => (this.sectionList = response.data,
+				this.currentLecturesID = response.data[0].lecturesList[0].lecturesID,
+				this.lecture = response.data[0].lecturesList[0],
+				this.videoSrcUrl = response.data[0].lecturesList[0].previewViedeoUrl,
+				this.handlefirstVideoUrl()
+			))
+			.catch(function(error) {
+				console.log(error);
+			});
+		
+		
 	},
-	
+
 	methods: {
+		
+		changetime: function(time) {
+			player.pause();
+			this.skipTime = time;
+			player.currentTime(this.skipTime);
+			
+
+		},
+		
 		addFavorite: function() {
 			axios({
 				method: 'get',
@@ -87,8 +146,8 @@ createApp({
 				headers: { "Access-Control-Allow-Origin": "*" },
 			})
 				.then(response => {
-					if(response.data=="") {
-						location.href='/howhow/login';
+					if (response.data == "") {
+						location.href = '/howhow/login';
 					} else {
 						this.addFavoriteAction(response.data);
 					}
@@ -97,8 +156,8 @@ createApp({
 					console.log(error);
 				})
 		},
-		
-		addFavoriteAction (userid) {
+
+		addFavoriteAction(userid) {
 			this.courseid = document.getElementById("courseid").value;
 			axios({
 				method: 'post',
@@ -107,7 +166,7 @@ createApp({
 
 				data: { userID: userid, courseID: this.courseid }
 			})
-				.then(response =>(this.favstatus = true))
+				.then(response => (this.favstatus = true))
 				.catch(function(error) {
 					console.log(error);
 				});
@@ -119,8 +178,8 @@ createApp({
 				headers: { "Access-Control-Allow-Origin": "*" },
 			})
 				.then(response => {
-					if(response.data=="") {
-						location.href='/howhow/login';
+					if (response.data == "") {
+						location.href = '/howhow/login';
 					} else {
 						this.removeFavoriteAction(response.data);
 					}
@@ -129,22 +188,22 @@ createApp({
 					console.log(error);
 				})
 		},
-		
-		
-		removeFavoriteAction (userid) {
+
+
+		removeFavoriteAction(userid) {
 			this.courseid = document.getElementById("courseid").value;
 			axios({
 				method: 'get',
-				url: '/howhow/api/removefavoritecourse/'+userid+"/"+this.courseid,
-				headers : {"Access-Control-Allow-Origin": "*" }
+				url: '/howhow/api/removefavoritecourse/' + userid + "/" + this.courseid,
+				headers: { "Access-Control-Allow-Origin": "*" }
 
 			})
-				.then(response =>(this.favstatus = false))
+				.then(response => (this.favstatus = false))
 				.catch(function(error) {
 					console.log(error);
 				});
 		},
-		
+
 		addShoppingCart: function() {
 			axios({
 				method: 'get',
@@ -152,8 +211,8 @@ createApp({
 				headers: { "Access-Control-Allow-Origin": "*" },
 			})
 				.then(response => {
-					if(response.data=="") {
-						location.href='/howhow/login';
+					if (response.data == "") {
+						location.href = '/howhow/login';
 					} else {
 						this.addShoppingCartAction(response.data);
 					}
@@ -162,8 +221,8 @@ createApp({
 					console.log(error);
 				})
 		},
-		
-		addShoppingCartAction (userid) {
+
+		addShoppingCartAction(userid) {
 			this.courseid = document.getElementById("courseid").value;
 			axios({
 				method: 'post',
@@ -172,12 +231,12 @@ createApp({
 
 				data: { userID: userid, courseID: this.courseid }
 			})
-				.then(response =>(this.shopstatus = true))
+				.then(response => (this.shopstatus = true))
 				.catch(function(error) {
 					console.log(error);
 				});
 		},
-		
+
 		removeShoppingCart: function() {
 			axios({
 				method: 'get',
@@ -185,64 +244,89 @@ createApp({
 				headers: { "Access-Control-Allow-Origin": "*" },
 			})
 				.then(response => {
-					if(response.data=="") {
-						location.href='/howhow/login';
+					if (response.data == "") {
+						location.href = '/howhow/login';
 					} else {
-						this.removeShoppingCartAction (response.data);
+						this.removeShoppingCartAction(response.data);
 					}
 				})
 				.catch(function(error) {
 					console.log(error);
 				})
 		},
-		
-		removeShoppingCartAction : function(userid) {
+
+		removeShoppingCartAction: function(userid) {
 			this.courseid = document.getElementById("courseid").value;
 			axios({
 				method: 'get',
-				url: '/howhow/api/removeshoppingcart/'+userid+"/"+this.courseid,
-				headers : {"Access-Control-Allow-Origin": "*" }
+				url: '/howhow/api/removeshoppingcart/' + userid + "/" + this.courseid,
+				headers: { "Access-Control-Allow-Origin": "*" }
 
 			})
-				.then(response =>(this.shopstatus = false))
+				.then(response => (this.shopstatus = false))
 				.catch(function(error) {
 					console.log(error);
 				});
 		},
-		
+
 		nextPage: function() {
 			if (document.getElementById("pageNo").value != this.ranks.totalPages) {
 				document.getElementById("pageNo").value = (document.getElementById("pageNo").value) * 1 + 1;
 			}
-				this.pageNo = document.getElementById("pageNo").value;
-				axios({
-					method: 'get',
-					url: '/howhow/api/querycourserankbycourseid/' + this.courseid + "/" + this.pageNo,
-					headers: { "Access-Control-Allow-Origin": "*" }
-				})
-					.then(response => (
-						this.ranks = response.data, this.res = response))
-					.catch(function(error) {
-						console.log(error);
+			this.pageNo = document.getElementById("pageNo").value;
+			axios({
+				method: 'get',
+				url: '/howhow/api/querycourserankbycourseid/' + this.courseid + "/" + this.pageNo,
+				headers: { "Access-Control-Allow-Origin": "*" }
+			})
+				.then(response => (
+					this.ranks = response.data, this.res = response))
+				.catch(function(error) {
+					console.log(error);
 				});
 		},
-		
+
 		previousPage: function() {
 			if (document.getElementById("pageNo").value != 1) {
 				document.getElementById("pageNo").value = (document.getElementById("pageNo").value) * 1 - 1;
 			}
-				this.pageNo = document.getElementById("pageNo").value;
-				axios({
-					method: 'get',
-					url: '/howhow/api/querycourserankbycourseid/' + this.courseid + "/" + this.pageNo,
-					headers: { "Access-Control-Allow-Origin": "*" }
-				})
-					.then(response => (
-						this.ranks = response.data, this.res = response))
-					.catch(function(error) {
-						console.log(error);
+			this.pageNo = document.getElementById("pageNo").value;
+			axios({
+				method: 'get',
+				url: '/howhow/api/querycourserankbycourseid/' + this.courseid + "/" + this.pageNo,
+				headers: { "Access-Control-Allow-Origin": "*" }
+			})
+				.then(response => (
+					this.ranks = response.data, this.res = response))
+				.catch(function(error) {
+					console.log(error);
 				});
 		},
+
+		handlefirstVideoUrl: function() {
+			this.currentLecturesID = this.lecture.lecturesID;
+			this.videoSrcUrl = this.baseUrl + this.lecture.previewViedeoUrl;
+			player.src(this.videoSrcUrl)
+		},
+
+
+		handleVideoUrl: function(lecture) {
+			this.lecture = lecture;
+			this.currentLecturesID = this.lecture.lecturesID;
+			this.videoSrcUrl = this.baseUrl + this.lecture.previewViedeoUrl;
+			player.src(this.videoSrcUrl);
+		},
+
+
 	}
 
 }).mount('#product')
+
+var player = videojs('my-video', {
+	
+	loop: true,
+	muted: true,
+	width: "800px",
+	height: "720px",
+	controls: true
+});

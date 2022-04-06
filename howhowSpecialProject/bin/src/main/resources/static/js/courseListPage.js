@@ -30,11 +30,7 @@ Vue.createApp({
 		this.currentAccountID = document.getElementById("defaultAccountID").value;
 			axios({
 			method: 'get',
-<<<<<<< HEAD
-			url: '/howhow/api/getAllCourse/' + this.currentAccountID,
-=======
 			url: '/howhow/api/getPageAllCourse/' + this.currentAccountID+"/"+this.currentPage,
->>>>>>> origin/master
 			headers: { "Access-Control-Allow-Origin": "*" },
 
 		})

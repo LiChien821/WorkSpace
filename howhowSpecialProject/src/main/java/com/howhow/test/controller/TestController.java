@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.howhow.account.service.AccountService;
 import com.howhow.entity.UserAccountDt;
 import com.howhow.entity.UserBonus;
+import com.howhow.shopping.exception.CourseNotFoundException;
+import com.howhow.shopping.service.CourseBasicService;
 import com.howhow.test.service.TestService;
 import com.howhow.util.UtilityTool;
 
@@ -21,6 +23,10 @@ public class TestController {
 	
 	@Autowired
 	TestService tService;
+	
+	@Autowired
+	CourseBasicService cService;
+	
 	
 	@GetMapping("/test")
 	public String processTest() {
@@ -50,14 +56,16 @@ public class TestController {
 		int userid=-1;
 		 UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
 		 if(accountDetail!= null) userid = accountDetail.getUserId();
-		//===================================//
 		m.addAttribute("userid",userid);
 		m.addAttribute("pageNo", 1);
 		return "shopping/browse";
 	}
 	
 	@GetMapping("/product")
-	public String unit(@RequestParam("id") int id ,Model m) {
+	public String unit(@RequestParam("id") int id ,Model m) throws CourseNotFoundException {
+		
+		if(cService.findByID(id)==null) throw new CourseNotFoundException();
+		
 		int userid=-1;
 		UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
 		if(accountDetail!= null) userid = accountDetail.getUserId();

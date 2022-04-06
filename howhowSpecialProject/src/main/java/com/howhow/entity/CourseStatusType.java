@@ -24,7 +24,7 @@ public class CourseStatusType {
 	@Column(name = "status_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int statusID=1;
-
+	
 	@Column(name = "status_name")
 	private String statusName;
 
