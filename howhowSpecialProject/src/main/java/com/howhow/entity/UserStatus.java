@@ -43,8 +43,9 @@ public class UserStatus implements Serializable {
 	private String account;
 	*/
 	
+	//10=未認證 20=已認證STUDENT 30=教師帳號 40=後台人員 50=ADMIN
 	@Column(name = "ACCOUNTSTATUS")
-	private int accountStatus=1;
+	private int accountStatus=10;
 
 	@Column(name="EMAILAUTH")
 	private boolean emailAuth = false;

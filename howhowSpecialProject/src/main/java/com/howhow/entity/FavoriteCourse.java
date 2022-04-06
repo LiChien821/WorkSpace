@@ -13,6 +13,7 @@ import javax.persistence.UniqueConstraint;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity @Table(name="favoritecourse",
@@ -32,7 +33,7 @@ public class FavoriteCourse {
 	@JoinColumn(name="user_id")
 	private UserAccountMt userAccountMt;
 	
-	@JsonIgnore
+	@JsonIdentityReference(alwaysAsId = true)
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="course_id")
 	private CourseBasic courseBasic;

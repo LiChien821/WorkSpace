@@ -28,7 +28,6 @@ public class PurchasedCourse {
 	@Column(name = "system_time")
 	private String systemTime;
 	
-	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="course_id")
 	private CourseBasic courseBasic;

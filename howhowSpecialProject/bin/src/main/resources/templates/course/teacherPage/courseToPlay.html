@@ -10,6 +10,10 @@
 	<link href="https://vjs.zencdn.net/7.17.0/video-js.css" rel="stylesheet" />
 	<link th:href="@{/assets3/css/bootstrap.min.css}" rel="stylesheet">
 	<link th:href="@{/assets3/css/dashboard.css}" rel="stylesheet">
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
@@ -45,7 +49,11 @@
 <body>
 
 	<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+<<<<<<< HEAD
 		<a class="navbar-brand col-md-3 col-lg-2  col-xl-2 me-0 px-3" href="#">HowHow學</a>
+=======
+		<a class="navbar-brand col-md-3 col-lg-2  col-xl-2 me-0 px-3" th:href="@{/home}">HowHow學</a>
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 		<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
 			data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
 			aria-label="Toggle navigation">
@@ -60,11 +68,23 @@
 	</header>
 
 
+<<<<<<< HEAD
 	<div class="container-fluid" id="playSectionList">
 		<div class="row">
 			<nav id="sidebarMenu" class="col-md-3 col-lg-2 col-xl-2 d-md-block bg-light sidebar collapse">
 				<div class="position-sticky pt-3">
 					<input th:value="${courseID}" id="playPageDeafultId" hidden>
+=======
+	<div class="container-fluid" >
+		<div class="row">
+			<nav id="sidebarMenu" class="col-md-3 col-lg-2 col-xl-2 d-md-block bg-light sidebar collapse">
+				<div class="position-sticky pt-3" id="playSectionList">
+					<input th:value="${courseID}" id="playPageDeafultId" hidden>
+					<input hidden id="defaultAccountID" th:value="${accountDt.userId}">
+					<input hidden id="userAccountCreatTime" th:value="${accountDt.acountCreationTime}">
+					
+					
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 					<ul class="nav flex-column" v-for="section in sectionList">
 						<li class="nav-item">
 							<button class="btn btn-toggle align-items-center rounded collapsed "
@@ -76,6 +96,7 @@
 							<div class="collapse show" :id="'course-collapse'+section.sectionNumber">
 								<ul class="nav flex-column btn-toggle-nav list-unstyled fw-normal pb-1 small"
 									v-for="lecture in section.lecturesList">
+<<<<<<< HEAD
 									<li class="nav-item border rounded-pill">
 										<a href="#" class="link-dark rounded " @click="handleVideoUrl(lecture)">
 											<h5><span data-feather="fast-forward"></span>{{lecture.lectureNumber}}.
@@ -83,6 +104,19 @@
 										</a>
 
 										<button>附加連結</button>
+=======
+									<li class="nav-item border rounded-pill" v-if="lecture.videoSource !== null">
+									<div >
+										<a href="#" class="link-dark rounded " @click="handleVideoUrl(lecture)">
+											
+											<h5><span data-feather="fast-forward"></span>{{lecture.lectureNumber}}.
+												{{lecture.lecturesName}}</h5>
+											
+										</a>
+
+										<button>附加連結</button>
+										</div >
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 									</li>
 								</ul>
 							</div>
@@ -100,7 +134,11 @@
 
 						
 					</div>
+<<<<<<< HEAD
 					<div class="col-2 d-flex align-items-end flex-column bd-highlight mb-3" id="notesVue">
+=======
+					<div  id="notesVue"   class="col-2 d-flex align-items-start flex-column bd-highlight mb-3">
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 						<div class="align-content-center">
 							<h2 >Notes</h2>
 						</div>
@@ -110,6 +148,7 @@
 							<div class="chat-header clearfix p-2 bd-highlight">
 							</div>
 							
+<<<<<<< HEAD
 							<div class="chat-history p-2 bd-highlight" v-if="notesList !== ''">
 								<ul class="m-b-0" >
 									<li class="clearfix " v-for="notes in notesList">
@@ -117,6 +156,15 @@
 											<a href="#javescr" class="message-data-time">{{notes,duration}}</a>
 										</div>
 										<div class="message other-message float-right">{{notes.notescontext}} </div>
+=======
+							<div class="chat-history p-2 bd-highlight" v-if="notesList !== null && notesList.length>0">
+								<ul  class="m-b-0">
+									<li  class="chat-history p-2 bd-highlight" v-for="(notes,index) in notesList">
+										<div>
+											<a href="#javescr"  @click="changetime(notes.duration)">{{index}}</a>
+										</div>
+										<div >{{notes.context}} </div>
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 									</li>
 								
 								</ul>
@@ -131,11 +179,17 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text"><i class="fa fa-send"></i></span>
 									</div>
+<<<<<<< HEAD
 									<input type="text" class="form-control" placeholder="Enter Notes here..." v-model="notescontext">
+=======
+									<input type="text" class="form-control" placeholder="Enter Notes here..." v-model="notescontext" >
+									<input type="submit" value="紀錄" @click="createNotes">
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 								</div>
 							</div>
 						
 					</div>
+<<<<<<< HEAD
 					<div class="row">
 					<h2>Section title</h2>
 						<div class="table-responsive">
@@ -264,6 +318,13 @@
 									</tr>
 								</tbody>
 							</table>
+=======
+					
+					<div class="row">
+						
+						<div class="table-responsive">
+								<th:block th:replace="course/teacherPage/introduce :: content"></th:block>
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 						</div>
 					</div>
 			</main>

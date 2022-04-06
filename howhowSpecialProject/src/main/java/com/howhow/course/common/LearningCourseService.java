@@ -16,17 +16,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
+import com.howhow.cms.service.ReportTypeService;
 import com.howhow.course.exception.CourseDuplicatedException;
 import com.howhow.course.exception.NoCourseException;
 import com.howhow.entity.CourseBasic;
+import com.howhow.entity.CourseStatusType;
 
 @Service
 public class LearningCourseService {
 	public final static int NUMBEROFCOURSEPAGE = 6;
 	@Autowired
 	private CommonCourseRepository repo;
-
-
+	
+	
 
 	@Autowired
 	private BlobContainerClient containerClient;
@@ -36,7 +38,7 @@ public class LearningCourseService {
 		String courseName = course.getCourseName();
 		CourseBasic existedCourse = repo.findCourseByUIDAndCourseName(uid, courseName).orElse(null);
 		if (existedCourse == null) {
-//			CourseStatusType type= findby(typeid);
+//			CourseStatusType type= typeService.findById(1);
 //			course.setStatusType(type);
 			course.setDiscount(1);
 			course.setSystemTime(new Date().toString());

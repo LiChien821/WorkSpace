@@ -7,7 +7,15 @@ const dataObj = {
 
 	Account: "",
 	
-	blobSetting:""
+	blobSetting:"",
+	
+	currentPage:1,
+	
+	totalPages:"",
+	
+	totalElements:"",
+	
+	pageItem:true,
 
 };
 
@@ -20,16 +28,18 @@ Vue.createApp({
 	},
 	mounted: function() {
 		this.currentAccountID = document.getElementById("defaultAccountID").value;
-		axios({
+			axios({
 			method: 'get',
-
+<<<<<<< HEAD
 			url: '/howhow/api/getAllCourse/' + this.currentAccountID,
+=======
+			url: '/howhow/api/getPageAllCourse/' + this.currentAccountID+"/"+this.currentPage,
+>>>>>>> origin/master
 			headers: { "Access-Control-Allow-Origin": "*" },
-
 
 		})
 
-			.then(response => (this.courseList = response.data))
+			.then(response => (this.courseList = response.data.content,this.totalPages=response.data.totalPages))
 			.catch(function(error) {
 				console.log(error);
 
@@ -50,6 +60,21 @@ Vue.createApp({
 			document.getElementById('forminput').value=id;
 			
 			document.getElementById('editForm').submit();
+		},
+		pageLinkToCourse:function(num){
+			this.currentPage=num;
+				axios({
+			method: 'get',
+			url: '/howhow/api/getPageAllCourse/' + this.currentAccountID+"/"+this.currentPage,
+			headers: { "Access-Control-Allow-Origin": "*" },
+
+		})
+
+			.then(response => (this.courseList = response.data.content,this.totalPages=response.data.totalPages))
+			.catch(function(error) {
+				console.log(error);
+
+			});
 		}
 	}
 }).mount('#courseList')

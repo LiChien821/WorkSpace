@@ -19,7 +19,6 @@ public class AccountUserDetails implements UserDetails {
 		super();
 		this.userAccount = userAccount;
 	}
-	
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -30,7 +29,6 @@ public class AccountUserDetails implements UserDetails {
 		return authories;
 	}
 
-	
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
@@ -65,7 +63,7 @@ public class AccountUserDetails implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 
-		//return userAccount.getUserstatus().isEmailAuth();
+		// return userAccount.getUserstatus().isEmailAuth();
 		return true;
 	}
 
@@ -73,4 +71,7 @@ public class AccountUserDetails implements UserDetails {
 		return userAccount;
 	}
 
+	public String getEmail() {
+		return userAccount.getUserAccountDt().getEmail();
+	}
 }
