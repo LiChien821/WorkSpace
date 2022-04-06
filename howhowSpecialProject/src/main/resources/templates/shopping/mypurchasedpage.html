@@ -26,6 +26,10 @@
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 	crossorigin="anonymous"></script>
 
+
+
+<link rel="stylesheet" th:href="@{/css/courserank.css}">
+
 <link rel="stylesheet" th:href="@{/shopping/css/font-awesome.min.css}">
 
 <link rel="stylesheet" th:href="@{/shopping/css/elegant-fonts.css}">
@@ -186,9 +190,54 @@
 														<td width="65%">{{course.coursename}}</td>
 														<td width="15%">{{course.categoryname}}</td>
 														<td width="10%"><button
-																class="btn btn-success btn-sm" @click="goLearning(course.courseid)">前往上課</button></td>
-														<td width="10%"><button
-																class="btn btn-warning btn-sm" @click="goRanking(course.courseid)">我要評價</button></td>
+																class="btn btn-success btn-sm"
+																@click="goLearning(course.courseid)">前往上課</button></td>
+
+														<td width="10%">
+															<!-- Button trigger modal -->
+
+															<button type="button" class="btn btn-warning btn-sm"
+																data-bs-toggle="modal" data-bs-target="#exampleModal">
+																我要評價</button> <!-- Modal -->
+
+															<div class="modal fade" id="exampleModal" tabindex="-1"
+																aria-labelledby="exampleModalLabel" aria-hidden="true">
+																<div class="modal-dialog">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<h5 class="modal-title" id="exampleModalLabel">課程評價</h5>
+																			<button type="button" class="btn-close"
+																				data-bs-dismiss="modal" aria-label="Close"></button>
+																		</div>
+
+																		<div class="modal-body">
+
+																			<form action="/insertcourserank" method="post">
+																				<div class="form-group">
+																					<label>課程評分</label> <input type="text"
+																						name="courserank" class="form-control"> <br>
+
+																					<label>課程評價</label>
+
+																					<textarea id="rankmessage" name="rankmessage" rows="4"
+																						cols="50">我認為這門課...</textarea><br>
+																					<button type="submit" class="btn btn-primary">儲存</button>
+																				</div>
+																			</form>
+
+																		</div>
+
+
+
+																		<div class="modal-footer">
+																			<button type="button" class="btn btn-secondary"
+																				data-bs-dismiss="modal">取消</button>
+																			<button type="button" class="btn btn-primary">儲存</button>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</td>
 													</tr>
 												</thead>
 											</table>
