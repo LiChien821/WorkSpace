@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.howhow.entity.AccountLevel;
 import com.howhow.entity.UserAccountMt;
@@ -24,8 +22,8 @@ public class AccountUserDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		AccountLevel role = userAccount.getUserstatus().getAccountLevel();
 		List<SimpleGrantedAuthority> authories = new ArrayList<>();
+		AccountLevel role = userAccount.getUserstatus().getAccountLevel();
 		authories.add(new SimpleGrantedAuthority(role.name()));
 //		authories.add(new SimpleGrantedAuthority(userId));
 		return authories;

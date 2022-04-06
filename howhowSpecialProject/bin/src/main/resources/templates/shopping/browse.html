@@ -68,6 +68,9 @@
                 <div class="col-12 col-lg-12">
                     <div class="featured-courses courses-wrap">
                         <div class="row mx-m-25">
+                        	<div v-if="courses.empty==true">
+                        	<div style="margin:20px">目前查無搜尋結果</div>
+                        	</div>
                             <div class="col-12 col-md-4 px-25" v-for="course in courses.content">
                                 <div class="course-content">
                                     <div v-if="course.coursestatusid==1">

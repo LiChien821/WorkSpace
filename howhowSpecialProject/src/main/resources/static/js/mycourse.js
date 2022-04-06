@@ -28,7 +28,9 @@ createApp({
 	},
 
 	methods: {
-
+		goLearning: function(courseid) {
+			
+		}
 	}
 
 }).mount('#mycourse')

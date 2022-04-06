@@ -1,9 +1,7 @@
 package com.howhow.websecurity;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,8 +23,6 @@ import com.howhow.entity.UserAccountDt;
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 	
-	@Autowired
-    private DefaultAuthenticationEventPublisher defaultAuthenticationEventPublisher;
 	
 	@Bean
 	public UserDetailsService accountUserDetailService() {
@@ -76,6 +72,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		  http  
 		  .csrf().disable()
 		   .authorizeRequests() 
+		     .antMatchers("/teacherPage/**")
+		   	 .authenticated()
 		     .antMatchers("/login.html","/login","/register","/createUser","/verify","/css/","/courses","/product","/api/**","/shopping/**")
 		     .permitAll()
 		     .antMatchers("/student/**").hasAnyAuthority("Teacher","Student")

@@ -1,5 +1,6 @@
 package com.howhow.course.common;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -11,5 +12,8 @@ public interface CommonSectionRepository extends PagingAndSortingRepository<Sect
 	public Section findBycourseIDAndSectionNum(int courseID,int sectionNumber);
 	
 	@Query("SELECT s FROM Section s WHERE s.courseBasic.courseID = ?1")
-	public Iterable<Section>  findAllByCourseID(int courseID);
+	public Iterable<Section>  findAllByCourseID(int courseID, Sort sort);
+	
+	@Query("SELECT s FROM Section s join s.lecturesList l WHERE s.courseBasic.courseID = ?1 AND l.isAvailableToPreview = 1 ")
+	public Iterable<Section> findAllPreviewableSectionByCourseID(int courseID, Sort sort);
 }

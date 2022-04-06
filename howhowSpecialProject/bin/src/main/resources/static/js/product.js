@@ -80,72 +80,132 @@ createApp({
 	},
 	
 	methods: {
-		addFavorite : function() {
-			this.userid = document.getElementById("userid").value;
+		addFavorite: function() {
+			axios({
+				method: 'get',
+				url: '/howhow/api/checklogin',
+				headers: { "Access-Control-Allow-Origin": "*" },
+			})
+				.then(response => {
+					if(response.data=="") {
+						location.href='/howhow/login';
+					} else {
+						this.addFavoriteAction(response.data);
+					}
+				})
+				.catch(function(error) {
+					console.log(error);
+				})
+		},
+		
+		addFavoriteAction (userid) {
 			this.courseid = document.getElementById("courseid").value;
 			axios({
 				method: 'post',
 				url: '/howhow/api/insertfavoritecourse',
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 
-				data: { userID: this.userid, courseID: this.courseid }
+				data: { userID: userid, courseID: this.courseid }
 			})
 				.then(response =>(this.favstatus = true))
 				.catch(function(error) {
-					console.log(this.userid);
-					console.log(this.courseid);
 					console.log(error);
 				});
 		},
+		removeFavorite: function() {
+			axios({
+				method: 'get',
+				url: '/howhow/api/checklogin',
+				headers: { "Access-Control-Allow-Origin": "*" },
+			})
+				.then(response => {
+					if(response.data=="") {
+						location.href='/howhow/login';
+					} else {
+						this.removeFavoriteAction(response.data);
+					}
+				})
+				.catch(function(error) {
+					console.log(error);
+				})
+		},
 		
-		removeFavorite : function() {
-			this.userid = document.getElementById("userid").value;
+		
+		removeFavoriteAction (userid) {
 			this.courseid = document.getElementById("courseid").value;
 			axios({
 				method: 'get',
-				url: '/howhow/api/removefavoritecourse/'+this.userid+"/"+this.courseid,
+				url: '/howhow/api/removefavoritecourse/'+userid+"/"+this.courseid,
 				headers : {"Access-Control-Allow-Origin": "*" }
 
 			})
 				.then(response =>(this.favstatus = false))
 				.catch(function(error) {
-					console.log(this.userid);
-					console.log(this.courseid);
 					console.log(error);
 				});
 		},
 		
-		addShoppingCart : function() {
-			this.userid = document.getElementById("userid").value;
+		addShoppingCart: function() {
+			axios({
+				method: 'get',
+				url: '/howhow/api/checklogin',
+				headers: { "Access-Control-Allow-Origin": "*" },
+			})
+				.then(response => {
+					if(response.data=="") {
+						location.href='/howhow/login';
+					} else {
+						this.addShoppingCartAction(response.data);
+					}
+				})
+				.catch(function(error) {
+					console.log(error);
+				})
+		},
+		
+		addShoppingCartAction (userid) {
 			this.courseid = document.getElementById("courseid").value;
 			axios({
 				method: 'post',
 				url: '/howhow/api/insertshoppingcart',
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 
-				data: { userID: this.userid, courseID: this.courseid }
+				data: { userID: userid, courseID: this.courseid }
 			})
 				.then(response =>(this.shopstatus = true))
 				.catch(function(error) {
-					console.log(this.userid);
-					console.log(this.courseid);
 					console.log(error);
 				});
 		},
 		
-		removeShoppingCart : function() {
-			this.userid = document.getElementById("userid").value;
+		removeShoppingCart: function() {
+			axios({
+				method: 'get',
+				url: '/howhow/api/checklogin',
+				headers: { "Access-Control-Allow-Origin": "*" },
+			})
+				.then(response => {
+					if(response.data=="") {
+						location.href='/howhow/login';
+					} else {
+						this.removeShoppingCartAction (response.data);
+					}
+				})
+				.catch(function(error) {
+					console.log(error);
+				})
+		},
+		
+		removeShoppingCartAction : function(userid) {
 			this.courseid = document.getElementById("courseid").value;
 			axios({
 				method: 'get',
-				url: '/howhow/api/removeshoppingcart/'+this.userid+"/"+this.courseid,
+				url: '/howhow/api/removeshoppingcart/'+userid+"/"+this.courseid,
 				headers : {"Access-Control-Allow-Origin": "*" }
 
 			})
 				.then(response =>(this.shopstatus = false))
 				.catch(function(error) {
-					console.log(this.userid);
-					console.log(this.courseid);
 					console.log(error);
 				});
 		},

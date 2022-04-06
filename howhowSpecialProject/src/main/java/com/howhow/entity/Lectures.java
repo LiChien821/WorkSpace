@@ -51,6 +51,7 @@ public class Lectures {
 	@JsonIgnore
 	private List<Bulletin> bulletinList=new ArrayList<Bulletin>(); 
 	
+	@JsonIgnore   //modified by chien-lin(2022-03-31)
 	@OneToMany(mappedBy = "notedlecture")
 	private List<Notes> notesList=new ArrayList<Notes>();
 	
