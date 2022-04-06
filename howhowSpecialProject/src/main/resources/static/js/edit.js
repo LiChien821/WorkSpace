@@ -9,6 +9,8 @@ const dataObj = {
 	currentLectureID: "",
 	currentSectionIndex: "",
 	currentLectureIndex: "",
+	preivewSectionIndex:"",
+	preivewtLectureIndex:"",
 
 	categoryList: "",
 	category: "",
@@ -36,6 +38,7 @@ const dataObj = {
 
 	upLoadingText: "",
 	upLoadingCover:"",
+	previewUpLoadingText:"",
 	
 	editingSectionName:0,
 	editSectionName:"",
@@ -61,7 +64,7 @@ Vue.createApp({
 			axios({
 				method: 'post',
 
-				url: '/howhow/api/updateCourseAbstract' ,
+				url: '/api/updateCourseAbstract' ,
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 
 				data: this.course,
@@ -87,7 +90,7 @@ Vue.createApp({
 				this.coverSrc="";
 				axios
 					.post(
-						'/howhow/api/updateCourseAbstractCover',
+						'/api/updateCourseAbstractCover',
 						postforms,
 						config
 					)
@@ -111,7 +114,7 @@ Vue.createApp({
 		this.currentCourseID = document.getElementById("defaultCourseID").value;
 		axios({
 			method: 'get',
-			url: '/howhow/api/getBlobUrl',
+			url: '/api/getBlobUrl',
 			headers: { "Access-Control-Allow-Origin": "*" },
 		})
 			.then(response => (this.blobSetting = response.data))
@@ -120,7 +123,7 @@ Vue.createApp({
 			});
 		axios({
 			method: 'get',
-			url: '/howhow/api/getAllCategory',
+			url: '/api/getAllCategory',
 			headers: { "Access-Control-Allow-Origin": "*" },
 		})
 			.then(response => (this.categoryList = response.data))
@@ -131,7 +134,7 @@ Vue.createApp({
 		axios({
 			method: 'get',
 
-			url: '/howhow/api/getCourse/' + this.currentCourseID,
+			url: '/api/getCourse/' + this.currentCourseID,
 			headers: { "Access-Control-Allow-Origin": "*" },
 
 
@@ -167,7 +170,7 @@ Vue.createApp({
 			axios({
 				method: 'post',
 
-				url: '/howhow/api/createSection/' + this.currentCourseID,
+				url: '/api/createSection/' + this.currentCourseID,
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 
 				data: { sectionNumber: this.sectionNum, sectionName: this.newSectionName }
@@ -209,7 +212,7 @@ Vue.createApp({
 				axios({
 				method: 'post',
 
-				url: '/howhow/api/updateSectionName/'+  this.currentCourseID,
+				url: '/api/updateSectionName/'+  this.currentCourseID,
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 
 				data: { sectionID:sectionID, sectionName: this.editSectionName }
@@ -233,7 +236,7 @@ Vue.createApp({
 				axios({
 				method: 'post',
 
-				url: '/howhow/api/updateLecturesName/'+  this.currentSectionID,
+				url: '/api/updateLecturesName/'+  this.currentSectionID,
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 
 				data: { lecturesID:lecturesID, lecturesName: this.editLectureName }
@@ -252,7 +255,7 @@ Vue.createApp({
 			axios({
 				method: 'post',
 
-				url: '/howhow/api/createLecture/' + this.currentSectionID,
+				url: '/api/createLecture/' + this.currentSectionID,
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 
 				data: { lectureNumber: this.lectureNum, lecturesName: this.newLectureName }
@@ -272,7 +275,7 @@ Vue.createApp({
 			axios({
 				method: 'get',
 
-				url: '/howhow/api/getLectureList/' + this.currentSectionID,
+				url: '/api/getLectureList/' + this.currentSectionID,
 				headers: { "Access-Control-Allow-Origin": "*" },
 
 
@@ -317,7 +320,7 @@ Vue.createApp({
 				axios({
 			method: 'get',
 
-			url: '/howhow/api/getCourse/' + this.currentCourseID,
+			url: '/api/getCourse/' + this.currentCourseID,
 			headers: { "Access-Control-Allow-Origin": "*" },
 
 
@@ -351,7 +354,7 @@ Vue.createApp({
 
 				axios
 					.post(
-						'/howhow/api/updateLectureVideo',
+						'/api/updateLectureVideo',
 						postforms,
 						config
 					)
@@ -387,7 +390,7 @@ Vue.createApp({
 				axios({
 			method: 'get',
 
-			url: '/howhow/api/getCourse/' + this.currentCourseID,
+			url: '/api/getCourse/' + this.currentCourseID,
 			headers: { "Access-Control-Allow-Origin": "*" },
 
 
@@ -417,15 +420,15 @@ Vue.createApp({
 						"Content-Type": "multipart/form-data"
 					}
 				};
-				this.upLoadingText = `影片上傳中...`;
+				this.previewUpLoadingText = `影片上傳中...`;
 
 				axios
 					.post(
-						'/howhow/api/updateLecturePreviewVideoReturnPreviewableSectionlist',
+						'/api/updateLecturePreviewVideoReturnPreviewableSectionlist',
 						postforms,
 						config
 					)
-					.then(response => (this.previewableSectionList = response.data,this.upLoadingText = ""))
+					.then(response => (this.previewableSectionList = response.data,this.previewUpLoadingText = ""))
 					.catch(function(error) {
 						this.upLoadingText = "";
 						console.log(error);
@@ -441,7 +444,20 @@ Vue.createApp({
 			this.previewVideoFile = this.$refs.previewVideofile.files[0];
 		},
 
-	}
+	},
+	mounted: function() {
+		axios
+					.get(
+						'/api/getPreviewableSectionlist/'+this.currentCourseID,
+						
+					)
+					.then(response => (this.previewableSectionList = response.data))
+					.catch(function(error) {
+						this.upLoadingText = "";
+						console.log(error);
+
+					});
+	},
 
 }).mount('#editPreviewLectures')
 

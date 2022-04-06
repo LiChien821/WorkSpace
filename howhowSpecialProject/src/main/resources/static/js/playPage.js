@@ -41,7 +41,7 @@ Vue.createApp({
 			this.duration = player.currentTime();
 			axios({
 				method: 'post',
-				url: '/howhow/api/createNotes',
+				url: '/api/createNotes',
 				headers: { "Access-Control-Allow-Origin": "*" },
 				data: {
 					userID: this.userAccountID,
@@ -98,7 +98,7 @@ Vue.createApp({
 		getAllNotesByUIDANDLectureID: function() {
 			axios({
 				method: 'get',
-				url: '/howhow/api/getAllNotes/' + this.userAccountID + "/" + this.currentLecturesID,
+				url: '/api/getAllNotes/' + this.userAccountID + "/" + this.currentLecturesID,
 				headers: { "Access-Control-Allow-Origin": "*" },
 
 
@@ -129,7 +129,7 @@ Vue.createApp({
 			axios({
 				method: 'get',
 
-				url: '/howhow/api/getLectureList/' + this.currentSectionID,
+				url: '/api/getLectureList/' + this.currentSectionID,
 				headers: { "Access-Control-Allow-Origin": "*" },
 
 
@@ -146,7 +146,7 @@ Vue.createApp({
 	beforeMount: function(){
 		axios({
 			method: 'get',
-			url: '/howhow/api/getBlobUrl',
+			url: '/api/getBlobUrl',
 			headers: { "Access-Control-Allow-Origin": "*" },
 		})
 			.then(response => (this.baseUrl = response.data))
@@ -161,7 +161,7 @@ Vue.createApp({
 		axios({
 			method: 'get',
 
-			url: '/howhow/api/getSectionList/' + this.currentCourseID,
+			url: '/api/getSectionList/' + this.currentCourseID,
 			headers: { "Access-Control-Allow-Origin": "*" },
 		})
 
@@ -195,7 +195,7 @@ Vue.createApp({
 			axios({
 				method: 'get',
 	
-				url: '/howhow/api/getCourse/' + this.currentCourseID,
+				url: '/api/getCourse/' + this.currentCourseID,
 				headers: { "Access-Control-Allow-Origin": "*" },
 			})
 	
