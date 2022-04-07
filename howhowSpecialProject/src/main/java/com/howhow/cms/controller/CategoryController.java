@@ -31,7 +31,6 @@ public class CategoryController {
 	private CourseBasicService cbs;
 
 	// 顯示所有課程類別
-	@ResponseBody
 	@GetMapping("/category")
 	public String guidToCategory() {
 		return "/cms/categorymain.html";
@@ -46,7 +45,6 @@ public class CategoryController {
 
 	// 增加課程類別
 	@ResponseBody
-	@PostMapping("/category")
 	@PostMapping("/categorydata")
 	public List<Category> addCategory(@RequestBody Category category) {
 		

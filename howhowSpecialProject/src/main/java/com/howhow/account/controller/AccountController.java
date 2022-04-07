@@ -64,7 +64,8 @@ public class AccountController {
 			  account.setPassword(bcryptoEncoder.encode(pwd));
 			  System.out.println("已嘗試");
 		  }
-		 
+		  return "main";
+	}
 		  
 	
 	public String home( Model model) {
@@ -101,16 +102,6 @@ public class AccountController {
 			return "editpwd";
 
 	}
-	
-
-
-	@GetMapping("/editAccount")
-	public String editPage( Model model) {
-		
-		
-		 UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
-		
-		UserAccountMt account = accountDetail.getUserAccountMt();
 		
 
 	@GetMapping("/editAccount")
@@ -145,7 +136,6 @@ public class AccountController {
 			    email = ((DefaultOidcUser)principal).getEmail();
 			  }
 
-			UserAccountDt accountDetail = service.findByEmail(email);
 			UserAccountMt account = accountDetail.getUserAccountMt();
 
 		if (("admin").equals(account.getUserstatus().getAccountLevel().toString())) {

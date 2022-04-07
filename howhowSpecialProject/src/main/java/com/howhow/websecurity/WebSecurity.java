@@ -72,7 +72,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		  http  
 		  .csrf().disable()
 		   .authorizeRequests() 
-<<<<<<< HEAD
 		     .antMatchers("/teacherPage/**")
 		   	 .authenticated()
 		     .antMatchers("/login.html","/login","/register","/createUser","/verify","/css/","/courses","/product","/api/**","/shopping/**")

@@ -32,17 +32,7 @@ public class CategoryService {
 	public Category addCategory(Category category) {
 		return repo.save(category);
 	}
-	
-	public boolean checkExist(String name) {
-		if(null != repo.findByname(name)) {
 
-	public List<Category> findAllCategory() {
-		return repo.findAll();
-	}
-
-	public Category addCategory(Category category) {
-		return repo.save(category);
-	}
 
 	public boolean checkExist(String name) {
 		if (null != repo.findByname(name)) {

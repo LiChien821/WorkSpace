@@ -14,7 +14,7 @@ Vue.createApp({
 
             axios({
                 method: 'get',
-                url: 'http://localhost:8082/howhow/cms/userstatusdata/' + this.userID.toString(),
+                url: '/cms/userstatusdata/' + this.userID.toString(),
                 headers: { 'Content-Type': 'application/json' }
             }).then(res => {
                 this.isNull = false;
@@ -25,7 +25,7 @@ Vue.createApp({
             item.accountLevel = this.updateUserStatus;
             axios({
                 method: 'put',
-                url: 'http://localhost:8082/howhow/cms/userstatusdata',
+                url: '/cms/userstatusdata',
                 headers: { 'Content-Type': 'application/json' },
                 data: JSON.stringify(item)
             }).then(res => {
@@ -38,7 +38,7 @@ Vue.createApp({
             item.applystatus = '已處理';
             axios({
                 method: 'put',
-                url: 'http://localhost:8082/howhow/cms/applydata',
+                url: '/cms/applydata',
                 headers: { 'Content-Type': 'application/json' },
                 data: JSON.stringify(item)
             }).then(res => {
@@ -49,7 +49,7 @@ Vue.createApp({
     mounted() {
         axios({
             method: 'get',
-            url: 'http://localhost:8082/howhow/cms/applydata',
+            url: '/cms/applydata',
             headers: { 'Content-Type': 'application/json' },
         }).then(res => {
             this.applyData = res.data;

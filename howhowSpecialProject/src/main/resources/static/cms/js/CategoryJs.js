@@ -18,7 +18,7 @@ Vue.createApp({
 
             axios({
                 method: 'post',
-                url: 'http://localhost:8082/howhow/cms/categorydata',
+                url: '/cms/categorydata',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(this.postdata)
             }).then(res => {
@@ -28,7 +28,7 @@ Vue.createApp({
         deleteCategory(item) {
             axios({
                 method: 'delete',
-                url: 'http://localhost:8082/howhow/cms/categorydata',
+                url: '/cms/categorydata',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(item)
             }).then(res =>{
@@ -39,7 +39,7 @@ Vue.createApp({
         updateCategory(item){
             axios({
                 method: 'put',
-                url: 'http://localhost:8082/howhow/cms/categorydata',
+                url: '/cms/categorydata',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(item)
             }).then(res =>{
@@ -50,7 +50,7 @@ Vue.createApp({
         }
     },
     mounted() {
-        axios.get("http://localhost:8082/howhow/cms/categorydata").then(res => {
+        axios.get("/cms/categorydata").then(res => {
             this.getdata = res.data;
         })
     },
