@@ -1,5 +1,6 @@
 package com.howhow.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,14 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "courseID")
 @Entity @Table(name = "coursebasic")
 @Component
-public class CourseBasic {
+public class CourseBasic implements Serializable{
+
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "course_id")
