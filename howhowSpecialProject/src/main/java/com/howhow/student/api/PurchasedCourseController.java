@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -106,6 +107,16 @@ public class PurchasedCourseController {
 		return dtolist;
 	}
 	
+	@GetMapping("/checkoutAll")
+	public String processCheckoutAll() {
+		return "checkout/checkoutAll.html";
+	}
+	
+	@GetMapping("/checkoutCreditOne")
+	public String processCheckoutCreditOne() {
+		return "checkout/checkoutCreditOne.html";
+	}
+
 	@GetMapping("/api/findpurchasedcoursestatusbyuserid/{userid}")
 	@ResponseBody
 	public List<Integer> findPurchasedCourseListStatusByUserID(@PathVariable("userid") int userid) {
@@ -126,5 +137,4 @@ public class PurchasedCourseController {
 		boolean status = pService.findPurchasedStatus(userid, courseid);
 		return status;
 	}
-
 }
