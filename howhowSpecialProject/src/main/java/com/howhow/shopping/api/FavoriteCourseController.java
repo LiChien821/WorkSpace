@@ -212,8 +212,8 @@ public class FavoriteCourseController {
 		
 		CourseBasic course = cService.findByID(courseID);
 		String courseName = course.getCourseName();
-		Integer catid = course.getCategory().getId();
-		CourseStatusType cat = cstaService.findById(catid);
+		Integer statusID = course.getStatusType().getStatusID();
+		CourseStatusType cat = cstaService.findById(statusID);
 		String statusName = cat.getStatusName();
 		Integer studentnum = pService.findStudentCount(courseID);
 		
