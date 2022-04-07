@@ -103,7 +103,7 @@
 					</div>
 				</div>
 				<div class="col-12 col-lg-4 mt-5">
-					<div class="course-content-wrap">
+					<div class="course-content-wrap" style="height:400px">
 
 						<header class="entry-header">
 							<h2 class="entry-title">
@@ -135,87 +135,183 @@
 		</div>
 		<div class="container">
 			<div class="row">
-				<div class="col-12 col-lg-8">
+				<div style="width:75%">
 					<div class="instructors-info">
-						<header class="entry-heading" style="height: 20px">
+						<header class="entry-heading" style="height: 100px;">
 							<h2 class="entry-title">最愛課程</h2>
 						</header>
 						<!-- .entry-heading -->
-						<div class="instructor-short-info flex flex-wrap">
-							<div v-for="fav in favdetail">
-								<div class="col-12 col-lg-12 px-25">
-									<div class="course-content">
-										<div class="course-content-wrap">
+<!-- 						<div class="instructor-short-info flex flex-wrap"> -->
+<!-- 							<div v-for="fav in favdetail"> -->
+<!-- 								<div class="col-12 col-lg-12 px-25"> -->
+<!-- 									<div class="course-content"> -->
+<!-- 										<div class="course-content-wrap"> -->
 
-											<header class="entry-header">
-												<h2 class="entry-title">
-													<a href="#">{{fav.coursename}}</a>
-												</h2>
-												<div
-													class="flex flex-wrap justify-content-between align-items-center">
-													<div class="flex justify-content-end align-items-center">
-														<div>
-															<button class="btn btn-success btn-sm"
-																@click="removeFavoriteCourse(fav.courseid)">移除最愛</button>
-														</div>
-														<div v-if="purchasedstatus.includes(fav.courseid)">
-															<button class="btn btn-dark btn-sm" disabled
-																style="margin: 10px">已購買</button>
-														</div>
-														<div v-else-if="!shopstatus.includes(fav.courseid)">
-															<button class="btn btn-outline-warning btn-sm"
-																@click="addShoppingCart(fav.courseid)"
-																style="margin: 10px">加入購物車</button>
-														</div>
-														<div v-else>
-															<button disabled class="btn btn-warning btn-sm"
-																style="margin: 10px">已在購物車</button>
-														</div>
-													</div>
-												</div>
-											</header>
-											<!-- .entry-header -->
+<!-- 											<header class="entry-header"> -->
+<!-- 												<h2 class="entry-title"> -->
+<!-- 													<a href="#">{{fav.coursename}}</a> -->
+<!-- 												</h2> -->
+<!-- 												<div -->
+<!-- 													class="flex flex-wrap justify-content-between align-items-center"> -->
+<!-- 													<div class="flex justify-content-end align-items-center"> -->
+<!-- 														<div> -->
+<!-- 															<button class="btn btn-success btn-sm" -->
+<!-- 																@click="removeFavoriteCourse(fav.courseid)">移除最愛</button> -->
+<!-- 														</div> -->
+<!-- 														<div v-if="purchasedstatus.includes(fav.courseid)"> -->
+<!-- 															<button class="btn btn-dark btn-sm" disabled -->
+<!-- 																style="margin: 10px">已購買</button> -->
+<!-- 														</div> -->
+<!-- 														<div v-else-if="!shopstatus.includes(fav.courseid)"> -->
+<!-- 															<button class="btn btn-outline-warning btn-sm" -->
+<!-- 																@click="addShoppingCart(fav.courseid)" -->
+<!-- 																style="margin: 10px">加入購物車</button> -->
+<!-- 														</div> -->
+<!-- 														<div v-else> -->
+<!-- 															<button disabled class="btn btn-warning btn-sm" -->
+<!-- 																style="margin: 10px">已在購物車</button> -->
+<!-- 														</div> -->
+<!-- 													</div> -->
+<!-- 												</div> -->
+<!-- 											</header> -->
+<!-- 											.entry-header -->
 
-											<footer
-												class="entry-footer flex flex-wrap justify-content-between align-items-center">
-												<div class="course-cost">NT${{fav.discountprice}}</div>
-												<!-- .course-cost -->
-												<div
-													class="course-ratings flex justify-content-end align-items-center">
-													<div v-if="fav.ranknum>0">
-														<span class="fa fa-star checked"></span> <span
-															v-if="fav.rank>=2" class="fa fa-star checked"></span> <span
-															v-else-if="fav.rank>=1.5"
-															class="fa fa-star-half-o checked"></span> <span v-else
-															class="fa fa-star-o"></span> <span v-if="fav.rank>=3"
-															class="fa fa-star checked"></span> <span
-															v-else-if="fav.rank>=2.5"
-															class="fa fa-star-half-o checked"></span> <span v-else
-															class="fa fa-star-o"></span> <span v-if="fav.rank>=4"
-															class="fa fa-star checked"></span> <span
-															v-else-if="fav.rank>=3.5"
-															class="fa fa-star-half-o checked"></span> <span v-else
-															class="fa fa-star-o"></span> <span v-if="fav.rank>=4.8"
-															class="fa fa-star checked"></span> <span
-															v-else-if="fav.rank>=4.3"
-															class="fa fa-star-half-o checked"></span> <span v-else
-															class="fa fa-star-o"></span> <span
-															class="course-ratings-count">{{fav.ranknum}}則評價</span>
-													</div>
-												</div>
-												<!-- .course-ratings -->
-												<div class="course-stunum col-12 justify-content-start"
-													v-if="fav.studentnum>=5">同學{{fav.studentnum}}人</div>
-												<!-- .course-cost -->
-											</footer>
-											<!-- .entry-footer -->
-										</div>
+<!-- 											<footer -->
+<!-- 												class="entry-footer flex flex-wrap justify-content-between align-items-center"> -->
+<!-- 												<div class="course-cost">NT${{fav.discountprice}}</div> -->
+<!-- 												.course-cost -->
+<!-- 												<div -->
+<!-- 													class="course-ratings flex justify-content-end align-items-center"> -->
+<!-- 													<div v-if="fav.ranknum>0"> -->
+<!-- 														<span class="fa fa-star checked"></span> <span -->
+<!-- 															v-if="fav.rank>=2" class="fa fa-star checked"></span> <span -->
+<!-- 															v-else-if="fav.rank>=1.5" -->
+<!-- 															class="fa fa-star-half-o checked"></span> <span v-else -->
+<!-- 															class="fa fa-star-o"></span> <span v-if="fav.rank>=3" -->
+<!-- 															class="fa fa-star checked"></span> <span -->
+<!-- 															v-else-if="fav.rank>=2.5" -->
+<!-- 															class="fa fa-star-half-o checked"></span> <span v-else -->
+<!-- 															class="fa fa-star-o"></span> <span v-if="fav.rank>=4" -->
+<!-- 															class="fa fa-star checked"></span> <span -->
+<!-- 															v-else-if="fav.rank>=3.5" -->
+<!-- 															class="fa fa-star-half-o checked"></span> <span v-else -->
+<!-- 															class="fa fa-star-o"></span> <span v-if="fav.rank>=4.8" -->
+<!-- 															class="fa fa-star checked"></span> <span -->
+<!-- 															v-else-if="fav.rank>=4.3" -->
+<!-- 															class="fa fa-star-half-o checked"></span> <span v-else -->
+<!-- 															class="fa fa-star-o"></span> <span -->
+<!-- 															class="course-ratings-count">{{fav.ranknum}}則評價</span> -->
+<!-- 													</div> -->
+<!-- 												</div> -->
+<!-- 												.course-ratings -->
+<!-- 												<div class="course-stunum col-12 justify-content-start" -->
+<!-- 													v-if="fav.studentnum>=5">同學{{fav.studentnum}}人</div> -->
+<!-- 												.course-cost -->
+<!-- 											</footer> -->
+<!-- 											.entry-footer -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 								.course-content-wrap -->
+<!-- 							</div> -->
+<!-- 							.instructor-short-info -->
+<!-- 						</div> -->
+
+
+						<div class="classes" style="display: inline;"
+							v-for="fav in favdetail">
+							<a class="classbox" :href="fav.url">
+								<div class="teacher"></div>
+								<div class="top">
+									<div class="classpicture" v-if="favstatus.includes(fav.courseid)"
+										v-bind:style="{ backgroundImage:'url('+blobSetting+fav.cover+ ')'}"></div>
+									<div class="tag" v-if="ccf==true">募資中</div>
+									<div class="tag" v-if="ccf==false">上課囉</div>
+									<div class="bookbtn"
+										style="color: white; background-color: #EB5E00;">
+										<i class="fa fa-bookmark"
+											style="color: white; background-color: #EB5E00;"
+											@click.prevent="removeFavoriteCourse(fav.courseid)"></i>
 									</div>
 								</div>
-								<!-- .course-content-wrap -->
-							</div>
-							<!-- .instructor-short-info -->
+								<div class="bottom">
+									<h1 class="classtitle">{{fav.coursename}}</h1>
+									<div class="texts">
+										<div class="pricerow">
+											<div class="preprice" v-if="ccf==true">
+												預購價<span class="orange">NT${{fav.discountprice}}</span>
+											</div>
+											<div class="preprice" v-if="ccf==false">
+												售價<span class="orange">NT${{fav.discountprice}}</span>
+											</div>
+											<div class="lastday" v-if="ccf==true">
+												剩<span class="orange">20天</span>
+											</div>
+											<div class="lastday" v-if="ccf==false && fav.studentnum>0">
+												同學<span class="orange">{{fav.studentnum}}位</span>
+											</div>
+										</div>
+										<div class="progressbar" v-if="ccf==true">
+											<div class="valuebar"></div>
+										</div>
+										<div>
+											<div
+												class="course-ratings flex justify-content-start align-items-center">
+												<div v-if="fav.ranknum>0">
+													<span class="fas fa-star checked"
+														style="width: 12px; padding: 5px"></span> <span
+														v-if="fav.rank>=2" class="fas fa-star checked"
+														style="width: 12px; padding: 5px"></span> <span
+														v-else-if="fav.rank>=1.5"
+														class="fas fa-star-half-alt checked"
+														style="width: 12px; padding: 5px"></span> <span v-else
+														class="far fa-star checked"
+														style="width: 12px; padding: 5px"></span> <span
+														v-if="fav.rank>=3" class="fas fa-star checked"
+														style="width: 12px; padding: 5px"></span> <span
+														v-else-if="fav.rank>=2.5"
+														class="fas fa-star-half-alt checked"
+														style="width: 12px; padding: 5px"></span> <span v-else
+														class="far fa-star checked"
+														style="width: 12px; padding: 5px"></span> <span
+														v-if="fav.rank>=4" class="fas fa-star checked"
+														style="width: 12px; padding: 5px"></span> <span
+														v-else-if="fav.rank>=3.5"
+														class="fas fa-star-half-alt checked"
+														style="width: 12px; padding: 5px"></span> <span v-else
+														class="far fa-star checked"
+														style="width: 12px; padding: 5px"></span> <span
+														v-if="fav.rank>=4.8" class="fas fa-star checked"
+														style="width: 12px; padding: 5px"></span> <span
+														v-else-if="fav.rank>=4.3"
+														class="fas fa-star-half-alt checked"
+														style="width: 12px; padding: 5px"></span> <span v-else
+														class="far fa-star checked"
+														style="width: 12px; padding: 5px"></span> <span
+														class="course-ratings-count" style="vertical-align: top;">{{fav.ranknum}}則評價</span>
+												</div>
+												<div v-else>
+													<span>暫無評價</span>
+												</div>
+											</div>
+										</div>
+										<div class="nowpeople" v-if="ccf==true">
+											已募資<span class="orange">16/50人</span>
+										</div>
+										<div class="gopurchase" v-if="ccf==false">
+											<input type="button" v-if="purchasedstatus.includes(fav.courseid)" class="bt3" value="已購買"/>
+											<input type="button" v-else-if="!shopstatus.includes(fav.courseid)" class="bt3" value="加入購物車" @click.prevent="addShoppingCart(fav.courseid)"/>
+											<input type="button" v-else class="bt3" value="已在購物車"/>
+										</div>
+									</div>
+									<div class="orangebar"></div>
+								</div>
+							</a>
 						</div>
+						
+						
+
+
 						<!-- .instructors-info -->
 					</div>
 					<!-- .single-course-wrap -->

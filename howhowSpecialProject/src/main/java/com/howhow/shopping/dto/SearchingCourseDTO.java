@@ -10,7 +10,8 @@ public class SearchingCourseDTO {
 	int ranknum;
 	int studentnum;
 	String catgoryname;
-	
+	String url;
+	String cover;
 	
 	public int getUserid() {
 		return userid;
@@ -59,6 +60,18 @@ public class SearchingCourseDTO {
 	}
 	public void setCatgoryname(String catgoryname) {
 		this.catgoryname = catgoryname;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public String getCover() {
+		return cover;
+	}
+	public void setCover(String cover) {
+		this.cover = cover;
 	}
 	
 	

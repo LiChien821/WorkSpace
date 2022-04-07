@@ -58,16 +58,16 @@
 	</div>
 
 	<div id="product">
-		<div class="container" style="border: solid 1px">
-			<div class="row">
-				<div class="col-12 col-lg-8">
-					<div class="col-12 col-lg-8 offset-lg-3">
+		<div class="testcontainer" style="padding:10px">
+			<div class="row" style="width:100%; background-size: 100% auto; backdrop-filter: blur(5px);" v-bind:style="{ backgroundImage:'url('+blobSetting+course.cover+ ')'}">
+				<div class="col-12 col-lg-7" style="padding:0px; margin:15px">
+					<div class="productvideo">
 						<video id="my-video"
 							class="video-js vjs-fluid vjs-big-play-centered"></video>
 					</div>
 
 				</div>
-				<div class="col-12 col-lg-4" style="border: solid 1px">
+				<div class="col-12 col-lg-4" style="background-color: rgba(255,255,255,0.9); padding:40px; border-radius:20px; max-height:600px; overflow-y: auto; margin:15px;">
 					<ul class="nav flex-column" v-for="section in course.sectionList">
 						<li class="nav-item">
 							<button
@@ -75,31 +75,29 @@
 								data-bs-toggle="collapse"
 								:data-bs-target="'#course-collapse'+section.sectionNumber"
 								aria-expanded="true">
-								<h6>
+								<h6 class="lecturetitle">
 									<span data-feather="layers"></span> {{section.sectionNumber}}.
 									{{section.sectionName}}
 								</h6>
 							</button>
 							<div class="collapse show"
-								:id="'course-collapse'+section.sectionNumber"
-								style="border: solid 1px">
+								:id="'course-collapse'+section.sectionNumber">
 								<ul
 									class="nav flex-column btn-toggle-nav list-unstyled fw-normal pb-1 small"
 									v-for="lecture in section.lecturesList">
-									<li class="nav-item border rounded-pill"
+									<li class="nav-item"
 										v-if="lecture.availableToPreview">
-										<div>
+										<div class="lecturename">
 											<a href="#" class="link-dark rounded "
-												@click="handleVideoUrl(lecture)">
+												@click="handleVideoUrl(lecture)" style="text-decoration:none;">
 
-												<p>
+												<p style="margin-left:40px;">
 													<span data-feather="fast-forward"></span>{{lecture.lectureNumber}}.
 													{{lecture.lecturesName}}
 												</p>
+												<hr/ style="border: 1px solid; margin:0px 20px">
 
 											</a>
-
-											<button>附加連結</button>
 										</div>
 									</li>
 								</ul>
@@ -113,7 +111,7 @@
 			</div>
 		</div>
 
-		<div class="testcontainer" style="border: solid 5px">
+		<div class="testcontainer">
 
 			<!-- .row -->
 
@@ -121,13 +119,13 @@
 
 				<div class="offset-lg-2 col-12 col-lg-8">
 					<div class="single-course-wrap">
-						<div class="course-info flex flex-wrap align-items-center">
+						<div class="course-info flex flex-wrap align-items-center" style="font-size:30px">
 							<div class="course-author flex flex-wrap align-items-center mt-3">
 
 								<div class="author-wrap">
 									<label class="m-0">Teacher</label>
 									<div class="author-name">
-										<a href="#">{{course.creatorname}}</a>
+										<a href="#" style="color:orange">{{course.creatorname}}</a>
 									</div>
 								</div>
 								<!-- .author-wrap -->
@@ -150,38 +148,38 @@
 							</div>
 							<!-- .course-students -->
 
-							<div class="course-students mt-3">
+							<div class="course-students mt-3" >
 								<div v-if="purchasedstatus==true">
 									<a class="btn"
-										style="color: white; background: black; border: solid black 2px"
+										style="color:  white; font-size:30px; background: black; border: solid black 2px"
 										href="#javascript" @click.prevent="">已購買</a>
 								</div>
 								<div v-else-if="shopstatus==false">
-									<a class="btn" href="#" @click.prevent="addShoppingCart()">加入購物車</a>
+									<a class="btn" style="font-size:30px" href="#" @click.prevent="addShoppingCart()">加入購物車</a>
 								</div>
 								<div v-else>
-									<a class="btn" href="#" @click.prevent="removeShoppingCart()">從購物車移除</a>
+									<a class="btn" style="font-size:30px" href="#" @click.prevent="removeShoppingCart()">從購物車移除</a>
 								</div>
 
 							</div>
 
 							<div class="course-students mt-3">
 								<div v-if="favstatus==false">
-									<a class="btn" href="#" @click.prevent=addFavorite()>加入最愛</a>
+									<a class="btn" style="font-size:30px" href="#" @click.prevent=addFavorite()>加入最愛</a>
 								</div>
 								<div v-else>
-									<a class="btn" href="#" @click.prevent=removeFavorite()>從最愛移除</a>
+									<a class="btn" style="font-size:30px" href="#" @click.prevent=removeFavorite()>從最愛移除</a>
 								</div>
 							</div>
 							<div class="mt-3">
-								<div class="course-cost">NT${{course.discountprice}}</div>
+								<div class="course-cost" style="font-size:50px; color:orange;">NT${{course.discountprice}}</div>
 							</div>
 
 						</div>
 						<!-- .course-info -->
 
 						<div class="single-course-cont-section">
-							<h2>What Will I Learn?</h2>
+							<h2 style="font-size: 50px">What Will I Learn?</h2>
 
 							<div>{{course.description}}</div>
 							</ul>
@@ -194,7 +192,7 @@
 
 
 
-					<div class="instructors-info" style="border: solid 1px">
+					<div class="instructors-info">
 						<header class="entry-heading">
 							<h1 class="entry-title">CourseRank</h1>
 						</header>
@@ -249,13 +247,13 @@
 					<div class="related-courses">
 						<header
 							class="entry-heading flex flex-wrap justify-content-between align-items-center">
-							<h2 class="entry-title">本課程章節</h2>
+							<h2 class="entry-title" style="font-size:45px; font-weight:bold;">本課程章節</h2>
 						</header>
 						<!-- .entry-heading -->
 
-						<div class="col-12 col-lg-8" style="border: solid 1px">
+						<div class="col-12 col-lg-8">
 							<div v-for="section in course.sectionList" class="mt-3">
-								<h3>第{{section.sectionNumber}}章- {{section.sectionName}}</h3>
+								<h3 style="font-size:40px; font-weight: bold">第{{section.sectionNumber}}章- {{section.sectionName}}</h3>
 								<div v-for="lecture in section.lecturesList">
 									<li>第{{lecture.lectureNumber}}單元- {{lecture.lecturesName}}</li>
 								</div>

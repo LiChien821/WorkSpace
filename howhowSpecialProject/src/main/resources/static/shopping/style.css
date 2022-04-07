@@ -646,7 +646,7 @@ a:hover, a:active {
 
 a.btn {
     padding: 16px 48px;
-    border: 2px solid #34d986;
+    border: 2px solid orange;
     border-radius: 0;
     font-size: 13px;
     font-weight: bold;
@@ -659,7 +659,7 @@ a.btn {
 
 a.btn:hover {
     color: #fff;
-    background: #34d986;
+    background: orange;
 }
 
 /*
@@ -1529,6 +1529,7 @@ a.btn:hover {
 .single-course-cont-section {
     margin-top: 24px;
     color: #757686;
+    font-size:25px;
 }
 
 .single-course-cont-section h2 {
@@ -1752,7 +1753,14 @@ ul.black-doted {
 
 .related-courses {
     margin-top: 50px;
+    font-size:30px;
+    list-style:none;
 }
+
+.related-courses li{
+    margin-left:25px;
+}
+
 
 .related-courses .entry-heading {
     padding-bottom: 16px;
@@ -3070,5 +3078,15 @@ opacity: 1;
 .rankername {
 	line-height: 100px;
 	font-size:25px;
+}
+
+.lecturetitle {
+	font-size:30px;
+	color:#494949;
+}
+
+.lecturename p{
+	font-size:20px;
+	color: #494949;
 }
   

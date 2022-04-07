@@ -23,16 +23,18 @@ const dataObj = {
 	videoSrcUrl: "",
 
 	notesList: "",
-	
-	baseUrl:"",
-	
-	courseid:"",
-	
+
+	baseUrl: "",
+
+	courseid: "",
+
 	lecturesList: "",
-	
-	sectionList:"",
-	
-	skipTime: ""
+
+	sectionList: "",
+
+	skipTime: "",
+
+	blobSetting: ""
 
 };
 
@@ -41,25 +43,25 @@ Vue.createApp({
 	data() {
 		return dataObj;
 	},
-	
-	beforeMount: function(){
+
+	beforeMount: function() {
 		axios({
 			method: 'get',
-			url: '/howhow/api/getBlobUrl',
+			url: '/api/getBlobUrl',
 			headers: { "Access-Control-Allow-Origin": "*" },
 		})
 			.then(response => (this.baseUrl = response.data))
 			.catch(function(error) {
 				console.log(error);
 			});
-		
+
 	},
-	
+
 	mounted: function() {
 		this.courseid = document.getElementById("courseid").value;
 		axios({
 			method: 'get',
-			url: '/howhow/api/findcoursebyid/' + this.courseid,
+			url: '/api/findcoursebyid/' + this.courseid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 
 		})
@@ -70,7 +72,7 @@ Vue.createApp({
 		this.userid = document.getElementById("userid").value;
 		axios({
 			method: 'get',
-			url: '/howhow/api/findfavoritecoursestatus/' + this.userid + '/' + this.courseid,
+			url: '/api/findfavoritecoursestatus/' + this.userid + '/' + this.courseid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.favstatus = response.data))
@@ -80,7 +82,7 @@ Vue.createApp({
 		this.userid = document.getElementById("userid").value;
 		axios({
 			method: 'get',
-			url: '/howhow/api/findshoppingcartstatus/' + this.userid + '/' + this.courseid,
+			url: '/api/findshoppingcartstatus/' + this.userid + '/' + this.courseid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.shopstatus = response.data))
@@ -91,7 +93,7 @@ Vue.createApp({
 		this.userid = document.getElementById("userid").value;
 		axios({
 			method: 'get',
-			url: '/howhow/api/findpurchasedcoursestatus/' + this.userid + '/' + this.courseid,
+			url: '/api/findpurchasedcoursestatus/' + this.userid + '/' + this.courseid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.purchasedstatus = response.data))
@@ -101,7 +103,7 @@ Vue.createApp({
 		this.pageNo = document.getElementById("pageNo").value;
 		axios({
 			method: 'get',
-			url: '/howhow/api/querycourserankbycourseid/' + this.courseid + "/" + this.pageNo,
+			url: '/api/querycourserankbycourseid/' + this.courseid + "/1",
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.ranks = response.data, this.res = response))
@@ -112,7 +114,7 @@ Vue.createApp({
 		axios({
 			method: 'get',
 
-			url: '/howhow/api/getSectionList/' + this.courseid,
+			url: '/api/getSectionList/' + this.courseid,
 			headers: { "Access-Control-Allow-Origin": "*" },
 		})
 
@@ -125,29 +127,39 @@ Vue.createApp({
 			.catch(function(error) {
 				console.log(error);
 			});
-		
-		
+
+		axios({
+			method: 'get',
+			url: '/api/getBlobUrl',
+			headers: { "Access-Control-Allow-Origin": "*" },
+		})
+			.then(response => (this.blobSetting = response.data))
+			.catch(function(error) {
+				console.log(error);
+			})
+
+
 	},
 
 	methods: {
-		
+
 		changetime: function(time) {
 			player.pause();
 			this.skipTime = time;
 			player.currentTime(this.skipTime);
-			
+
 
 		},
-		
+
 		addFavorite: function() {
 			axios({
 				method: 'get',
-				url: '/howhow/api/checklogin',
+				url: '/api/checklogin',
 				headers: { "Access-Control-Allow-Origin": "*" },
 			})
 				.then(response => {
 					if (response.data == "") {
-						location.href = '/howhow/login';
+						location.href = '/login';
 					} else {
 						this.addFavoriteAction(response.data);
 					}
@@ -161,7 +173,7 @@ Vue.createApp({
 			this.courseid = document.getElementById("courseid").value;
 			axios({
 				method: 'post',
-				url: '/howhow/api/insertfavoritecourse',
+				url: '/api/insertfavoritecourse',
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 
 				data: { userID: userid, courseID: this.courseid }
@@ -174,12 +186,12 @@ Vue.createApp({
 		removeFavorite: function() {
 			axios({
 				method: 'get',
-				url: '/howhow/api/checklogin',
+				url: '/api/checklogin',
 				headers: { "Access-Control-Allow-Origin": "*" },
 			})
 				.then(response => {
 					if (response.data == "") {
-						location.href = '/howhow/login';
+						location.href = '/login';
 					} else {
 						this.removeFavoriteAction(response.data);
 					}
@@ -194,7 +206,7 @@ Vue.createApp({
 			this.courseid = document.getElementById("courseid").value;
 			axios({
 				method: 'get',
-				url: '/howhow/api/removefavoritecourse/' + userid + "/" + this.courseid,
+				url: '/api/removefavoritecourse/' + userid + "/" + this.courseid,
 				headers: { "Access-Control-Allow-Origin": "*" }
 
 			})
@@ -207,12 +219,12 @@ Vue.createApp({
 		addShoppingCart: function() {
 			axios({
 				method: 'get',
-				url: '/howhow/api/checklogin',
+				url: '/api/checklogin',
 				headers: { "Access-Control-Allow-Origin": "*" },
 			})
 				.then(response => {
 					if (response.data == "") {
-						location.href = '/howhow/login';
+						location.href = '/login';
 					} else {
 						this.addShoppingCartAction(response.data);
 					}
@@ -226,7 +238,7 @@ Vue.createApp({
 			this.courseid = document.getElementById("courseid").value;
 			axios({
 				method: 'post',
-				url: '/howhow/api/insertshoppingcart',
+				url: '/api/insertshoppingcart',
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 
 				data: { userID: userid, courseID: this.courseid }
@@ -240,12 +252,12 @@ Vue.createApp({
 		removeShoppingCart: function() {
 			axios({
 				method: 'get',
-				url: '/howhow/api/checklogin',
+				url: '/api/checklogin',
 				headers: { "Access-Control-Allow-Origin": "*" },
 			})
 				.then(response => {
 					if (response.data == "") {
-						location.href = '/howhow/login';
+						location.href = '/login';
 					} else {
 						this.removeShoppingCartAction(response.data);
 					}
@@ -259,7 +271,7 @@ Vue.createApp({
 			this.courseid = document.getElementById("courseid").value;
 			axios({
 				method: 'get',
-				url: '/howhow/api/removeshoppingcart/' + userid + "/" + this.courseid,
+				url: '/api/removeshoppingcart/' + userid + "/" + this.courseid,
 				headers: { "Access-Control-Allow-Origin": "*" }
 
 			})
@@ -276,7 +288,7 @@ Vue.createApp({
 			this.pageNo = document.getElementById("pageNo").value;
 			axios({
 				method: 'get',
-				url: '/howhow/api/querycourserankbycourseid/' + this.courseid + "/" + this.pageNo,
+				url: '/api/querycourserankbycourseid/' + this.courseid + "/" + this.pageNo,
 				headers: { "Access-Control-Allow-Origin": "*" }
 			})
 				.then(response => (
@@ -293,7 +305,7 @@ Vue.createApp({
 			this.pageNo = document.getElementById("pageNo").value;
 			axios({
 				method: 'get',
-				url: '/howhow/api/querycourserankbycourseid/' + this.courseid + "/" + this.pageNo,
+				url: '/api/querycourserankbycourseid/' + this.courseid + "/" + this.pageNo,
 				headers: { "Access-Control-Allow-Origin": "*" }
 			})
 				.then(response => (
@@ -323,7 +335,7 @@ Vue.createApp({
 }).mount('#product')
 
 var player = videojs('my-video', {
-	
+
 	loop: true,
 	muted: true,
 	width: "800px",

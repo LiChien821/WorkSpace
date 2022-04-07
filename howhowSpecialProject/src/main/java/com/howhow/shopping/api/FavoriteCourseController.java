@@ -242,6 +242,9 @@ public class FavoriteCourseController {
 		searchDTO.setDiscountprice(discountprice);
 		searchDTO.setRank(rank);
 		searchDTO.setRanknum(ranknum);
+		String url = "/product?id=" + Integer.toString(courseID);
+		searchDTO.setUrl(url);
+		searchDTO.setCover(course.getCourseCover());
 		
 		return searchDTO;
 	}
