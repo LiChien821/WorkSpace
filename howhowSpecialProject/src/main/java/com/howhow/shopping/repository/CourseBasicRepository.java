@@ -13,4 +13,7 @@ public interface CourseBasicRepository extends JpaRepository<CourseBasic, Intege
 	
 	@Query(value="from CourseBasic where category_id=?1")
 	public List<CourseBasic> findByCategoryID(int categoryid);
+	
+	@Query(value="from CourseBasic where status_id=?1")
+	public List<CourseBasic> findByStatusID(int statusid);
 }

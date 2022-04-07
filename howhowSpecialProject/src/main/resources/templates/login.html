@@ -26,6 +26,12 @@
 
 	<form class="form" method="POST" th:action="@{/login}"
 		style="max-width: 500px; margin: 0 auto">
+<div class="box1">
+<a th:href="@{/index}"> <img border="0" th:src="@{/image/unnamed.png}"
+     alt=""></a>
+</div>
+	
+<form class="form" method="POST" th:action="@{/login}"  style="max-width: 500px; margin: 0 auto">
 
 
 		<br>
@@ -38,6 +44,12 @@
 		</div>
 		<div class="loginwordbox">
 			<span class="logintitle">登入</span>
+<div class="loginwordbox">
+  <span class = "logintitle">登入</span>
+</div>
+	<a href="/howhow/oauth2/authorization/google">Google Login</a>
+      
+      	<div class= "singup" ><a style="color:#FFFFFF" th:href="@{/register}">sign up?</a></div>
 		</div>
 		<a href="/howhow/oauth2/authorization/google">Google Login</a>
 

@@ -1,7 +1,9 @@
 package com.howhow.cms.dto;
 
 public class ReportDetailObj {
+	private Integer reportid;
 	private Integer reportedPerson;
+	private Integer questionid;
 	private String reportcontent;
 	private String reporttypename;
 	private String reporttime;
@@ -36,6 +38,22 @@ public class ReportDetailObj {
 
 	public void setReporttime(String reporttime) {
 		this.reporttime = reporttime;
+	}
+
+	public Integer getReportid() {
+		return reportid;
+	}
+
+	public void setReportid(Integer reportid) {
+		this.reportid = reportid;
+	}
+
+	public Integer getQuestionid() {
+		return questionid;
+	}
+
+	public void setQuestionid(Integer questionid) {
+		this.questionid = questionid;
 	}
 
 }
