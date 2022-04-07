@@ -5,368 +5,96 @@ const dataObj = {
 	userId: 1,
 	courseCreatorId: "",
 	userName: "Big O",
-	currQuery: "",
-
-	showQuestionBar: false,
-	currQuestionSelection: "選擇單元",
-	currQuestionLectionId: "",
-	currQuestionTitle: "",
-	currQuestionContent: "",
-
-	showReply: false,
-	showReplyInput: true,
-	currReplyInputContent: "",
-
-	sections: [
+	categories:[
 		{
-			sectionId: 1,
-			sectionName: "SEC-1",
-			lectiones: [
+			cUrl: "#",
+			cItemName: "開發",
+			subCategories:[
 				{
-					lectionId: 1,
-					lectionName: "LEC-1"
+					scUrl: "#",
+					scItemName: "網頁開發"
 				},
 				{
-					lectionId: 2,
-					lectionName: "LEC-2"
-				}
+					scUrl: "#",
+					scItemName: "資料科學"
+				},
 			]
 		},
 		{
-			sectionId: 2,
-			sectionName: "SEC-2",
-			lectiones: [
+			cUrl: "#",
+			cItemName: "IT與軟體",
+			subCategories:[
 				{
-					lectionId: 3,
-					lectionName: "LEC-1"
+					scUrl: "#",
+					scItemName: "IT認證"
 				},
 				{
-					lectionId: 4,
-					lectionName: "LEC-2"
-				}
+					scUrl: "#",
+					scItemName: "硬體"
+				},
 			]
 		}
+		
 	],
-	bulletins: ""
-	// bulletins: [
-	// 	{
-	// 		bulletinId: 11,
-	// 		lectureId: 21,
-	// 		title: "this a title in vue",
-	// 		content: "this is a content in vue.",
-	// 		launcherName: "WeiJ",
-	// 		creationTime: "2022-02-22",
-	// 		replies: [
-	// 			{
-	// 				bulletinReplyId: 31,
-	// 				replyContent: "replyContent1",
-	// 				respondentName: "Apple",
-	// 				creationTime: "2022-02-12"
-	// 			},
-	// 			{
-	// 				bulletinReplyId: 32,
-	// 				replyContent: "replyContent1",
-	// 				respondentName: "Bed",
-	// 				creationTime: "2022-02-12"
-	// 			},
-	// 		]
-	// 	},
-	// 	{
-	// 		bulletinId: 12,
-	// 		lectureId: 23,
-	// 		title: "this a title in vue",
-	// 		content: "this is a content in vue.",
-	// 		launcherName: "WillJ",
-	// 		creationTime: "2022-02-22",
-	// 		replies: [
-	// 			{
-	// 				bulletinReplyId: 33,
-	// 				replyContent: "replyContent1",
-	// 				respondentName: "Cat",
-	// 				creationTime: "2022-02-12"
-	// 			},
-	// 			{
-	// 				bulletinReplyId: 34,
-	// 				replyContent: "replyContent1",
-	// 				respondentName: "Dog",
-	// 				creationTime: "2022-02-12"
-	// 			},
-	// 			{
-	// 				bulletinReplyId: 31,
-	// 				replyContent: "replyContent1",
-	// 				respondentName: "WillJ",
-	// 				creationTime: "2022-02-12"
-	// 			}
-	// 		]
-	// 	}
+	recentCourseTitle: "從一開始到最後的教學都讓我驚豔",
+	recentCourseProgress: 20,
+	recentCourseInfo: "課程",
+	courseInfos:[
+		{
+			ctitle: "從一開始到最後的教學都讓我驚豔",
+			cProgress: 20,
+			cInfo: "課程"
+		},
+		{
+			ctitle: "從一開始到最後的教學都讓我驚豔",
+			cProgress: 20,
+			cInfo: "課程"
+		}
+	],
 
-	// ]
+	shoppingInfos:[
+		{
+			ctitle: "從一開始到最後的教學都讓我驚豔",
+			cStatus: "已開課",
+			cPrice: 1100
+		},
+		{
+			ctitle: "從一開始到最後的教學都讓我驚豔",
+			cStatus: "募資中",
+			cPrice: 1100
+		},
+		{
+			ctitle: "從一開始到最後的教學都讓我驚豔",
+			cStatus: "已開課",
+			cPrice: 1100
+		}
+	],
+	reminderInfos: [
+		{
+			content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
+			dateTime: "一個月前"
+		},
+		{
+			content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
+			dateTime: "一個月前"
+		},
+		{
+			content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
+			dateTime: "一個月前"
+		},
+		{
+			content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
+			dateTime: "一個月前"
+		}
+	]
 };
 
 createApp({
+
 	data() {
 		return dataObj;
 	},
-	computed: {
-		toggleQuestionBtnDisabled(){
-			if (this.currQuestionLectionId == "" || this.currQuestionTitle == ""
-			|| this.currQuestionContent == "") {
-				return 'disabled';
-			}
-		}
-	},
 	mounted: function () {
-		var urls = window.location.href.split('/');
-		var target = urls[urls.length - 1];
-		var courseId = target.split('.')[0];
-		console.log(courseId);
-
-		function getBulletinByCourseId(courseId){
-			var urls = window.location.href.split('/');
-			var target = urls[urls.length - 1];
-			var courseId = target.split('.')[0];
-			console.log(courseId) ;
-			return axios.get(
-				"/howhow/initBulletin.controller",
-				{
-					params: {
-						courseid: courseId
-					},
-					headers: { 
-						'Content-Type': 'application/x-www-form-urlencoded',
-						"data-Type": "JSON",
-						"Access-Control-Allow-Origin": "*"
-					}
-				}
-			);
-		}
-		
-		function getCreatorIdByCourseId(courseId){
-			
-			return axios.get(
-				"/howhow/findCreatorIdByCourseId.controller",
-				{
-					params: {
-						courseid: courseId
-					},
-					headers: { 
-						'Content-Type': 'application/x-www-form-urlencoded',
-						"data-Type": "JSON",
-						"Access-Control-Allow-Origin": "*"
-					}
-				}
-			);
-		}
-		function getLoggedUserId(){
-			return axios.get("/howhow/findLoggedUser.controller");
-		}
-		function getSectionsByCourseid(courseId){
-			return axios.get("/howhow/findAllSectionByCourseId.controller",
-				{
-					params: {
-						courseid: courseId
-					},
-					headers: { 
-						'Content-Type': 'application/x-www-form-urlencoded',
-						"data-Type": "JSON",
-						"Access-Control-Allow-Origin": "*"
-					}
-				}
-			);
-			
-		}
-		axios
-		.all([getBulletinByCourseId(courseId), getCreatorIdByCourseId(courseId), getLoggedUserId(), getSectionsByCourseid(courseId)])
-		.then(axios.spread((...responses) => {
-			const resp1 = responses[0];
-			const resp2 = responses[1];
-			const resp3 = responses[2];
-			const resp4 = responses[3];
-			this.bulletins = resp1.data;
-			this.courseCreatorId = resp2.data;
-			this.userId = resp3.data["loggedUserId"];
-			this.userName = resp3.data["loggedUserName"];
-			console.log("here", resp4.data);
-			this.sections = resp4.data;
-			console.log(this.bulletins);
-			console.log(this.courseCreatorId);
-			console.log("now uid, uname cid",this.userId, this.userName, this.courseCreatorId);
-			console.log(this.sections);
-		})).catch(errors => {
-			console.log(errors);
-		})
-
-	},
-	methods: {
-		getCourseId: function () {
-			var urls = window.location.href.split('/');
-			var target = urls[urls.length - 1];
-			var courseId = target.split('.')[0];
-			return courseId;
-		}, 
-		sendSearch: function () {
-			axios({
-				method: 'get',
-				url: '/howhow/findBulletinBySearch.controller',
-				headers: { 
-					'Content-Type': 'application/x-www-form-urlencoded',
-					"data-Type": "JSON",
-					"Access-Control-Allow-Origin": "*"
-				},
-				params: {
-					query: this.currQuery
-				}
-			})
-			.then((response) => {
-				console.log("resp: ", response.data);
-				this.bulletins = response.data;
-			})
-			.catch(function (error) {
-				console.log("error: ", error);
-			})
-			this.currQuery = "";
-			this.showReply = false;
-		},
-		toggleQuestionBar: function () {
-			this.showQuestionBar = true;
-		},
-		toggleQuestionLectureId: function (lecId, secName, lecName){
-			this.currQuestionLectionId = lecId;
-			this.currQuestionSelection = secName + "." + lecName;
-			console.log("lecId: ",lecId);
-		},
-		sendQuestion: function () {
-			axios({
-				method: 'post',
-				url: '/howhow/insertBulletin2.controller',
-				headers: { 
-					// 'Authorization': 'Basic xxxxxxxxxxxxxxxxxxx',
-					'Content-Type': 'application/json',
-					"dataType": "JSON",
-					"Access-Control-Allow-Origin": "*"
-				},
-				data: {
-					lectureid: this.currQuestionLectionId,
-					title: this.currQuestionTitle,
-					content: this.currQuestionContent
-				}
-			})
-			.then((response) => {
-				console.log("resp: ", response.data);
-				this.bulletins.unshift(response.data
-				)
-			})
-			.catch(function (error) {
-				console.log("error: ", error);
-			})
-
-			this.showQuestionBar = false;
-			this.currQuestionSelection = "選擇單元";
-			this.currQuestionLectionId = "";
-			this.currQuestionTitle = "";
-			this.currQuestionContent = "";
-			this.showReply = false;
-			console.log(this.bulletins, "sendQuestion finish");
-
-		},
-		toggleReplyContent: function (bltId) {
-			if (this.showReply == bltId) {
-				this.showReply = false;
-			} else {
-				this.showReply = bltId;
-			}
-		},
-		toggleReplyInput: function (bltId) {
-			this.showReplyInput = bltId;
-		},
-		cancelReplyInput: function () {
-			this.showReplyInput = false;
-		},
-		sendReplyInput: function(bltId) {
-			axios({
-				method: 'post',
-				url: '/howhow/insertBulletinReply.controller',
-				headers: { 
-					// 'Authorization': 'Basic xxxxxxxxxxxxxxxxxxx',
-					'Content-Type': 'application/json',
-					"dataType": "JSON",
-					"Access-Control-Allow-Origin": "*"
-				},
-				data: {
-					bulletinid: bltId,
-					replycontent: this.currReplyInputContent
-				}
-			})
-			.then((response) => {
-				for(var i = 0; i < this.bulletins.length; i++) {
-					if (this.bulletins[i]["bulletinId"] == bltId) {
-						this.bulletins[i]["replies"].push(response.data);
-						this.bulletins[i]["replyCount"] += 1;
-					}
-					continue;
-				}
-			})
-			.catch(function (error) {
-				console.log("error: ");
-				console.log(error);
-			})
-
-			this.showReplyInput = true;
-			this.currReplyInputContent = "";
-		},
-		getBulletinByLectureId: function (lectureId){
-			axios.get(
-				"/howhow/initBulletinByLectureId.controller",
-				{
-					params: {
-						lectureid: lectureId
-					},
-					headers: { 
-						'Content-Type': 'application/x-www-form-urlencoded',
-						"data-Type": "JSON",
-						"Access-Control-Allow-Origin": "*"
-					}
-				}
-			)
-			.then((response) => {
-				console.log("resp: ");
-				console.log(response);
-				this.bulletins = response.data;
-			})
-			.catch((error) => {
-				console.log("error: ");
-				console.log(error);
-			})
-		},
-		getBulletinByCourseId: function () {
-			var urls = window.location.href.split('/');
-			var target = urls[urls.length - 1];
-			var courseId = target.split('.')[0];
-			console.log(courseId);
-
-			axios.get(
-				"/howhow/initBulletin.controller",
-				{
-					params: {
-						courseid: courseId
-					},
-					headers: { 
-						'Content-Type': 'application/x-www-form-urlencoded',
-						"data-Type": "JSON",
-						"Access-Control-Allow-Origin": "*"
-					}
-				}
-			)
-			.then((response) => {
-				console.log("resp: ");
-				console.log(response);
-				this.bulletins = response.data;
-			})
-			.catch((error) => {
-				console.log("error: ");
-				console.log(error);
-			})
-		}
 	}
 	
-}).mount('#bulletin')
+}).mount('#howhowdo-navbar')

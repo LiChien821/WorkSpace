@@ -16,99 +16,38 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <!-- <script src="https://unpkg.com/vue@3"></script> -->
-    <link rel="stylesheet" th:href="@{/assets_wj/css/main2.css}">
+    <link rel="stylesheet" th:href="@{/assets_wj/css/universal-navbar.css}">
     </link>
-    <link rel="stylesheet" href="../static/assets_wj/css/universal-navbar.css">
     <style>
-        .blt-inner-container {
-            /* display: none; */
-        }
-
-        .dropdown-toggle::after {
-            display: none;
-        }
-
-
-        /* .dropdown:hover > .dropdown-menu{
-            display: block;
-            float: none;
-            width: 80px;
-
-        }*/
-
-        .dropdown-menu-info {
-            height: 200px;
-            overflow-y: auto;
-        }
     </style>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="howhowdo-navbar">
         <div class="container-fluid px-3">
             <a class="navbar-brand" href="#">
                 <i class="fa fa-book" aria-hidden="true"></i>
                 <small><span>HowHowDo</span></small>
             </a>
-            <style>
-                .dropdown-submenu {
-                    position: relative;
-                }
-
-                .dropdown-submenu > .dropdown-menu {
-                    top: 0;
-                    left: 100%;
-                    margin-top: -6px;
-                    margin-left: -1px;
-                }
-
-                .dropdown-submenu:hover > .dropdown-menu {
-                    display: block;
-                }
-
-                .dropdown-submenu:hover > a:after {
-                    border-left-color: #fff;
-                }
-
-                .dropdown-submenu.pull-left {
-                    float: none;
-                }
-
-                .dropdown-submenu.pull-left > .dropdown-menu {
-                    left: -100%;
-                    margin-left: 10px;
-                }
-            </style>
             <div class="nav-item dropdown me-2 py-2">
                 <div class="dropdown-toggle" href="#" id="category" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
                     <small><span>類別</span></small>
                 </div>
                 <ul class="dropdown-menu" aria-labelledby="category">
-                    <li class="dropdown-submenu dropdown-item">
-                        <a class="d-flex justify-content-between" tabindex="-1" href="#">
-                            <small><span>開發</span></small>
+                    <li class="dropdown-submenu dropdown-item" v-for="cate in categories">
+                        <a class="d-flex justify-content-between" tabindex="-1" :href=cate.cUrl>
+                            <small><span>{{ cate.cItemName }}</span></small>
                             <i class="fa fa-chevron-right"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a tabindex="-1" href="#"><small><span>網頁開發</span></small></a></li>
-                            <li><a href="#"><small><span>資料科學</span></small></a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown-submenu dropdown-item">
-                        <a tabindex="-1" href="#">
-                            <small><span>IT與軟體</span></small>
-                            <i class="fa fa-chevron-right"></i></a>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a tabindex="-1" href="#"><small><span>IT認證</span></small></a></li>
-                            <li><a href="https://www.google.com/"><small><span>硬體</span></small></a></li>
+                            <li v-for="subCate in cate.subCategories"><a :href=subCate.scUrl>
+                                    <small><span>{{ subCate.scItemName }}</span></small></a>
+                            </li>
+                            <!-- <li><a href="#"><small><span>資料科學</span></small></a></li> -->
                         </ul>
                     </li>
                 </ul>
-
             </div>
 
             <div class="input-group border rounded-pill p-1">
@@ -119,7 +58,6 @@
                 <input type="search" placeholder="搜尋任何事物..." aria-describedby="button-addon4"
                     class="form-control bg-light border-0 me-2">
             </div>
-
 
             <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -132,10 +70,10 @@
                             aria-expanded="false">
                             <small><span>講師</span></small>
                         </div>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="teacher">
+                        <!-- <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="teacher">
                             <li><a class="dropdown-item" href="#">item1</a></li>
                             <li><a class="dropdown-item" href="#">item2</a></li>
-                        </ul>
+                        </ul> -->
                     </div>
 
                     <div class="nav-item dropdown mx-2 py-2">
@@ -146,108 +84,57 @@
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-info" aria-labelledby="my-course"
                             style="width: 400px; height: 400px;">
 
+                            <div><span>繼續上課</span></div>
+
+                            <div class="d-flex px-3 my-3" style="height: 60px;">
+                                <div class="flex-shrink-0 m-0 p-0">
+                                    <div style="background-color: rgb(21, 65, 168); height: 60px; width: 100px;">
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3 d-block">
+                                    <div style="height: 36px;">
+                                        <small><span>{{ recentCourseTitle }}</span></small>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-1" style="height: 20px;">
+                                        <div>
+                                            <small><span>{{ recentCourseProgress }}</span></small>
+                                        </div>
+                                        <div>
+                                            <small><span>{{ recentCourseInfo }}</span></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div><span>最近學習</span></hr>
+                            </div>
+
                             <div>
-                                <div class="d-flex px-3 my-3" style="height: 60px;">
+                                <div class="d-flex px-3 my-3" style="height: 60px;" v-for="course in courseInfos">
                                     <div class="flex-shrink-0 m-0 p-0">
                                         <div style="background-color: rgb(21, 65, 168); height: 60px; width: 100px;">
                                         </div>
                                     </div>
                                     <div class="flex-grow-1 ms-3 d-block">
                                         <div style="height: 36px;">
-                                            <small><span>從一開始到最後的教學都讓我驚豔從一開始到最後的</span></small>
+                                            <small><span>{{ course.ctitle }}</span></small>
                                         </div>
                                         <div class="d-flex justify-content-between mt-1" style="height: 20px;">
                                             <div>
-                                                <small><span>已開課</span></small>
+                                                <small><span>上課進度{{ course.cStatus }}%</span></small>
                                             </div>
                                             <div>
-                                                <small><span>$1100</span></small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex px-3 my-3" style="height: 60px;">
-                                    <div class="flex-shrink-0 m-0 p-0">
-                                        <div style="background-color: rgb(194, 47, 47); height: 60px; width: 100px;">
-                                        </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3 d-block">
-                                        <div style="height: 36px;">
-                                            <small><span>從一開始到最後的教學都讓我驚豔從一開始到最後的</span></small>
-                                        </div>
-                                        <div class="d-flex justify-content-between mt-1" style="height: 20px;">
-                                            <div>
-                                                <small><span>已開課</span></small>
-                                            </div>
-                                            <div>
-                                                <small><span>$1100</span></small>
+                                                <small><span>{{ course.cPrice }}</span></small>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="d-grid px-3 align-items-end">
-                                <button class="btn btn-primary" type="button"><a href="https://www.google.com/">前往我的課程</a></button>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="nav-item dropdown mx-2 py-2">
-                        <div class="dropdown-toggle" href="#" id="heart" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="fa fa-heart fa-lg" aria-hidden="true"></i>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-info m-0 y-0" aria-labelledby="heart"
-                            style="width: 400px; height: 400px;">
-                            <div>
-                                <div class="d-flex px-3 my-3" style="height: 60px;">
-                                    <div class="flex-shrink-0 m-0 p-0">
-                                        <div style="background-color: rgb(21, 65, 168); height: 60px; width: 100px;">
-                                        </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3 d-block">
-                                        <div style="height: 36px;">
-                                            <small><span>從一開始到最後的教學都讓我驚豔從一開始到最後的</span></small>
-                                        </div>
-                                        <div class="d-flex justify-content-between mt-1" style="height: 20px;">
-                                            <div>
-                                                <small><span>已開課</span></small>
-                                            </div>
-                                            <div>
-                                                <small><span>$1100</span></small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex px-3 my-3" style="height: 60px;">
-                                    <div class="flex-shrink-0 m-0 p-0">
-                                        <div style="background-color: rgb(194, 47, 47); height: 60px; width: 100px;">
-                                        </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3 d-block">
-                                        <div style="height: 36px;">
-                                            <small><span>從一開始到最後的教學都讓我驚豔從一開始到最後的</span></small>
-                                        </div>
-                                        <div class="d-flex justify-content-between mt-1" style="height: 20px;">
-                                            <div>
-                                                <small><span>已開課</span></small>
-                                            </div>
-                                            <div>
-                                                <small><span>$1100</span></small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-grid px-3 align-items-end">
-                                <button class="btn btn-primary" type="button">前往購物車</button>
+                                <button class="btn btn-primary" type="button"><a class="nav-btn-link"
+                                        href="#">前往我的課程</a></button>
                             </div>
                         </div>
-
-
                     </div>
 
                     <div class="nav-item dropdown mx-2 py-2">
@@ -258,43 +145,22 @@
 
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-info" aria-labelledby="shopping-cart"
                             style="width: 400px; height: 400px;">
-
                             <div>
-                                <div class="d-flex px-3 my-3" style="height: 60px;">
+                                <div class="d-flex px-3 my-3" style="height: 60px;" v-for="shopping in shoppingInfos">
                                     <div class="flex-shrink-0 m-0 p-0">
                                         <div style="background-color: rgb(21, 65, 168); height: 60px; width: 100px;">
                                         </div>
                                     </div>
                                     <div class="flex-grow-1 ms-3 d-block">
                                         <div style="height: 36px;">
-                                            <small><span>從一開始到最後的教學都讓我驚豔從一開始到最後的</span></small>
+                                            <small><span>{{ shopping.ctitle }}</span></small>
                                         </div>
                                         <div class="d-flex justify-content-between mt-1" style="height: 20px;">
                                             <div>
-                                                <small><span>已開課</span></small>
+                                                <small><span>{{ shopping.cStatus }}</span></small>
                                             </div>
                                             <div>
-                                                <small><span>$1100</span></small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex px-3 my-3" style="height: 60px;">
-                                    <div class="flex-shrink-0 m-0 p-0">
-                                        <div style="background-color: rgb(194, 47, 47); height: 60px; width: 100px;">
-                                        </div>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3 d-block">
-                                        <div style="height: 36px;">
-                                            <small><span>從一開始到最後的教學都讓我驚豔從一開始到最後的</span></small>
-                                        </div>
-                                        <div class="d-flex justify-content-between mt-1" style="height: 22px">
-                                            <div>
-                                                <small><span>已開課</span></small>
-                                            </div>
-                                            <div>
-                                                <small><span>$1100</span></small>
+                                                <small><span>${{ shopping.cPrice }}</span></small>
                                             </div>
                                         </div>
                                     </div>
@@ -302,74 +168,37 @@
                             </div>
                             <div class="d-grid px-3 align-items-end">
                                 <div class="d-flex ">
-
                                     <div class="me-2">總計:</div>
                                     <span class="me-4">$430</span>
                                     <div style="font-style: italic;text-decoration:line-through;">
                                         <span>$2100</span>
                                     </div>
                                 </div>
-
-
-                                <button class="btn btn-primary" type="button">前往購物車</button>
+                                <button class="btn btn-primary" type="button"><a class="nav-btn-link"
+                                        href="#">前往購物車</a></button>
                             </div>
                         </div>
                     </div>
 
                     <div class="nav-item dropdown mx-2 py-2">
-                        <div class="dropdown-toggle" href="#" id="alarm-bell" role="button" data-bs-toggle="dropdown"
+                        <div class="dropdown-toggle" href="#" id="reminder-bell" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             <i class="fa fa-bell fa-lg" aria-hidden="true"></i>
                         </div>
-
-                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-info" aria-labelledby="alarm-bell"
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-info" aria-labelledby="reminder-bell"
                             style="width: 400px; height: 400px;">
-
-                            <div class="d-flex p-3 m-0">
+                            <div class="d-flex p-3 m-0" v-for="rmd in reminderInfos">
                                 <div class="flex-shrink-0 m-0">
                                     <h1 class="mt-0 pt-0"><i class="fa fa-envelope-open" aria-hidden="true"></i>
                                     </h1>
                                 </div>
                                 <div class="flex-grow-1 ms-3 d-block">
                                     <div>
-                                        <p>從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化。
-                                            謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!
-                                        </p>
-                                        <p>一個月前</p>
+                                        <p>{{ rmd.content }}</p>
+                                        <p>{{ rmd.dateTime}}</p>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="d-flex p-3 m-0">
-                                <div class="flex-shrink-0 m-0">
-                                    <h1 class="mt-0 pt-0"><i class="fa fa-envelope-open" aria-hidden="true"></i>
-                                    </h1>
-                                </div>
-                                <div class="flex-grow-1 ms-3 d-block">
-                                    <div>
-                                        <p>從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化。
-                                            謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!
-                                        </p>
-                                        <p>一個月前</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="d-flex p-3 m-0">
-                                <div class="flex-shrink-0 m-0">
-                                    <h1 class="mt-0 pt-0"><i class="fa fa-envelope-open" aria-hidden="true"></i>
-                                    </h1>
-                                </div>
-                                <div class="flex-grow-1 ms-3 d-block">
-                                    <div>
-                                        <p>從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化。
-                                            謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!
-                                        </p>
-                                        <p>一個月前</p>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
 
@@ -399,7 +228,6 @@
         </div>
     </nav>
 
-
     <section class=" py-5">
         <div class="container">
 
@@ -423,7 +251,6 @@
         </div>
 
     </section>
-
 
     <section>
         <h1>每日精選課程</h1>
@@ -551,7 +378,6 @@
         </div>
     </section>
 
-
     <section class="container-fluid py-5 by-dark" style="position: relative">
         <div class="row">
             <div class="col-md-6 p-4 bg-cover text-white" style="
@@ -581,149 +407,15 @@
         </div>
     </section>
 
-
-
-
-    <!-- <div class="container">
-        <nav aria-label="breadcrumb pl-0">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Library</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data</li>
-            </ol>
-        </nav>
-        <h1>標題</h1>
-        <div class="my-2">
-            <small>
-                <span class="mr-3">AAA</span>
-                <span class="mr-3">BBB</span>
-                <span class="mr-3">CCC</span>
-            </small>
-        </div>
-        <div class="row">
-
-            <div class="col-md-8">
-
-                <article>
-                    Lorem ipsum dolor sit amet, per veritus dissentiunt ea, id eum soluta deleniti. Usu labore delenit
-                    ullamcorper ex, cu pri consul integre voluptatum, simul cetero moderatius cum et. Vim cu eius
-                    phaedrum,
-                    duo dolore atomorum theophrastus no. No mei dicat honestatis, mea aperiam vocibus assueverit ei,
-                    fastidii delectus est no.
-
-                    Ocurreret vulputate elaboraret cu duo, cibo soluta oporteat est ea. Duo ad duis clita, sea omittam
-                    lucilius explicari an. Mea percipit accommodare ad, pri munere nominavi id, tollit platonem
-                    principes ad
-                    vix. In pro aliquid utroque appellantur, unum dolore fabulas eam ea, vocent concludaturque ut ius.
-                    Ut
-                    dicit copiosae invidunt qui. Pertinax democritum reformidans ea pro, quo facilis honestatis eu.
-                </article>
-                <hr />
-                <div class="card border border-0">
-                    <div class="card-header border border-0 d-flex a justify-content-between">
-                        <div>留言回覆</div>
-
-                        <div class="dropdown">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                                Dropdown button
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <h5 class="dropdown-header">Dropdown header 1</h5>
-                                </li>
-                                <li><a class="dropdown-item" href="#">Link 1</a></li>
-                                <li><a class="dropdown-item" href="#">Link 2</a></li>
-                                <li><a class="dropdown-item" href="#">Link 3</a></li>
-                                <li>
-                                    <h5 class="dropdown-header">Dropdown header 2</h5>
-                                </li>
-                                <li><a class="dropdown-item" href="#">Another link</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-
-                        <div class="">
-                            <div class="d-flex">
-                                <div class="flex-shrink-0">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_XXzvCDjX6l4oWiu56aOed_MxgsozK5vF9g&usqp=CAU"
-                                        class="rounded-circle .img-fluid" alt="Cinque Terre" width="50" height="50">
-                                </div>
-                                <div class="flex-grow-1 ms-3 d-block">
-                                    <h5>h5</h5>
-                                    <div class="mb-3">
-                                        <textarea class="rounded form-control" rows="5" id="exampleFormControlTextarea1"
-                                            rows="3" placeholder="Example textarea"></textarea>
-                                        <div class="d-grid"><button class="btn btn-dark btn-primary"
-                                                type="button">Submit</button></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br />
-                        </div>
-
-                        <div class="">
-                            <div class="d-flex">
-                                <div class="flex-shrink-0">
-                                    <h3><i class="fa fa-book" aria-hidden="true"></i>
-                                        <h3>
-                                </div>
-                                <div class="flex-grow-1 ms-3 d-block">
-                                    Lorem ipsum dolor sit amet, per veritus dissentiunt ea, id eum soluta deleniti. Usu
-                                    labore delenit
-                                    ullamcorper ex, cu pri consul integre voluptatum, simul cetero moderatius cum et.
-                                    Vim cu eius
-                                    phaedrum,
-                                    duo dolore atomorum theophrastus no. No mei dicat honestatis, mea aperiam vocibus
-                                    assueverit ei,
-                                    fastidii delectus est no.
-                                    <div class="d-flex justify-content-end">
-                                        <div class="mx-1">icon</div>
-                                        <div class="mx-1">icon</div>
-                                        <div class="mx-1">icon</div>
-                                    </div>
-                                </div>
-                               
-                            </div>
-                            
-                        </div>
-
-                        <div class="">
-                            <div class="d-flex">
-                                <div class="flex-shrink-0">
-                                    <h3><i class="fa fa-book" aria-hidden="true"></i>
-                                        <h3>
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                    Lorem ipsum dolor sit amet, per veritus dissentiunt ea, id eum soluta deleniti. Usu
-                                    labore delenit
-                                    ullamcorper ex, cu pri consul integre voluptatum, simul cetero moderatius cum et.
-                                    Vim cu eius
-                                    phaedrum,
-                                    duo dolore atomorum theophrastus no. No mei dicat honestatis, mea aperiam vocibus
-                                    assueverit ei,
-                                    fastidii delectus est no.
-                                </div>
-                            </div>
-                            <br />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <button type="button" class="btn btn-primary position-relative">
-                    Profile
-                    <span
-                        class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-                        <span class="visually-hidden">New alerts</span>
-                    </span>
-                </button>
-            </div>
-
-        </div>
-    </div>
-
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <script type="importmap">
+	{
+	  "imports": {
+		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+	  }
+	}
+    </script>
+    <script type="module" th:src="@{/assets_wj/js/universal-navbar.js}"></script>
 
     <footer class="bg-light py-4 mt-3">
         <div class=" container d-flex justify-content-between">
@@ -733,10 +425,8 @@
                 <div class="mx-1">icon2</div>
                 <div class="mx-1">icon3</div>
             </div>
-
         </div>
-
-    </footer> -->
+    </footer>
 </body>
 
 </html>
