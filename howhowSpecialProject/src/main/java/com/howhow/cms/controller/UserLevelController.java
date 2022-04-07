@@ -48,6 +48,7 @@ public class UserLevelController {
 		return laas.findUnprocessApply("未處理");
 	}
 	
+	// 修改申請表處理狀態
 	@ResponseBody
 	@PutMapping("/applydata")
 	public List<LevelAlterApply> updateApply(@RequestBody LevelAlterApply apply){
