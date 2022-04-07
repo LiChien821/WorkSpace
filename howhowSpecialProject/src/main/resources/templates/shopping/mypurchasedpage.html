@@ -196,13 +196,15 @@
 															<!-- Button trigger modal -->
 
 															<button type="button" class="btn btn-warning btn-sm"
-																data-bs-toggle="modal" data-bs-target="#exampleModal">
-																我要評價</button> <!-- Modal -->
+																data-bs-toggle="modal" data-bs-target="#exampleModal"
+																data-bs-whatever="@mdo">我要評價</button>
 
 															<div class="modal fade" id="exampleModal" tabindex="-1"
 																aria-labelledby="exampleModalLabel" aria-hidden="true">
-																<div class="modal-dialog">
+																
+																<div class="modal-dialog modal-dialog-centered">
 																	<div class="modal-content">
+
 																		<div class="modal-header">
 																			<h5 class="modal-title" id="exampleModalLabel">課程評價</h5>
 																			<button type="button" class="btn-close"
@@ -210,28 +212,27 @@
 																		</div>
 
 																		<div class="modal-body">
-
-
-																			<div class="form-group">
-																				<label>課程評分</label> <input type="text" id="rank"
-																					name="courserank" class="form-control"> <br>
-
-																				<label>課程評價</label>
-
-																				<textarea id="message" name="rankmessage" rows="4"
-																					cols="50">我認為這門課...</textarea>
-																			</div>
-
-
+																			<form>
+																				<div class="mb-3">
+																					<label for="recipient-name" class="col-form-label">課程評分(1~5)</label>
+																					<input type="text" class="form-control"
+																						id="rank">
+																				</div>
+																				<div class="mb-3">
+																					<label for="message-text" class="col-form-label">課程評價</label>
+																					<textarea class="form-control" id="message"></textarea>
+																				</div>
+																			</form>
+																			<button type="button" class="btn btn-danger"
+																				data-bs-dismiss="modal"
+																				@click="insertcourserank(course.courseid)">刪除評價</button>
 																		</div>
-
-
-
 																		<div class="modal-footer">
+																			<button type="button" class="btn btn-primary"
+																				@click="insertcourserank(course.courseid)">儲存</button>
 																			<button type="button" class="btn btn-secondary"
 																				data-bs-dismiss="modal">取消</button>
-																			<button type="submit" class="btn btn-primary"
-																					@click="insertcourserank(course.courseid)">儲存</button>
+
 																		</div>
 																	</div>
 																</div>

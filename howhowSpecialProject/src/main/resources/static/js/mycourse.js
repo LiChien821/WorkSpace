@@ -10,6 +10,7 @@ createApp({
 	data() {
 		return dataObj;
 	},
+	
 
 	mounted: function() {
 
@@ -28,26 +29,52 @@ createApp({
 	},
 
 	methods: {
+
 		insertcourserank: function(courseid) {
-			
+
 			this.rank = document.getElementById("rank").value;
 			this.message = document.getElementById("message").value;
-			
-			console.log("userid",this.userid);
-			console.log("courseid",courseid);
-			console.log("rank",this.rank);
-			console.log("message",this.message);
-			
+
+			console.log("userid", this.userid);
+			console.log("courseid", courseid);
+			console.log("rank", this.rank);
+			console.log("message", this.message);
+
 			axios({
 				method: 'post',
 				url: '/howhow/api/insertcourserank',
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 				data: { userid: this.userid, courseid: courseid, rank: this.rank, message: this.message }
 			})
-				.then(function(response) { 
+				.then(function(response) {
 					console.log(response);
 				})
-				.catch(function(error) {  
+				.catch(function(error) {
+					console.log(error);
+				});
+
+		},
+		
+		deletecourserank: function(courseid) {
+
+			this.rank = document.getElementById("rank").value;
+			this.message = document.getElementById("message").value;
+
+			console.log("userid", this.userid);
+			console.log("courseid", courseid);
+			console.log("rank", this.rank);
+			console.log("message", this.message);
+
+			axios({
+				method: 'get',
+				url: '/howhow/api/deletecourserank/',
+				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+				data: { userid: this.userid, courseid: courseid, rank: this.rank, message: this.message }
+			})
+				.then(function(response) {
+					console.log(response);
+				})
+				.catch(function(error) {
 					console.log(error);
 				});
 
