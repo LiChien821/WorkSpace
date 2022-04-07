@@ -118,6 +118,19 @@ public class ApiRestController {
 		}
 				
 	}
+	
+	@GetMapping("/api/deleteSection/{sectionID}/{currentCourseID}")
+	public Iterable<Section> deleteSectionAndReturnSectionList(@PathVariable("sectionID") int sectionID,@PathVariable("currentCourseID") int currentCourseID) {
+		sectionService.deleteSectionBySectionID(sectionID);
+		return  sectionService.findAllByCourseId(currentCourseID);
+	}
+	@GetMapping("/api/deleteLecture/{lecturesID}/{sectionID}")
+	public Iterable<Lectures> deleteLectureAndReturnSectionList(@PathVariable("lecturesID") int lecturesID,@PathVariable("sectionID") int sectionID) {
+		lectureService.deleteLectureByLectureID(lecturesID);
+		return  lectureService.findAllBySectionID(sectionID);
+	}
+	
+	
 
 	@PostMapping("/api/updateCourseAbstractCover")
 	public CourseBasic updateCourseAbstractCover(@RequestParam("file") MultipartFile multipartfile,

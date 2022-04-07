@@ -16,14 +16,17 @@
 						@click="getLectureListFromSection(sectionunit.sectionID)">
 						<div class="d-flex justify-content-around ">
 							<h2 class="p-0 m-0">{{sectionunit.sectionNumber}} . </h2>
-							<div v-if="editingSectionName == sectionunit.sectionNumber">
+							<div v-if="editingSectionNum == sectionunit.sectionNumber">
 								<input type="text" v-model="editSectionName">
 								<a class="fas fa-hand-spock fa-2x" @click="changeSectionName(sectionunit.sectionID)"></a >
 								<span>  .</span>
 								<a class="fas fa-code fa-2x" @click="rejectSection"></a>
 							</div>
 							<div v-else>
-								<h2 class="p-0 m-0">{{sectionunit.sectionName}} <a class="fas fa-edit" @click="changeToEditSectionName(sectionunit.sectionNumber)"></a></h2>
+								<h2 class="p-0 m-0">{{sectionunit.sectionName}} 
+								<a class="fas fa-edit" @click="changeToEditSectionName(sectionunit.sectionNumber)"></a>
+								<a class="fas fa-eraser" @click="deleteSection(sectionunit.sectionID)"></a>
+								</h2>
 						
 							
 							</div>
@@ -37,21 +40,26 @@
 						<div class="d-flex justify-content-around border rounded-pill">
 							<p class="p-0 m-0">{{lecture.lectureNumber}} . </p>
 							
-							<div v-if="editingLectureName == lecture.lectureNumber">
+							<div v-if="editingLectureNum == lecture.lectureNumber">
 								<input type="text" v-model="editLectureName">
 								<a class="fas fa-hand-spock fa-1x" @click="changeLectureName(lecture.lecturesID)"></a > 
 								<span> . </span>
 								<a class="fas fa-code" @click="rejectLecture"></a>
 							</div>
 							<div v-else>
-								<h5 class="p-0 m-0">{{lecture.lecturesName}} <a class="fas fa-edit" @click="changeToEditLectureName(lecture.lectureNumber)"></a></h5>
+								<h5 class="p-0 m-0">{{lecture.lecturesName}} 
+								<a class="fas fa-edit" @click="changeToEditLectureName(lecture.lectureNumber)"></a>
+								<a class="fas fa-eraser" @click="deleteLecture(lecture.lecturesID)"></a>
+								
+								</h5>
 						
 							
 							</div>
 						</div>
 					</div>
 					<div class="input-group " id="createLecture">
-						
+						<input type="text" class="form-control " placeholder="單元編號" required v-model="newLectureNum" 
+							>
 						<input type="text" class="form-control " placeholder="單元名稱" required v-model="newLectureName"
 							id="form3">
 						<div class="input-group-append">
@@ -68,7 +76,8 @@
 
 		<br><br><br><br>
 		<div class="input-group " id="createSection">
-		
+			<input type="text" class="form-control border border-5" placeholder="章節編號" v-model="newSectionNum" 
+				 required>
 			<input type="text" class="form-control border border-5" placeholder="章節名稱" v-model="newSectionName"
 				id="form2" required>
 			<div class="input-group-append">

@@ -93,5 +93,10 @@ public class LearningSectionService {
 		
 		
 	}
+
+
+	public void deleteSectionBySectionID(int sectionID) {
+				sectionRepo.deleteById(sectionID);
+	}
 	
 }
