@@ -15,6 +15,7 @@ import com.howhow.entity.OrderDt;
 import com.howhow.entity.OrderMt;
 import com.howhow.entity.ShoppingCart;
 import com.howhow.entity.UserAccountMt;
+import com.howhow.shopping.dto.OrderDTO;
 import com.howhow.shopping.exception.OrderNotFoundException;
 import com.howhow.shopping.exception.ShoppingCartNotFoundException;
 import com.howhow.shopping.exception.UserOrCourseNotFoundException;
@@ -45,20 +46,23 @@ public class OrderController {
 	
 	@GetMapping("/api/createorder/{id}")
 	@ResponseBody
-	public boolean createOrder(@PathVariable("id") int id) throws ShoppingCartNotFoundException, UserOrCourseNotFoundException {
+	public OrderDTO createOrder(@PathVariable("id") int id) throws ShoppingCartNotFoundException, UserOrCourseNotFoundException {
 		
 		List<ShoppingCart> shoppinglist = sService.findByUserID(id);
 		UserAccountMt user = accService.findByID(id);
 		
-		if(shoppinglist.size()==0) return false;
+		if(shoppinglist.size()==0) return null;
 		OrderMt omt = new OrderMt(user);
-		
+		StringBuilder sb = new StringBuilder();
 		int totalprice=0;
 		List<OrderDt> dtlist = new ArrayList<OrderDt>();
 		for (ShoppingCart shoppingCart : shoppinglist) {
 			int courseID = shoppingCart.getCourseBasic().getCourseID();
 			CourseBasic course = cService.findByID(courseID);
 			int unitprice = (int)(course.getPrice()*course.getDiscount());
+			String courseName = course.getCourseName();
+			sb.append(courseName);
+			sb.append("#");
 			totalprice+=unitprice;
 			OrderDt odt = new OrderDt(unitprice, course, UtilityTool.getSysTime(),omt);
 			dtlist.add(odt);
@@ -70,7 +74,15 @@ public class OrderController {
 		omt.setOrderDate(new java.util.Date());
 		
 		omtService.insertOrderMt(omt);
-		return true;
+		OrderDTO orderdto = new OrderDTO();
+		orderdto.setCustomfield1(id);
+		orderdto.setTotalprice(totalprice);
+		orderdto.setShopname("HowHow一起學");
+
+		sb.setLength(sb.length()-1);
+		orderdto.setDescription(sb.toString());
+		
+		return orderdto;
 	}
 	
 	@GetMapping("/api/findorder/{id}")
