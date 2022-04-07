@@ -109,4 +109,8 @@ public class LearningLecturesService {
 		
 		lectureRepo.save(existedLectures);
 	}
+
+	public void deleteLectureByLectureID(int lecturesID) {
+		lectureRepo.deleteById(lecturesID);
+	}
 }

@@ -21,11 +21,10 @@ import com.azure.storage.blob.BlobServiceClientBuilder;
 @RequestMapping("blob")
 public class BlobController {
 	
+	@Value("${azure.storage.containername}")
+	private String containerName;
 	
 	
-	
-	@Value("azure-blob://mycontainer/stoageno1")
-    private Resource blobFile;
 	
 	@Value("${AZURE.STORAGE.CONNECTION.STRING}")
 	private String connectStr;
@@ -33,7 +32,7 @@ public class BlobController {
 	@Bean
 	public BlobContainerClient blobContanerClient() {
 		BlobServiceClient blobServiceClient = new BlobServiceClientBuilder().connectionString(connectStr).buildClient();
-    	String containerName = "mycontainer" ;
+    	
 
     	// Create the container and return a container client object
     	BlobContainerClient containerClient = blobServiceClient.getBlobContainerClient(containerName);
@@ -41,11 +40,5 @@ public class BlobController {
 		return containerClient;
 	}
 	
-    @GetMapping("/readBlobFile")
-    public String readBlobFile() throws IOException {
-        return StreamUtils.copyToString(
-                this.blobFile.getInputStream(),
-                Charset.defaultCharset());
-    }
-
+    
 }

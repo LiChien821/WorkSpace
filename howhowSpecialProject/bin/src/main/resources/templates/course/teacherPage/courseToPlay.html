@@ -10,7 +10,10 @@
 	<link href="https://vjs.zencdn.net/7.17.0/video-js.css" rel="stylesheet" />
 	<link th:href="@{/assets3/css/bootstrap.min.css}" rel="stylesheet">
 	<link th:href="@{/assets3/css/dashboard.css}" rel="stylesheet">
+<<<<<<< HEAD
+=======
 	
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
@@ -46,7 +49,11 @@
 <body>
 
 	<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+<<<<<<< HEAD
+		<a class="navbar-brand col-md-3 col-lg-2  col-xl-2 me-0 px-3" href="#">HowHow學</a>
+=======
 		<a class="navbar-brand col-md-3 col-lg-2  col-xl-2 me-0 px-3" th:href="@{/home}">HowHow學</a>
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 		<button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
 			data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
 			aria-label="Toggle navigation">
@@ -61,6 +68,13 @@
 	</header>
 
 
+<<<<<<< HEAD
+	<div class="container-fluid" id="playSectionList">
+		<div class="row">
+			<nav id="sidebarMenu" class="col-md-3 col-lg-2 col-xl-2 d-md-block bg-light sidebar collapse">
+				<div class="position-sticky pt-3">
+					<input th:value="${courseID}" id="playPageDeafultId" hidden>
+=======
 	<div class="container-fluid" >
 		<div class="row">
 			<nav id="sidebarMenu" class="col-md-3 col-lg-2 col-xl-2 d-md-block bg-light sidebar collapse">
@@ -70,6 +84,7 @@
 					<input hidden id="userAccountCreatTime" th:value="${accountDt.acountCreationTime}">
 					
 					
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 					<ul class="nav flex-column" v-for="section in sectionList">
 						<li class="nav-item">
 							<button class="btn btn-toggle align-items-center rounded collapsed "
@@ -81,6 +96,15 @@
 							<div class="collapse show" :id="'course-collapse'+section.sectionNumber">
 								<ul class="nav flex-column btn-toggle-nav list-unstyled fw-normal pb-1 small"
 									v-for="lecture in section.lecturesList">
+<<<<<<< HEAD
+									<li class="nav-item border rounded-pill">
+										<a href="#" class="link-dark rounded " @click="handleVideoUrl(lecture)">
+											<h5><span data-feather="fast-forward"></span>{{lecture.lectureNumber}}.
+												{{lecture.lecturesName}}</h5>
+										</a>
+
+										<button>附加連結</button>
+=======
 									<li class="nav-item border rounded-pill" v-if="lecture.videoSource !== null">
 									<div >
 										<a href="#" class="link-dark rounded " @click="handleVideoUrl(lecture)">
@@ -92,6 +116,7 @@
 
 										<button>附加連結</button>
 										</div >
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 									</li>
 								</ul>
 							</div>
@@ -109,7 +134,11 @@
 
 						
 					</div>
+<<<<<<< HEAD
+					<div class="col-2 d-flex align-items-end flex-column bd-highlight mb-3" id="notesVue">
+=======
 					<div  id="notesVue"   class="col-2 d-flex align-items-start flex-column bd-highlight mb-3">
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 						<div class="align-content-center">
 							<h2 >Notes</h2>
 						</div>
@@ -119,6 +148,15 @@
 							<div class="chat-header clearfix p-2 bd-highlight">
 							</div>
 							
+<<<<<<< HEAD
+							<div class="chat-history p-2 bd-highlight" v-if="notesList !== ''">
+								<ul class="m-b-0" >
+									<li class="clearfix " v-for="notes in notesList">
+										<div class="message-data text-right ">
+											<a href="#javescr" class="message-data-time">{{notes,duration}}</a>
+										</div>
+										<div class="message other-message float-right">{{notes.notescontext}} </div>
+=======
 							<div class="chat-history p-2 bd-highlight" v-if="notesList !== null && notesList.length>0">
 								<ul  class="m-b-0">
 									<li  class="chat-history p-2 bd-highlight" v-for="(notes,index) in notesList">
@@ -126,6 +164,7 @@
 											<a href="#javescr"  @click="changetime(notes.duration)">{{index}}</a>
 										</div>
 										<div >{{notes.context}} </div>
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 									</li>
 								
 								</ul>
@@ -140,17 +179,152 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text"><i class="fa fa-send"></i></span>
 									</div>
+<<<<<<< HEAD
+									<input type="text" class="form-control" placeholder="Enter Notes here..." v-model="notescontext">
+=======
 									<input type="text" class="form-control" placeholder="Enter Notes here..." v-model="notescontext" >
 									<input type="submit" value="紀錄" @click="createNotes">
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 								</div>
 							</div>
 						
 					</div>
+<<<<<<< HEAD
+					<div class="row">
+					<h2>Section title</h2>
+						<div class="table-responsive">
+							<table class="table table-striped table-sm">
+								<thead>
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">Header</th>
+										<th scope="col">Header</th>
+										<th scope="col">Header</th>
+										<th scope="col">Header</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>1,001</td>
+										<td>random</td>
+										<td>data</td>
+										<td>placeholder</td>
+										<td>text</td>
+									</tr>
+									<tr>
+										<td>1,002</td>
+										<td>placeholder</td>
+										<td>irrelevant</td>
+										<td>visual</td>
+										<td>layout</td>
+									</tr>
+									<tr>
+										<td>1,003</td>
+										<td>data</td>
+										<td>rich</td>
+										<td>dashboard</td>
+										<td>tabular</td>
+									</tr>
+									<tr>
+										<td>1,003</td>
+										<td>information</td>
+										<td>placeholder</td>
+										<td>illustrative</td>
+										<td>data</td>
+									</tr>
+									<tr>
+										<td>1,004</td>
+										<td>text</td>
+										<td>random</td>
+										<td>layout</td>
+										<td>dashboard</td>
+									</tr>
+									<tr>
+										<td>1,005</td>
+										<td>dashboard</td>
+										<td>irrelevant</td>
+										<td>text</td>
+										<td>placeholder</td>
+									</tr>
+									<tr>
+										<td>1,006</td>
+										<td>dashboard</td>
+										<td>illustrative</td>
+										<td>rich</td>
+										<td>data</td>
+									</tr>
+									<tr>
+										<td>1,007</td>
+										<td>placeholder</td>
+										<td>tabular</td>
+										<td>information</td>
+										<td>irrelevant</td>
+									</tr>
+									<tr>
+										<td>1,008</td>
+										<td>random</td>
+										<td>data</td>
+										<td>placeholder</td>
+										<td>text</td>
+									</tr>
+									<tr>
+										<td>1,009</td>
+										<td>placeholder</td>
+										<td>irrelevant</td>
+										<td>visual</td>
+										<td>layout</td>
+									</tr>
+									<tr>
+										<td>1,010</td>
+										<td>data</td>
+										<td>rich</td>
+										<td>dashboard</td>
+										<td>tabular</td>
+									</tr>
+									<tr>
+										<td>1,011</td>
+										<td>information</td>
+										<td>placeholder</td>
+										<td>illustrative</td>
+										<td>data</td>
+									</tr>
+									<tr>
+										<td>1,012</td>
+										<td>text</td>
+										<td>placeholder</td>
+										<td>layout</td>
+										<td>dashboard</td>
+									</tr>
+									<tr>
+										<td>1,013</td>
+										<td>dashboard</td>
+										<td>irrelevant</td>
+										<td>text</td>
+										<td>visual</td>
+									</tr>
+									<tr>
+										<td>1,014</td>
+										<td>dashboard</td>
+										<td>illustrative</td>
+										<td>rich</td>
+										<td>data</td>
+									</tr>
+									<tr>
+										<td>1,015</td>
+										<td>random</td>
+										<td>tabular</td>
+										<td>information</td>
+										<td>text</td>
+									</tr>
+								</tbody>
+							</table>
+=======
 					
 					<div class="row">
 						
 						<div class="table-responsive">
 								<th:block th:replace="course/teacherPage/introduce :: content"></th:block>
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 						</div>
 					</div>
 			</main>

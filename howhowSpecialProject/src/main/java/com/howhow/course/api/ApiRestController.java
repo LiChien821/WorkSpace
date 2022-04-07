@@ -99,6 +99,13 @@ public class ApiRestController {
 	public Iterable<CourseBasic> getCourseListFromAccountID(@PathVariable("accountID") int accountID) {
 		return courseService.findAllCourseByUID(accountID);
 	}
+	
+	@GetMapping("/api/getPageAllCourse/{accountID}/{pageNum}")
+	public Iterable<CourseBasic> getPageCourseListFromAccountID(@PathVariable("accountID") int accountID,@PathVariable("pageNum") int pageNum) {
+		Pageable pageable=PageRequest.of(pageNum-1,3);
+		return courseService.findAllCourseByUID(accountID,pageable);
+	}
+	
 
 	@GetMapping("/api/getCourse/{courseID}")
 	public CourseBasic getCourseFromCourseID(@PathVariable("courseID") int courseID) throws WrongInputException   {
@@ -111,6 +118,19 @@ public class ApiRestController {
 		}
 				
 	}
+	
+	@GetMapping("/api/deleteSection/{sectionID}/{currentCourseID}")
+	public Iterable<Section> deleteSectionAndReturnSectionList(@PathVariable("sectionID") int sectionID,@PathVariable("currentCourseID") int currentCourseID) {
+		sectionService.deleteSectionBySectionID(sectionID);
+		return  sectionService.findAllByCourseId(currentCourseID);
+	}
+	@GetMapping("/api/deleteLecture/{lecturesID}/{sectionID}")
+	public Iterable<Lectures> deleteLectureAndReturnSectionList(@PathVariable("lecturesID") int lecturesID,@PathVariable("sectionID") int sectionID) {
+		lectureService.deleteLectureByLectureID(lecturesID);
+		return  lectureService.findAllBySectionID(sectionID);
+	}
+	
+	
 
 	@PostMapping("/api/updateCourseAbstractCover")
 	public CourseBasic updateCourseAbstractCover(@RequestParam("file") MultipartFile multipartfile,
@@ -216,7 +236,13 @@ public class ApiRestController {
 		
 
 	}
-
+	
+	@GetMapping("/api/getPreviewableSectionlist/{courseID}")
+	public List<Section> getPreviewableSectionlist(@PathVariable("courseID") int courseID) {
+		
+		return sectionService.findAllPreviewableSectionByCourseID(courseID);
+	}
+	
 	@PostMapping(value = "/api/createLecture/{sectionID}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Iterable<Lectures> createLecture(@PathVariable("sectionID") int sectionID, @RequestBody Lectures lecture)
@@ -253,11 +279,6 @@ public class ApiRestController {
 		return lectureService.findAllBySectionID(sectionID);
 
 	}
-	@GetMapping("/api/getPageAllCourse/{accountID}/{pageNum}")
-	public Iterable<CourseBasic> getPageCourseListFromAccountID(@PathVariable("accountID") int accountID,@PathVariable("pageNum") int pageNum) {
-		Pageable pageable=PageRequest.of(pageNum-1,3);
-		return courseService.findAllCourseByUID(accountID,pageable);
-	}
-	
+
 
 }

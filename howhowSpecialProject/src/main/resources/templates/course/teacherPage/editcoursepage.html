@@ -30,7 +30,7 @@
 					<li><a href="#about" id="about-link"><span class="icon solid fa-user">Q&A</span></a></li>
 					<li><a href="#javascript" id="contact-link"><span class="icon solid fa-envelope"
 								@click="navToPlay">播放</span></a></li>
-					<form method="POST" hidden :action="'/howhow/teacherPage/play/'+currentCourseID" id="postForm"> <input name="courseID"
+					<form method="GET" hidden :action="'/teacherPage/play/'+currentCourseID" id="postForm"> <input name="courseID"
 							hidden th:value="${courseID}"></form>
 
 				</ul>

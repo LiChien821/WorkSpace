@@ -5,26 +5,41 @@ const dataObj = {
 
 	currentTime: "",
 	skipTime: "",
+<<<<<<< HEAD
+	duration: "",
+	notescontext:"",
+	notesList:"",
+=======
 	duration: 0,
 	notescontext: "",
 	notesList: "",
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 
 	lecture: "",
 	course: "",
 	currentCourseID: "",
+<<<<<<< HEAD
+	currentSectionID:"",
+	currentLecturesID:"",
+	userAccoountID:"",
+=======
 	currentSectionID: "",
 	currentLecturesID: "",
 	userAccountID: "",
 	userAccountCreatTime:"",
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 
 	sectionList: "",
 	lecturesList: "",
 	sectionID: "",
 	
+<<<<<<< HEAD
+=======
 	totalSection:"",
 	totalLecture:"",
 	
 	
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 
 };
 
@@ -36,6 +51,52 @@ Vue.createApp({
 	},
 
 	methods: {
+<<<<<<< HEAD
+		createNotes :function(){
+				axios({
+			method: 'post',
+			url: '/howhow/api/createNotes',
+			headers: { "Access-Control-Allow-Origin": "*" },
+			data:{
+				 UID : this.userAccoountID ,
+
+				lectureID: this.currentLecturesID,
+		
+				duration: this.duration,
+		
+				 notescontext:this.notescontext,
+				
+			},
+
+		})
+			.then(response => (this.notesList= response.data))
+			.catch(function(error) {
+				console.log(error);
+
+			});
+		}
+	
+	},
+	mounted: function() {
+	
+		this.userAccoountID=document.getElementById("deafultUID").value;
+		axios({
+			method: 'post',
+			url: '/howhow/api/getAllNotes/'+this.userAccoountID+'/'+this.currentLecturesID,
+			headers: { "Access-Control-Allow-Origin": "*" },
+		
+
+		})
+			.then(response => (this.notesList= response.data))
+			.catch(function(error) {
+				console.log(error);
+
+			});
+
+	},
+
+}).mount('notesVue')
+=======
 		createNotes: function() {
 			this.userAccountID = document.getElementById("defaultAccountID").value;
 			this.duration = player.currentTime();
@@ -53,6 +114,7 @@ Vue.createApp({
 					notescontext: this.notescontext,
 
 				},
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 
 			})
 				.then(response => (this.notesList = response.data, this.notescontext = ""))
@@ -71,6 +133,8 @@ Vue.createApp({
 		}
 
 
+<<<<<<< HEAD
+=======
 	},
 	mounted: function() {
 
@@ -82,6 +146,7 @@ Vue.createApp({
 
 
 
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 Vue.createApp({
 	data() {
 		return dataObj;
@@ -165,6 +230,9 @@ Vue.createApp({
 			headers: { "Access-Control-Allow-Origin": "*" },
 		})
 
+<<<<<<< HEAD
+			.then(response => (this.course = response.data, this.sectionList = response.data.sectionList,this.currentLecturesID=response.data.sectionList[0].lecturesList[0].lecturesID ))
+=======
 			.then(response => (this.sectionList = response.data,
 				this.currentLecturesID = response.data[0].lecturesList[0].lecturesID,
 				this.lecture = response.data[0].lecturesList[0],
@@ -172,6 +240,7 @@ Vue.createApp({
 				this.handlefirstVideoUrl(),
 			this.getAllNotesByUIDANDLectureID()
 			))
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 			.catch(function(error) {
 				console.log(error);
 			});
@@ -181,8 +250,12 @@ Vue.createApp({
 	},
 	
 }).mount('#playSectionList')
+<<<<<<< HEAD
+const app = Vue.createApp({
+=======
 
 Vue.createApp({
+>>>>>>> 82be4571b230a83ce00bbc27ff78481ae8d037d6
 	data() {
 		return dataObj;
 	},
