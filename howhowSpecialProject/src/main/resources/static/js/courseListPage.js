@@ -1,5 +1,3 @@
-import { createApp } from 'vue'
-
 const dataObj = {
 	currentAccountID: "",
 	
@@ -9,36 +7,42 @@ const dataObj = {
 
 	Account: "",
 	
-	blobSetting:""
+	blobSetting:"",
+	
+	currentPage:1,
+	
+	totalPages:"",
+	
+	totalElements:"",
+	
+	pageItem:true,
 
 };
 
 
 
 
-createApp({
+Vue.createApp({
 	data() {
 		return dataObj;
 	},
 	mounted: function() {
 		this.currentAccountID = document.getElementById("defaultAccountID").value;
-		axios({
+			axios({
 			method: 'get',
-
-			url: '/howhow/api/getAllCourse/' + this.currentAccountID,
+			url: '/api/getPageAllCourse/' + this.currentAccountID+"/"+this.currentPage,
 			headers: { "Access-Control-Allow-Origin": "*" },
-
 
 		})
 
-			.then(response => (this.courseList = response.data))
+			.then(response => (this.courseList = response.data.content,this.totalPages=response.data.totalPages))
 			.catch(function(error) {
 				console.log(error);
 
 			});
 		axios({
 			method: 'get',
-			url: '/howhow/api/getBlobUrl',
+			url: '/api/getBlobUrl',
 			headers: { "Access-Control-Allow-Origin": "*" },
 		})
 			.then(response => (this.blobSetting = response.data))
@@ -52,6 +56,21 @@ createApp({
 			document.getElementById('forminput').value=id;
 			
 			document.getElementById('editForm').submit();
+		},
+		pageLinkToCourse:function(num){
+			this.currentPage=num;
+				axios({
+			method: 'get',
+			url: '/api/getPageAllCourse/' + this.currentAccountID+"/"+this.currentPage,
+			headers: { "Access-Control-Allow-Origin": "*" },
+
+		})
+
+			.then(response => (this.courseList = response.data.content,this.totalPages=response.data.totalPages))
+			.catch(function(error) {
+				console.log(error);
+
+			});
 		}
 	}
 }).mount('#courseList')

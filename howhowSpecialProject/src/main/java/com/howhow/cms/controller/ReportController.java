@@ -42,8 +42,10 @@ public class ReportController {
 			
 			ReportDetailObj DO = new ReportDetailObj();
 			
+
 			DO.setReportid(record.getReportID());
 			DO.setQuestionid(record.getQuestion().getQuestionID());
+
 			DO.setReportedPerson(record.getUsermt().getUserId());
 			DO.setReportcontent(record.getQuestion().getQuestionContext());
 			DO.setReporttypename(record.getTypeobj().getReportname());

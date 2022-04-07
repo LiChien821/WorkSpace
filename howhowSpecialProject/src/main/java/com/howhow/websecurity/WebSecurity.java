@@ -1,9 +1,7 @@
 package com.howhow.websecurity;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,8 +23,6 @@ import com.howhow.entity.UserAccountDt;
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 	
-	@Autowired
-    private DefaultAuthenticationEventPublisher defaultAuthenticationEventPublisher;
 	
 	@Bean
 	public UserDetailsService accountUserDetailService() {
@@ -76,11 +72,14 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		  http  
 		  .csrf().disable()
 		   .authorizeRequests() 
-		     .antMatchers("/login.html","/login","/register","/createUser","/verify","/css")
+		     .antMatchers("/teacherPage/**")
+		   	 .authenticated()
+		     .antMatchers("/login.html","/login","/register","/createUser","/verify","/css/","/courses","/product","/api/**","/shopping/**")
 		     .permitAll()
 		     .antMatchers("/student/**").hasAnyAuthority("Teacher","Student")
 		     .antMatchers("/course/**").hasAuthority("Admin")
-		     .antMatchers("/cms/**").hasAnyAuthority("Admin","SuperAdmin")
+		     .antMatchers("/api/mycourse").hasAnyAuthority("Teacher","Student")
+		     .antMatchers("/myshop").hasAnyAuthority("Admin","Teacher","Student")
 		     .anyRequest()
 		     .authenticated()
 		        .and()
@@ -111,7 +110,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	public void configure(org.springframework.security.config.annotation.web.builders.WebSecurity web)
 			throws Exception {
 		// TODO Auto-generated method stub
-		web.ignoring().antMatchers("/images/**","/js/**","/webjars/**","/course-photos/**","/assets/**","/static/**",  "/css/**", "/img/**", "/json/**");
+		web.ignoring().antMatchers("/image/**","/images/**","/js/**","/webjars/**","/course-photos/**","/assets/**","/static/**",  "/css/**", "/img/**", "/json/**");
 
 	}
 

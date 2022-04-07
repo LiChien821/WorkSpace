@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
@@ -36,7 +35,7 @@ public class CourseBasic {
 	private String courseName;
 
 	@Column(name = "price")
-	private long price;
+	private Long price;
 
 	@Column(name = "discount")
 	private double discount;
@@ -82,7 +81,7 @@ public class CourseBasic {
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<CFCourse> cfCourseList = new ArrayList<CFCourse>();
-
+	
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "courseBasic", cascade = CascadeType.ALL)
 	private List<FavoriteCourse> favoriteCourseList = new ArrayList<FavoriteCourse>();
@@ -218,13 +217,6 @@ public class CourseBasic {
 		this.courseRankList = courseRankList;
 	}
 
-	public long getPrice() {
-		return price;
-	}
-
-	public void setPrice(long price) {
-		this.price = price;
-	}
 
 	public int getCourseID() {
 		return courseID;
@@ -241,5 +233,14 @@ public class CourseBasic {
 	public void setStatusType(CourseStatusType statusType) {
 		this.statusType = statusType;
 	}
+
+	public Long getPrice() {
+		return price;
+	}
+
+	public void setPrice(Long price) {
+		this.price = price;
+	}
+
 	
 }

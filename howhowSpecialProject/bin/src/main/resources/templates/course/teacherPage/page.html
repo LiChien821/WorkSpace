@@ -6,7 +6,7 @@
 -->
 <html>
 
-<head th:replace="course/student/acoordin :: pagehead">
+<head th:replace="course/fragments/header :: pagehead">
 
 	</head>
 
@@ -20,8 +20,8 @@
 			<!-- Logo -->
 			<div id="logo">
 				<span class="image avatar48"><img th:src="@{/images/avatar.jpg}" alt="" /></span>
-				<h1 id="title">howhow</h1>
-				<p>Beginer Engineer</p>
+				<h1 id="title">[[${creator.givenName}]] [[${creator.familyName}]]</h1>
+				<p>[[${creator.acountCreationTime}]]</p>
 			</div>
 
 			<!-- Nav -->
@@ -101,6 +101,32 @@
 						</article>
 						
 					</div>
+					<div id="pagination">
+						<ul class="pagination justify-content-center flex-wrap">
+						      <li  v-bind:class="[currentPage >1 ? '' : 'disabled','page-item']">
+						      <a  class="page-link" @click="pageLinkToCourse(1)">first</a>
+						      </li>
+						      
+						        <li v-bind:class="[currentPage >1 ? '' : 'disabled','page-item']">
+						      <a  class="page-link"@click="pageLinkToCourse(currentPage-1)">previos</a>
+							    </li>
+							  
+						
+						      
+						       <li v-bind:class="[currentPage !=index? '' : 'disabled','page-item']" 
+							  v-for="index in totalPages" :key="index">
+							    <a class="page-link" @click="pageLinkToCourse(index)">{{index}}</a>
+							    </li>
+							    
+							   
+							   
+							   
+						      <li v-bind:class="[currentPage < totalPages? '' : 'disabled','page-item']">
+						      	<a class="page-link"  @click="pageLinkToCourse(currentPage+1)">next</a>
+							    </li>
+						</ul>
+					</div>
+					
 					
 				</div>
 
@@ -164,24 +190,13 @@
 		<!-- Copyright -->
 		<ul class="copyright">
 			<li>&copy; Untitled. All rights reserved.</li>
-			<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 		</ul>
 
 	</div>
 
 	<!-- Scripts -->
 <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
-
-<script type="importmap">
-
-	{
-	  "imports": {
-		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
-	  }
-	}
-</script>
-
-
+<script src="https://unpkg.com/vue@3"></script>
 <script type="module" th:src="@{/js/courseListPage.js}"></script>
 
 </body>

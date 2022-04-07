@@ -1,7 +1,5 @@
 package com.howhow.shopping.dto;
 
-import com.howhow.entity.CourseRank;
-
 public class CourseRankDTO {
 	
 	private int courserankid;

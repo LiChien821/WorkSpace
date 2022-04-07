@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html" ; charset="UTF-8">
+<title>howhow學</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+	crossorigin="anonymous"></script>
+
+<link rel="stylesheet" th:href="@{/shopping/css/font-awesome.min.css}">
+
+<link rel="stylesheet" th:href="@{/shopping/css/elegant-fonts.css}">
+
+<link rel="stylesheet" th:href="@{/shopping/css/themify-icons.css}">
+
+<link rel="stylesheet" th:href="@{/shopping/css/swiper.min.css}">
+
+<link rel="stylesheet" th:href="@{/shopping/style.css}">
+
+<link rel="stylesheet"
+	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css}">
+
+</head>
+
+<body class="single-courses-page">
+	<div id="product">
+		<div class="page-header">
+			<header class="site-header">
+				<div class="top-header-bar">
+					<div class="container-fluid">
+						<div class="row">
+							<div
+								class="col-12 col-lg-6 d-none d-md-flex flex-wrap justify-content-center justify-content-lg-start mb-3 mb-lg-0">
+								<div class="header-bar-email d-flex align-items-center">
+									<i class="fa fa-envelope"></i><a href="#">tuanna.design@gmail.com</a>
+								</div>
+								<!-- .header-bar-email -->
+
+								<div class="header-bar-text lg-flex align-items-center">
+									<p>
+										<i class="fa fa-phone"></i>001-1234-88888
+									</p>
+								</div>
+								<!-- .header-bar-text -->
+							</div>
+							<!-- .col -->
+
+							<div
+								class="col-12 col-lg-6 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center">
+								<div class="header-bar-search">
+									<form class="flex align-items-stretch">
+										<input type="search"
+											placeholder="What would you like to learn?">
+										<button type="submit" value=""
+											class="flex justify-content-center align-items-center">
+											<i class="fa fa-search"></i>
+										</button>
+									</form>
+								</div>
+								<!-- .header-bar-search -->
+
+								<div class="header-bar-menu">
+									<ul
+										class="flex justify-content-center align-items-center py-2 pt-md-0">
+										<li><a href="#">Register</a></li>
+										<li><a href="#">Login</a></li>
+									</ul>
+								</div>
+								<!-- .header-bar-menu -->
+							</div>
+							<!-- .col -->
+						</div>
+						<!-- .row -->
+					</div>
+					<!-- .container-fluid -->
+				</div>
+				<!-- .top-header-bar -->
+
+				<div class="nav-bar">
+					<div class="container">
+						<div class="row">
+							<div class="col-9 col-lg-3">
+								<div class="site-branding">
+									<h1 class="site-title">
+										<a href="index.html" rel="home">Ezu<span>ca</span></a>
+									</h1>
+								</div>
+								<!-- .site-branding -->
+							</div>
+							<!-- .col -->
+
+							<div
+								class="col-3 col-lg-9 flex justify-content-end align-content-center">
+								<nav
+									class="site-navigation flex justify-content-end align-items-center">
+									<ul
+										class="flex flex-column flex-lg-row justify-content-lg-end align-content-center">
+										<li class="current-menu-item"><a href="index.html">Home</a></li>
+										<li><a href="#">About</a></li>
+										<li><a href="#">Courses</a></li>
+										<li><a href="#">blog</a></li>
+										<li><a href="#">Contact</a></li>
+									</ul>
+
+									<div class="hamburger-menu d-lg-none">
+										<span></span> <span></span> <span></span> <span></span>
+									</div>
+									<!-- .hamburger-menu -->
+
+									<div class="header-bar-cart">
+										<a href="#"
+											class="flex justify-content-center align-items-center"><span
+											aria-hidden="true" class="icon_bag_alt"></span></a>
+									</div>
+									<!-- .header-bar-search -->
+								</nav>
+								<!-- .site-navigation -->
+							</div>
+							<!-- .col -->
+						</div>
+						<!-- .row -->
+					</div>
+					<!-- .container -->
+				</div>
+				<!-- .nav-bar -->
+			</header>
+			<!-- .site-header -->
+
+			<div class="page-header-overlay">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<header class="entry-header">
+								<h1 class="entry-title">{{course.coursename}}</h1>
+
+								<div
+									class="course-ratings flex justify-content-center align-items-center">
+									<div v-if="course.ranknum>0">
+										<span class="fas fa-star checked"></span> <span v-if="course.rank>=2"
+											class="fas fa-star checked"></span> <span
+											v-else-if="course.rank>=1.5" class="fas fa-star-half-alt checked"></span>
+										<span v-else class="far fa-star checked"></span> <span
+											v-if="course.rank>=3" class="fas fa-star checked"></span> <span
+											v-else-if="course.rank>=2.5" class="fas fa-star-half-alt checked"></span>
+										<span v-else class="far fa-star checked"></span> <span
+											v-if="course.rank>=4" class="fas fa-star checked"></span> <span
+											v-else-if="course.rank>=3.5" class="fas fa-star-half-alt checked"></span>
+										<span v-else class="far fa-star checked"></span> <span
+											v-if="course.rank>=4.8" class="fas fa-star checked"></span> <span
+											v-else-if="course.rank>=4.3" class="fas fa-star-half-alt checked"></span>
+										<span v-else class="far fa-star checked"></span> <span
+											class="course-ratings-count">{{course.ranknum}}則評價</span>
+									</div>
+								</div>
+								<!-- .ratings -->
+							</header>
+							<!-- .entry-header -->
+						</div>
+						<!-- .col -->
+					</div>
+					<!-- .row -->
+				</div>
+				<!-- .container -->
+			</div>
+			<!-- .page-header-overlay -->
+		</div>
+		<!-- .page-header -->
+
+		<div class="container">
+			<div class="row">
+				<div class="col-12 offset-lg-1 col-lg-10">
+					<div class="featured-image">
+						<img :src="url" alt="">
+
+						<div class="course-cost">NT${{course.discountprice}}</div>
+					</div>
+				</div>
+				<!-- .col -->
+			</div>
+			<!-- .row -->
+
+			<div class="row">
+				<div class="col-12 offset-lg-1 col-lg-1">
+					<div class="post-share">
+						<h3>share</h3>
+
+						<ul class="flex flex-wrap align-items-center p-0 m-0">
+							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+							<li><a href="#"><i class="fa fa-thumb-tack"></i></a></li>
+						</ul>
+					</div>
+					<!-- .post-share -->
+				</div>
+				<!-- .col -->
+
+				<div class="col-12 col-lg-8">
+					<div class="single-course-wrap">
+						<div class="course-info flex flex-wrap align-items-center">
+							<div class="course-author flex flex-wrap align-items-center mt-3">
+
+								<div class="author-wrap">
+									<label class="m-0">Teacher</label>
+									<div class="author-name">
+										<a href="#">{{course.creatorname}}</a>
+									</div>
+								</div>
+								<!-- .author-wrap -->
+							</div>
+							<!-- .course-author -->
+
+							<div class="course-cats mt-3">
+								<label class="m-0">Categories</label>
+								<div class="author-name">
+									<a href="#">{{course.category}}</a>
+								</div>
+							</div>
+							<!-- .course-cats -->
+
+							<div class="course-students mt-3">
+								<label class="m-0">Student</label>
+								<div class="author-name">
+									<a href="#">{{course.studentnum}}</a>
+								</div>
+							</div>
+							<!-- .course-students -->
+
+							<div class="course-students mt-3">
+								<div v-if="purchasedstatus==true">
+									<a class="btn"
+										style="color: white; background: black; border: solid black 2px"
+										href="#javascript" @click.prevent="">已購買</a>
+								</div>
+								<div v-else-if="shopstatus==false">
+									<a class="btn" href="#" @click.prevent="addShoppingCart()">加入購物車</a>
+								</div>
+								<div v-else>
+									<a class="btn" href="#" @click.prevent="removeShoppingCart()">從購物車移除</a>
+								</div>
+							</div>
+
+							<div class="buy-course mt-3">
+								<div v-if="favstatus==false">
+									<a class="btn" href="#" @click.prevent=addFavorite()>加入最愛</a>
+								</div>
+								<div v-else>
+									<a class="btn" href="#" @click.prevent=removeFavorite()>從最愛移除</a>
+								</div>
+							</div>
+
+						</div>
+						<!-- .course-info -->
+
+						<div class="single-course-cont-section">
+							<h2>What Will I Learn?</h2>
+
+							<div>{{course.description}}</div>
+							</ul>
+						</div>
+
+
+					</div>
+					<!-- .ratings -->
+
+
+
+
+					<div class="instructors-info">
+						<header class="entry-heading">
+							<h2 class="entry-title">CourseRank</h2>
+						</header>
+						<!-- .entry-heading -->
+
+						<div class="instructor-short-info">
+							<div v-if="ranks.empty==true">
+								目前尚無評價
+							</div>
+
+							<div v-for="ranker in ranks.content">
+								<div class="instructors-details">
+									<div class="ratings">
+										<div class="course-teacher mt-3">
+											<span class="fas fa-star checked"></span> <span
+												v-if="ranker.rank>=2" class="fas fa-star checked"></span> <span
+												v-else class="far fa-star checked"></span> <span
+												v-if="ranker.rank>=3" class="fas fa-star checked"></span> <span
+												v-else class="far fa-star checked"></span> <span
+												v-if="ranker.rank>=4" class="fas fa-star checked"></span> <span
+												v-else class="far fa-star checked"></span> <span
+												v-if="ranker.rank==5" class="fas fa-star checked"></span> <span
+												v-else class="far fa-star checked"></span> <span
+												class="course-ratings-count" style="color: black">{{ranker.rank}}星評價</span>
+										</div>
+										留言者: <a href="#" disabled>{{ranker.usergivenname}}</a></br> 留言日期:<a
+											href="#">{{ranker.rankdate}}</a>
+									</div>
+											 {{ranker.message}}
+									<hr>
+								</div>
+							</div>
+							<div
+								class="pagination flex flex-wrap justify-content-between align-items-center" v-if="ranks.empty==false">
+								<div class="col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0">
+									<ul
+										class="flex flex-wrap align-items-center order-2 order-lg-1 p-0 m-0">
+										<li class="page-item" :class="{'disabled':ranks.first}"><a
+											class="page-link" href="#" @click.prevent=previousPage()><i
+												class="fa fa-angle-left"></i></a></li>
+										<li class="page-item" :class="{'disabled':ranks.last}"><a
+											class="page-link" href="#" @click.prevent="nextPage()"><i
+												class="fa fa-angle-right"></i></a></li>
+									</ul>
+								</div>
+							</div>
+
+						</div>
+						<!-- .instructor-short-info -->
+					</div>
+					<!-- .instructors-info -->
+					<div class="related-courses">
+						<header
+							class="entry-heading flex flex-wrap justify-content-between align-items-center">
+							<h2 class="entry-title">本課程章節</h2>
+						</header>
+						<!-- .entry-heading -->
+
+						<div class="col-12 col-lg-8">
+							<div v-for="section in course.sectionList" class="mt-3">
+								<h3>第{{section.sectionNumber}}章- {{section.sectionName}}</h3>
+								<div v-for="lecture in section.lecturesList">
+									<li>第{{lecture.lectureNumber}}單元- {{lecture.lecturesName}}</li>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- .related-course -->
+				</div>
+				<!-- .single-course-wrap -->
+			</div>
+			<!-- .col -->
+		</div>
+		<!-- .row -->
+	</div>
+	<!-- .container -->
+
+	<div class="clients-logo">
+		<div class="container">
+			<div class="row">
+				<div
+					class="col-12 flex flex-wrap justify-content-center justify-content-lg-between align-items-center">
+					<div class="logo-wrap">
+						<img src="images/logo-1.png" alt="">
+					</div>
+					<!-- .logo-wrap -->
+
+					<div class="logo-wrap">
+						<img src="images/logo-2.png" alt="">
+					</div>
+					<!-- .logo-wrap -->
+
+					<div class="logo-wrap">
+						<img src="images/logo-3.png" alt="">
+					</div>
+					<!-- .logo-wrap -->
+
+					<div class="logo-wrap">
+						<img src="images/logo-4.png" alt="">
+					</div>
+					<!-- .logo-wrap -->
+
+					<div class="logo-wrap">
+						<img src="images/logo-5.png" alt="">
+					</div>
+					<!-- .logo-wrap -->
+				</div>
+				<input id="courseid" name="courseid" hidden th:value="${courseid}" />
+				<input id="userid" name="userid" hidden th:value="${userid}" />
+				<input id="pageNo" name="pageNo" hidden th:value="${pageNo}" />
+				<!-- .col -->
+			</div>
+			<!-- .row -->
+			<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+
+			<script type="importmap">
+
+	{
+	  "imports": {
+		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+	  }
+	}
+</script>
+
+			<script type="module" th:src="@{/js/product.js}"></script>
+		</div>
+		<!-- .container -->
+	</div>
+	<!-- .clients-logo -->
+	</div>
+
+</body>

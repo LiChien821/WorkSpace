@@ -20,16 +20,21 @@ public class CategoryService {
 		return bean.get();
 	}
 
-	public List<Category> findAllCategory() {
+	public List<Category> findAll() {
+		List<Category> all = repo.findAll();
+		return all;
+	}
+	
+	public List<Category> findAllCategory(){
 		return repo.findAll();
 	}
-
+	
 	public Category addCategory(Category category) {
 		return repo.save(category);
 	}
-
+	
 	public boolean checkExist(String name) {
-		if (null != repo.findByname(name)) {
+		if(null != repo.findByname(name)) {
 			return true;
 		}
 		return false;

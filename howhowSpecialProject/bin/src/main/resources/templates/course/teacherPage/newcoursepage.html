@@ -2,8 +2,7 @@
 
 <html>
 
-<head th:replace="course/student/acoordin :: pagehead">
-
+<head th:replace="course/fragments/header:: pagehead">
 </head>
 
 <body class="is-preload">
@@ -16,8 +15,8 @@
 			<!-- Logo -->
 			<div id="logo">
 				<span class="image avatar48"><img th:src="@{/images/avatar.jpg}" alt="" /></span>
-				<h1 id="title">howhow</h1>
-				<p>Beginer Engineer</p>
+				<h1 id="title">[[${creator.givenName}]] [[${creator.familyName}]]</h1>
+				<p>[[${creator.acountCreationTime}]]</p>
 			</div>
 
 			<!-- Nav -->
@@ -104,11 +103,7 @@
 												minlength="2" maxlength="15" />
 										</div>
 
-										<label class="col-sm-4 col-form-label">時數</label>
-										<div class="col-sm-8">
-											<input type="text" class="form-control" required minlength="2"
-												maxlength="15" />
-										</div>
+										
 
 
 

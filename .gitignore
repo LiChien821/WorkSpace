@@ -1,2 +1,4 @@
 /.metadata/
 .DS_Store
+# Eclipse Project files
+bin/

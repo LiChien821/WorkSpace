@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Hello World</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+  
+    <link rel="stylesheet" th:href="@{/shopping/css/bootstrap.min.css}">
+
+    <link rel="stylesheet" th:href="@{/shopping/css/font-awesome.min.css}">
+
+    <link rel="stylesheet" th:href="@{/shopping/css/elegant-fonts.css}">
+
+    <link rel="stylesheet" th:href="@{/shopping/css/themify-icons.css}">
+
+    <link rel="stylesheet" th:href="@{/shopping/css/swiper.min.css}">
+
+    <link rel="stylesheet" th:href="@{/shopping/style.css}">
+
+    <script th:src="@{https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js}"></script>
+</head>
+<body class="courses-page">
+    <div id="app">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumbs">
+                        <ul class="flex flex-wrap align-items-center p-0 m-0">
+                            <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                            <li>Courses</li>
+                        </ul>
+                    </div><!-- .breadcrumbs -->
+                </div><!-- .col -->
+            </div><!-- .row -->
+
+            <div class="row">
+                <input v-model="searchname"/>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-lg-12">
+                    <div class="featured-courses courses-wrap">
+                        <div class="row mx-m-25">
+                            <div class="col-12 col-md-4 px-25">
+                                <div class="course-content" v-for="course in courses">
+                                    <div v-if="course.status==2">
+                                        <figure class="course-thumbnail">
+                                            <a href="#"><img :src="course.cover" alt=""></a>
+                                        </figure><!-- .course-thumbnail -->
+
+                                        <div class="course-content-wrap">
+
+                                            <header class="entry-header">
+                                                <h2 class="entry-title"><a href="#">{{course.name}}</a>
+                                                </h2>
+                                                <div class="flex flex-wrap justify-content-between align-items-center">
+                                                    <div class="course-author"><a href="#">{{course.creator}}</a>
+                                                    <span>{{course.creationdate}}</span>
+                                                    </div><!-- .course-date -->
+                                                    <div class="flex justify-content-end align-items-center">
+                                                        <div v-if="course.favcourse==true"><button>取消</button></div>
+                                                        <div v-else><button class="btn btn-success btn-sm">加入</button></div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </header><!-- .entry-header -->
+
+                                            <footer
+                                                class="entry-footer flex flex-wrap justify-content-between align-items-center">
+                                                <div class="course-cost" v-if="course.price>course.discountprice">
+                                                    NT${{course.discountprice}} <span
+                                                        class="price-drop">{{course.price}}</span>
+                                                </div><!-- .course-cost -->
+                                                <div class="course-cost" v-else>
+                                                    NT${{course.price}}
+                                                </div><!-- .course-cost -->
+                                                <div class="course-ratings flex justify-content-end align-items-center">
+                                                    <div v-if="course.ranknum>5">
+                                                        <span class="fa fa-star checked"></span>
+                                                        <span v-if="course.rank>=2"class="fa fa-star checked"></span>
+                                                        <span v-else-if="course.rank>=1.5" class="fa fa-star-half-o checked"></span> 
+                                                        <span v-else class="fa fa-star-o"></span>
+                                                        <span v-if="course.rank>=3"class="fa fa-star checked"></span>
+                                                        <span v-else-if="course.rank>=2.5" class="fa fa-star-half-o checked"></span>
+                                                        <span v-else class="fa fa-star-o"></span>
+                                                        <span v-if="course.rank>=4" class="fa fa-star checked"></span>
+                                                        <span v-else-if="course.rank>=3.5" class="fa fa-star-half-o checked"></span>
+                                                        <span v-else class="fa fa-star-o"></span>
+                                                        <span v-if="course.rank>=4.8" class="fa fa-star checked"></span>
+                                                        <span v-else-if="course.rank>=4.3" class="fa fa-star-half-o checked"></span>
+                                                        <span v-else class="fa fa-star-o"></span>
+                                                        <span class="course-ratings-count">{{course.ranknum}}則評價</span>
+                                                    </div>
+                                                </div><!-- .course-ratings -->
+                                                <div class="course-stunum" v-if="course.studentnum>=5">
+                                                    同學{{course.studentnum}}人
+                                                </div><!-- .course-cost -->
+                                            </footer><!-- .entry-footer -->
+                                        </div><!-- .course-content-wrap -->
+                                    </div>
+                                </div><!-- .course-content -->
+                            </div><!-- .col -->
+                        </div><!-- .row -->
+                    </div><!-- .featured-courses -->
+
+                    <div class="pagination flex flex-wrap justify-content-between align-items-center">
+                        <div class="col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0">
+                            <ul class="flex flex-wrap align-items-center order-2 order-lg-1 p-0 m-0">
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                            </ul>
+                        </div>
+
+                        <div
+                            class="col-12 flex justify-content-start justify-content-lg-end col-lg-8 order-1 order-lg-2">
+                            <div class="pagination-results flex flex-wrap align-items-center">
+                                <p class="m-0">Showing 1–3 of 12 results</p>
+
+                                <form>
+                                    <select>
+                                        <option>Show: 06</option>
+                                        <option>Show: 12</option>
+                                        <option>Show: 18</option>
+                                        <option>Show: 24</option>
+                                    </select>
+                                </form>
+                            </div><!-- .pagination-results -->
+                        </div>
+                    </div><!-- .pagination -->
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div>
+    </footer><!-- .site-footer -->
+
+    <script type='text/javascript' src='js/jquery.js'></script>
+    <script type='text/javascript' src='js/swiper.min.js'></script>
+    <script type='text/javascript' src='js/masonry.pkgd.min.js'></script>
+    <script type='text/javascript' src='js/jquery.collapsible.min.js'></script>
+    <script type='text/javascript' src='js/custom.js'></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                courses: [
+                    {
+                        status: 2, name: '韋傑教大家如何成為MySQL大師!!',
+                        price: 3000, discountprice: 2500,
+                        creator: '王韋傑', creationdate: 'July 21, 2018',
+                        ranknum: 10, rank: 3.9,
+                        favstatus:true,
+                        cover:'images/1.jpg',
+                        studentnum:5
+                    }
+                ]
+            }
+        });
+    </script>
+
+</body>
+
+</html>

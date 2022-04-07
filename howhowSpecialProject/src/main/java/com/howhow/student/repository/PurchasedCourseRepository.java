@@ -18,4 +18,6 @@ public interface PurchasedCourseRepository extends JpaRepository<PurchasedCourse
 	@Query(value="select * from PurchasedCourse where course_id=?1", nativeQuery = true)
 	public List<PurchasedCourse> findByCourseID(int id);
 	
+	@Query(value="select count(*) from PurchasedCourse where course_id=?1", nativeQuery = true)
+	public Integer findStudentCount(int courseid);
 }
