@@ -27,8 +27,6 @@
 	crossorigin="anonymous"></script>
 
 
-
-
 <link rel="stylesheet" th:href="@{/shopping/css/font-awesome.min.css}">
 
 <link rel="stylesheet" th:href="@{/shopping/css/elegant-fonts.css}">
@@ -39,8 +37,7 @@
 
 <link rel="stylesheet" th:href="@{/shopping/style.css}">
 
-<link rel="stylesheet"
-	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css}">
+
 
 </head>
 <body class="single-courses-page">
@@ -201,7 +198,7 @@
 
 															<div class="modal fade" id="exampleModal" tabindex="-1"
 																aria-labelledby="exampleModalLabel" aria-hidden="true">
-																
+
 																<div class="modal-dialog modal-dialog-centered">
 																	<div class="modal-content">
 
@@ -214,9 +211,11 @@
 																		<div class="modal-body">
 																			<form>
 																				<div class="mb-3">
-																					<label for="recipient-name" class="col-form-label">課程評分(1~5)</label>
-																					<input type="text" class="form-control"
-																						id="rank">
+																					<label for="recipient-name" class="col-form-label">課程評分</label>
+																					<input type='number'
+																						class="form-control" id="rank" oninput="if(value>5)value=5;if(value<1)value=1"
+																						onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')"
+																						placeholder="最低為1分，最高為5分" />
 																				</div>
 																				<div class="mb-3">
 																					<label for="message-text" class="col-form-label">課程評價</label>
@@ -270,6 +269,7 @@
 
 	</div>
 
+
 	<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
 
 	<script type="importmap">
@@ -279,15 +279,11 @@
 		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
 	  }
 	}
-</script>
+	</script>
 
 
 	<script type="module" th:src="@{/js/mycourse.js}"></script>
 
-
-
-
-	</div>
 </body>
 
 </html>

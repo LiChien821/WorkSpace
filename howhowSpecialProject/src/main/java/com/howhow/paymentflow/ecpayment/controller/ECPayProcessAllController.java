@@ -31,7 +31,8 @@ public class ECPayProcessAllController {
 		obj.setMerchantTradeDate(String.format("%tY/%<tm/%<td %<tH:%<tM:%<tS", new Date() ) );	
 		obj.setTotalAmount( request.getParameter("TotalAmount") );	
 		obj.setTradeDesc( request.getParameter("TradeDesc") );		
-		obj.setItemName( request.getParameter("ItemName") );		
+		obj.setItemName( request.getParameter("ItemName") );
+		obj.setCustomField1("orderidtest2");
 		obj.setNeedExtraPaidInfo("N");
 		obj.setReturnURL("https://220.133.103.95/howhow/ECPayResponse");
 		obj.setOrderResultURL("http://localhost:8082/howhow/ECPayResult"); 
