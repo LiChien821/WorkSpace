@@ -132,6 +132,31 @@ public class CourseRankController {
 		return page;
 	}
 	
+	@GetMapping("/api/findcourserankstatusbyuserid/{userid}")
+	@ResponseBody
+	public List<Integer> findCourseRankStatusByUserID(@PathVariable("userid") int userid) {
+		List<Integer> statuslist = new ArrayList<Integer>();
+		
+		List<CourseRank> list = cService.findByUserID(userid);
+		for (CourseRank courseRank : list) {
+			int courseID = courseRank.getCourseBasic().getCourseID();
+			statuslist.add(courseID);
+		}
+		
+		return statuslist;
+	}
+	
+	@GetMapping("/api/deletecourserank/{userid}/{courseid}")
+	@ResponseBody
+	public boolean deleteCourseRankbyUIDandCID(@PathVariable("userid") int userid, @PathVariable("courseid") int courseid) throws CourseRankNotFoundException {
+		
+		boolean status = cService.deleteCourseRankByUIDandCID(userid, courseid);
+		
+		return status;
+	}
+	
+	
+	
 	public Page<CourseRankDTO> toPage(List<CourseRankDTO> list, Pageable pageable) {
 		int start = (int) pageable.getOffset();
 		int end = Math.min((start + pageable.getPageSize()), list.size());

@@ -20,7 +20,17 @@ const dataObj = {
 
 	ccf: false,
 	
-	blobSetting:""
+	blobSetting:"",
+	
+	orderdto:"",
+	
+	TotalAmount:"",
+	
+	TradeDesc:"",
+	
+	ItemName:"",
+	
+	CustomField1:""
 
 };
 
@@ -214,7 +224,12 @@ createApp({
 				url: '/api/createorder/' + userid,
 				headers: { "Access-Control-Allow-Origin": "*" }
 			})
-				.then(window.location.href = '/mycourse')
+				.then(response =>{
+					document.getElementById('TotalAmount').value=response.data.totalamount;
+					document.getElementById('ItemName').value=response.data.itemname;
+					document.getElementById('TradeDesc').value=response.data.description;
+					document.getElementById('CustomField1').value=response.data.customfield1;
+				})
 				.catch(function(error) {
 					console.log(error);
 				})

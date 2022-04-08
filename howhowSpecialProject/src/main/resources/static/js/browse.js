@@ -23,12 +23,14 @@ const dataObj = {
 	currentcategoryname: "",
 
 	currentsearch: "",
-	
-	loginstatus:"",
-	
-	blobSetting:"",
-	
-	ccf: false
+
+	loginstatus: "",
+
+	blobSetting: "",
+
+	ccf: false,
+
+	searching: ""
 
 };
 
@@ -37,18 +39,25 @@ createApp({
 		return dataObj;
 	},
 	mounted: function() {
+
 		this.pageNo = document.getElementById("pageNo").value;
 		this.userid = document.getElementById("userid").value;
-		axios({
-			method: 'get',
-			url: '/api/findallcourses/1',
-			headers: { "Access-Control-Allow-Origin": "*" }
-		})
-			.then(response => (this.courses = response.data, this.res = response))
-			.catch(function(error) {
-				console.log(error);
-			});
-
+		this.searching = document.getElementById("searching").value;
+		if (this.searching != "") {
+			this.search = '123';
+			this.goSearch(this.searching);
+			document.getElementById("searching").value == "";
+		} else {
+			axios({
+				method: 'get',
+				url: '/api/findallcourses/1',
+				headers: { "Access-Control-Allow-Origin": "*" }
+			})
+				.then(response => (this.courses = response.data, this.res = response))
+				.catch(function(error) {
+					console.log(error);
+				});
+		}
 		axios({
 			method: 'get',
 			url: '/api/findfavoritecoursestatusbyuserid/' + this.userid,
@@ -77,6 +86,9 @@ createApp({
 			.catch(function(error) {
 				console.log(error);
 			})
+
+		this.searching = document.getElementById("searching").value;
+
 	},
 	methods: {
 		goSearch: function(search) {
@@ -98,7 +110,7 @@ createApp({
 			} else {
 				axios({
 					method: 'get',
-					url: '/api/findcoursebynamelike/' + search + "/1",
+					url: '/api/findcoursebynamelike/' + search + "/" +this.pageNo,
 					headers: { "Access-Control-Allow-Origin": "*" },
 				})
 
@@ -116,7 +128,7 @@ createApp({
 			if (empty != this.currentsearch) {
 				axios({
 					method: 'get',
-					url: '/api/findcoursebynamelike/' + this.search + "/" + page,
+					url: '/api/findcoursebynamelike/' + this.currentsearch + "/" + page,
 					headers: { "Access-Control-Allow-Origin": "*" },
 				})
 					.then(response => (this.courses = response.data, this.res = response))
@@ -160,7 +172,7 @@ createApp({
 				this.pageNo = document.getElementById("pageNo").value;
 				axios({
 					method: 'get',
-					url: '/api/findcoursebynamelike/' + this.search + "/" + this.pageNo,
+					url: '/api/findcoursebynamelike/' + this.currentsearch + "/" + this.pageNo,
 					headers: { "Access-Control-Allow-Origin": "*" },
 				})
 					.then(response => (this.courses = response.data, this.res = response))
@@ -202,7 +214,7 @@ createApp({
 				this.pageNo = document.getElementById("pageNo").value;
 				axios({
 					method: 'get',
-					url: '/api/findcoursebynamelike/' + this.search + "/" + this.pageNo,
+					url: '/api/findcoursebynamelike/' + this.currentsearch + "/" + this.pageNo,
 					headers: { "Access-Control-Allow-Origin": "*" },
 				})
 					.then(response => (this.courses = response.data, this.res = response))
@@ -234,7 +246,7 @@ createApp({
 					})
 			}
 		},
-		
+
 		addFavorite: function(courseid) {
 			axios({
 				method: 'get',
@@ -242,18 +254,18 @@ createApp({
 				headers: { "Access-Control-Allow-Origin": "*" },
 			})
 				.then(response => {
-					if(response.data=="") {
-						location.href='/login';
+					if (response.data == "") {
+						location.href = '/login';
 					} else {
-						this.addFavoriteAction(courseid,response.data);
+						this.addFavoriteAction(courseid, response.data);
 					}
 				})
 				.catch(function(error) {
 					console.log(error);
 				})
 		},
-		
-		addFavoriteAction(courseid,userid) {
+
+		addFavoriteAction(courseid, userid) {
 			this.userid = document.getElementById("userid").value;
 			axios({
 				method: 'post',
@@ -267,7 +279,7 @@ createApp({
 					console.log(error);
 				})
 		},
-		
+
 		removeFavorite: function(courseid) {
 			axios({
 				method: 'get',
@@ -275,18 +287,18 @@ createApp({
 				headers: { "Access-Control-Allow-Origin": "*" },
 			})
 				.then(response => {
-					if(response.data=="") {
-						location.href='/login';
+					if (response.data == "") {
+						location.href = '/login';
 					} else {
-						this.removeFavoriteAction(courseid,response.data);
+						this.removeFavoriteAction(courseid, response.data);
 					}
 				})
 				.catch(function(error) {
 					console.log(error);
 				})
 		},
-		
-		removeFavoriteAction (courseid,userid) {
+
+		removeFavoriteAction(courseid, userid) {
 			const index = this.favstatus.indexOf(courseid);
 			axios({
 				method: 'get',

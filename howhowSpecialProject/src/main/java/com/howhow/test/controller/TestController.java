@@ -58,6 +58,7 @@ public class TestController {
 		 if(accountDetail!= null) userid = accountDetail.getUserId();
 		m.addAttribute("userid",userid);
 		m.addAttribute("pageNo", 1);
+
 		return "shopping/browse";
 	}
 	

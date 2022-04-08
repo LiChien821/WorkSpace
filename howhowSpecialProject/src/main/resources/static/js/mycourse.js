@@ -2,7 +2,15 @@ import { createApp } from 'vue'
 
 const dataObj = {
 
-	purchasedcourses: ""
+	purchasedcourses: "",
+
+	rank: "",
+
+	message: "",
+
+	courseidforrank: "",
+
+	rankstatus: ""
 
 };
 
@@ -25,32 +33,56 @@ createApp({
 				console.log(error);
 			});
 
+		axios({
+			method: 'get',
+			url: '/api/findcourserankstatusbyuserid/' + this.userid,
+			headers: { "Access-Control-Allow-Origin": "*" }
+		})
+			.then(response => (this.rankstatus = response.data))
+			.catch(function(error) {
+				console.log(error);
+			})
 	},
 
 	methods: {
 		goLearning: function(courseid) {
-			
-		}
-		insertcourserank: function(courseid) {
-			
+			location.href = '/play/' + courseid;
+		},
+
+		insertcourserank: function() {
+
 			this.rank = document.getElementById("rank").value;
 			this.message = document.getElementById("message").value;
-			
-			console.log("userid",this.userid);
-			console.log("courseid",courseid);
-			console.log("rank",this.rank);
-			console.log("message",this.message);
-			
+
 			axios({
 				method: 'post',
-				url: '/howhow/api/insertcourserank',
+				url: '/api/insertcourserank',
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
-				data: { userid: this.userid, courseid: courseid, rank: this.rank, message: this.message }
+				data: { userid: this.userid, courseid: this.courseidforrank, rank: this.rank, message: this.message }
 			})
-				.then(function(response) { 
-					console.log(response);
-				})
-				.catch(function(error) {  
+				.then(this.rankstatus.push(this.courseidforrank),
+					this.courseidforrank="")
+				.catch(function(error) {
+					console.log(error);
+				});
+
+		},
+
+		findCourseidForRank: function(courseid) {
+
+			this.courseidforrank = courseid;
+		},
+
+		deleteCourseRank: function(courseid) {
+			this.userid = document.getElementById("userid").value;
+			const index = this.rankstatus.indexOf(courseid);
+			axios({
+				method: 'get',
+				url: '/api/deletecourserank/'+this.userid+'/'+courseid,
+				headers: {"Access-Control-Allow-Origin": "*" },
+			})
+				.then(this.rankstatus.splice(index, 1))
+				.catch(function(error) {
 					console.log(error);
 				});
 

@@ -37,7 +37,7 @@ import com.howhow.util.UtilityTool;
 @Controller
 public class ProductController {
 	
-	public final int PAGESIZE=12;
+	public final int PAGESIZE=8;
 
 	@Autowired
 	CourseBasicService cService;
