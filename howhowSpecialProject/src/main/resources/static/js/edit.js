@@ -30,7 +30,7 @@ const dataObj = {
 	newLectureNum: "",
 	newLectureName: "",
 
-
+	tempCover:"",
 	coverFile: "",
 	videoFile: "",
 	previewVideoFile:"",
@@ -60,8 +60,16 @@ Vue.createApp({
 			this.category = this.categoryList[id - 1];
 			this.course.category = this.category;
 		},
-		handleFileUpload() {
+		handleFileUpload(event) {
+			  var reader = new FileReader();
+			reader.addEventListener('load',this.imageLoader);
+
 			this.coverFile = this.$refs.file.files[0];
+			reader.readAsDataURL(this.coverFile);
+		},
+		imageLoader(event){
+			this.tempCover=event.target.result;
+			
 		},
 		createForm: function() {
 			axios({
