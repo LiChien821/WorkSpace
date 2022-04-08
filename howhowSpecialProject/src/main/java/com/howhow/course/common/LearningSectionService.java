@@ -1,6 +1,7 @@
 package com.howhow.course.common;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -45,6 +46,7 @@ public class LearningSectionService {
 
 	}
 	
+	//findSectionByCourseId - by weijie
 	public List<Section> findAllSectionsByCourseId(Integer id) {
 		List<Section> op1 = sectionRepo.findAllSectionsByCourseId(id);
 		System.out.println();

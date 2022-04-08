@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="./assets_wj/js/main.js"></script>
+    <script th:src="@{/assets_wj/js/main.js}"></script>
     <style>
         .blt-inner-container {
             display: none;
@@ -133,17 +133,34 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0 m-0">
                                     <h1 class="mt-0 pt-0"><i class="fa fa-user-circle" aria-hidden="true"></i>
-                                        <h1>
+                                    </h1>
                                 </div>
-                                <div class="flex-grow-1 ms-1 mt-1 d-block">
+                                <div class="flex-grow-1 ms-1 d-block">
                                     <div>
-                                        <div>
+                                        <div class=" d-flex justify-content-between">
+                                            <div class="dropdown d-flex">
+                                                <button type="button" class="btn-sm btn-primary dropdown-toggle"
+                                                    data-bs-toggle="dropdown">選擇單元</button>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <h5 class="dropdown-header">章節1</h5>
+                                                    </li>
+                                                    <li><small class="dropdown-item"><span>單元1</span></small> </li>
+                                                    <li><a class="dropdown-item" href="#">Link 2</a></li>
+                                                    <li><a class="dropdown-item" href="#">Link 3</a></li>
+                                                    <li>
+                                                        <h5 class="dropdown-header">Dropdown header 2</h5>
+                                                    </li>
+                                                    <li><a class="dropdown-item" href="#">Another link</a></li>
+                                                </ul>
+                                            </div>
+
                                             <input id="blt-qst-title" class="rounded form-control mb-1" type="text"
                                                 placeholder="請留下您的問題標題...">
                                         </div>
                                         <div id="blt-qst-toggle" style="display: none;">
                                             <div id="d1c1">
-                                                <textarea class="rounded form-control mb-1" rows="5" rows="3" id="c1"
+                                                <textarea class="rounded form-control mb-1" rows="5" id="c1"
                                                     placeholder="請留下您的問題內容..."></textarea>
                                             </div>
                                             <div class="d-flex justify-content-end" id="d1b1">
@@ -164,7 +181,7 @@
                             <div class="d-flex mb-3">
                                 <div class="flex-shrink-0">
                                     <h1><i class="fa fa-user-circle" aria-hidden="true"></i>
-                                        <h1>
+                                    </h1>
                                 </div>
                                 <div class="flex-grow-1 ms-2 d-block">
                                     <span>Lorem ipsum dolor sit amet, per veritus dissentiunt ea, id eum
@@ -185,7 +202,7 @@
                                             <div class="blt-reply-content d-flex mt-2">
                                                 <div class="flex-shrink-0">
                                                     <h3><i class="fa fa-user-circle" aria-hidden="true"></i>
-                                                        <h3>
+                                                    </h3>
                                                 </div>
                                                 <div class="container px-0 ms-2 mt-1">
                                                     <div class="d-flex justify-content-start align-items-center">
@@ -210,7 +227,7 @@
                                             <div class="blt-reply-content d-flex mt-2">
                                                 <div class="flex-shrink-0">
                                                     <h3><i class="fa fa-user-circle" aria-hidden="true"></i>
-                                                        <h3>
+                                                    </h3>
                                                 </div>
                                                 <div class="container px-0 ms-2 mt-1">
                                                     <div class="d-flex justify-content-start align-items-center">
@@ -240,7 +257,7 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0">
                                     <h1><i class="fa fa-user-circle" aria-hidden="true"></i>
-                                        <h1>
+                                    </h1>
                                 </div>
                                 <div class="flex-grow-1 ms-2 d-block">
                                     <span>Lorem ipsum dolor sit amet, per veritus dissentiunt ea, id eum
@@ -263,7 +280,7 @@
                                             <div class="blt-reply-content d-flex mt-3">
                                                 <div class="flex-shrink-0">
                                                     <h3><i class="fa fa-user-circle" aria-hidden="true"></i>
-                                                        <h3>
+                                                    </h3>
                                                 </div>
                                                 <div class="container px-0 ms-2 mt-1">
                                                     <div class="d-flex justify-content-start align-items-center">
@@ -287,7 +304,7 @@
                                             <div class="blt-reply-content d-flex mt-3">
                                                 <div class="flex-shrink-0">
                                                     <h3><i class="fa fa-user-circle" aria-hidden="true"></i>
-                                                        <h3>
+                                                    </h3>
                                                 </div>
                                                 <div class="container px-0 ms-2 mt-1">
                                                     <div class="d-flex justify-content-start align-items-center">
@@ -311,7 +328,7 @@
                                             <div class="blt-reply-content d-flex mt-3">
                                                 <div class="flex-shrink-0">
                                                     <h3><i class="fa fa-user-circle" aria-hidden="true"></i>
-                                                        <h3>
+                                                    </h3>
                                                 </div>
                                                 <div class="container px-0 ms-2 mt-1">
                                                     <div class="d-flex justify-content-start align-items-center">
@@ -353,6 +370,9 @@
 
         </div>
     </div>
+
+
+
 
 
     <footer class="bg-light py-4 mt-3">

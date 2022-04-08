@@ -23,5 +23,10 @@ public interface CommonSectionRepository extends PagingAndSortingRepository<Sect
 	           value = "SELECT * FROM section \n"
 	           		+ "WHERE course_id = ?1\n"
 	           		+ "ORDER BY section_id;")
+
+	@Query(nativeQuery = true,
+	value = "SELECT * FROM section \n"
+			+ "WHERE course_id = ?1\n"
+			+ "ORDER BY section_id;")
 	public List<Section> findAllSectionsByCourseId(Integer id);
 }

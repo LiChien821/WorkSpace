@@ -85,6 +85,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		     .antMatchers("/student/**").hasAnyAuthority("Teacher","Student")
 		     .antMatchers("/course/**").hasAnyAuthority("Admin","SuperAdmin")
 		     .antMatchers("/cms/**").hasAnyAuthority("Admin","SuperAdmin")
+
 		     .anyRequest()
 		     .authenticated()
 		        .and()
