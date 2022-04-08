@@ -25,32 +25,12 @@ const dataObj = {
 
 	categories:[
 		{
-			cUrl: "#",
+			cateId: "1",
 			cItemName: "開發",
-			subCategories:[
-				{
-					scUrl: "#",
-					scItemName: "網頁開發"
-				},
-				{
-					scUrl: "#",
-					scItemName: "資料科學"
-				},
-			]
 		},
 		{
-			cUrl: "#",
+			cateId: "2",
 			cItemName: "IT與軟體",
-			subCategories:[
-				{
-					scUrl: "#",
-					scItemName: "IT認證"
-				},
-				{
-					scUrl: "#",
-					scItemName: "硬體"
-				},
-			]
 		}
 		
 	],
@@ -136,7 +116,7 @@ const app = createApp({
 
 	},
 	methods: {
-		goToCoursePage: function(query, categorId) {
+		goToCoursePage: function(categorId) {
 			var query = 1;
 			var categoryId = 1;
 			self.location.href = "/howhow/searchCourseInfo/" + query;

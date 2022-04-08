@@ -52,25 +52,23 @@
 				</div>
 				<ul class="dropdown-menu" aria-labelledby="category">
 					<li class="dropdown-submenu dropdown-item" v-for="cate in categories">
-						<a class="d-flex justify-content-between" tabindex="-1" :href=cate.cUrl>
+						<!-- <a class="d-flex justify-content-between" tabindex="-1" :href=cate.cUrl>
 							<small><span>{{ cate.cItemName }}</span></small>
-							<i class="fa fa-chevron-right"></i></a>
-						<ul class="dropdown-menu">
-							<li v-for="subCate in cate.subCategories"><a :href=subCate.scUrl>
-									<small><span>{{ subCate.scItemName }}</span></small></a>
-							</li>
-							<!-- <li><a href="#"><small><span>資料科學</span></small></a></li> -->
-						</ul>
+							<i class="fa fa-chevron-right"></i></a> -->
+						<div class="d-flex justify-content-between" @click="goToCoursePage('', cate.cateId)">
+							<small><span>{{ cate.cItemName }}</span></small>
+							<i class="fa fa-chevron-right"></i>
+						</div>
 					</li>
 				</ul>
 			</div>
 
 			<div class="ms-3 navbar-search d-flex align-items-center justify-content-center">
 
-				<input type="search" placeholder="搜尋任何事物..." aria-describedby="button-addon4" @keyup.enter="goToLogin()"
+				<input type="search" placeholder="搜尋任何事物..." aria-describedby="button-addon4" @keyup.enter="goToCoursePage('unkown')"
 					class="navbar-search-input rounded-pill border-0 px-3">
 				<div class="">
-					<button id="button-addon4" type="button" class="border-0 rounded-pill"
+					<button id="button-addon4" type="button" class="border-0 rounded-pill" @click="goToCoursePage('unkown')"
 						style="height: 40px; background-color:#E2C652;"><i class="fa fa-search"></i></button>
 				</div>
 			</div>
@@ -78,15 +76,15 @@
 			<div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
 				<div class="navbar-nav">
 					<div class="nav-item dropdown mx-2 py-2 d-flex align-items-center">
-						<div  id="teacher" role="button" aria-expanded="false">
+						<div id="teacher" role="button" aria-expanded="false">
 							<a class="nav-link" href="/teacherPage/page">
 								<small><span>講師</span></small>
 							</a>
 						</div>
 					</div>
 
-					<div class="nav-item dropdown mx-2 py-2 d-flex align-items-center" >
-						<div  id="my-course" role="button" aria-expanded="false">
+					<div class="nav-item dropdown mx-2 py-2 d-flex align-items-center">
+						<div id="my-course" role="button" aria-expanded="false">
 							<a class="nav-link" href="/mycourse">
 								<small><span>我的課程</span></small>
 							</a>
@@ -94,7 +92,7 @@
 					</div>
 
 					<div class="nav-item mx-2 py-2">
-						<div  id="shopping-cart" role="button" aria-expanded="false">
+						<div id="shopping-cart" role="button" aria-expanded="false">
 							<a class="nav-link" href="/myshop">
 								<i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
 							</a>
