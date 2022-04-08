@@ -25,8 +25,8 @@
 							href="#lectures" role="tab" aria-controls="lectures" aria-selected="false">單元影片上傳</a>
 					</li>
 					<li class="nav-item presentation">
-						<a class="nav-link" id="media-tab" data-toggle="tab" data-bs-target="#media" href="#media"
-							role="tab" aria-controls="media" aria-selected="false">暫定</a>
+						<a class="nav-link" id="media-tab" data-toggle="tab" data-bs-target="#media" href="#preview"
+							role="tab" aria-controls="media" aria-selected="false">預覽</a>
 					</li>
 					<li class="nav-item presentation">
 						<a class="nav-link" id="shipping-tab" data-toggle="tab" data-bs-target="#shipping"
@@ -47,17 +47,17 @@
 
 					<div class="tab-pane" id="section" role="tabpanel">
 						<div>
-							<th:block th:replace="course/student/acoordin :: content"></th:block>
+							<th:block th:replace="course/teacherPage/sectionAndLecturesList :: content"></th:block>
 						</div>
 
 					</div>
 
 					<div class="tab-pane" id="lectures" role="tabpanel">
-						<th:block th:replace="course/fragments/editCourseLectures :: content"></th:block>
+						<th:block th:replace="course/teacherPage/editCourseLectures :: content"></th:block>
 
 					</div>
-					<div class="tab-pane" id="media" role="tabpanel">
-						<th:block th:replace="course/fragments/courseMediaUpload :: content"></th:block>
+					<div class="tab-pane" id="preview" role="tabpanel">
+						<th:block th:replace="course/teacherPage/editPreview :: content"></th:block>
 
 					</div>
 					<div class="tab-pane" id="shipping" role="tabpanel">

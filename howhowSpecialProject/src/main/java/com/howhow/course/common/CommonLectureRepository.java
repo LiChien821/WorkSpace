@@ -1,8 +1,8 @@
 package com.howhow.course.common;
 
 import java.util.List;
-import java.util.Map;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -14,7 +14,7 @@ public interface CommonLectureRepository extends PagingAndSortingRepository<Lect
 	public Lectures findBysectionIDAndLectureNum(int sectionID, int lectureNum);
 	
 	@Query("SELECT l FROM Lectures l WHERE l.section.sectionID = ?1")
-	public Iterable<Lectures> findAllBySectionID(int sectionID);
+	public Iterable<Lectures> findAllBySectionID(int sectionID,Sort sort);
 
 	@Query(nativeQuery = true,
 	           value = "SELECT * FROM lectures \n"

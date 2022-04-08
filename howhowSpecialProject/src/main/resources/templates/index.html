@@ -13,10 +13,18 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 
 <body>
-<div class="box1">
-  <img border="0" th:src="@{/image/unnamed.png}"
-     alt="Pulpit rock">
-</div>
+  <div class="header"><img class="icon" th:src="@{/image/unnamed.png}" alt=""/>
+  
+  <a style="color:#E2C652" th:href="@{/login}">
+      	<input type ="button" class="bt2" value="登入"></input>
+      	</a>
+      	  	<a th:href="@{/register}">
+      	<input type ="button" class="bt1" value="註冊"></input>
+      	</a>
+      	
+  
+  </div>
+
 	
 
 <div class="loginwordbox">
@@ -28,14 +36,9 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
       	<div class= "singup" >
       	
       	
-      	<a style="color:#E2C652" th:href="@{/login}">
-      	<input type ="button" class="bt" value="登入"></input>
-      	</a>
-      	  	<a th:href="@{/register}">
-      	<input type ="button" class="bt" value="註冊"></input>
-      	</a>
+  
       	
-      	 <span class = "logintitle">
+      
       	</div>
 		
 		
@@ -47,8 +50,34 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 					
 		
 
-</div>
 
+
+
+<div style="float: right" th:fragment="logout" sec:authorize="isAuthenticated()">
+
+
+	<div style="float:left">
+		<span style="font-weight:bold">User: </span><span sec:authentication="name"></span>
+	</div>
+	
+	
+	<div style="float:none">&nbsp;</div>
+	<div style="float:right">
+		<form action="#" th:action="@{/logout}" method="post">
+			<input type="submit" value="Logout" />
+		</form>
+	</div>
+	
+</div>
+<h1>OAuth2 Login with Spring Security</h1>
+<div>
+	You are successfully logged in <span style="font-weight:bold" th:text="${userName}"></span>
+	via the OAuth2 Client <span style="font-weight:bold" th:text="${clientName}"></span>
+</div>
+<div>&nbsp;</div>
+<div>
+	<a href="/userinfo" th:href="@{/userinfo}">Display User Information</a>
+</div>
 
 	
 	

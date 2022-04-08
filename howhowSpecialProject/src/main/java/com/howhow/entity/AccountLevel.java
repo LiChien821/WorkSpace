@@ -5,5 +5,5 @@ import java.io.Serializable;
 public enum AccountLevel implements Serializable{
 
 	
-	Teacher, Student, Admin
+	Teacher, Student, Admin, SuperAdmin
 }

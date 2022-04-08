@@ -1,0 +1,45 @@
+<!doctype html>
+<th:block th:fragment="content">
+ 	<hr>
+  <div id="introduceBlock">
+    <div class="p-5 mb-4 bg-light rounded-3">
+      <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">{{lecture.lecturesName}}</h1>
+        <label>本單元重點說明 </label>
+        <p class="col-md-8 fs-4">{{lecture.hint}}
+      </div>
+    </div>
+
+    <div class="row align-items-md-stretch">
+      <div class="col-md-6">
+        <div class="h-100 p-5  bg-light  rounded-3">
+          <h2>課程 [[${theCourse.courseName}]]</h2>
+          <p>課程介紹  [[${theCourse.description}]]</p>
+          <h5>總共[[${#lists.size(theCourse.sectionList)}]]  .章 
+         [[${leactureTotalNum}]] .單元</h5>
+          
+        </div>
+      </div>
+      <div class="col-md-6">
+      	<div class="row h-100 p-5   text-white bg-dark ">
+	        <div class=" col-3 ">
+				<div id="logo">
+					<span class="image"><img class=" border rounded-circle border-dark"th:src="@{/images/avatar.jpg}" alt="" /></span>
+					<h1 id="title">[[${creator.givenName}]] [[${creator.familyName}]]</h1>
+					<p>課程創作者</p><p>[[${creator.acountCreationTime}]]</p>
+				</div>
+	        </div>
+	        <div class="col-9 ">
+	        	<p>account description</p>
+	        	<h5>目前已創造課程數：[[${#lists.size(creator.createdCourseList)}]]</h5>
+	        </div >
+      	</div>
+      </div>
+    </div>
+
+    <footer class="pt-3 mt-4 text-muted border-top">
+      &copy; howhow學 2022
+    </footer>
+  </div>
+
+</th:block>

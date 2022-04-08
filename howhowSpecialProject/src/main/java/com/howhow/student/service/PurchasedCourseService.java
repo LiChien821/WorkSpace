@@ -13,6 +13,7 @@ import com.howhow.entity.OrderDt;
 import com.howhow.entity.OrderMt;
 import com.howhow.entity.PurchasedCourse;
 import com.howhow.entity.UserAccountMt;
+import com.howhow.shopping.exception.CourseNotFoundException;
 import com.howhow.shopping.exception.OrderNotFoundException;
 import com.howhow.shopping.repository.CourseBasicRepository;
 import com.howhow.shopping.repository.OrderDtRepository;
@@ -73,7 +74,7 @@ public class PurchasedCourseService {
 		try {
 			OrderMt omt = omtrepo.findById(orderid).get();
 			
-			if(omt.getOrderStatusTypeID()!=1) throw new OrderStatusErrorException();
+			if(omt.getOrderStatusTypeID()!=10) throw new OrderStatusErrorException();
 			
 			List<OrderDt> odt = odtrepo.findByOrderID(orderid);
 			UserAccountMt user = omt.getUserID();
@@ -99,5 +100,13 @@ public class PurchasedCourseService {
 		List<PurchasedCourse> list = repo.findByCourseID(courseid);
 		return list;
 	}
-
+	
+	public Integer findStudentCount(int courseid) throws CourseNotFoundException{
+		try {
+			Integer count = repo.findStudentCount(courseid);
+			return count;
+		} catch (Exception e) {
+			throw new CourseNotFoundException();
+		}
+	}
 }

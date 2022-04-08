@@ -2,12 +2,12 @@ package com.howhow.course.common;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder.BCryptVersion;
 import org.springframework.stereotype.Service;
@@ -16,20 +16,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
+import com.howhow.cms.service.CourseStatusTypeService;
+import com.howhow.cms.service.ReportTypeService;
 import com.howhow.course.exception.CourseDuplicatedException;
 import com.howhow.course.exception.NoCourseException;
 import com.howhow.entity.CourseBasic;
-import com.howhow.entity.Lectures;
-import com.howhow.entity.Section;
+import com.howhow.entity.CourseStatusType;
 
 @Service
 public class LearningCourseService {
 	public final static int NUMBEROFCOURSEPAGE = 6;
 	@Autowired
 	private CommonCourseRepository repo;
-
+	
 	@Autowired
-	private CommonSectionRepository sectionRepo;
+	private CourseStatusTypeService courseStatusTypeService;
 
 	@Autowired
 	private BlobContainerClient containerClient;
@@ -37,8 +38,12 @@ public class LearningCourseService {
 	public boolean createCourseSucessed(CourseBasic course) throws CourseDuplicatedException {
 		int uid = course.getCreator().getUserId();
 		String courseName = course.getCourseName();
-		CourseBasic existedCourse = repo.findCourseByUIDAndCourseName(uid, courseName);
+		CourseBasic existedCourse = repo.findCourseByUIDAndCourseName(uid, courseName).orElse(null);
 		if (existedCourse == null) {
+			CourseStatusType type= courseStatusTypeService.findById(1);
+			course.setStatusType(type);
+			course.setDiscount(1);
+			course.setSystemTime(new Date().toString());
 			repo.save(course);
 
 			return true;
@@ -48,56 +53,33 @@ public class LearningCourseService {
 
 	}
 
-//	private boolean courseNameIsDuplicated(int couresID,String courseName) {
-//		if(	repo.findCourseByUIDAndCourseName(couresID,courseName)!=null) {
-//			return true;
-//		}else {
-//			return false;
-//		}
-//		
-//	}
 
-//	public Course findCourseByID(Integer id) throws NoCourseException {
-//
-//		try {
-//			repo.findById(id);
-//			return repo.findById(id).get();
-//		} catch (NoSuchElementException ex) {
-//			throw new NoCourseException("no course found");
-//		}
-//
-//	}
+
 	public CourseBasic findCourseByUIDAndName(Integer uid, String Name) throws NoCourseException {
 
-		CourseBasic existedCourse = repo.findCourseByUIDAndCourseName(uid, Name);
-		if (existedCourse != null) {
-			return existedCourse;
-		} else {
-			throw new NoCourseException("no course found");
-		}
-
+		return repo.findCourseByUIDAndCourseName(uid, Name)
+				.orElseThrow(()-> new NoCourseException("no course found"));
+		
 	}
 
-	public boolean editSectionListofCourse(CourseBasic asignedcourse) throws NoCourseException {
+	public void editSectionListofCourse(CourseBasic asignedcourse) throws NoCourseException {
 		CourseBasic existedCourse = repo.findCourseByUIDAndCourseName(asignedcourse.getCreator().getUserId(),
-				asignedcourse.getCourseName());
-		if (existedCourse != null) {
-			existedCourse.setSectionList(asignedcourse.getSectionList());
-			repo.save(existedCourse);
-			return true;
-		} else {
-			return false;
-		}
-
+				asignedcourse.getCourseName()).orElseThrow(()-> new NoCourseException("no course found"));
+	
+				existedCourse.setSectionList(asignedcourse.getSectionList());
+				repo.save(existedCourse);
+				
+		
 	}
 
 	public Iterable<CourseBasic> findAllCourseByUID(int id) {
-		return repo.findAllCourseByUID(id);
+		  Sort sort=Sort.by("courseID").ascending();
+		return repo.findAllCourseByUID(id,sort);
 
 	}
 
-	public CourseBasic findCourseByCourseId(int courseId) {
-		return repo.findById(courseId).get();
+	public CourseBasic findCourseByCourseId(int courseId) throws IOException {
+		return repo.findById(courseId).orElseThrow( ()->new IOException("無此courseID"+courseId) );
 	}
 
 	public void encrypto(String password) {
@@ -160,6 +142,13 @@ public class LearningCourseService {
 			return false;
 		}
 
+	}
+
+
+
+	public Iterable<CourseBasic> findAllCourseByUID(int accountID, Pageable pageable) {
+		return repo.findAllCourseByUID(accountID, pageable);
+		
 	}
 
 }

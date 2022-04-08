@@ -62,4 +62,21 @@ public class FavoriteCourseService {
 		}
 		return list;
 	}
+	
+	public boolean findFavoriteCourseStatus(int userid, int courseid) {
+		FavoriteCourse bean = repo.findFavoriteCourseStatus(userid, courseid);
+		if(bean!=null) return true;
+		return false;
+	}
+	
+	public boolean removeFavoriteCourse(int userid, int courseid) {
+		FavoriteCourse status = repo.findFavoriteCourseStatus(userid, courseid);
+		if(status!=null) {
+			repo.deleteById(status.getFavoriteCourseID());
+			return true;
+		}
+		return false;
+	}
+	
+	
 }

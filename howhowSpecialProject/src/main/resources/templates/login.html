@@ -15,11 +15,12 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <body>
 <div class="box1">
-<a th:href="@{/index}"> <img border="0" th:src="@{/image/unnamed.png}"
-     alt="Pulpit rock"></a>
+<a th:href="@{/}"> <img border="0" th:src="@{/images/logo.png}"
+     alt=""></a>
 </div>
 	
-<form class="form" method="POST" th:action="@{/login}" style="max-width: 500px; margin: 0 auto">
+<form class="form" method="POST" th:action="@{/login}"  style="max-width: 500px; margin: 0 auto ; height:300px">
+
 
 		<br>
 		<div th:if="${param.error}" class="errme">
@@ -32,7 +33,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <div class="loginwordbox">
   <span class = "logintitle">登入</span>
 </div>
-	
+	<a href="/oauth2/authorization/google">Google Login</a>
       
       	<div class= "singup" ><a style="color:#FFFFFF" th:href="@{/register}">sign up?</a></div>
 		</div>
@@ -58,7 +59,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 				</span>
 </div>
 
-<spqn class = "btd"><input type="submit" class="bt1" clavalue="log in"/> 
+<spqn class = "btd"><input type="submit" class="bt1" value="log in"/> 
 </span>
 	</form>
 	

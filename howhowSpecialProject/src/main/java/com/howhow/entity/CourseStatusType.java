@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -19,11 +20,12 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "coursestatustype")
 public class CourseStatusType {
+	
 	@Id
 	@Column(name = "status_id")
 	@GenericGenerator(name = "native", strategy = "native")
 	@GeneratedValue(generator = "native")
-	private int statusID=1;
+	private int statusID;
 
 	@Column(name = "status_name")
 	private String statusName;
