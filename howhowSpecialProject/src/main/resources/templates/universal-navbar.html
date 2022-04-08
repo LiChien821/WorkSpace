@@ -51,12 +51,12 @@
             </div>
 
             <div class="input-group border rounded-pill p-1">
-                <div class="input-group-prepend border-0">
-                    <button id="button-addon4" type="button" class="btn btn-link text-info"><i
-                            class="fa fa-search"></i></button>
-                </div>
-                <input type="search" placeholder="搜尋任何事物..." aria-describedby="button-addon4"
-                    class="form-control bg-light border-0 me-2">
+                    <div class="input-group-prepend border-0">
+                        <button id="button-addon4" type="button" class="btn btn-link text-info"><i
+                                class="fa fa-search"></i></button>
+                    </div>
+                    <input type="search" placeholder="搜尋任何事物..." aria-describedby="button-addon4" @keyup.enter="goToLogin()"
+	                    class="form-control bg-light border-0 me-2">
             </div>
 
             <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -226,11 +226,15 @@
                 </div>
             </div>
         </div>
+
+
+
     </nav>
+
+
 
     <section class=" py-5">
         <div class="container">
-
             <div class="row">
                 <div class="col-md-4">
                     <h6>學無止境與你一起</h6>
@@ -249,7 +253,6 @@
                 </div>
             </div>
         </div>
-
     </section>
 
     <section>
@@ -411,12 +414,14 @@
     <script type="importmap">
 	{
 	  "imports": {
-		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
+        "vue-router": "https://cdnjs.cloudflare.com/ajax/libs/vue-router/4.0.0-alpha.12/vue-router.esm.js"
 	  }
 	}
     </script>
     <script type="module" th:src="@{/assets_wj/js/universal-navbar.js}"></script>
-
+    <!-- "html-loader": https://cdn.jsdelivr.net/npm/html-loader@3.1.0/dist/cjs.min.js -->
+    <!-- "vue-router": "https://unpkg.com/vue-router@4" -->
     <footer class="bg-light py-4 mt-3">
         <div class=" container d-flex justify-content-between">
             <div>footer.</div>

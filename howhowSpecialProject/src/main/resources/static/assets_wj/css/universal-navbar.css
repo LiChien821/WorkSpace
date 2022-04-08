@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 .dropdown-submenu {
     position: relative;
 }
@@ -39,4 +41,109 @@ a.nav-btn-link:hover, a.nav-btn-link:active {color:white;}
 .dropdown-menu-info {
     height: 200px;
     overflow-y: auto;
+}
+
+
+
+*{
+/*border: solid 1px;*/
+  font-family: 微軟正黑體;
+  
+}
+body{
+margin:0;
+  padding:0;
+/* UI Properties */
+background: #f3f7f7 0% 0% no-repeat padding-box;
+opacity: 1;
+
+}
+.loginwordbox{
+	width: 1200px;
+	margin:0 auto;
+	height:200px;
+	 text-align:center;
+	 letter-spacing: 0px;
+}
+.accword{
+  /* Layout Properties */
+
+/* UI Properties */
+
+font:  Kohinoor Telugu;
+  font-size:30px;
+text-align:center;
+color: #FFFFFF;
+opacity: 1;
+}
+.singup{
+/* Layout Properties */
+
+width: 1200px;
+height:500px;
+/* UI Properties */
+text-align: center;
+font: normal normal 300 30px/42px Yuanti TC;
+letter-spacing: 0px;
+color: #FFFFFF;
+opacity: 1;
+margin:0px auto;
+
+}
+.logintitle{
+  /* Layout Properties */
+top: 285px;
+left: 791px;
+width: 120px;
+height: 84px;
+/* UI Properties */
+text-align: left;
+font: normal normal normal 50px Kohinoor Telugu;
+letter-spacing: 0px;
+color: #FFFFFF;
+opacity: 1;
+  font-family: 微軟正黑體;
+}
+.bt1{
+	  /* Layout Properties */
+
+width: 100px;
+height: 40px;
+position: absolute;
+top: 60%;
+        left: 96%;
+        transform: translate(-50%,-96%);
+/* UI Properties */
+background: #FFFFFF ;
+border-radius: 51px;
+opacity: 1;
+    font-family: 微軟正黑體;
+   border:none;
+}
+.bt2{
+	  /* Layout Properties */
+
+width: 100px;
+height: 40px;
+position: absolute;
+top: 58%;
+        left: 90%;
+        transform: translate(-50%,-90%);
+/* UI Properties */
+background: #FFFFFf;
+border-radius: 51px;
+opacity: 1;
+    font-family: 微軟正黑體;
+   border:none;
+}
+
+.header{
+  height:130px;
+ background-color:#E2C652;
+position: relative; 
+}
+.icon{
+	padding:10px;
+  width:250px;
+  
 }

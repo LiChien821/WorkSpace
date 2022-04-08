@@ -1,10 +1,26 @@
 import { createApp } from 'vue'
+// import { createRouter, createWebHistory}  from 'vue-router'
+
+// const LoginPage = {template: '<div>Home</div>'}
+// const routes = [
+//     { path: '/', name: 'home', component: "" },
+//     { path: '/login', redirect: '/' },
+//     { path: '/howhow/login', name: 'login', component: () => {
+// 		LoginPage
+// 	}}
+// ]
+// const router = createRouter({
+//     history:createWebHistory(),
+//     routes: routes
+// })
 
 const dataObj = {
 	test: "",
 	userId: 1,
 	courseCreatorId: "",
 	userName: "Big O",
+	currQuery: "",
+
 	categories:[
 		{
 			cUrl: "#",
@@ -89,12 +105,20 @@ const dataObj = {
 	]
 };
 
-createApp({
-
+const app = createApp({
 	data() {
 		return dataObj;
 	},
 	mounted: function () {
+	},
+	methods: {
+		goToCoursePage: function() {
+			var query = 1;
+			var categoryId = 1;
+			self.location.href = "/howhow/searchCourseInfo/" + query;
+			// this.$router.push('https://www.youtube.com/'); 
+		}
 	}
-	
-}).mount('#howhowdo-navbar')
+})
+// app.use(router);
+app.mount('#howhowdo-navbar');
