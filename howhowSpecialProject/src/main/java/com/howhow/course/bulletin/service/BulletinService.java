@@ -1,15 +1,20 @@
 package com.howhow.course.bulletin.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.howhow.course.bulletin.repository.BulletinRepository;
 import com.howhow.entity.Bulletin;
+import com.howhow.entity.Lectures;
+import com.howhow.entity.Section;
 
 @Service
 @Transactional
@@ -40,6 +45,40 @@ public class BulletinService {
 		}
 		return op1;	
 	}
+	
+	//findCreatorIdByCourseId
+	public Integer findCreatorIdByCourseId(Integer id) {
+		Integer creatorid = bRepo.findCreatorIdByCourseId(id);
+		return creatorid;	
+	}
+	
+	//findAllByLectureId
+	public List<Bulletin> findAllByLectureId(Integer id) {
+		List<Bulletin> op1 = bRepo.findAllByLectureId(id);
+		if (op1.isEmpty()) {
+			return null;
+		}
+		return op1;
+	}
+	
+	//findAllBySearch
+	public List<Bulletin> findAllBySearch(String str) {
+		List<Bulletin> op1 = bRepo.findAllBySearch("%"+str+"%");
+		if (op1.isEmpty()) {
+			return null;
+		}
+		return op1;
+	}
+	
+//	findSectionInfoByCourseId
+//	public List<Object> findSectionInfoByCourseId(Integer id) {
+//		List<Object> op1 = bRepo.findSectionInfoByCourseId(id);
+//		if (op1.isEmpty()) {
+//			return null;
+//		}
+//		return op1;
+//	}
+	
 	
 	//findAll
 	public List<Bulletin> findAll() {

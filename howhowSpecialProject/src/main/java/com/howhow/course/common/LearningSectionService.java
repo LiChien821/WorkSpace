@@ -45,6 +45,16 @@ public class LearningSectionService {
 
 	}
 	
+	public List<Section> findAllSectionsByCourseId(Integer id) {
+		List<Section> op1 = sectionRepo.findAllSectionsByCourseId(id);
+		System.out.println();
+		if (op1.isEmpty()) {
+			return null;
+		}
+		return op1;
+	}
+	
+	
 	public Section findSectionByID(int id) throws NoSectionException {
 		try {
 			sectionRepo.findById(id);

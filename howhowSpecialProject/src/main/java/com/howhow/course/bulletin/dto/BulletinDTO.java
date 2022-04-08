@@ -1,47 +1,66 @@
 package com.howhow.course.bulletin.dto;
 
-import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 public class BulletinDTO {
 
-	private Integer bulletinid;
+	private Integer bulletinId;
 	private String title;
 	private String content;
-	private String creationtime;
-	private String launchername;
-	private Integer lectureid;
-	private HashMap<Integer, BulletinReplyDTO> replymap;
+	private String creationTime;
+	private String launcherName;
+	private Integer lectureId;
+	private List<BulletinReplyDTO> replies;
+	private Integer replyCount;
+	private String sectionName;
+	private String lectureName;
 	
-	public BulletinDTO(Integer bulletinid, String title, String content, 
-			String creationtime, String launchername, Integer lectureid, 
-			HashMap<Integer, BulletinReplyDTO> replymap) {
-		this.bulletinid = bulletinid;
+	public BulletinDTO(Integer bulletinId, String title, String content, 
+			String creationTime, String launcherName, Integer lectureId, 
+			List<BulletinReplyDTO> replies, Integer replyCount, String sectionName, String lectureName) {
+		this.bulletinId = bulletinId;
 		this.title = title;
 		this.content = content;
-		this.creationtime = creationtime;
-		this.launchername = launchername;
-		this.lectureid = lectureid;
-		this.replymap = replymap;
-	}
-	
-	public BulletinDTO(Integer bulletinid, String title, String content, 
-			String creationtime, String launchername,
-			HashMap<Integer, BulletinReplyDTO> replymap) {
-		this.bulletinid = bulletinid;
-		this.title = title;
-		this.content = content;
-		this.creationtime = creationtime;
-		this.launchername = launchername;
-		this.replymap = replymap;
+		this.creationTime = creationTime;
+		this.launcherName = launcherName;
+		this.lectureId = lectureId;
+		this.replies = replies;
+		this.replyCount = replyCount;
+		this.sectionName = sectionName;
+		this.lectureName = lectureName;
 	}
 
-	public Integer getBulletinid() {
-		return bulletinid;
+	public String getSectionName() {
+		return sectionName;
 	}
 
-	public void setBulletinid(Integer bulletinid) {
-		this.bulletinid = bulletinid;
+	public void setSectionName(String sectionName) {
+		this.sectionName = sectionName;
+	}
+
+	public String getLectureName() {
+		return lectureName;
+	}
+
+	public void setLectureName(String lectureName) {
+		this.lectureName = lectureName;
+	}
+
+	public Integer getReplyCount() {
+		return replyCount;
+	}
+
+	public void setReplyCount(Integer replyCount) {
+		this.replyCount = replyCount;
+	}
+
+	public Integer getBulletinId() {
+		return bulletinId;
+	}
+
+	public void setBulletinId(Integer bulletinId) {
+		this.bulletinId = bulletinId;
 	}
 
 	public String getTitle() {
@@ -60,37 +79,40 @@ public class BulletinDTO {
 		this.content = content;
 	}
 
-	public String getCreationtime() {
-		return creationtime;
+	public String getCreationTime() {
+		return creationTime;
 	}
 
-	public void setCreationtime(String creationTime) {
-		this.creationtime = creationTime;
+	public void setCreationTime(String creationTime) {
+		this.creationTime = creationTime;
 	}
 
-	public String getLaunchername() {
-		return launchername;
+	public String getLauncherName() {
+		return launcherName;
 	}
 
-	public void setLaunchername(String launchername) {
-		this.launchername = launchername;
+	public void setLauncherName(String launcherName) {
+		this.launcherName = launcherName;
 	}
 
-	public Integer getLectureid() {
-		return lectureid;
+	public Integer getLectureId() {
+		return lectureId;
 	}
 
-	public void setLectureid(Integer lectureid) {
-		this.lectureid = lectureid;
+	public void setLectureId(Integer lectureId) {
+		this.lectureId = lectureId;
 	}
 
-	public HashMap<Integer, BulletinReplyDTO> getReplymap() {
-		return replymap;
+	public List<BulletinReplyDTO> getReplies() {
+		return replies;
 	}
 
-	public void setReplymap(HashMap<Integer, BulletinReplyDTO> replymap) {
-		this.replymap = replymap;
+	public void setReplies(List<BulletinReplyDTO> replies) {
+		this.replies = replies;
 	}
+
+
+
 	
 	
 	

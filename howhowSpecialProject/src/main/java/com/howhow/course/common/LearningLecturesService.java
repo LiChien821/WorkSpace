@@ -2,6 +2,7 @@ package com.howhow.course.common;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -39,7 +40,16 @@ public class LearningLecturesService {
 		return false;
 
 	}
-
+	
+	public List<Lectures> findAllLecturesBySectionId(Integer id){
+		List<Lectures> op1 = lectureRepo.findAllLecturesBySectionId(id);
+		if (op1.isEmpty()) {
+			return null;
+		}
+		return op1;
+	}
+	
+	
 	public Iterable<Lectures> findAllBySectionID(int sectionID) {
 		Sort sort=Sort.by("lectureNumber").ascending();
 		return lectureRepo.findAllBySectionID(sectionID,sort);

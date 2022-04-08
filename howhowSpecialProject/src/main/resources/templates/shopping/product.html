@@ -42,32 +42,44 @@
 <link rel="stylesheet"
 	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css}">
 
-<link th:href="@{http://fonts.googleapis.com/css?family=Roboto}" rel='stylesheet' type='text/css' />
+<link th:href="@{http://fonts.googleapis.com/css?family=Roboto}"
+	rel='stylesheet' type='text/css' />
 
+<!-- weiji -->
+
+<!-- weijiend -->
 </head>
 
 <body>
-
-	<div class="header">
-		<img class="icon" th:src="@{/image/unnamed.png}" alt="" /> <a
-			style="color: #E2C652" th:href="@{/login}"> <input type="button"
-			class="bt2" value="登入"></input>
-		</a> <a th:href="@{/register}"> <input type="button" class="bt1"
-			value="註冊"></input>
-		</a>
-	</div>
-
 	<div id="product">
-		<div class="testcontainer" style="padding:10px">
-			<div class="row" style="width:100%; background-size: 100% auto; backdrop-filter: blur(5px);" v-bind:style="{ backgroundImage:'url('+blobSetting+course.cover+ ')'}">
-				<div class="col-12 col-lg-7" style="padding:0px; margin:15px">
-					<div class="productvideo">
+		<div class="header">
+			<img class="icon" th:src="@{/image/unnamed.png}" alt="" /> <a
+				style="color: #E2C652" th:href="@{/login}"> <input type="button"
+				class="bt2" value="登入"></input>
+			</a> <a th:href="@{/register}"> <input type="button" class="bt1"
+				value="註冊"></input>
+			</a>
+		</div>
+		<hr />
+		<div style="height: 240px; font-size: 50px; letter-spacing: 5px"
+			class="d-flex align-items-center justify-content-center">{{course.coursename}}</div>
+		<hr />
+
+
+		<div class="container-fluid">
+			<div class="row py-5"
+				style="backdrop-filter: blur(5px); border: 1px solid"
+				v-bind:style="{ backgroundImage:'url('+blobSetting+course.cover+ ')'}">
+				<div class="col-12 col-lg-2"></div>
+				<div class="col-12 col-lg-6" style="padding: 0px;">
+					<div class="productvideo me-5">
 						<video id="my-video"
 							class="video-js vjs-fluid vjs-big-play-centered"></video>
 					</div>
 
 				</div>
-				<div class="col-12 col-lg-4" style="background-color: rgba(255,255,255,0.9); padding:40px; border-radius:20px; max-height:600px; overflow-y: auto; margin:15px;">
+				<div class="col-12 col-lg-3"
+					style="background-color: rgba(255, 255, 255, 0.9); border-radius: 20px; max-height: 550px; width: 600px; overflow-y: auto;">
 					<ul class="nav flex-column" v-for="section in course.sectionList">
 						<li class="nav-item">
 							<button
@@ -85,21 +97,41 @@
 								<ul
 									class="nav flex-column btn-toggle-nav list-unstyled fw-normal pb-1 small"
 									v-for="lecture in section.lecturesList">
-									<li class="nav-item"
-										v-if="lecture.availableToPreview">
-										<div class="lecturename">
-											<a href="#" class="link-dark rounded "
-												@click="handleVideoUrl(lecture)" style="text-decoration:none;">
+									<div v-if="purchasedstatus">
+										<li class="nav-item">
+											<div class="lecturename">
+												<a href="#" class="link-dark rounded "
+													@click="handleVideoUrl(lecture)"
+													style="text-decoration: none;">
 
-												<p style="margin-left:40px;">
-													<span data-feather="fast-forward"></span>{{lecture.lectureNumber}}.
-													{{lecture.lecturesName}}
-												</p>
-												<hr/ style="border: 1px solid; margin:0px 20px">
+													<p style="margin-left: 40px;">
+														<span data-feather="fast-forward"></span>{{lecture.lectureNumber}}.
+														{{lecture.lecturesName}}
+													</p>
+													<hr / style="border: 1px solid; margin: 0px 20px">
 
-											</a>
-										</div>
-									</li>
+												</a>
+											</div>
+										</li>
+									</div>
+									<div v-else>
+										<li class="nav-item" v-if="lecture.availableToPreview">
+											<div class="lecturename">
+												<a href="#" class="link-dark rounded "
+													@click="handlePreviewVideoUrl(lecture)"
+													style="text-decoration: none;">
+
+													<p style="margin-left: 40px;">
+														<span data-feather="fast-forward"></span>{{lecture.lectureNumber}}.
+														{{lecture.lecturesName}}
+													</p>
+													<hr / style="border: 1px solid; margin: 0px 20px">
+
+												</a>
+											</div>
+										</li>
+
+									</div>
 								</ul>
 							</div>
 						</li>
@@ -108,167 +140,381 @@
 
 
 				</div>
+				<div class="col-12 col-lg-2"></div>
 			</div>
 		</div>
 
-		<div class="testcontainer">
+		<div
+			style="height: 220px; background-color: #FFFFFF; border-radius: 0px 0px 80px 80px;">
+			<div class="container-fluid">
+				<div class="row" style="position: relative">
+					<div>
+						<hr />
+					</div>
+					<div class="col-lg-3"></div>
+					<div class="col-lg-3"></div>
+					<div class="col-lg-1" style="position: relative">
+						<button
+							class="btn rounded-pill d-flex align-items-center justify-content-center"
+							style="background-color: #00BB00; font-size: 35px; margin-top: 35px; position: absolute; left: 20%; width: 85px; height: 85px;">
+							<i class="fa fa-bookmark fa-lg" aria-hidden="true"
+								style="color: white"></i>
+						</button>
+					</div>
+					<div class="col-lg-1" style="position: relative">
+						<button
+							class="btn rounded-pill d-flex align-items-center justify-content-center"
+							style="background-color: #8C8C8C; font-size: 35px; margin-top: 35px; position: absolute; left: -10%; width: 85px; height: 85px;">
+							<i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
+						</button>
+					</div>
+					<div class="col-lg-1"
+						style="font-size: 80px; line-height: 150px; position: relative">
+						<div style="position: absolute; left: -30%; color: orange;">NT${{course.discountprice}}</div>
+					</div>
+					<div class="col-lg-3 justify-content-center"
+						style="position: relative">
+						<a class="btn d-flex align-items-center justify-content-center"
+							style="width: 350px; font-size: 25px; border-radius: 10px; height: 70px; margin-top: 40px; position: absolute; left: 6%">立即購買</a>
+					</div>
+					<div style="position: absolute; top: 570%;">
+						<hr / class="hr2" style="width: 96%; margin-left: 2%">
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div style="height: 110px"></div>
+		<div class="container-fluid">
 
 			<!-- .row -->
 
 			<div class="row">
-
-				<div class="offset-lg-2 col-12 col-lg-8">
-					<div class="single-course-wrap">
-						<div class="course-info flex flex-wrap align-items-center" style="font-size:30px">
-							<div class="course-author flex flex-wrap align-items-center mt-3">
-
-								<div class="author-wrap">
-									<label class="m-0">Teacher</label>
-									<div class="author-name">
-										<a href="#" style="color:orange">{{course.creatorname}}</a>
-									</div>
-								</div>
-								<!-- .author-wrap -->
-							</div>
-							<!-- .course-author -->
-
-							<div class="course-cats mt-3">
-								<label class="m-0">Categories</label>
-								<div class="author-name">
-									<a href="#">{{course.category}}</a>
-								</div>
-							</div>
-							<!-- .course-cats -->
-
-							<div class="course-students mt-3">
-								<label class="m-0">Student</label>
-								<div class="author-name">
-									<a href="#">{{course.studentnum}}</a>
-								</div>
-							</div>
-							<!-- .course-students -->
-
-							<div class="course-students mt-3" >
-								<div v-if="purchasedstatus==true">
-									<a class="btn"
-										style="color:  white; font-size:30px; background: black; border: solid black 2px"
-										href="#javascript" @click.prevent="">已購買</a>
-								</div>
-								<div v-else-if="shopstatus==false">
-									<a class="btn" style="font-size:30px" href="#" @click.prevent="addShoppingCart()">加入購物車</a>
-								</div>
-								<div v-else>
-									<a class="btn" style="font-size:30px" href="#" @click.prevent="removeShoppingCart()">從購物車移除</a>
-								</div>
-
-							</div>
-
-							<div class="course-students mt-3">
-								<div v-if="favstatus==false">
-									<a class="btn" style="font-size:30px" href="#" @click.prevent=addFavorite()>加入最愛</a>
-								</div>
-								<div v-else>
-									<a class="btn" style="font-size:30px" href="#" @click.prevent=removeFavorite()>從最愛移除</a>
-								</div>
-							</div>
-							<div class="mt-3">
-								<div class="course-cost" style="font-size:50px; color:orange;">NT${{course.discountprice}}</div>
-							</div>
-
-						</div>
-						<!-- .course-info -->
-
-						<div class="single-course-cont-section">
-							<h2 style="font-size: 50px">What Will I Learn?</h2>
-
-							<div>{{course.description}}</div>
-							</ul>
-						</div>
-
-
+				<div class="col-lg-1"></div>
+				<div class="col-lg-6"
+					style="margin-right: 55px; border-radius: 20px; height: 700px; padding: 80px; background-color: rgba(255, 255, 255, 0.9);">
+					<div class="row">
+						<div class="col-6"
+							style="font-size: 70px; letter-spacing: 8px; color: #757575">|開課老師</div>
+						<div class="col-6"
+							style="font-size: 70px; letter-spacing: 8px; color: #757575">|課程類別</div>
+						<div class="col-6"
+							style="font-size: 55px; letter-spacing: 8px; line-height: 110px; color: #757575">
+							◆{{course.creatorname}}</div>
+						<div class="col-6"
+							style="font-size: 55px; letter-spacing: 8px; line-height: 110px; color: #757575; margin-bottom: 40px">◆{{course.category}}</div>
+						<hr>
+						<div class="col-6"
+							style="font-size: 70px; letter-spacing: 8px; color: #757575; margin-top: 40px">|學生數</div>
+						<div class="col-6"
+							style="font-size: 70px; letter-spacing: 8px; color: #757575"></div>
+						<div class="col-5"
+							style="font-size: 55px; letter-spacing: 8px; color: #757575; margin-left: 35px">◆{{course.studentnum}}位同學</div>
 					</div>
-					<!-- .ratings -->
-
-
-
-
-					<div class="instructors-info">
-						<header class="entry-heading">
-							<h1 class="entry-title">CourseRank</h1>
-						</header>
-						<!-- .entry-heading -->
-
-						<div class="instructor-short-info">
-							<div v-if="ranks.empty==true">目前尚無評價</div>
-
-							<div class="rank-detail" v-for="ranker in ranks.content">
-								<div class="instructors-details">
-									<div class="ratings">
-										<div class="course-teacher mt-3">
-											<span class="rankername">{{ranker.usergivenname}}</span><br />
-											<span class="fas fa-star checked"></span> <span
-												v-if="ranker.rank>=2" class="fas fa-star checked"></span> <span
-												v-else class="far fa-star checked"></span> <span
-												v-if="ranker.rank>=3" class="fas fa-star checked"></span> <span
-												v-else class="far fa-star checked"></span> <span
-												v-if="ranker.rank>=4" class="fas fa-star checked"></span> <span
-												v-else class="far fa-star checked"></span> <span
-												v-if="ranker.rank==5" class="fas fa-star checked"></span> <span
-												v-else class="far fa-star checked"></span><span
-												class="course-ratings-count" style="color: black"></span> </br> <span style="line-height: 50px;">{{ranker.rankdate}}</span>
-										</div>
-									</div>
-									<div class="rankmessage">
-										<p>{{ranker.message}}</p>
-									</div>
-									<hr>
-								</div>
-							</div>
-							<div
-								class="pagination flex flex-wrap justify-content-between align-items-center"
-								v-if="ranks.empty==false">
-								<div class="col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0">
-									<ul
-										class="flex flex-wrap align-items-center order-2 order-lg-1 p-0 m-0">
-										<li class="page-item" :class="{'disabled':ranks.first}"><a
-											class="page-link" href="#" @click.prevent=previousPage()><i
-												class="fa fa-angle-left"></i></a></li>
-										<li class="page-item" :class="{'disabled':ranks.last}"><a
-											class="page-link" href="#" @click.prevent="nextPage()"><i
-												class="fa fa-angle-right"></i></a></li>
-									</ul>
-								</div>
-							</div>
-
-						</div>
-						<!-- .instructor-short-info -->
-					</div>
-					<!-- .instructors-info -->
-					<div class="related-courses">
-						<header
-							class="entry-heading flex flex-wrap justify-content-between align-items-center">
-							<h2 class="entry-title" style="font-size:45px; font-weight:bold;">本課程章節</h2>
-						</header>
-						<!-- .entry-heading -->
-
-						<div class="col-12 col-lg-8">
-							<div v-for="section in course.sectionList" class="mt-3">
-								<h3 style="font-size:40px; font-weight: bold">第{{section.sectionNumber}}章- {{section.sectionName}}</h3>
-								<div v-for="lecture in section.lecturesList">
-									<li>第{{lecture.lectureNumber}}單元- {{lecture.lecturesName}}</li>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- .related-course -->
 				</div>
-				<!-- .single-course-wrap -->
+				<div class="col-lg-4"
+					style="border-radius: 20px; height: 700px; width: 600px; background-color: rgba(255, 255, 255, 0.9);"></div>
+				<div class="col-lg-1"></div>
 			</div>
-			<!-- .col -->
 		</div>
-		<!-- .row -->
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-1"></div>
+				<div class="col-lg-6">
+					<h1 class="entry-title" style="margin-top:50px">CourseRank</h1>
+					<div class="instructor-short-info">
+						<div v-if="ranks.empty==true">目前尚無評價</div>
+
+						<div class="rank-detail" v-for="ranker in ranks.content">
+							<div class="instructors-details">
+								<div class="ratings">
+									<div class="course-teacher mt-3">
+										<span class="rankername">{{ranker.usergivenname}}</span><br />
+										<span class="fas fa-star checked"></span> <span
+											v-if="ranker.rank>=2" class="fas fa-star checked"></span> <span
+											v-else class="far fa-star checked"></span> <span
+											v-if="ranker.rank>=3" class="fas fa-star checked"></span> <span
+											v-else class="far fa-star checked"></span> <span
+											v-if="ranker.rank>=4" class="fas fa-star checked"></span> <span
+											v-else class="far fa-star checked"></span> <span
+											v-if="ranker.rank==5" class="fas fa-star checked"></span> <span
+											v-else class="far fa-star checked"></span><span
+											class="course-ratings-count" style="color: black"></span> </br> <span
+											style="line-height: 50px;">{{ranker.rankdate}}</span>
+									</div>
+								</div>
+								<div class="rankmessage">
+									<p>{{ranker.message}}</p>
+								</div>
+								<hr>
+							</div>
+						</div>
+						<div
+							class="pagination flex flex-wrap justify-content-between align-items-center"
+							v-if="ranks.empty==false">
+							<div class="col-12 col-lg-4 order-2 order-lg-1 mt-3 mt-lg-0">
+								<ul
+									class="flex flex-wrap align-items-center order-2 order-lg-1 p-0 m-0">
+									<li class="page-item" :class="{'disabled':ranks.first}"><a
+										class="page-link" href="#" @click.prevent=previousPage()><i
+											class="fa fa-angle-left"></i></a></li>
+									<li class="page-item" :class="{'disabled':ranks.last}"><a
+										class="page-link" href="#" @click.prevent="nextPage()"><i
+											class="fa fa-angle-right"></i></a></li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="single-course-cont-section"
+						style="border-radius: 20px; height: 650px; margin-left: 40px; padding: 20px; padding-left: 50px; background-color: rgba(255, 255, 255, 0.9);">
+						<h2 style="font-size: 50px">What Will I Learn?</h2>
+
+						<div>{{course.description}}</div>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-1"></div>
+
+
+
+				<!-- .instructors-info -->
+				<div class="related-courses">
+					<header
+						class="entry-heading flex flex-wrap justify-content-between align-items-center">
+						<h2 class="entry-title"
+							style="font-size: 45px; font-weight: bold;">本課程章節</h2>
+					</header>
+					<!-- .entry-heading -->
+
+					<!-- 						<div class="col-12 col-lg-8"> -->
+					<!-- 							<div v-for="section in course.sectionList" class="mt-3"> -->
+					<!-- 								<h3 style="font-size:40px; font-weight: bold">第{{section.sectionNumber}}章- {{section.sectionName}}</h3> -->
+					<!-- 								<div v-for="lecture in section.lecturesList"> -->
+					<!-- 									<li>第{{lecture.lectureNumber}}單元- {{lecture.lecturesName}}</li> -->
+					<!-- 								</div> -->
+					<!-- 							</div> -->
+					<!-- 						</div> -->
+
+
+				</div>
+				<!-- .related-course -->
+			</div>
+			<!-- .single-course-wrap -->
+		</div>
+		<!-- .col -->
+	</div>
+	<!-- .row -->
 	</div>
 	<!-- .container -->
+	<!-- board -->
+	<div class="card border border-0" id="bulletin">
+		<div
+			class="card-header border border-0 d-flex a justify-content-between">
+			<div>留言回覆</div>
+			<div>
+				<div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+					<div class="input-group">
+						<input type="search" placeholder="請搜尋..." v-model="currQuery"
+							aria-describedby="button-addon1"
+							class="form-control border-0 bg-light">
+						<div class="input-group-append">
+							<button id="button-addon1" type="submit"
+								class="btn btn-link text-primary">
+								<i class="fa fa-search" @click="sendSearch()"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="dropdown">
+				<button type="button" class="btn btn-primary dropdown-toggle"
+					data-bs-toggle="dropdown">{{ currQuestionSelection }}</button>
+				<ul class="dropdown-menu">
+					<li @click="getBulletinByCourseId()"><small
+						class="dropdown-item"><span>全部章節</span></small></li>
+					<div v-for="sec in sections">
+						<li v-for="lec in sec.lectures"
+							@click="getBulletinByLectureId(lec.lectureId)"><small
+							class="dropdown-item"><span>{{ sec.sectionName }}
+									. {{lec.lectureName}}</span></small></li>
+					</div>
+				</ul>
+			</div>
+		</div>
+
+		<div class="card-body">
+			<div class="mb-1">
+				<div class="d-flex">
+					<div class="flex-shrink-0 m-0"
+						v-if="purchasedstatus || courseCreatorId==userId">
+						<h1 class="mt-0 pt-0">
+							<i class="fa fa-user-circle" aria-hidden="true"></i>
+						</h1>
+					</div>
+					<div class="flex-grow-1 ms-1 d-block"
+						v-if="purchasedstatus || courseCreatorId==userId">
+						<div>
+							<div class=" d-flex justify-content-between">
+								<div class="dropdown d-flex">
+									<button type="button"
+										class="btn-sm btn-primary dropdown-toggle"
+										data-bs-toggle="dropdown">{{ currQuestionSelection }}</button>
+									<ul class="dropdown-menu">
+										<div v-for="sec in sections">
+											<li v-for="lec in sec.lectures"
+												@click="toggleQuestionLectureId(lec.lectureId, sec.sectionName, lec.lectureName)">
+												<small class="dropdown-item"><span>{{
+														sec.sectionName }} . {{lec.lectureName}}</span></small>
+											</li>
+										</div>
+									</ul>
+								</div>
+
+								<input id="blt-qst-title" class="rounded form-control mb-1"
+									type="text" @focus="toggleQuestionBar"
+									v-model="currQuestionTitle" placeholder="請留下您的問題標題...">
+							</div>
+							<transition name="question">
+							<div id="blt-qst-toggle" v-if="showQuestionBar">
+								<div id="d1c1">
+									<textarea class="rounded form-control mb-1" rows="5" id="c1"
+										v-model="currQuestionContent" style="resize: none;"
+										placeholder="請留下您的問題內容..."></textarea>
+								</div>
+								<div class="d-flex justify-content-end" id="d1b1">
+									<button class="btn btn-dark btn-primary me-1"
+										id="blt-qst-toggle-cancel" type="button"
+										@click="showQuestionBar = false">取消</button>
+									<button class="btn btn-dark btn-primary" id="blt-qst-submit"
+										:class="[toggleQuestionBtnDisabled]" @click="sendQuestion()"
+										type="button">送出</button>
+								</div>
+							</div>
+							</transition>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="show-all-bluuetin">
+
+				<div class="d-flex justify-content-center" v-if="bulletins == ''">
+					<div>
+						<p class="d-flex ">暫無討論</p>
+						<p class="d-flex justify-content-center">成為第一個發文的人吧！</p>
+						<i class="fa fa-bath fa-5x" aria-hidden="true"></i>
+					</div>
+				</div>
+
+				<div class="d-flex mb-3" v-for="blt in bulletins">
+					<div class="flex-shrink-0">
+						<h1>
+							<i class="fa fa-user-circle" aria-hidden="true"></i>
+						</h1>
+					</div>
+					<div class="flex-grow-1 ms-2 d-block">
+						<span>{{ blt.title }}</span>
+						<div class="d-flex justify-content-start align-items-center mb-1">
+							<div class="me-3">
+								<small><span>{{ blt.launcherName }}</span></small>
+							</div>
+							<div class="me-3">
+								<small><span>{{ blt.creationTime}}</span></small>
+							</div>
+							<div class="me-3">
+								<small><span>{{ blt.sectionName}} - {{
+										blt.lectureName }}</span></small>
+							</div>
+							<div class="me-3 blt-inner-flip"
+								@click="toggleReplyContent(blt.bulletinId)" key="blt.bulletinId">
+								<small><span><i class="fa fa-comment"
+										aria-hidden="true"></i></span></small> <small><span>{{
+										blt.replyCount }}</span> <small></small>
+							</div>
+						</div>
+						<transition name="reply">
+						<div class="blt-inner-container"
+							v-if="showReply == blt.bulletinId">
+							<div class="blt-inner-content">
+								<div class="my-3 blt-title">
+									<p>{{ blt.content }}</p>
+								</div>
+								<div class="blt-reply-content d-flex mt-2"
+									v-for="bRep in blt.replies">
+									<div class="flex-shrink-0">
+										<h3>
+											<i class="fa fa-user-circle" aria-hidden="true"></i>
+										</h3>
+									</div>
+									<div class="container px-0 ms-2 mt-1">
+										<div class="d-flex justify-content-start align-items-center">
+											<div class="me-2" v-if="bRep.resondentId == courseCreatorId">
+												<small><span>授課老師</span></small>
+											</div>
+											<div class="me-2">
+												<small><span>{{ bRep.respondentName }}</span></small>
+											</div>
+											<div class="me-2">
+												<small><span>{{ bRep.creationTime }}</span></small>
+											</div>
+										</div>
+										<div class="flex-grow-1 m-0">{{ bRep.replyContent }}</div>
+									</div>
+								</div>
+
+								<div class="blt-reply-content d-flex mt-2">
+									<div class="flex-shrink-0"
+										v-if="purchasedstatus || courseCreatorId==userId">
+										<h3>
+											<i class="fa fa-user-circle" aria-hidden="true"></i>
+										</h3>
+									</div>
+									<div class="container px-0 ms-2 mt-1"
+										v-if="purchasedstatus  || courseCreatorId==userId">
+										<div class="d-flex justify-content-start align-items-center">
+											<div class="me-2" v-if="userId == courseCreatorId">
+												<small><span>授課老師</span></small>
+											</div>
+											<!-- 											<div class="me-2"> -->
+											<!-- 												<small><span>{{ userName }}</span></small> -->
+											<!-- 											</div> -->
+										</div>
+										<div class="flex-grow-1 m-0 d-grid ">
+											<textarea class="reply-input" type="text"
+												@focus="toggleReplyInput(blt.bulletinId)"
+												v-model="currReplyInputContent" style="height: 30px;"
+												placeholder="請留言..."></textarea>
+										</div>
+										<transition name="replyInput">
+										<div class="mt-1 d-flex justify-content-end"
+											v-if="showReplyInput == blt.bulletinId">
+											<div class="reply-input-toggle">
+												<button
+													class="btn btn-dark btn-primary me-1 reply-input-toggle-cancel"
+													@click="cancelReplyInput()" type="button">取消</button>
+												<button class="btn btn-dark btn-primary"
+													:class="{'disabled' : currReplyInputContent == ''}"
+													@click="sendReplyInput(blt.bulletinId)"
+													id="reply-input-submit" type="button">送出</button>
+											</div>
+										</div>
+										</transition>
+									</div>
+								</div>
+							</div>
+						</div>
+						</transition>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- boardend -->
+
 
 	<div class="clients-logo">
 		<div class="container">
@@ -282,6 +528,10 @@
 
 			<script src="https://unpkg.com/vue@3"></script>
 			<script type="module" th:src="@{/js/product.js}"></script>
+
+			<script type="module" th:src="@{/assets_wj/js/main2.js}"></script>
+
+
 		</div>
 		<!-- .container -->
 	</div>
