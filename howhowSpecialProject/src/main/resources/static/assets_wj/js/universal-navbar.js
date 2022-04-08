@@ -21,6 +21,8 @@ const dataObj = {
 	userName: "Big O",
 	currQuery: "",
 
+	isLogged: true,
+
 	categories:[
 		{
 			cUrl: "#",
@@ -67,7 +69,6 @@ const dataObj = {
 			cInfo: "課程"
 		}
 	],
-
 	shoppingInfos:[
 		{
 			ctitle: "從一開始到最後的教學都讓我驚豔",
@@ -110,9 +111,32 @@ const app = createApp({
 		return dataObj;
 	},
 	mounted: function () {
+		function checkLoggedStatus(){
+			return axios.get(
+				"/checkLoginStatus",
+				{
+					headers: { 
+						'Content-Type': 'application/x-www-form-urlencoded',
+						"data-Type": "JSON",
+						"Access-Control-Allow-Origin": "*"
+					}
+				}
+			);
+		}
+
+		axios
+		.all([checkLoggedStatus()])
+		.then(axios.spread((...responses) => {
+			const resp1 = responses[0];
+			this.isLogged = resp1.data;
+			// console.log(resp1);
+		})).catch(errors => {
+			console.log(errors);
+		})
+
 	},
 	methods: {
-		goToCoursePage: function() {
+		goToCoursePage: function(query, categorId) {
 			var query = 1;
 			var categoryId = 1;
 			self.location.href = "/howhow/searchCourseInfo/" + query;

@@ -10,18 +10,25 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.howhow.account.service.AccountService;
 import com.howhow.account.service.UserAccountDtService;
 import com.howhow.course.bulletin.service.BulletinReplyService;
 import com.howhow.course.bulletin.service.BulletinService;
 import com.howhow.course.common.LearningLecturesService;
 import com.howhow.course.common.LearningSectionService;
+import com.howhow.entity.UserAccountDt;
+import com.howhow.util.UtilityTool;
 
 @Controller
 public class CommonController {
 
 	@Autowired
 	private BulletinService bService;
+	
+	@Autowired
+	private AccountService aService;
 	
 	@Autowired
 	private LearningLecturesService llService;
@@ -48,6 +55,16 @@ public class CommonController {
 		System.out.println(query);
 		System.out.println(">>>");
 		return "searchResult";
+	}
+	
+	@GetMapping("/checkLoginStatus")
+	@ResponseBody
+	public boolean checkLoginStatus() {
+		UserAccountDt accountdt = aService.findByEmail(UtilityTool.getTokenEmail());
+		if (accountdt == null) {
+			return false;
+		};
+		return true;
 	}
 	
 }
