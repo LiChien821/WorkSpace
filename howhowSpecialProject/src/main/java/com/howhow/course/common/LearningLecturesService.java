@@ -42,19 +42,12 @@ public class LearningLecturesService {
 
 	}
 	
-	public List<Lectures> findAllLecturesBySectionId(Integer id){
-		List<Lectures> op1 = lectureRepo.findAllLecturesBySectionId(id);
-		if (op1.isEmpty()) {
-			return null;
-		}
-		return op1;
-	}
-	
 	
 	public Iterable<Lectures> findAllBySectionID(int sectionID) {
 		Sort sort=Sort.by("lectureNumber").ascending();
 		return lectureRepo.findAllBySectionID(sectionID,sort);
 	}
+	
 	//findLectureBySectionId - by weijie
 	public List<Lectures> findAllLecturesBySectionId(Integer id){
 		List<Lectures> op1 = lectureRepo.findAllLecturesBySectionId(id);

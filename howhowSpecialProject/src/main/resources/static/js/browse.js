@@ -1,5 +1,3 @@
-import { createApp } from 'vue'
-
 const dataObj = {
 
 	courses: "",
@@ -34,7 +32,7 @@ const dataObj = {
 
 };
 
-createApp({
+var app = Vue.createApp({
 	data() {
 		return dataObj;
 	},
@@ -358,4 +356,5 @@ createApp({
 		}
 
 	}
-}).mount('#browse')
+})
+app.mount('#browse')

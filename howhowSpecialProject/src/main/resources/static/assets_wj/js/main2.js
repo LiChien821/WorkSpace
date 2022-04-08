@@ -19,90 +19,6 @@ const dataObj = {
 
 	sections: "",
 	bulletins: ""
-	sections: [
-		{
-			sectionId: 1,
-			sectionName: "SEC-1",
-			lectiones: [
-				{
-					lectionId: 1,
-					lectionName: "LEC-1"
-				},
-				{
-					lectionId: 2,
-					lectionName: "LEC-2"
-				}
-			]
-		},
-		{
-			sectionId: 2,
-			sectionName: "SEC-2",
-			lectiones: [
-				{
-					lectionId: 3,
-					lectionName: "LEC-1"
-				},
-				{
-					lectionId: 4,
-					lectionName: "LEC-2"
-				}
-			]
-		}
-	],
-	bulletins: ""
-	// bulletins: [
-	// 	{
-	// 		bulletinId: 11,
-	// 		lectureId: 21,
-	// 		title: "this a title in vue",
-	// 		content: "this is a content in vue.",
-	// 		launcherName: "WeiJ",
-	// 		creationTime: "2022-02-22",
-	// 		replies: [
-	// 			{
-	// 				bulletinReplyId: 31,
-	// 				replyContent: "replyContent1",
-	// 				respondentName: "Apple",
-	// 				creationTime: "2022-02-12"
-	// 			},
-	// 			{
-	// 				bulletinReplyId: 32,
-	// 				replyContent: "replyContent1",
-	// 				respondentName: "Bed",
-	// 				creationTime: "2022-02-12"
-	// 			},
-	// 		]
-	// 	},
-	// 	{
-	// 		bulletinId: 12,
-	// 		lectureId: 23,
-	// 		title: "this a title in vue",
-	// 		content: "this is a content in vue.",
-	// 		launcherName: "WillJ",
-	// 		creationTime: "2022-02-22",
-	// 		replies: [
-	// 			{
-	// 				bulletinReplyId: 33,
-	// 				replyContent: "replyContent1",
-	// 				respondentName: "Cat",
-	// 				creationTime: "2022-02-12"
-	// 			},
-	// 			{
-	// 				bulletinReplyId: 34,
-	// 				replyContent: "replyContent1",
-	// 				respondentName: "Dog",
-	// 				creationTime: "2022-02-12"
-	// 			},
-	// 			{
-	// 				bulletinReplyId: 31,
-	// 				replyContent: "replyContent1",
-	// 				respondentName: "WillJ",
-	// 				creationTime: "2022-02-12"
-	// 			}
-	// 		]
-	// 	}
-
-	// ]
 };
 
 createApp({
@@ -117,8 +33,6 @@ createApp({
 			}
 		}
 	},
-	mounted: 
-		function () {
 	mounted: function () {
 		var urls = window.location.href.split('/');
 		var target = urls[urls.length - 1];

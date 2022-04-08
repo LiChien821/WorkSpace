@@ -2992,49 +2992,13 @@ opacity: 1;
    letter-spacing: 2px;
 }
  
-.header{
-  height:130px;
- background-color:#E2C652;
-position: relative; 
-}
 
 .icon{
 	padding:10px;
   width:250px;
   
 }
-.bt1{
-	  /* Layout Properties */
 
-width: 100px;
-height: 40px;
-position: absolute;
-top: 60%;
-        left: 96%;
-        transform: translate(-50%,-96%);
-/* UI Properties */
-background: #FFFFFF ;
-border-radius: 51px;
-opacity: 1;
-    font-family: 微軟正黑體;
-   border:none;
-}
-.bt2{
-	  /* Layout Properties */
-
-width: 100px;
-height: 40px;
-position: absolute;
-top: 58%;
-        left: 90%;
-        transform: translate(-50%,-90%);
-/* UI Properties */
-background: #FFFFFf;
-border-radius: 51px;
-opacity: 1;
-    font-family: 微軟正黑體;
-   border:none;
-}
 
 .testcontainer{
 	margin: 0px auto;
@@ -3089,4 +3053,6 @@ opacity: 1;
 	font-size:20px;
 	color: #494949;
 }
+
+
   

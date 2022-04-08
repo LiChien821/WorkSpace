@@ -38,6 +38,9 @@
 
 <link href="https://vjs.zencdn.net/7.17.0/video-js.css" rel="stylesheet" />
 
+<link rel="stylesheet" th:href="@{/assets_wj/css/universal-navbar.css}"></link>
+<link rel="stylesheet" th:href="@{/css/index.css}"></link>
+
 
 <link rel="stylesheet"
 	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css}">
@@ -51,15 +54,9 @@
 </head>
 
 <body>
+	<script src="./js/header.js"></script>
 	<div id="product">
-		<div class="header">
-			<img class="icon" th:src="@{/image/unnamed.png}" alt="" /> <a
-				style="color: #E2C652" th:href="@{/login}"> <input type="button"
-				class="bt2" value="登入"></input>
-			</a> <a th:href="@{/register}"> <input type="button" class="bt1"
-				value="註冊"></input>
-			</a>
-		</div>
+
 		<hr />
 		<div style="height: 240px; font-size: 50px; letter-spacing: 5px"
 			class="d-flex align-items-center justify-content-center">{{course.coursename}}</div>
@@ -222,7 +219,7 @@
 			<div class="row">
 				<div class="col-lg-1"></div>
 				<div class="col-lg-6">
-					<h1 class="entry-title" style="margin-top:50px">CourseRank</h1>
+					<h1 class="entry-title" style="margin-top: 50px">CourseRank</h1>
 					<div class="instructor-short-info">
 						<div v-if="ranks.empty==true">目前尚無評價</div>
 
@@ -537,5 +534,15 @@
 	</div>
 	<!-- .clients-logo -->
 	</div>
+<script type="importmap">
+{
+  "imports": {
+	"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
+	"vue-router": "https://cdnjs.cloudflare.com/ajax/libs/vue-router/4.0.0-alpha.12/vue-router.esm.js"
+  }
+}
+
+</script>
+<script type="module" th:src="@{/assets_wj/js/universal-navbar.js}"></script>
 
 </body>
