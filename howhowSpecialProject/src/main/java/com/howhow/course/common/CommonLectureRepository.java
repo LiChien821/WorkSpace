@@ -15,10 +15,11 @@ public interface CommonLectureRepository extends PagingAndSortingRepository<Lect
 	
 	@Query("SELECT l FROM Lectures l WHERE l.section.sectionID = ?1")
 	public Iterable<Lectures> findAllBySectionID(int sectionID,Sort sort);
-
+	
 	@Query(nativeQuery = true,
 	           value = "SELECT * FROM lectures \n"
 	           		+ "WHERE section_id = ?1\n"
 	           		+ "ORDER BY lectures_id;")
 	public List<Lectures> findAllLecturesBySectionId(Integer id);
+	
 }

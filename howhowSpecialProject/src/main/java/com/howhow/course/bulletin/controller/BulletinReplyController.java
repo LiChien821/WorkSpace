@@ -37,7 +37,7 @@ public class BulletinReplyController {
 	@Autowired
 	private UserAccountDtService uadService;
 	
-	@PostMapping("/insertBulletinReply.controller")
+	@PostMapping("/api/insertBulletinReply.controller")
 	@ResponseBody
 	public BulletinReplyDTO insertBulletinReply(@RequestBody Map<String, Object> map, @AuthenticationPrincipal AccountUserDetails loggedAccount) {
 		BulletinReply bReply = new BulletinReply();
@@ -71,13 +71,13 @@ public class BulletinReplyController {
 		return brDto;
 	}
 
-	@PostMapping("/queryBulletinReplyById.controller")
+	@PostMapping("/api/queryBulletinReplyById.controller")
 	@ResponseBody
 	public BulletinReply queryBulletinReplyById(@RequestParam Integer id) {
 		return brService.findById(id);
 	}
 
-	@PostMapping("/findBulletinReplyUserNameById.controller")
+	@PostMapping("/api/findBulletinReplyUserNameById.controller")
 	@ResponseBody
 	public String findBulletinReplyUserNameById(@RequestParam("id") Integer id) {
 		BulletinReply btn = brService.findById(id);
@@ -85,13 +85,13 @@ public class BulletinReplyController {
 		return givenname;
 	}
 
-	@PostMapping("/findAllBulletinReply.controller")
+	@PostMapping("/api/findAllBulletinReply.controller")
 	@ResponseBody
 	public List<BulletinReply> findAllBulletinReply() {
 		return brService.findAll();
 	}
 
-	@PostMapping("/deleteBulletinReplyById.controller")
+	@PostMapping("/api/deleteBulletinReplyById.controller")
 	@ResponseBody
 	public void deleteBulletinReplyById(@RequestParam Integer id) {
 		brService.deleteById(id);

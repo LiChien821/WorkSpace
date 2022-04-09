@@ -41,7 +41,8 @@ public class LearningLecturesService {
 		return false;
 
 	}
-
+	
+	
 	public Iterable<Lectures> findAllBySectionID(int sectionID) {
 		Sort sort=Sort.by("lectureNumber").ascending();
 		return lectureRepo.findAllBySectionID(sectionID,sort);
