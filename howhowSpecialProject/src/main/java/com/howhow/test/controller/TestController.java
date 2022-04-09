@@ -52,11 +52,26 @@ public class TestController {
 //	
 //	
 	
+//	@GetMapping("/courses")
+//	public String ac2(Model m) {
+//		int userid=-1;
+//		UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
+//		if(accountDetail!= null) userid = accountDetail.getUserId();
+//		m.addAttribute("userid",userid);
+//		m.addAttribute("pageNo", 1);
+//
+//		return "shopping/browse";
+//	}
+//	
+	
+	
 	@GetMapping("/courses")
-	public String ac(Model m) {
+	public String ac2(Model m, @RequestParam(value = "search", defaultValue = "") String search, @RequestParam(value = "category", defaultValue = "") String category) {
 		int userid=-1;
-		 UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
-		 if(accountDetail!= null) userid = accountDetail.getUserId();
+		UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
+		if(accountDetail!= null) userid = accountDetail.getUserId();
+		m.addAttribute("categorying", category);
+		m.addAttribute("searching", search);
 		m.addAttribute("userid",userid);
 		m.addAttribute("pageNo", 1);
 

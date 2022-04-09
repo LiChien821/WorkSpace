@@ -1,3 +1,19 @@
+import { createRouter, createWebHistory}  from 'vue-router'
+
+ const LoginPage = {template: '<div>Home</div>'}
+ const routes = [
+     { path: '/', name: 'home', component: "" },
+     { path: '/login', redirect: '/' },
+     { path: '/howhow/login', name: 'login', component: () => {
+ 		LoginPage
+ 	}}
+ ]
+ const router = createRouter({
+     history:createWebHistory(),
+     routes: routes
+ })
+
+
 const dataObj = {
 
 	courses: "",
@@ -41,10 +57,15 @@ var app = Vue.createApp({
 		this.pageNo = document.getElementById("pageNo").value;
 		this.userid = document.getElementById("userid").value;
 		this.searching = document.getElementById("searching").value;
+		this.categorying = document.getElementById("categorying").value;
 		if (this.searching != "") {
-			this.search = '123';
+			this.search = this.searching;
 			this.goSearch(this.searching);
 			document.getElementById("searching").value == "";
+		} else if (this.categorying != ""){
+			console.log('category')
+			this.searchByCategory(this.categorying);
+			this.categoryid=this.categorying;
 		} else {
 			axios({
 				method: 'get',
@@ -112,7 +133,7 @@ var app = Vue.createApp({
 					headers: { "Access-Control-Allow-Origin": "*" },
 				})
 
-					.then(response => (this.courses = response.data, this.res = response))
+					.then(response => (this.courses = response.data, this.res = response),this.$router.push('courses?search='+this.currentsearch))
 					.catch(function(error) {
 						console.log(error);
 					});
@@ -319,7 +340,8 @@ var app = Vue.createApp({
 			})
 				.then(response => (
 					this.courses = response.data,
-					this.res = response
+					this.res = response,
+					this.$router.push('courses?category='+this.currentcategoryid)
 				))
 				.catch(function(error) {
 					console.log(error);
@@ -349,7 +371,11 @@ var app = Vue.createApp({
 				url: '/api/findallcourses/1',
 				headers: { "Access-Control-Allow-Origin": "*" }
 			})
-				.then(response => (this.courses = response.data, this.res = response))
+				.then(response => (
+					this.courses = response.data,
+					this.res = response,
+					this.$router.push('courses')
+					))
 				.catch(function(error) {
 					console.log(error);
 				});
@@ -357,4 +383,5 @@ var app = Vue.createApp({
 
 	}
 })
+app.use(router);
 app.mount('#browse')

@@ -74,7 +74,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		   .authorizeRequests() 
 		     .antMatchers("/teacherPage/**")
 		   	 .authenticated()
-		     .antMatchers("/login.html","/login","/register","/createUser","/verify","/css/","/courses","/product","/api/**","/shopping/**")
+		     .antMatchers("/login.html","/login","/register","/createUser","/verify","/css/","/courses/**","/product","/api/**","/shopping/**")
 		     .permitAll()
 		     .antMatchers("/student/**").hasAnyAuthority("Teacher","Student")
 		     .antMatchers("/course/**").hasAnyAuthority("Admin","Admin")

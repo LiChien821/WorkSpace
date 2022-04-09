@@ -13,6 +13,7 @@ import { createApp } from 'vue'
 //     routes: routes
 // })
 
+
 const dataObj = {
 	test: "",
 	userId: 1,
@@ -24,65 +25,69 @@ const dataObj = {
 
 	categories:[
 		{
-			cateId: "1",
+			cId: "0",
+			cItemName: "全部",
+		},
+		{
+			cId: "1",
 			cItemName: "開發",
 		},
 		{
-			cateId: "2",
+			cId: "2",
 			cItemName: "IT與軟體",
 		}
 		
 	],
-	recentCourseTitle: "從一開始到最後的教學都讓我驚豔",
-	recentCourseProgress: 20,
-	recentCourseInfo: "課程",
-	courseInfos:[
-		{
-			ctitle: "從一開始到最後的教學都讓我驚豔",
-			cProgress: 20,
-			cInfo: "課程"
-		},
-		{
-			ctitle: "從一開始到最後的教學都讓我驚豔",
-			cProgress: 20,
-			cInfo: "課程"
-		}
-	],
-	shoppingInfos:[
-		{
-			ctitle: "從一開始到最後的教學都讓我驚豔",
-			cStatus: "已開課",
-			cPrice: 1100
-		},
-		{
-			ctitle: "從一開始到最後的教學都讓我驚豔",
-			cStatus: "募資中",
-			cPrice: 1100
-		},
-		{
-			ctitle: "從一開始到最後的教學都讓我驚豔",
-			cStatus: "已開課",
-			cPrice: 1100
-		}
-	],
-	reminderInfos: [
-		{
-			content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
-			dateTime: "一個月前"
-		},
-		{
-			content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
-			dateTime: "一個月前"
-		},
-		{
-			content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
-			dateTime: "一個月前"
-		},
-		{
-			content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
-			dateTime: "一個月前"
-		}
-	]
+	// recentCourseTitle: "從一開始到最後的教學都讓我驚豔",
+	// recentCourseProgress: 20,
+	// recentCourseInfo: "課程",
+	// courseInfos:[
+	// 	{
+	// 		ctitle: "從一開始到最後的教學都讓我驚豔",
+	// 		cProgress: 20,
+	// 		cInfo: "課程"
+	// 	},
+	// 	{
+	// 		ctitle: "從一開始到最後的教學都讓我驚豔",
+	// 		cProgress: 20,
+	// 		cInfo: "課程"
+	// 	}
+	// ],
+	// shoppingInfos:[
+	// 	{
+	// 		ctitle: "從一開始到最後的教學都讓我驚豔",
+	// 		cStatus: "已開課",
+	// 		cPrice: 1100
+	// 	},
+	// 	{
+	// 		ctitle: "從一開始到最後的教學都讓我驚豔",
+	// 		cStatus: "募資中",
+	// 		cPrice: 1100
+	// 	},
+	// 	{
+	// 		ctitle: "從一開始到最後的教學都讓我驚豔",
+	// 		cStatus: "已開課",
+	// 		cPrice: 1100
+	// 	}
+	// ],
+	// reminderInfos: [
+	// 	{
+	// 		content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
+	// 		dateTime: "一個月前"
+	// 	},
+	// 	{
+	// 		content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
+	// 		dateTime: "一個月前"
+	// 	},
+	// 	{
+	// 		content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
+	// 		dateTime: "一個月前"
+	// 	},
+	// 	{
+	// 		content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
+	// 		dateTime: "一個月前"
+	// 	}
+	// ]
 };
 
 const app = createApp({
@@ -103,11 +108,28 @@ const app = createApp({
 			);
 		}
 
+		function getAllCategoryInfo(){
+			return axios.get(
+				"/api/getallcategory",
+				{
+					headers: { 
+						'Content-Type': 'application/x-www-form-urlencoded',
+						"data-Type": "JSON",
+						"Access-Control-Allow-Origin": "*"
+					}
+				}
+			);
+		}
+
+
 		axios
-		.all([checkLoggedStatus()])
+		.all([checkLoggedStatus(), getAllCategoryInfo()])
 		.then(axios.spread((...responses) => {
 			const resp1 = responses[0];
+			const resp2 = responses[1];
 			this.isLogged = resp1.data;
+			console.log(this.isLogged);
+			console.log(resp2);
 			// console.log(resp1);
 		})).catch(errors => {
 			console.log(errors);
@@ -116,13 +138,14 @@ const app = createApp({
 	},
 	methods: {
 
-		goToCoursePageByCategoryId: function() {
-			self.location.href = "/courses/category/" + categorId;
+		goToCoursePageByCategoryId: function(categroyId) {
+			self.location.href = "/courses?category=" + categroyId;
 		},
+
 		goToCoursePageBySearch: function() {
-			self.location.href = "/courses/query/" + query;
+			self.location.href = "/courses?query=" + this.currQuery;
 		}
 	}
 })
-// app.use(router);
+//  app.use(router);
 app.mount('#howhowdo-navbar');
