@@ -30,7 +30,7 @@ Vue.createApp({
 		this.currentAccountID = document.getElementById("defaultAccountID").value;
 			axios({
 			method: 'get',
-			url: '/howhow/api/getPageAllCourse/' + this.currentAccountID+"/"+this.currentPage,
+			url: '/api/getPageAllCourse/' + this.currentAccountID+"/"+this.currentPage,
 			headers: { "Access-Control-Allow-Origin": "*" },
 
 		})
@@ -42,7 +42,7 @@ Vue.createApp({
 			});
 		axios({
 			method: 'get',
-			url: '/howhow/api/getBlobUrl',
+			url: '/api/getBlobUrl',
 			headers: { "Access-Control-Allow-Origin": "*" },
 		})
 			.then(response => (this.blobSetting = response.data))
@@ -61,7 +61,7 @@ Vue.createApp({
 			this.currentPage=num;
 				axios({
 			method: 'get',
-			url: '/howhow/api/getPageAllCourse/' + this.currentAccountID+"/"+this.currentPage,
+			url: '/api/getPageAllCourse/' + this.currentAccountID+"/"+this.currentPage,
 			headers: { "Access-Control-Allow-Origin": "*" },
 
 		})

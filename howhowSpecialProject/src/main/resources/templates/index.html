@@ -145,29 +145,35 @@
 			</div>
 		</div>
 	</nav>
+<div  style="border: double 5px white ; margin-top:30px;margin-left:130px;width:1620px;height:680px;position:absolute;">
 
+	</div>
 
 	<div class="d-flex align-items-center justify-content-center"
 		style="width: 700px; height: 700px; position: relative;" id="theSecSearch">
-		<div style="position: absolute; left: 25%">
-			<input type="search" placeholder="搜尋任何事物..." aria-describedby="button-addon4" @keyup.enter="goToLogin()"
-				class="border-0 px-3 ms-5" style="border-radius: 10px; width: 500px; height: 70px;">
+		
+		<div style="position: absolute; left: 25%;">
+			<input type="search" placeholder="搜尋課程..." aria-describedby="button-addon4" @keyup.enter="goToLogin()"
+				class="border-1 px-3 ms-5" style="border-radius: 10px; width: 500px; height: 70px ;background-color: rgb(255,255,255,0.7)">
+				
+				
 		</div>
 		<div style="position: absolute; left: 105%">
 			<button id="button-addon4" type="button" class="border-0 rounded-pill"
 				style="height: 40px; background-color:#f3f7f7;"><i class="fa fa-search fa-2x"></i></button>
+				<div style="position: absolute; left:380%; top:-850%; height: 700px; width: 1000px;">
+				<img class="icon" th:src="@{/images/hahowgirl-7.png}" alt="" style="position: absolute;height: 950px; width: 1200px;right:0%;"/>
+				</div>
 		</div>
 	</div>
 
 
 
-	<div class="singup">
 
 
 
 
 
-	</div>
 
 
 
@@ -197,15 +203,9 @@
 		</div>
 
 	</div>
-	<h1>OAuth2 Login with Spring Security</h1>
-	<div>
-		You are successfully logged in <span style="font-weight:bold" th:text="${userName}"></span>
-		via the OAuth2 Client <span style="font-weight:bold" th:text="${clientName}"></span>
-	</div>
+	
 	<div>&nbsp;</div>
-	<div>
-		<a href="/userinfo" th:href="@{/userinfo}">Display User Information</a>
-	</div>
+	
 
 
 	<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
