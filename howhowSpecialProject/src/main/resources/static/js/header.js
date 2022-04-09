@@ -1,8 +1,9 @@
-header = `<nav class="navbar navbar-expand-lg navbar-light bg-light p-0 m-0" style="height: 130px; background-color:#E2C652;"
+header = `
+<nav class="navbar navbar-expand-lg navbar-light bg-light p-0 m-0" style="height: 130px; background-color:#E2C652;"
 		id="howhowdo-navbar">
 		<div class="container-fluid px-3 header">
 			<a class="navbar-brand" href="/">
-				<img class="icon" th:src="@{/image/unnamed.png}" alt="" />
+				<img class="icon" src="/image/unnamed.png" alt="" />
 				<!-- <i class="fa fa-book" aria-hidden="true"></i> -->
 				<!-- <small><span>HowHowDo</span></small> -->
 			</a>
@@ -60,28 +61,10 @@ header = `<nav class="navbar navbar-expand-lg navbar-light bg-light p-0 m-0" sty
 						</div>
 					</div>
 
-					<!-- <div class="nav-item dropdown mx-2 py-2 ">
-						<div class="dropdown-toggle" href="#" id="profile" role="button" data-bs-toggle="dropdown"
-							aria-expanded="false">
-							<a style="color:#E2C652" th:href="@{/login}">
-								<input type="button" class="bt2" value="登入"></input>
-							</a>
-							<i class="fa fa-user-circle fa-lg" aria-hidden="true"></i>
-						</div>
-					</div>
-
-					<div class="nav-item dropdown mx-2 py-2 ">
-						<div class="dropdown-toggle" href="#" id="profile" role="button" data-bs-toggle="dropdown"
-							aria-expanded="false">
-							<a th:href="@{/register}">
-								<input type="button" class="bt1" value="註冊"></input>
-							</a>
-						</div>
-					</div>  -->
 
 					<div class="nav-item mx-2 py-2 " v-if="!isLogged">
 						<div href="" id="navbar-loggin" role="button" aria-expanded="false">
-							<a style="color:#E2C652" class="nav-link" th:href="@{/login}">
+							<a style="color:#E2C652" class="nav-link" href="/login">
 								<input type="button" class="bt2" value="登入"></input>
 							</a>
 						</div>
@@ -89,7 +72,7 @@ header = `<nav class="navbar navbar-expand-lg navbar-light bg-light p-0 m-0" sty
 
 					<div class="nav-item mx-2 py-2 " v-if="!isLogged">
 						<div href="" id="navbar-register" role="button" aria-expanded="false">
-							<a th:href="@{/register}" class="nav-link">
+							<a href="/register" class="nav-link">
 								<input type="button" class="bt1" value="註冊"></input>
 							</a>
 						</div>
@@ -106,5 +89,6 @@ header = `<nav class="navbar navbar-expand-lg navbar-light bg-light p-0 m-0" sty
 				</div>
 			</div>
 		</div>
-	</nav>`;
+	</nav>
+	`;
 	document.write(header);

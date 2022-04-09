@@ -93,7 +93,7 @@ const app = createApp({
 	mounted: function () {
 		function checkLoggedStatus(){
 			return axios.get(
-				"/checkLoginStatus",
+				"/api/checkLoginStatus",
 				{
 					headers: { 
 						'Content-Type': 'application/x-www-form-urlencoded',
@@ -119,7 +119,7 @@ const app = createApp({
 		goToCoursePage: function(categorId) {
 			var query = 1;
 			var categoryId = 1;
-			self.location.href = "/howhow/searchCourseInfo/" + query;
+			self.location.href = "/searchCourseInfo/" + query;
 			// this.$router.push('https://www.youtube.com/'); 
 		}
 	}

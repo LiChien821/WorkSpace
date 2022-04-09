@@ -45,19 +45,19 @@ public class CommonController {
 	@Autowired
 	private LearningLecturesService lService;
 
-	@GetMapping("/navbar-test")
+	@GetMapping("/api/navbar-test")
 	public String processNavbar() {
 		return "universal-navbar";
 	}
 	
-	@GetMapping("/searchCourseInfo/{query}")
+	@GetMapping("/api/searchCourseInfo/{query}")
 	public String searchCourseInfo (@PathVariable("query") String query) {
 		System.out.println(query);
 		System.out.println(">>>");
 		return "searchResult";
 	}
 	
-	@GetMapping("/checkLoginStatus")
+	@GetMapping("/api/checkLoginStatus")
 	@ResponseBody
 	public boolean checkLoginStatus() {
 		UserAccountDt accountdt = aService.findByEmail(UtilityTool.getTokenEmail());
