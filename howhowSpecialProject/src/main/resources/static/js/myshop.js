@@ -72,7 +72,10 @@ createApp({
 			url: '/api/findpurchasedcoursestatusbyuserid/' + this.userid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
-			.then(response => (this.purchasedstatus = response.data))
+			.then(response => {
+				this.purchasedstatus = response.data;
+				console.log("pur:", this.purchasedstatus);
+			})
 			.catch(function(error) {
 				console.log(error);
 			});

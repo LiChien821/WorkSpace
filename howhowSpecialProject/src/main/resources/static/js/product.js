@@ -43,21 +43,20 @@ var product = Vue.createApp({
 	data() {
 		return dataObj;
 	},
-
-	beforeMount: function() {
+	beforeMount: function () {
 		axios({
 			method: 'get',
 			url: '/api/getBlobUrl',
 			headers: { "Access-Control-Allow-Origin": "*" },
 		})
 			.then(response => (this.baseUrl = response.data))
-			.catch(function(error) {
+			.catch(function (error) {
 				console.log(error);
 			});
 
 	},
 
-	mounted: function() {
+	mounted: function () {
 		this.courseid = document.getElementById("courseid").value;
 		axios({
 			method: 'get',
@@ -66,7 +65,7 @@ var product = Vue.createApp({
 
 		})
 			.then(response => (this.course = response.data))
-			.catch(function(error) {
+			.catch(function (error) {
 				console.log(error);
 			});
 		this.userid = document.getElementById("userid").value;
@@ -76,7 +75,7 @@ var product = Vue.createApp({
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.favstatus = response.data))
-			.catch(function(error) {
+			.catch(function (error) {
 				console.log(error);
 			});
 		this.userid = document.getElementById("userid").value;
@@ -86,7 +85,7 @@ var product = Vue.createApp({
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.shopstatus = response.data))
-			.catch(function(error) {
+			.catch(function (error) {
 				console.log(error);
 			});
 
@@ -107,7 +106,7 @@ var product = Vue.createApp({
 				}, 100);
 
 			})
-			.catch(function(error) {
+			.catch(function (error) {
 				console.log(error);
 			});
 		this.pageNo = document.getElementById("pageNo").value;
@@ -117,7 +116,7 @@ var product = Vue.createApp({
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.ranks = response.data, this.res = response))
-			.catch(function(error) {
+			.catch(function (error) {
 				console.log(error)
 			});
 
@@ -133,7 +132,7 @@ var product = Vue.createApp({
 				this.lecture = response.data[0].lecturesList[0],
 				this.videoSrcUrl = response.data[0].lecturesList[0].previewViedeoUrl
 			))
-			.catch(function(error) {
+			.catch(function (error) {
 				console.log(error);
 			});
 
@@ -143,7 +142,7 @@ var product = Vue.createApp({
 			headers: { "Access-Control-Allow-Origin": "*" },
 		})
 			.then(response => (this.blobSetting = response.data))
-			.catch(function(error) {
+			.catch(function (error) {
 				console.log(error);
 			})
 
@@ -152,7 +151,7 @@ var product = Vue.createApp({
 
 	methods: {
 
-		changetime: function(time) {
+		changetime: function (time) {
 			player.pause();
 			this.skipTime = time;
 			player.currentTime(this.skipTime);
@@ -160,7 +159,7 @@ var product = Vue.createApp({
 
 		},
 
-		addFavorite: function() {
+		addFavorite: function () {
 			axios({
 				method: 'get',
 				url: '/api/checklogin',
@@ -171,9 +170,10 @@ var product = Vue.createApp({
 						location.href = '/login';
 					} else {
 						this.addFavoriteAction(response.data);
+						console.log("addFavorite finish", "now favstatus is:", this.favstatus);
 					}
 				})
-				.catch(function(error) {
+				.catch(function (error) {
 					console.log(error);
 				})
 		},
@@ -188,11 +188,11 @@ var product = Vue.createApp({
 				data: { userID: userid, courseID: this.courseid }
 			})
 				.then(response => (this.favstatus = true))
-				.catch(function(error) {
+				.catch(function (error) {
 					console.log(error);
 				});
 		},
-		removeFavorite: function() {
+		removeFavorite: function () {
 			axios({
 				method: 'get',
 				url: '/api/checklogin',
@@ -203,9 +203,10 @@ var product = Vue.createApp({
 						location.href = '/login';
 					} else {
 						this.removeFavoriteAction(response.data);
+						console.log("removeFavorite finish", "now favstatus is:", this.favstatus);
 					}
 				})
-				.catch(function(error) {
+				.catch(function (error) {
 					console.log(error);
 				})
 		},
@@ -220,12 +221,12 @@ var product = Vue.createApp({
 
 			})
 				.then(response => (this.favstatus = false))
-				.catch(function(error) {
+				.catch(function (error) {
 					console.log(error);
 				});
 		},
 
-		addShoppingCart: function() {
+		addShoppingCart: function () {
 			axios({
 				method: 'get',
 				url: '/api/checklogin',
@@ -236,9 +237,10 @@ var product = Vue.createApp({
 						location.href = '/login';
 					} else {
 						this.addShoppingCartAction(response.data);
+						console.log("addShoppingCart finish", "now shopstatus is:", this.shopstatus);
 					}
 				})
-				.catch(function(error) {
+				.catch(function (error) {
 					console.log(error);
 				})
 		},
@@ -253,12 +255,12 @@ var product = Vue.createApp({
 				data: { userID: userid, courseID: this.courseid }
 			})
 				.then(response => (this.shopstatus = true))
-				.catch(function(error) {
+				.catch(function (error) {
 					console.log(error);
 				});
 		},
 
-		removeShoppingCart: function() {
+		removeShoppingCart: function () {
 			axios({
 				method: 'get',
 				url: '/api/checklogin',
@@ -269,14 +271,15 @@ var product = Vue.createApp({
 						location.href = '/login';
 					} else {
 						this.removeShoppingCartAction(response.data);
+						console.log("removeShoppingCart finish", "now shopstatus is:", this.shopstatus);
 					}
 				})
-				.catch(function(error) {
+				.catch(function (error) {
 					console.log(error);
 				})
 		},
 
-		removeShoppingCartAction: function(userid) {
+		removeShoppingCartAction: function (userid) {
 			this.courseid = document.getElementById("courseid").value;
 			axios({
 				method: 'get',
@@ -285,12 +288,12 @@ var product = Vue.createApp({
 
 			})
 				.then(response => (this.shopstatus = false))
-				.catch(function(error) {
+				.catch(function (error) {
 					console.log(error);
 				});
 		},
 
-		nextPage: function() {
+		nextPage: function () {
 			if (document.getElementById("pageNo").value != this.ranks.totalPages) {
 				document.getElementById("pageNo").value = (document.getElementById("pageNo").value) * 1 + 1;
 			}
@@ -302,12 +305,12 @@ var product = Vue.createApp({
 			})
 				.then(response => (
 					this.ranks = response.data, this.res = response))
-				.catch(function(error) {
+				.catch(function (error) {
 					console.log(error);
 				});
 		},
 
-		previousPage: function() {
+		previousPage: function () {
 			if (document.getElementById("pageNo").value != 1) {
 				document.getElementById("pageNo").value = (document.getElementById("pageNo").value) * 1 - 1;
 			}
@@ -319,40 +322,75 @@ var product = Vue.createApp({
 			})
 				.then(response => (
 					this.ranks = response.data, this.res = response))
-				.catch(function(error) {
+				.catch(function (error) {
 					console.log(error);
 				});
 		},
 
-		handlefirstVideoUrl: function() {
+		handlefirstVideoUrl: function () {
 			this.currentLecturesID = this.lecture.lecturesID;
 			this.videoSrcUrl = this.baseUrl + this.lecture.videoSource;
 			player.src(this.videoSrcUrl)
 		},
 
-		handlefirstPreviewVideoUrl: function() {
+		handlefirstPreviewVideoUrl: function () {
 			this.currentLecturesID = this.lecture.lecturesID;
 			this.videoSrcUrl = this.baseUrl + this.lecture.previewViedeoUrl;
 			player.src(this.videoSrcUrl)
 		},
 
-
-
-		handleVideoUrl: function(lecture) {
+		handleVideoUrl: function (lecture) {
 			this.lecture = lecture;
 			this.currentLecturesID = this.lecture.lecturesID;
 			this.videoSrcUrl = this.baseUrl + this.lecture.videoSource;
 			player.src(this.videoSrcUrl);
 		},
 
-		handlePreviewVideoUrl: function(lecture) {
+		handlePreviewVideoUrl: function (lecture) {
 			this.lecture = lecture;
 			this.currentLecturesID = this.lecture.lecturesID;
 			this.videoSrcUrl = this.baseUrl + this.lecture.previewViedeoUrl;
 			player.src(this.videoSrcUrl);
 		},
-
-
+		// by weijie
+		JumpToMyshop: function () {
+			if (this.shopstatus == true) {
+				location.href = '/myshop';
+			} else {
+				//adding
+				axios({
+					method: 'get',
+					url: '/api/checklogin',
+					headers: { "Access-Control-Allow-Origin": "*" },
+				})
+					.then(response => {
+						if (response.data == "") {
+							location.href = '/login';
+						} else {
+							//adding action
+							var userid = response.data;
+							this.courseid = document.getElementById("courseid").value;
+							axios({
+								method: 'post',
+								url: '/api/insertshoppingcart',
+								headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+								data: { userID: userid, courseID: this.courseid }
+							})
+								.then(response => {
+									//JumpToNextPage
+									this.shopstatus = true;
+									location.href = '/myshop';
+								})
+								.catch(function (error) {
+									console.log(error);
+								});
+						}
+					})
+					.catch(function (error) {
+						console.log(error);
+					})
+			}
+		}
 	}
 
 })
@@ -393,8 +431,8 @@ const dataObj2 = {
 	sections: "",
 	bulletins: "",
 	courseId: "",
-	
-	purchasedstatus:""
+
+	purchasedstatus: ""
 };
 
 var bulletin = Vue.createApp({
@@ -410,7 +448,7 @@ var bulletin = Vue.createApp({
 		}
 	},
 	mounted:
-		function() {
+		function () {
 			this.courseId = document.getElementById("courseid").value;
 			this.userId = document.getElementById("userid").value;
 			var courseId = this.courseId;
@@ -498,13 +536,13 @@ var bulletin = Vue.createApp({
 					}, 100);
 
 				})
-				.catch(function(error) {
+				.catch(function (error) {
 					console.log(error);
 				});
 
 		},
 	methods: {
-		sendSearch: function() {
+		sendSearch: function () {
 			axios({
 				method: 'get',
 				url: '/api/findBulletinBySearch.controller',
@@ -521,21 +559,21 @@ var bulletin = Vue.createApp({
 					console.log("resp: ", response.data);
 					this.bulletins = response.data;
 				})
-				.catch(function(error) {
+				.catch(function (error) {
 					console.log("error: ", error);
 				})
 			this.currQuery = "";
 			this.showReply = false;
 		},
-		toggleQuestionBar: function() {
+		toggleQuestionBar: function () {
 			this.showQuestionBar = true;
 		},
-		toggleQuestionLectureId: function(lecId, secName, lecName) {
+		toggleQuestionLectureId: function (lecId, secName, lecName) {
 			this.currQuestionLectionId = lecId;
 			this.currQuestionSelection = secName + "." + lecName;
 			console.log("lecId: ", lecId);
 		},
-		sendQuestion: function() {
+		sendQuestion: function () {
 			axios({
 				method: 'post',
 				url: '/api/insertBulletin2.controller',
@@ -556,7 +594,7 @@ var bulletin = Vue.createApp({
 					this.bulletins.unshift(response.data
 					)
 				})
-				.catch(function(error) {
+				.catch(function (error) {
 					console.log("error: ", error);
 				})
 
@@ -569,20 +607,20 @@ var bulletin = Vue.createApp({
 			console.log(this.bulletins, "sendQuestion finish");
 
 		},
-		toggleReplyContent: function(bltId) {
+		toggleReplyContent: function (bltId) {
 			if (this.showReply == bltId) {
 				this.showReply = false;
 			} else {
 				this.showReply = bltId;
 			}
 		},
-		toggleReplyInput: function(bltId) {
+		toggleReplyInput: function (bltId) {
 			this.showReplyInput = bltId;
 		},
-		cancelReplyInput: function() {
+		cancelReplyInput: function () {
 			this.showReplyInput = false;
 		},
-		sendReplyInput: function(bltId) {
+		sendReplyInput: function (bltId) {
 			axios({
 				method: 'post',
 				url: '/api/insertBulletinReply.controller',
@@ -606,7 +644,7 @@ var bulletin = Vue.createApp({
 						continue;
 					}
 				})
-				.catch(function(error) {
+				.catch(function (error) {
 					console.log("error: ");
 					console.log(error);
 				})
@@ -614,7 +652,7 @@ var bulletin = Vue.createApp({
 			this.showReplyInput = true;
 			this.currReplyInputContent = "";
 		},
-		getBulletinByLectureId: function(lectureId) {
+		getBulletinByLectureId: function (lectureId) {
 			axios.get(
 				"/api/initBulletinByLectureId.controller",
 				{
@@ -638,7 +676,7 @@ var bulletin = Vue.createApp({
 					console.log(error);
 				})
 		},
-		getBulletinByCourseId: function() {
+		getBulletinByCourseId: function () {
 			console.log(courseId);
 
 			axios.get(
