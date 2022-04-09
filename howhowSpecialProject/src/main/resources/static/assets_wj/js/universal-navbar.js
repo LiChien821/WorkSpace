@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
 // import { createRouter, createWebHistory}  from 'vue-router'
-
 // const LoginPage = {template: '<div>Home</div>'}
 // const routes = [
 //     { path: '/', name: 'home', component: "" },
@@ -116,11 +115,12 @@ const app = createApp({
 
 	},
 	methods: {
-		goToCoursePage: function(categorId) {
-			var query = 1;
-			var categoryId = 1;
-			self.location.href = "/howhow/searchCourseInfo/" + query;
+		goToCoursePageByCategoryId: function() {
+			self.location.href = "/courses/category/" + categorId;
 			// this.$router.push('https://www.youtube.com/'); 
+		},
+		goToCoursePageBySearch: function() {
+			self.location.href = "/courses/query/" + query;
 		}
 	}
 })
