@@ -63,6 +63,15 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
  </script>
  
 
+<script>
+	function checkPasswordMatch(confirmPassword) {
+		if(confirmPassword.value != $("#password").val()) {
+			confirmPassword.setCustomValidity("Password dont match");
+		}else {
+			confirmPassword.setCustomValidity("");
+		}
+	}
+</script>
 
 </body>
 </html>
