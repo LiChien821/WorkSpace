@@ -59,7 +59,7 @@ var app = Vue.createApp({
 		this.searching = document.getElementById("searching").value;
 		this.categorying = document.getElementById("categorying").value;
 		if (this.searching != "") {
-			this.search = '123';
+			this.search = this.searching;
 			this.goSearch(this.searching);
 			document.getElementById("searching").value == "";
 		} else if (this.categorying != ""){
@@ -133,7 +133,7 @@ var app = Vue.createApp({
 					headers: { "Access-Control-Allow-Origin": "*" },
 				})
 
-					.then(response => (this.courses = response.data, this.res = response))
+					.then(response => (this.courses = response.data, this.res = response),this.$router.push('courses?search='+this.currentsearch))
 					.catch(function(error) {
 						console.log(error);
 					});
@@ -340,7 +340,8 @@ var app = Vue.createApp({
 			})
 				.then(response => (
 					this.courses = response.data,
-					this.res = response
+					this.res = response,
+					this.$router.push('courses?category='+this.currentcategoryid)
 				))
 				.catch(function(error) {
 					console.log(error);
@@ -370,7 +371,11 @@ var app = Vue.createApp({
 				url: '/api/findallcourses/1',
 				headers: { "Access-Control-Allow-Origin": "*" }
 			})
-				.then(response => (this.courses = response.data, this.res = response))
+				.then(response => (
+					this.courses = response.data,
+					this.res = response,
+					this.$router.push('courses')
+					))
 				.catch(function(error) {
 					console.log(error);
 				});
