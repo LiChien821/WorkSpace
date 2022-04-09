@@ -46,7 +46,7 @@ createApp({
 
 	methods: {
 		goLearning: function(courseid) {
-			location.href = '/play/' + courseid;
+			location.href = '/product?id=' + courseid;
 		},
 
 		insertcourserank: function() {

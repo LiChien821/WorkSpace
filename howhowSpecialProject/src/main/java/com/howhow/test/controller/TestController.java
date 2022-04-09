@@ -41,92 +41,9 @@ public class TestController {
 		return userBonus;
 	}
 	
-//	@GetMapping("/login")
-//	public String login() {
-//		Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
-//		if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-//			return "login";
-//		}
-//		return "redirect:/";
-//	}
-//	
-//	
-	
-//	@GetMapping("/courses")
-//	public String ac2(Model m) {
-//		int userid=-1;
-//		UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
-//		if(accountDetail!= null) userid = accountDetail.getUserId();
-//		m.addAttribute("userid",userid);
-//		m.addAttribute("pageNo", 1);
-//
-//		return "shopping/browse";
-//	}
-//	
-	
-	
-	@GetMapping("/courses")
-	public String ac2(Model m, @RequestParam(value = "search", defaultValue = "") String search, @RequestParam(value = "category", defaultValue = "") String category) {
-		int userid=-1;
-		UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
-		if(accountDetail!= null) userid = accountDetail.getUserId();
-		m.addAttribute("categorying", category);
-		m.addAttribute("searching", search);
-		m.addAttribute("userid",userid);
-		m.addAttribute("pageNo", 1);
 
-		return "shopping/browse";
-	}
 	
-	@GetMapping("/courses/{searching}")
-	public String ac(Model m, @PathVariable("searching") String searching) {
-		int userid=-1;
-		 UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
-		 if(accountDetail!= null) userid = accountDetail.getUserId();
-		m.addAttribute("searching", searching);
-		m.addAttribute("userid",userid);
-		m.addAttribute("pageNo", 1);
+	
 
-		return "shopping/browse";
-	}
-	
-	
-	@GetMapping("/product")
-	public String unit(@RequestParam("id") int id ,Model m) throws CourseNotFoundException {
-		
-		if(cService.findByID(id)==null) throw new CourseNotFoundException();
-		
-		int userid=-1;
-		UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
-		if(accountDetail!= null) userid = accountDetail.getUserId();
-		
-		m.addAttribute("courseid", id);
-		m.addAttribute("userid",userid);
-		m.addAttribute("pageNo", 1);
-		
-		return "shopping/product";
-	}
-	
-	@GetMapping("/myshop")
-	public String enterMyShop(Model m) {
-		int userid=-1;
-		UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
-		if(accountDetail!= null) userid = accountDetail.getUserId();
-		
-		m.addAttribute("userid",userid);
-		
-		return "shopping/myshoppingpage";
-	}
-	
-	@GetMapping("/mycourse")
-	public String enterMyCourse(Model m) {
-		int userid=-1;
-		UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
-		if(accountDetail!= null) userid = accountDetail.getUserId();
-		
-		m.addAttribute("userid",userid);
-		
-		return "shopping/mypurchasedpage";
-	}
 	
 }
