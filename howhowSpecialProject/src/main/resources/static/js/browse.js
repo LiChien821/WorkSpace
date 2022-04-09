@@ -1,3 +1,19 @@
+import { createRouter, createWebHistory}  from 'vue-router'
+
+ const LoginPage = {template: '<div>Home</div>'}
+ const routes = [
+     { path: '/', name: 'home', component: "" },
+     { path: '/login', redirect: '/' },
+     { path: '/howhow/login', name: 'login', component: () => {
+ 		LoginPage
+ 	}}
+ ]
+ const router = createRouter({
+     history:createWebHistory(),
+     routes: routes
+ })
+
+
 const dataObj = {
 
 	courses: "",
@@ -41,10 +57,15 @@ var app = Vue.createApp({
 		this.pageNo = document.getElementById("pageNo").value;
 		this.userid = document.getElementById("userid").value;
 		this.searching = document.getElementById("searching").value;
+		this.categorying = document.getElementById("categorying").value;
 		if (this.searching != "") {
 			this.search = '123';
 			this.goSearch(this.searching);
 			document.getElementById("searching").value == "";
+		} else if (this.categorying != ""){
+			console.log('category')
+			this.searchByCategory(this.categorying);
+			this.categoryid=this.categorying;
 		} else {
 			axios({
 				method: 'get',
@@ -357,4 +378,5 @@ var app = Vue.createApp({
 
 	}
 })
+app.use(router);
 app.mount('#browse')
