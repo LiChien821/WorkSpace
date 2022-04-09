@@ -129,7 +129,19 @@ const app = createApp({
 			const resp2 = responses[1];
 			this.isLogged = resp1.data;
 			console.log(this.isLogged);
-			console.log(resp2);
+
+			for (var i = 0; i < resp2.data.length; i++) {
+				const item = resp2.data[i];
+				var newCategoryObject = {
+					cId: "",
+					cItemName: ""
+				}
+				newCategoryObject.cId = item["id"].toString();
+				newCategoryObject.cItemName = item["name"];
+				this.categories.push(newCategoryObject);
+			  }
+
+			console.log(this.categories);
 			// console.log(resp1);
 		})).catch(errors => {
 			console.log(errors);
@@ -139,11 +151,15 @@ const app = createApp({
 	methods: {
 
 		goToCoursePageByCategoryId: function(categroyId) {
-			self.location.href = "/courses?category=" + categroyId;
+			if (categroyId == 0) {
+				self.location.href = "/courses";
+			} else {
+				self.location.href = "/courses?category=" + categroyId;
+			}
 		},
 
 		goToCoursePageBySearch: function() {
-			self.location.href = "/courses?query=" + this.currQuery;
+			self.location.href = "/courses?search=" + this.currQuery;
 		}
 	}
 })

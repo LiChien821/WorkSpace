@@ -20,8 +20,8 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		
 		</link>
-		<link rel="stylesheet" th:href="@{/css/index.css}">
-		</link>
+		<link rel="stylesheet" th:href="@{/css/index.css}"></link>
+		<link rel="stylesheet" th:href="@{/css/universal-navbar.css}"></link>
 		<title>LoginPage</title>
 </head>
 
@@ -54,7 +54,7 @@
 						<!-- <a class="d-flex justify-content-between" tabindex="-1" :href=cate.cUrl>
 							<small><span>{{ cate.cItemName }}</span></small>
 							<i class="fa fa-chevron-right"></i></a> -->
-						<div class="d-flex justify-content-between" @click="goToCoursePage('', cate.cateId)">
+						<div class="d-flex justify-content-between" @click="goToCoursePageByCategoryId(cate.cId)">
 							<small><span>{{ cate.cItemName }}</span></small>
 							<i class="fa fa-chevron-right"></i>
 						</div>
@@ -64,11 +64,11 @@
 
 			<div class="ms-3 navbar-search d-flex align-items-center justify-content-center">
 
-				<input type="search" placeholder="搜尋任何事物..." aria-describedby="button-addon4"
-					@keyup.enter="goToCoursePage('unkown')" class="navbar-search-input rounded-pill border-0 px-3">
+				<input type="search" placeholder="搜尋任何事物..." v-model="currQuery" aria-describedby="button-addon4"
+					@keyup.enter="goToCoursePageBySearch()" class="navbar-search-input rounded-pill border-0 px-3">
 				<div class="">
 					<button id="button-addon4" type="button" class="border-0 rounded-pill"
-						@click="goToCoursePage('unkown')" style="height: 40px; background-color:#E2C652;"><i
+						@click="goToCoursePageBySearch()" style="height: 40px; background-color:#E2C652;"><i
 							class="fa fa-search"></i></button>
 				</div>
 			</div>
