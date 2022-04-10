@@ -307,7 +307,7 @@ createApp({
 				} else {
 					this.orderisdisabled = false;
 				}
-			}, 20);
+			}, 200);
 		}
 	}
 

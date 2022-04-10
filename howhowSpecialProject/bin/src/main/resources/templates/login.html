@@ -18,7 +18,8 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <a th:href="@{/}"> <img border="0" th:src="@{/images/logo.png}"
      alt=""></a>
 </div>
-	
+	<div style="width:500px;height:200px;">
+	</div>
 <form class="form" method="POST" th:action="@{/login}"  style="max-width: 500px; margin: 0 auto ; height:300px">
 
 
@@ -30,17 +31,20 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 		<div th:if="${param.logout}" class="errme">
 			<p class="text-warming">log out</p>
 		</div>
-<div class="loginwordbox">
-  <span class = "logintitle">登入</span>
+<div class="loginwordbox" style="height: 120px;position:absolute; left:43%;width:200px">
+  <span class = "logintitle" style="font-size:60px;">登入</span>
+  <hr style="border:solid 2px ;color:#FFFFFF;margin-top:15px"/>
+  
 </div>
-	<a href="/oauth2/authorization/google">Google Login</a>
+<div style="position: absolute; top:20%;left:43.5%">
+	<a href="/oauth2/authorization/google" style="color: white">Google Login</a>
+	</div>
       
       	<div class= "singup" ><a style="color:#FFFFFF" th:href="@{/register}">sign up?</a></div>
-		</div>
-		
+	
 			<p>
         
-					<div class="space">
+					<div class="space" style="margin-top:125px">
 				<span for="account" class="accword">Account</span> 
 				<span calss = "accwordspan"><input type="text" name="account" class="accountp"  required id="account"/></span>
 					</div>			
@@ -52,15 +56,18 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 				</div>
 			</p>
 
-        <divclass="remeberdiv" >
-				<span class="remeberdiv" >
-				<label for="rmb"class="remp">remember me:</label> 
+        <div style=" position:absolute;bottom:27%">
+				<span class="remeberdiv" style="width:300px;" >
 				<input type="checkbox" class="checkbox"  name="remember-me" id="rmb"/>
+				<label for="rmb"class="remp" style="width:180px;">remember me</label> 
+				
 				</span>
 </div>
 
+<div style="position:absolute;bottom:27%;left:38%">
 <spqn class = "btd"><input type="submit" class="bt1" value="log in"/> 
-</span>
+
+</div>
 	</form>
 	
 	

@@ -8,29 +8,37 @@
 
 <head th:replace="course/fragments/header :: pagehead">
 
-
-
-
 </head>
 
 <body class="is-preload">
+	<div class="container-fluid">
+		<div class="row justify-content-end">
+			<div th:insert="universal-navbar :: universal-navbar" style="width: 83%"></div>
+		</div>
+	</div>
 	<!-- Header -->
 	<div id="header">
 		<div class="top">
 			<!-- Logo -->
 			<div id="logo">
-				<span class="image avatar48"><img th:src="@{/images/avatar.jpg}" alt="" /></span>
-				<h1 id="title">[[${creator.givenName}]] [[${creator.familyName}]]</h1>
+				<span class="image avatar48"><img
+					th:src="@{/images/avatar.jpg}" alt="" /></span>
+				<h1 id="title">[[${creator.givenName}]]
+					[[${creator.familyName}]]</h1>
 				<p>[[${creator.acountCreationTime}]]</p>
 			</div>
 
 			<!-- Nav -->
 			<nav id="nav">
 				<ul>
-					<li><a href="#top" id="top-link"><span class="icon solid fa-home">我的頁面</span></a></li>
-					<li><a href="#courseList" id="portfolio-link"><span class="icon solid fa-th">課程</span></a></li>
-					<li><a th:href="@{/teacherPage/new}" id="about-link"><span class="icon solid fa-user">創造新課程</span></a></li>
-					<li><a href="#" id="contact-link"><span class="icon solid fa-envelope">聯絡我們</span></a></li>
+					<li><a href="#top" id="top-link"><span
+							class="icon solid fa-home">我的頁面</span></a></li>
+					<li><a href="#courseList" id="portfolio-link"><span
+							class="icon solid fa-th">課程</span></a></li>
+					<li><a th:href="@{/teacherPage/new}" id="about-link"><span
+							class="icon solid fa-user">創造新課程</span></a></li>
+					<li><a href="#" id="contact-link"><span
+							class="icon solid fa-envelope">聯絡我們</span></a></li>
 				</ul>
 			</nav>
 
@@ -40,11 +48,16 @@
 
 			<!-- Social Icons -->
 			<ul class="icons">
-				<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-				<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-				<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-				<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-				<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+				<li><a href="#" class="icon brands fa-twitter"><span
+						class="label">Twitter</span></a></li>
+				<li><a href="#" class="icon brands fa-facebook-f"><span
+						class="label">Facebook</span></a></li>
+				<li><a href="#" class="icon brands fa-github"><span
+						class="label">Github</span></a></li>
+				<li><a href="#" class="icon brands fa-dribbble"><span
+						class="label">Dribbble</span></a></li>
+				<li><a href="#" class="icon solid fa-envelope"><span
+						class="label">Email</span></a></li>
 			</ul>
 
 		</div>
@@ -59,11 +72,14 @@
 			<div class="container">
 
 				<header>
-					<h2 class="alt">這是 <strong>howhow學</strong>從這裡開始 <a href="http://html5up.net/license">創造</a>
-						你的<br />
-						新課程 <a href="#">請點選</a>下方</h2>
-					<p> 創造<br />
-						課程</p>
+					<h2 class="alt">
+						這是 <strong>howhow學</strong>從這裡開始 <a
+							href="http://html5up.net/license">創造</a> 你的<br /> 新課程 <a
+							href="#">請點選</a>下方
+					</h2>
+					<p>
+						創造<br /> 課程
+					</p>
 				</header>
 
 				<footer>
@@ -85,49 +101,56 @@
 				<p>以下是課程列表</p>
 
 				<div class="row">
-				<form method="POST" hidden th:action="@{/teacherPage/edit}" id="editForm"><input id="forminput" name="courseID" hidden ></form>
+					<form method="POST" hidden th:action="@{/teacherPage/edit}"
+						id="editForm">
+						<input id="forminput" name="courseID" hidden>
+					</form>
 					<div class="col-4 col-12-mobile" v-for="course in courseList">
 						<article class="item">
-							<a @click="courseToEdit(course.courseID)"  href="#javascript" class="image fit">
-							<img v-if="course.courseCover == null" th:src="@{/images/pic02.jpg}" alt="" />
-							<img v-if="course.courseCover != null" :src="blobSetting+course.courseCover" alt="" />
+							<a @click="courseToEdit(course.courseID)" href="#javascript"
+								class="image fit"> <img v-if="course.courseCover == null"
+								th:src="@{/images/pic02.jpg}" alt="" /> <img
+								v-if="course.courseCover != null"
+								:src="blobSetting+course.courseCover" alt="" />
 							</a>
-							
+
 							<header>
 								<a @click="courseToEdit(course.courseID)">
-								<h3>{{course.courseName}}</h3></a>
-								<input hidden :id="'course'">
+									<h3>{{course.courseName}}</h3>
+								</a> <input hidden :id="'course'">
 							</header>
 						</article>
-						
+
 					</div>
 					<div id="pagination">
 						<ul class="pagination justify-content-center flex-wrap">
-						      <li  v-bind:class="[currentPage >1 ? '' : 'disabled','page-item']">
-						      <a  class="page-link" @click="pageLinkToCourse(1)">first</a>
-						      </li>
-						      
-						        <li v-bind:class="[currentPage >1 ? '' : 'disabled','page-item']">
-						      <a  class="page-link"@click="pageLinkToCourse(currentPage-1)">previos</a>
-							    </li>
-							  
-						
-						      
-						       <li v-bind:class="[currentPage !=index? '' : 'disabled','page-item']" 
-							  v-for="index in totalPages" :key="index">
-							    <a class="page-link" @click="pageLinkToCourse(index)">{{index}}</a>
-							    </li>
-							    
-							   
-							   
-							   
-						      <li v-bind:class="[currentPage < totalPages? '' : 'disabled','page-item']">
-						      	<a class="page-link"  @click="pageLinkToCourse(currentPage+1)">next</a>
-							    </li>
+							<li v-bind:class="[currentPage >1 ? '' : 'disabled','page-item']">
+								<a class="page-link" @click="pageLinkToCourse(1)">first</a>
+							</li>
+
+							<li v-bind:class="[currentPage >1 ? '' : 'disabled','page-item']">
+								<a class="page-link" @click="pageLinkToCourse(currentPage-1)">previos</a>
+							</li>
+
+
+
+							<li
+								v-bind:class="[currentPage !=index? '' : 'disabled','page-item']"
+								v-for="index in totalPages" :key="index"><a
+								class="page-link" @click="pageLinkToCourse(index)">{{index}}</a>
+							</li>
+
+
+
+
+							<li
+								v-bind:class="[currentPage < totalPages? '' : 'disabled','page-item']">
+								<a class="page-link" @click="pageLinkToCourse(currentPage+1)">next</a>
+							</li>
 						</ul>
 					</div>
-					
-					
+
+
 				</div>
 
 			</div>
@@ -143,12 +166,12 @@
 
 				<a href="#" class="image featured"><img src="" alt="" /></a>
 
-				<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna. Ridiculus
-					ultricies curae quis et rhoncus velit. Lobortis elementum aliquet nec vitae
-					laoreet eget cubilia quam non etiam odio tincidunt montes. Elementum sem
-					parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper
-					dolor. Libero rutrum ut lacinia donec curae mus vel quisque sociis nec
-					ornare iaculis.</p>
+				<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna.
+					Ridiculus ultricies curae quis et rhoncus velit. Lobortis elementum
+					aliquet nec vitae laoreet eget cubilia quam non etiam odio
+					tincidunt montes. Elementum sem parturient nulla quam placerat
+					viverra mauris non cum elit tempus ullamcorper dolor. Libero rutrum
+					ut lacinia donec curae mus vel quisque sociis nec ornare iaculis.</p>
 
 			</div>
 		</section>
@@ -161,15 +184,20 @@
 					<h2>Contact</h2>
 				</header>
 
-				<p>Elementum sem parturient nulla quam placerat viverra
-					mauris non cum elit tempus ullamcorper dolor. Libero rutrum ut lacinia
-					donec curae mus. Eleifend id porttitor ac ultricies lobortis sem nunc
-					orci ridiculus faucibus a consectetur. Porttitor curae mauris urna mi dolor.</p>
+				<p>Elementum sem parturient nulla quam placerat viverra mauris
+					non cum elit tempus ullamcorper dolor. Libero rutrum ut lacinia
+					donec curae mus. Eleifend id porttitor ac ultricies lobortis sem
+					nunc orci ridiculus faucibus a consectetur. Porttitor curae mauris
+					urna mi dolor.</p>
 
 				<form method="post" action="#">
 					<div class="row">
-						<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
-						<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email" /></div>
+						<div class="col-6 col-12-mobile">
+							<input type="text" name="name" placeholder="Name" />
+						</div>
+						<div class="col-6 col-12-mobile">
+							<input type="text" name="email" placeholder="Email" />
+						</div>
 						<div class="col-12">
 							<textarea name="message" placeholder="Message"></textarea>
 						</div>
@@ -192,22 +220,25 @@
 			<li>&copy; Untitled. All rights reserved.</li>
 		</ul>
 
-	<script type="importmap">
+		<script type="importmap">
 
+	{
+  "imports": {
+	"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
+	"vue-router": "https://cdnjs.cloudflare.com/ajax/libs/vue-router/4.0.0-alpha.12/vue-router.esm.js"
+  }
+}
 
 </script>
-
-
-
-
 
 	</div>
 
 
 	<!-- Scripts -->
-<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
-<script src="https://unpkg.com/vue@3"></script>
-<script type="module" th:src="@{/js/courseListPage.js}"></script>
+	<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+	<script src="https://unpkg.com/vue@3"></script>
+	<script type="module" th:src="@{/js/courseListPage.js}"></script>
+	<script type="module" th:src="@{/js/universal-navbar.js}"></script>
 
 </body>
 
