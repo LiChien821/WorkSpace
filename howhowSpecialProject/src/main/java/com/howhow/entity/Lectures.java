@@ -45,12 +45,16 @@ public class Lectures {
 	@Column(name = "system_time")
 	private String SystemTime;
 	
+	@Column
+	private String Hint;
+	
 //	@OneToMany(mappedBy = "lectures")
 //	private List<Question> questionList=new ArrayList<Question>();
 	@OneToMany(mappedBy = "lectureid")                                //modified by weijie(2022-03-22)
 	@JsonIgnore
 	private List<Bulletin> bulletinList=new ArrayList<Bulletin>(); 
 	
+	@JsonIgnore   //modified by chien-lin(2022-03-31)
 	@OneToMany(mappedBy = "notedlecture")
 	private List<Notes> notesList=new ArrayList<Notes>();
 	
@@ -153,6 +157,14 @@ public class Lectures {
 
 	public void setLectureNumber(int lectureNumber) {
 		this.lectureNumber = lectureNumber;
+	}
+
+	public String getHint() {
+		return Hint;
+	}
+
+	public void setHint(String hint) {
+		Hint = hint;
 	}
 	
 	

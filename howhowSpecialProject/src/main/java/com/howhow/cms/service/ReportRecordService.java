@@ -21,4 +21,8 @@ public class ReportRecordService {
 	public List<ReportRecord> findAll(){
 		return rrr.findAll();
 	}
+	
+	public void deleteReport(int id) {
+		rrr.deleteById(id);
+	}
 }

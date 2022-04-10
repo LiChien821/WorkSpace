@@ -1,54 +1,63 @@
 package com.howhow.course.bulletin.dto;
 
-import java.util.Date;
-import java.util.HashMap;
-
 public class BulletinReplyDTO {
 	
-	private Integer bulletinreplyid;
-	private String replycontent;
-	private String creationtime;
-	private String respondentname;
+	private Integer bulletinreplyId;
+	private String replyContent;
+	private String creationTime;
+	private Integer resondentId;
+	private String respondentName;
 	
 	public BulletinReplyDTO(Integer bulletinreplyid, String replycontent, 
-			String creationtime, String respondentname) {
-		this.bulletinreplyid = bulletinreplyid;
-		this.replycontent = replycontent;
-		this.creationtime = creationtime;
-		this.respondentname = respondentname;
+			String creationtime, String respondentname, Integer resondentId) {
+		this.bulletinreplyId = bulletinreplyid;
+		this.replyContent = replycontent;
+		this.creationTime = creationtime;
+		this.respondentName = respondentname;
+		this.resondentId = resondentId;
 	}
 
-	public Integer getBulletinreplyid() {
-		return bulletinreplyid;
+	public Integer getResondentId() {
+		return resondentId;
 	}
 
-	public void setBulletinreplyid(Integer bulletinreplyid) {
-		this.bulletinreplyid = bulletinreplyid;
+	public void setResondentId(Integer resondentId) {
+		this.resondentId = resondentId;
 	}
 
-	public String getReplycontent() {
-		return replycontent;
+	public Integer getBulletinreplyId() {
+		return bulletinreplyId;
 	}
 
-	public void setReplycontent(String replycontent) {
-		this.replycontent = replycontent;
+	public void setBulletinreplyId(Integer bulletinreplyId) {
+		this.bulletinreplyId = bulletinreplyId;
 	}
 
-	public String getCreationtime() {
-		return creationtime;
+	public String getReplyContent() {
+		return replyContent;
 	}
 
-	public void setCreationTime(String creationtime) {
-		this.creationtime = creationtime;
+	public void setReplyContent(String replyContent) {
+		this.replyContent = replyContent;
 	}
 
-	public String getRespondentname() {
-		return respondentname;
+	public String getCreationTime() {
+		return creationTime;
 	}
 
-	public void setRespondentname(String respondentname) {
-		this.respondentname = respondentname;
+	public void setCreationTime(String creationTime) {
+		this.creationTime = creationTime;
 	}
+
+	public String getRespondentName() {
+		return respondentName;
+	}
+
+	public void setRespondentName(String respondentName) {
+		this.respondentName = respondentName;
+	}
+
+	
 	
 	
 }

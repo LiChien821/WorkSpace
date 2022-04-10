@@ -1,11 +1,17 @@
 package com.howhow.account.controller;
 
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.config.web.servlet.oauth2.login.OAuth2LoginSecurityMarker;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,9 +64,26 @@ public class AccountController {
 			  account.setPassword(bcryptoEncoder.encode(pwd));
 			  System.out.println("已嘗試");
 		  }
-		 
+		  return "main";
+	}
 		  
 	
+	public String home( Model model) {
+		 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		  String email="";
+		  if (principal instanceof AccountUserDetails) {
+		   email = ((AccountUserDetails)principal).getEmail();
+		  } else if(principal instanceof  DefaultOidcUser){
+		    email = ((DefaultOidcUser)principal).getEmail();
+		  }else {
+		   return "redirect:/";
+		  }
+		  UserAccountDt udt=  service.findByEmail(email);
+
+		  UserAccountMt account = udt.getUserAccountMt();
+		  model.addAttribute("account", account);
+		  System.out.println(account.getUserId());
+
 
 
 		return "main";
@@ -79,15 +102,20 @@ public class AccountController {
 			return "editpwd";
 
 	}
-	
-
+		
 
 	@GetMapping("/editAccount")
 	public String editPage( Model model) {
-		
-		
-		 UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
-		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		  String email="";
+		  if (principal instanceof AccountUserDetails) { //帳號密碼登入
+			   email = ((AccountUserDetails)principal).getEmail();
+			  } else if(principal instanceof  DefaultOidcUser){ //GOOGLE登入
+			    email = ((DefaultOidcUser)principal).getEmail();
+			  }
+		 	
+	
+		UserAccountDt accountDetail = service.findByEmail(email);
 		UserAccountMt account = accountDetail.getUserAccountMt();
 		
 		model.addAttribute("Account", account);
@@ -100,6 +128,14 @@ public class AccountController {
 		
 		UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
 		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		  String email="";
+		  if (principal instanceof AccountUserDetails) { //帳號密碼登入
+			   email = ((AccountUserDetails)principal).getEmail();
+			  } else if(principal instanceof  DefaultOidcUser){ //GOOGLE登入
+			    email = ((DefaultOidcUser)principal).getEmail();
+			  }
+
 			UserAccountMt account = accountDetail.getUserAccountMt();
 
 		if (("admin").equals(account.getUserstatus().getAccountLevel().toString())) {

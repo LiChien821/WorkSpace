@@ -1,13 +1,13 @@
 @charset "UTF-8";
 *{
 /*border: solid 1px;*/
-  font-family: 微軟正黑體;
-  
+  font-family: 'Barlow Condensed','Microsoft JhengHei Light','微軟正黑體', sans-serif;
 }
 body{
-
+margin:0;
+  padding:0;
 /* UI Properties */
-background: #E2C652 0% 0% no-repeat padding-box;
+background: #f3f7f7 0% 0% no-repeat padding-box;
 opacity: 1;
 
 }
@@ -59,17 +59,44 @@ color: #FFFFFF;
 opacity: 1;
   font-family: 微軟正黑體;
 }
-.bt{
+.bt1{
 	  /* Layout Properties */
-top: 537px;
-left: 885px;
-width: 151px;
-height: 59px;
-
+width: 100px;
+height: 40px;
+/* position: absolute; */
+/* top: 60%; */
+/* left: 96%; */
+/* transform: translate(-50%,-96%); */
 /* UI Properties */
-background: #FFFFFF 0% 0% no-repeat padding-box;
+background: #FFFFFF ;
 border-radius: 51px;
 opacity: 1;
-    font-family: 微軟正黑體;
-   border:none;
+font-family: 微軟正黑體;
+border:none;
 }
+.bt2{
+	  /* Layout Properties */
+width: 100px;
+height: 40px;
+/* position: absolute; */
+/* top: 58%; */
+/* left: 90%; */
+/* transform: translate(-50%,-90%); */
+/* UI Properties */
+background: #FFFFFf;
+border-radius: 51px;
+opacity: 1;
+font-family: 微軟正黑體;
+border:none;
+}
+
+.header{
+  height:130px;
+ background-color:#E2C652;
+position: relative; 
+}
+.icon{
+	padding:10px;
+  width:250px;
+}
+

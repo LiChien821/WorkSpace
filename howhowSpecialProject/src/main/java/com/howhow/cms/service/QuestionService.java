@@ -18,4 +18,8 @@ public class QuestionService {
 		}
 		return qr.findById(id).get();
 	}
+	
+	public void deleteQuestion(int id) {
+		qr.deleteById(id);
+	}
 }

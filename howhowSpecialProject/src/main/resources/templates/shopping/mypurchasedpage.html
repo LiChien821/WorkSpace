@@ -37,127 +37,23 @@
 
 <link rel="stylesheet" th:href="@{/shopping/style.css}">
 
+<<<<<<< HEAD
 
+=======
+<link rel="stylesheet" th:href="@{/assets_wj/css/universal-navbar.css}"></link>
+
+<link rel="stylesheet" th:href="@{/css/index.css}"></link>
+
+<link rel="stylesheet" th:href="@{/css/universal-navbar.css}"></link>
+
+<link rel="stylesheet"
+	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css}">
+>>>>>>> 276d1edf5bf391817d7f005ef8e698d533283805
 
 </head>
 <body class="single-courses-page">
+	<div th:insert="universal-navbar :: universal-navbar"></div>
 	<div id="mycourse">
-		<div class="page-header">
-			<header class="site-header">
-				<div class="top-header-bar">
-					<div class="container-fluid">
-						<div class="row">
-							<div
-								class="col-12 col-lg-6 d-none d-md-flex flex-wrap justify-content-center justify-content-lg-start mb-3 mb-lg-0">
-								<div class="header-bar-email d-flex align-items-center">
-									<i class="fa fa-envelope"></i><a href="#">tuanna.design@gmail.com</a>
-								</div>
-								<!-- .header-bar-email -->
-
-								<div class="header-bar-text lg-flex align-items-center">
-									<p>
-										<i class="fa fa-phone"></i>001-1234-88888
-									</p>
-								</div>
-								<!-- .header-bar-text -->
-							</div>
-							<!-- .col -->
-
-							<div
-								class="col-12 col-lg-6 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center">
-								<div class="header-bar-search">
-									<form class="flex align-items-stretch">
-										<input type="search"
-											placeholder="What would you like to learn?">
-										<button type="submit" value=""
-											class="flex justify-content-center align-items-center">
-											<i class="fa fa-search"></i>
-										</button>
-									</form>
-								</div>
-								<!-- .header-bar-search -->
-
-								<div class="header-bar-menu">
-									<ul
-										class="flex justify-content-center align-items-center py-2 pt-md-0">
-										<li><a href="#">Register</a></li>
-										<li><a href="#">Login</a></li>
-									</ul>
-								</div>
-								<!-- .header-bar-menu -->
-							</div>
-							<!-- .col -->
-						</div>
-						<!-- .row -->
-					</div>
-					<!-- .container-fluid -->
-				</div>
-				<!-- .top-header-bar -->
-
-				<div class="nav-bar">
-					<div class="container">
-						<div class="row">
-							<div class="col-9 col-lg-3">
-								<div class="site-branding">
-									<h1 class="site-title">
-										<a href="index.html" rel="home">Ezu<span>ca</span></a>
-									</h1>
-								</div>
-								<!-- .site-branding -->
-							</div>
-							<!-- .col -->
-
-							<div
-								class="col-3 col-lg-9 flex justify-content-end align-content-center">
-								<nav
-									class="site-navigation flex justify-content-end align-items-center">
-									<ul
-										class="flex flex-column flex-lg-row justify-content-lg-end align-content-center">
-										<li class="current-menu-item"><a href="index.html">Home</a></li>
-										<li><a href="#">About</a></li>
-										<li><a href="#">Courses</a></li>
-										<li><a href="#">blog</a></li>
-										<li><a href="#">Contact</a></li>
-									</ul>
-
-									<div class="hamburger-menu d-lg-none">
-										<span></span> <span></span> <span></span> <span></span>
-									</div>
-									<!-- .hamburger-menu -->
-
-									<div class="header-bar-cart">
-										<a href="#"
-											class="flex justify-content-center align-items-center"><span
-											aria-hidden="true" class="icon_bag_alt"></span></a>
-									</div>
-									<!-- .header-bar-search -->
-								</nav>
-								<!-- .site-navigation -->
-							</div>
-							<!-- .col -->
-						</div>
-						<!-- .row -->
-					</div>
-					<!-- .container -->
-				</div>
-				<!-- .nav-bar -->
-			</header>
-			<!-- .site-header -->
-
-			<div class="page-header-overlay">
-				<div class="container">
-					<div class="row">
-						<div class="col-12"></div>
-						<!-- .col -->
-					</div>
-					<!-- .row -->
-				</div>
-				<!-- .container -->
-			</div>
-			<!-- .page-header-overlay -->
-		</div>
-		<!-- .page-header -->
-
 		<div class="container">
 			<div class="row">
 				<div class="col-12 col-lg-10">
@@ -165,7 +61,7 @@
 						<div class="container">
 							<div class="instructors-info">
 								<header>
-									<h2 class="entry-title">我所購買的課程</h2>
+									<h2 class="entry-title">我的學習</h2>
 								</header>
 								<!-- .entry-heading -->
 
@@ -179,6 +75,7 @@
 													<th scope="col" width="20%"></th>
 												</tr>
 										</table>
+
 										<div v-for="course in purchasedcourses">
 											<table class="table">
 												<thead>
@@ -191,10 +88,19 @@
 
 														<td width="10%">
 															<!-- Button trigger modal -->
-
 															<button type="button" class="btn btn-warning btn-sm"
 																data-bs-toggle="modal" data-bs-target="#exampleModal"
+<<<<<<< HEAD
 																data-bs-whatever="@mdo">我要評價</button>
+=======
+																data-bs-whatever="@mdo" @click="findCourseidForRank(course.courseid)"
+																v-if="!rankstatus.includes(course.courseid)">我要評價</button>
+
+															<button type="button" class="btn btn-secondary btn-sm"
+																data-bs-dismiss="modal" v-else
+																@click="deleteCourseRank(course.courseid)">刪除評價</button>
+
+>>>>>>> 276d1edf5bf391817d7f005ef8e698d533283805
 
 															<div class="modal fade" id="exampleModal" tabindex="-1"
 																aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -212,8 +118,13 @@
 																			<form>
 																				<div class="mb-3">
 																					<label for="recipient-name" class="col-form-label">課程評分</label>
+<<<<<<< HEAD
 																					<input type='number'
 																						class="form-control" id="rank" oninput="if(value>5)value=5;if(value<1)value=1"
+=======
+																					<input type='number' class="form-control" id="rank"
+																						oninput="if(value>5)value=5;if(value<1)value=1"
+>>>>>>> 276d1edf5bf391817d7f005ef8e698d533283805
 																						onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')"
 																						placeholder="最低為1分，最高為5分" />
 																				</div>
@@ -222,6 +133,7 @@
 																					<textarea class="form-control" id="message"></textarea>
 																				</div>
 																			</form>
+<<<<<<< HEAD
 																			<button type="button" class="btn btn-danger"
 																				data-bs-dismiss="modal"
 																				@click="insertcourserank(course.courseid)">刪除評價</button>
@@ -229,6 +141,12 @@
 																		<div class="modal-footer">
 																			<button type="button" class="btn btn-primary"
 																				@click="insertcourserank(course.courseid)">儲存</button>
+=======
+																		</div>
+																		<div class="modal-footer">
+																			<button type="button" class="btn btn-primary"
+																				@click="insertcourserank()" data-bs-dismiss="modal">新增評價</button>
+>>>>>>> 276d1edf5bf391817d7f005ef8e698d533283805
 																			<button type="button" class="btn btn-secondary"
 																				data-bs-dismiss="modal">取消</button>
 
@@ -236,6 +154,7 @@
 																	</div>
 																</div>
 															</div>
+
 														</td>
 													</tr>
 												</thead>
@@ -275,6 +194,7 @@
 	<script type="importmap">
 
 	{
+<<<<<<< HEAD
 	  "imports": {
 		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
 	  }
@@ -284,6 +204,22 @@
 
 	<script type="module" th:src="@{/js/mycourse.js}"></script>
 
+=======
+  "imports": {
+	"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
+	"vue-router": "https://cdnjs.cloudflare.com/ajax/libs/vue-router/4.0.0-alpha.12/vue-router.esm.js"
+  }
+}
+</script>
+
+
+	<script type="module" th:src="@{/js/mycourse.js}"></script>
+	<script type="module" th:src="@{/js/universal-navbar.js}"></script>
+
+
+
+	</div>
+>>>>>>> 276d1edf5bf391817d7f005ef8e698d533283805
 </body>
 
 </html>

@@ -23,6 +23,6 @@ public interface BulletinReplyRepository extends JpaRepository<BulletinReply, In
 	           		+ "            bulletin\n"
 	           		+ "        WHERE\n"
 	           		+ "            bulletin_id  = ?1)\n"
-	           		+ "ORDER BY creation_time DESC;")
+	           		+ "ORDER BY bulletinreply_id;")
 		public List<BulletinReply> findAllByBulletinId(Integer id);
 }

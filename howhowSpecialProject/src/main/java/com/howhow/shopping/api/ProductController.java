@@ -37,7 +37,7 @@ import com.howhow.util.UtilityTool;
 @Controller
 public class ProductController {
 	
-	public final int PAGESIZE=2;
+	public final int PAGESIZE=8;
 
 	@Autowired
 	CourseBasicService cService;
@@ -260,7 +260,7 @@ public class ProductController {
 		int ranknum = 0;
 		double totalrank = 0;
 
-		String url = "/howhow/product?id=" + Integer.toString(courseID);
+		String url = "/product?id=" + Integer.toString(courseID);
 
 		List<CourseRank> list = crService.findByCourseID(courseID);
 		for (CourseRank courseRank : list) {

@@ -73,14 +73,14 @@ public class OrderController {
 		omt.setSystemTime(UtilityTool.getSysTime());
 		omt.setOrderDate(new java.util.Date());
 		
-		omtService.insertOrderMt(omt);
+		OrderMt insertOrderMt = omtService.insertOrderMt(omt);
+		int orderid = insertOrderMt.getOrderID();
 		OrderDTO orderdto = new OrderDTO();
-		orderdto.setCustomfield1(id);
-		orderdto.setTotalprice(totalprice);
-		orderdto.setShopname("HowHow一起學");
-
+		orderdto.setTotalamount(totalprice);
+		orderdto.setDescription("HowHow一起學");
+		orderdto.setCustomfield1(Integer.toString(orderid));
 		sb.setLength(sb.length()-1);
-		orderdto.setDescription(sb.toString());
+		orderdto.setItemname(sb.toString());
 		
 		return orderdto;
 	}

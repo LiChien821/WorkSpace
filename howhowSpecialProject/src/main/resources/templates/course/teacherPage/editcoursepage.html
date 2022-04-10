@@ -1,83 +1,84 @@
 <!DOCTYPE HTML>
 
 <html>
-	<head th:replace="course/student/acoordin :: pagehead">
 
-	</head>
-	<body class="is-preload">
+<head th:replace="course/fragments/header :: pagehead">
 
-		<!-- Header -->
-			<div id="header">
+</head>
 
-				<div class="top">
+<body class="is-preload">
 
-					<!-- Logo -->
-						<div id="logo">
-							<span class="image avatar48"><img th:src="@{/images/avatar.jpg}" alt="" /></span>
-							<h1 id="title">howhow</h1>
-							<p>Beginer Engineer</p>
-						</div>
+	<!-- Header -->
+	<div id="header">
 
-					<!-- Nav -->
-						<nav id="nav">
-							<ul>
-								<li><a th:href="@{/teacherPage/page}" id="top-link"><span class="icon solid fa-home">介紹</span></a></li>
-								<li><a th:href="@{/teacherPage/page#portfolio}" id="portfolio-link"><span class="icon solid fa-th">課程</span></a></li>
-								<li><a href="#about" id="about-link"><span class="icon solid fa-user">Q&A</span></a></li>
-								<li><a href="#javascript" id="contact-link"><span class="icon solid fa-envelope" @click="navToPlay">播放</span></a></li>
-								<form method="POST" hidden th:action="@{/teacherPage/play}"  id="postForm"> <input name="courseID" hidden th:value="${courseID}"></form>
-							
-							</ul>
-						</nav>
+		<div class="top">
 
-				</div>
-
-				<div class="bottom">
-
-					<!-- Social Icons -->
-						<ul class="icons">
-							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-							<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-							<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-						</ul>
-
-				</div>
-
+			<!-- Logo -->
+			<div id="logo">
+				<span class="image avatar48"><img th:src="@{/images/avatar.jpg}" alt="" /></span>
+				<h1 id="title">[[${creator.givenName}]] [[${creator.familyName}]]</h1>
+				<p>[[${creator.acountCreationTime}]]</p>
 			</div>
 
-		<!-- Main -->
-			<div id="main">
+			<!-- Nav -->
+			<nav id="nav">
+				<ul>
+					<li><a th:href="@{/teacherPage/page}" id="top-link"><span class="icon solid fa-home">介紹</span></a>
+					</li>
+					<li><a th:href="@{/teacherPage/page#portfolio}" id="portfolio-link"><span
+								class="icon solid fa-th">課程</span></a></li>
+					<li><a href="#about" id="about-link"><span class="icon solid fa-user">Q&A</span></a></li>
+					<li><a href="#javascript" id="contact-link"><span class="icon solid fa-envelope"
+								@click="navToPlay">播放</span></a></li>
+					<form method="GET" hidden :action="'/teacherPage/play/'+currentCourseID" id="postForm"> <input name="courseID"
+							hidden th:value="${courseID}"></form>
 
-			
-			
-				<!-- About Me -->
-					<section id="about" class="three">
-						<div class="container">
+				</ul>
+			</nav>
 
-							
+		</div>
 
-							<th:block th:replace="course/teacherPage/editTabAndLinkPage :: content">
-							
-							</th:block>
-						</div>
-					</section>
+		<div class="bottom">
+
+			<!-- Social Icons -->
+			<ul class="icons">
+				<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+				<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+				<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+				<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+				<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+			</ul>
+
+		</div>
+
+	</div>
+
+	<!-- Main -->
+	<div id="main">
+
+
+
+		<!-- About Me -->
+		<section id="about" class="three">
+			<div class="container">
+
+
+
+				<th:block th:replace="course/teacherPage/editTabAndLinkPage :: content">
+
+				</th:block>
 			</div>
-
-	
-<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
-
-<script type="importmap">
-
-	{
-	  "imports": {
-		"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
-	  }
-	}
-</script>
+		</section>
+	</div>
 
 
-<script type="module" th:src="@{/js/edit.js}"></script>
-	</body>
+	<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+	<script src="https://unpkg.com/vue@3"></script>
+
+
+
+
+	<script type="module" th:src="@{/js/edit.js}"></script>
+</body>
+
 </html>

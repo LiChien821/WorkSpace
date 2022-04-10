@@ -20,10 +20,12 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "coursestatustype")
 public class CourseStatusType {
+	
 	@Id
 	@Column(name = "status_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int statusID=1;
+	@GenericGenerator(name = "native", strategy = "native")
+	@GeneratedValue(generator = "native")
+	private int statusID;
 
 	@Column(name = "status_name")
 	private String statusName;

@@ -55,9 +55,28 @@ public class CourseRankService {
 		return true;
 	}
 	
+	
+	public boolean deleteCourseRankByUIDandCID(int userid, int courseid) throws CourseRankNotFoundException {
+		
+		CourseRank status = repo.findByUserIDandCourseID(userid, courseid);
+		if(status==null) throw new CourseRankNotFoundException();
+		
+		int id = status.getCourseRankID();
+		repo.deleteById(id);
+		
+		return true;
+	}
+	
+	
 	public List<CourseRank> findByCourseID(int id) {
 		
 		List<CourseRank> list = repo.findByCourseID(id);
 		return list;
 	}
+	
+	public List<CourseRank> findByUserID(int userid) {
+		List<CourseRank> list = repo.findByUserID(userid);
+		return list;
+	}
+	
 }

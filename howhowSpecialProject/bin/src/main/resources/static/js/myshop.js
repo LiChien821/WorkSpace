@@ -2,8 +2,6 @@ import { createApp } from 'vue'
 
 const dataObj = {
 
-	refresh: true,
-
 	favdetail: "",
 
 	shopdetail: "",
@@ -15,10 +13,24 @@ const dataObj = {
 	totalprice: 0,
 
 	userid: "",
-	
+
 	purchasedstatus: "",
+
+	orderisdisabled: "",
+
+	ccf: false,
 	
-	orderisdisabled: ""
+	blobSetting:"",
+	
+	orderdto:"",
+	
+	TotalAmount:"",
+	
+	TradeDesc:"",
+	
+	ItemName:"",
+	
+	CustomField1:""
 
 };
 
@@ -34,12 +46,12 @@ createApp({
 		this.findfavoritecourse();
 
 		this.findshoppingcart();
-	
+
 		this.findtotalprice();
-		
+
 		axios({
 			method: 'get',
-			url: '/howhow/findfavoritecoursestatusbyuserid/' + this.userid,
+			url: '/api/findfavoritecoursestatusbyuserid/' + this.userid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.favstatus = response.data))
@@ -48,7 +60,7 @@ createApp({
 			});
 		axios({
 			method: 'get',
-			url: '/howhow/findshoppingcartstatusbyuserid/' + this.userid,
+			url: '/api/findshoppingcartstatusbyuserid/' + this.userid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.shopstatus = response.data))
@@ -57,24 +69,53 @@ createApp({
 			});
 		axios({
 			method: 'get',
-			url: '/howhow/findpurchasedcoursestatusbyuserid/'+ this.userid,
+			url: '/api/findpurchasedcoursestatusbyuserid/' + this.userid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
-			.then(response => (this.purchasedstatus = response.data))
+			.then(response => {
+				this.purchasedstatus = response.data;
+				console.log("pur:", this.purchasedstatus);
+			})
 			.catch(function(error) {
 				console.log(error);
 			});
-			
+		axios({
+			method: 'get',
+			url: '/api/getBlobUrl',
+			headers: { "Access-Control-Allow-Origin": "*" },
+		})
+			.then(response => (this.blobSetting = response.data))
+			.catch(function(error) {
+				console.log(error);
+			})
+
 	},
 
 	methods: {
 		moveToFavorite: function(courseid) {
-			this.userid = document.getElementById("userid").value;
-			const index = this.shopstatus.indexOf(courseid);
-			this.refresh = false;
 			axios({
 				method: 'get',
-				url: '/howhow/movetofavoritecourse/' + this.userid + "/" + courseid,
+				url: '/api/checklogin',
+				headers: { "Access-Control-Allow-Origin": "*" },
+			})
+				.then(response => {
+					if (response.data == "") {
+						location.href = '/login';
+					} else {
+						this.moveToFavoriteAction(courseid, response.data);
+					}
+				})
+				.catch(function(error) {
+					console.log(error);
+				})
+		},
+
+
+		moveToFavoriteAction(courseid, userid) {
+			const index = this.shopstatus.indexOf(courseid);
+			axios({
+				method: 'get',
+				url: '/api/movetofavoritecourse/' + userid + "/" + courseid,
 				headers: { "Access-Control-Allow-Origin": "*" },
 			})
 				.then(response => (this.favstatus.push(courseid),
@@ -87,17 +128,33 @@ createApp({
 				this.findshoppingcart();
 				this.findfavoritecourse();
 				this.findtotalprice();
-				this.refresh = true;
 			}, 20);
 
 		},
+
 		removeShoppingCart: function(courseid) {
-			this.userid = document.getElementById("userid").value;
-			const index = this.shopstatus.indexOf(courseid);
-			this.refresh=false;
 			axios({
 				method: 'get',
-				url: '/howhow/removeshoppingcart/'+this.userid+'/'+courseid,
+				url: '/api/checklogin',
+				headers: { "Access-Control-Allow-Origin": "*" },
+			})
+				.then(response => {
+					if (response.data == "") {
+						location.href = '/login';
+					} else {
+						this.removeShoppingCartAction(courseid, response.data);
+					}
+				})
+				.catch(function(error) {
+					console.log(error);
+				})
+		},
+
+		removeShoppingCartAction(courseid, userid) {
+			const index = this.shopstatus.indexOf(courseid);
+			axios({
+				method: 'get',
+				url: '/api/removeshoppingcart/' + userid + '/' + courseid,
 				headers: { "Access-Control-Allow-Origin": "*" },
 			})
 				.then(response => (this.shopstatus.splice(index, 1)))
@@ -108,17 +165,33 @@ createApp({
 				this.findshoppingcart();
 				this.findfavoritecourse();
 				this.findtotalprice();
-				this.refresh = true
 			}, 20);
-			
+
 		},
+
 		removeFavoriteCourse: function(courseid) {
-			this.userid = document.getElementById("userid").value;
-			const index = this.favstatus.indexOf(courseid);
-			this.refresh=false;
 			axios({
 				method: 'get',
-				url: '/howhow/removefavoritecourse/'+this.userid+'/'+courseid,
+				url: '/api/checklogin',
+				headers: { "Access-Control-Allow-Origin": "*" },
+			})
+				.then(response => {
+					if (response.data == "") {
+						location.href = '/login';
+					} else {
+						this.removeFavoriteCourseAction(courseid, response.data);
+					}
+				})
+				.catch(function(error) {
+					console.log(error);
+				})
+		},
+
+		removeFavoriteCourseAction(courseid, userid) {
+			const index = this.favstatus.indexOf(courseid);
+			axios({
+				method: 'get',
+				url: '/api/removefavoritecourse/' + userid + '/' + courseid,
 				headers: { "Access-Control-Allow-Origin": "*" },
 			})
 				.then(response => (this.favstatus.splice(index, 1)))
@@ -127,30 +200,69 @@ createApp({
 				});
 			setTimeout(() => {
 				this.findfavoritecourse();
-				this.refresh = true
 			}, 20);
 		},
+
 		createOrder: function() {
-			this.userid = document.getElementById("userid").value;
 			axios({
 				method: 'get',
-				url: '/howhow/createorder/'+this.userid,
-				headers: { "Access-Control-Allow-Origin": "*" }
+				url: '/api/checklogin',
+				headers: { "Access-Control-Allow-Origin": "*" },
 			})
-				.then(window.location.href='/howhow/')
+				.then(response => {
+					if (response.data == "") {
+						location.href = '/login';
+					} else {
+						this.createOrderAction(response.data);
+					}
+				})
 				.catch(function(error) {
 					console.log(error);
 				})
-			
 		},
+
+		createOrderAction(userid) {
+			axios({
+				method: 'get',
+				url: '/api/createorder/' + userid,
+				headers: { "Access-Control-Allow-Origin": "*" }
+			})
+				.then(response =>{
+					document.getElementById('TotalAmount').value=response.data.totalamount;
+					document.getElementById('ItemName').value=response.data.itemname;
+					document.getElementById('TradeDesc').value=response.data.description;
+					document.getElementById('CustomField1').value=response.data.customfield1;
+				})
+				.catch(function(error) {
+					console.log(error);
+				})
+
+		},
+
 		addShoppingCart: function(courseid) {
-			this.userid = document.getElementById("userid").value;
-			this.refresh=false;
+			axios({
+				method: 'get',
+				url: '/api/checklogin',
+				headers: { "Access-Control-Allow-Origin": "*" },
+			})
+				.then(response => {
+					if (response.data == "") {
+						location.href = '/login';
+					} else {
+						this.addShoppingCartAction(courseid, response.data);
+					}
+				})
+				.catch(function(error) {
+					console.log(error);
+				})
+		},
+
+		addShoppingCartAction(courseid, userid) {
 			axios({
 				method: 'post',
-				url: '/howhow/insertshoppingcart',
+				url: '/api/insertshoppingcart',
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
-				data: { userID: this.userid, courseID: courseid }
+				data: { userID: userid, courseID: courseid }
 			})
 				.then(response => (this.shopstatus.push(courseid)))
 				.catch(function(error) {
@@ -160,13 +272,12 @@ createApp({
 				this.findshoppingcart();
 				this.findfavoritecourse();
 				this.findtotalprice();
-				this.refresh = true
 			}, 20);
 		},
 		findfavoritecourse() {
 			axios({
 				method: 'get',
-				url: '/howhow/findfavoritecoursedetailbyuserid/' + this.userid,
+				url: '/api/findfavoritecoursedetailbyuserid/' + this.userid,
 				headers: { "Access-Control-Allow-Origin": "*" }
 			})
 				.then(response => (this.favdetail = response.data))
@@ -177,7 +288,7 @@ createApp({
 		findshoppingcart() {
 			axios({
 				method: 'get',
-				url: '/howhow/findshoppingcartdetailbyuserid/' + this.userid,
+				url: '/api/findshoppingcartdetailbyuserid/' + this.userid,
 				headers: { "Access-Control-Allow-Origin": "*" }
 			})
 				.then(response => (this.shopdetail = response.data))
@@ -187,14 +298,14 @@ createApp({
 		},
 		findtotalprice() {
 			setTimeout(() => {
-				this.totalprice=0;
+				this.totalprice = 0;
 				for (let i = 0; i < this.shopdetail.length; i++) {
 					this.totalprice = this.totalprice + this.shopdetail[i].discountprice;
 				}
-				if(this.totalprice==0) {
-					this.orderisdisabled=true;
+				if (this.totalprice == 0) {
+					this.orderisdisabled = true;
 				} else {
-					this.orderisdisabled=false;
+					this.orderisdisabled = false;
 				}
 			}, 20);
 		}

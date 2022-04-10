@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>NavigationBar</title>
+</head>
+
+<body>
+    <nav th:fragment="universal-navbar" class="navbar navbar-expand-lg navbar-light bg-light p-0 m-0"
+        style="height: 130px; background-color:#E2C652;" id="howhowdo-navbar">
+        <div class="container-fluid px-3 header">
+            <a class="navbar-brand" href="/">
+                <img class="icon" th:src="@{/image/unnamed.png}" alt="" />
+            </a>
+            <div class="nav-item dropdown me-2 py-2 ms-5">
+                <div class="dropdown-toggle" href="#" id="category" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <small><span>| 類別 |</span></small>
+                </div>
+                <ul class="dropdown-menu" aria-labelledby="category">
+                    <li class="dropdown-submenu dropdown-item" v-for="cate in categories">
+                        <div class="d-flex justify-content-between" @click="goToCoursePageByCategoryId(cate.cId)">
+                            <small><span>{{ cate.cItemName }}</span></small>
+                            <i class="fa fa-chevron-right"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="ms-3 navbar-search d-flex align-items-center justify-content-center">
+
+                <input type="search" placeholder="搜尋任何事物..." v-model="currQuery" aria-describedby="button-addon4"
+                    @keyup.enter="goToCoursePageBySearch()" class="navbar-search-input rounded-pill border-0 px-3">
+                <div class="">
+                    <button id="button-addon4" type="button" class="border-0 rounded-pill"
+                        @click="goToCoursePageBySearch()" style="height: 40px; background-color:#E2C652;"><i
+                            class="fa fa-search"></i></button>
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+                <div class="navbar-nav">
+                    <div class="nav-item dropdown mx-2 py-2 d-flex align-items-center">
+                        <div id="teacher" role="button" aria-expanded="false">
+                            <a class="nav-link" href="/teacherPage/page">
+                                <small><span>講師</span></small>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item dropdown mx-2 py-2 d-flex align-items-center">
+                        <div id="my-course" role="button" aria-expanded="false">
+                            <a class="nav-link" href="/mycourse">
+                                <small><span>我的課程</span></small>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item mx-2 py-2">
+                        <div id="shopping-cart" role="button" aria-expanded="false">
+                            <a class="nav-link" href="/myshop">
+                                <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item mx-2 py-2 " v-if="!isLogged">
+                        <div href="" id="navbar-loggin" role="button" aria-expanded="false">
+                            <a style="color:#E2C652" class="nav-link" th:href="@{/login}">
+                                <input type="button" class="bt2" value="登入"></input>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item mx-2 py-2 " v-if="!isLogged">
+                        <div href="" id="navbar-register" role="button" aria-expanded="false">
+                            <a th:href="@{/register}" class="nav-link">
+                                <input type="button" class="bt1" value="註冊"></input>
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <div class="nav-item mx-2 py-2 " v-if="isLogged">
+                        <div href="" id="profile" role="button" aria-expanded="false">
+                            <a class="nav-link" href="/home">
+                                <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</body>
+
+</html>

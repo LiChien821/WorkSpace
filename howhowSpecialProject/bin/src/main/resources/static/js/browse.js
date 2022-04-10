@@ -1,4 +1,18 @@
-import { createApp } from 'vue'
+import { createRouter, createWebHistory}  from 'vue-router'
+
+ const LoginPage = {template: '<div>Home</div>'}
+ const routes = [
+     { path: '/', name: 'home', component: "" },
+     { path: '/login', redirect: '/' },
+     { path: '/howhow/login', name: 'login', component: () => {
+ 		LoginPage
+ 	}}
+ ]
+ const router = createRouter({
+     history:createWebHistory(),
+     routes: routes
+ })
+
 
 const dataObj = {
 
@@ -22,30 +36,50 @@ const dataObj = {
 
 	currentcategoryname: "",
 
-	currentsearch: ""
+	currentsearch: "",
+
+	loginstatus: "",
+
+	blobSetting: "",
+
+	ccf: false,
+
+	searching: ""
 
 };
 
-createApp({
+var app = Vue.createApp({
 	data() {
 		return dataObj;
 	},
 	mounted: function() {
+
 		this.pageNo = document.getElementById("pageNo").value;
 		this.userid = document.getElementById("userid").value;
+		this.searching = document.getElementById("searching").value;
+		this.categorying = document.getElementById("categorying").value;
+		if (this.searching != "") {
+			this.search = this.searching;
+			this.goSearch(this.searching);
+			document.getElementById("searching").value == "";
+		} else if (this.categorying != ""){
+			console.log('category')
+			this.searchByCategory(this.categorying);
+			this.categoryid=this.categorying;
+		} else {
+			axios({
+				method: 'get',
+				url: '/api/findallcourses/1',
+				headers: { "Access-Control-Allow-Origin": "*" }
+			})
+				.then(response => (this.courses = response.data, this.res = response))
+				.catch(function(error) {
+					console.log(error);
+				});
+		}
 		axios({
 			method: 'get',
-			url: '/howhow/findallcourses/1',
-			headers: { "Access-Control-Allow-Origin": "*" }
-		})
-			.then(response => (this.courses = response.data, this.res = response))
-			.catch(function(error) {
-				console.log(error);
-			});
-
-		axios({
-			method: 'get',
-			url: '/howhow/findfavoritecoursestatusbyuserid/' + this.userid,
+			url: '/api/findfavoritecoursestatusbyuserid/' + this.userid,
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.favstatus = response.data))
@@ -55,13 +89,25 @@ createApp({
 
 		axios({
 			method: 'get',
-			url: '/howhow/getallcategory',
+			url: '/api/getallcategory',
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (this.categories = response.data))
 			.catch(function(error) {
 				console.log(error);
+			});
+		axios({
+			method: 'get',
+			url: '/api/getBlobUrl',
+			headers: { "Access-Control-Allow-Origin": "*" },
+		})
+			.then(response => (this.blobSetting = response.data))
+			.catch(function(error) {
+				console.log(error);
 			})
+
+		this.searching = document.getElementById("searching").value;
+
 	},
 	methods: {
 		goSearch: function(search) {
@@ -72,7 +118,7 @@ createApp({
 				this.pageNo = document.getElementById("pageNo").value;
 				axios({
 					method: 'get',
-					url: '/howhow/findallcourses/1',
+					url: '/api/findallcourses/1',
 					headers: { "Access-Control-Allow-Origin": "*" }
 
 				})
@@ -83,11 +129,11 @@ createApp({
 			} else {
 				axios({
 					method: 'get',
-					url: '/howhow/findcoursebynamelike/' + search + "/1",
+					url: '/api/findcoursebynamelike/' + search + "/" +this.pageNo,
 					headers: { "Access-Control-Allow-Origin": "*" },
 				})
 
-					.then(response => (this.courses = response.data, this.res = response))
+					.then(response => (this.courses = response.data, this.res = response),this.$router.push('courses?search='+this.currentsearch))
 					.catch(function(error) {
 						console.log(error);
 					});
@@ -101,7 +147,7 @@ createApp({
 			if (empty != this.currentsearch) {
 				axios({
 					method: 'get',
-					url: '/howhow/findcoursebynamelike/' + this.search + "/" + page,
+					url: '/api/findcoursebynamelike/' + this.currentsearch + "/" + page,
 					headers: { "Access-Control-Allow-Origin": "*" },
 				})
 					.then(response => (this.courses = response.data, this.res = response))
@@ -112,7 +158,7 @@ createApp({
 			} else if (this.currentcategoryid == 0) {
 				axios({
 					method: 'get',
-					url: '/howhow/findallcourses/' + page,
+					url: '/api/findallcourses/' + page,
 					headers: { "Access-Control-Allow-Origin": "*" },
 				})
 					.then(response => (this.courses = response.data, this.res = response))
@@ -122,7 +168,7 @@ createApp({
 			} else {
 				axios({
 					method: 'get',
-					url: '/howhow/findcoursebycategoryid/' + this.currentcategoryid + "/" + page,
+					url: '/api/findcoursebycategoryid/' + this.currentcategoryid + "/" + page,
 					headers: { "Access-Control-Allow-Origin": "*" }
 				})
 					.then(response => (
@@ -145,7 +191,7 @@ createApp({
 				this.pageNo = document.getElementById("pageNo").value;
 				axios({
 					method: 'get',
-					url: '/howhow/findcoursebynamelike/' + this.search + "/" + this.pageNo,
+					url: '/api/findcoursebynamelike/' + this.currentsearch + "/" + this.pageNo,
 					headers: { "Access-Control-Allow-Origin": "*" },
 				})
 					.then(response => (this.courses = response.data, this.res = response))
@@ -156,7 +202,7 @@ createApp({
 				this.pageNo = document.getElementById("pageNo").value;
 				axios({
 					method: 'get',
-					url: '/howhow/findallcourses/' + this.pageNo,
+					url: '/api/findallcourses/' + this.pageNo,
 					headers: { "Access-Control-Allow-Origin": "*" },
 				})
 					.then(response => (this.courses = response.data, this.res = response))
@@ -167,7 +213,7 @@ createApp({
 				this.pageNo = document.getElementById("pageNo").value;
 				axios({
 					method: 'get',
-					url: '/howhow/findcoursebycategoryid/' + this.currentcategoryid + "/" + this.pageNo,
+					url: '/api/findcoursebycategoryid/' + this.currentcategoryid + "/" + this.pageNo,
 					headers: { "Access-Control-Allow-Origin": "*" }
 				})
 					.then(response => (
@@ -187,7 +233,7 @@ createApp({
 				this.pageNo = document.getElementById("pageNo").value;
 				axios({
 					method: 'get',
-					url: '/howhow/findcoursebynamelike/' + this.search + "/" + this.pageNo,
+					url: '/api/findcoursebynamelike/' + this.currentsearch + "/" + this.pageNo,
 					headers: { "Access-Control-Allow-Origin": "*" },
 				})
 					.then(response => (this.courses = response.data, this.res = response))
@@ -198,7 +244,7 @@ createApp({
 				this.pageNo = document.getElementById("pageNo").value;
 				axios({
 					method: 'get',
-					url: '/howhow/findallcourses/' + this.pageNo,
+					url: '/api/findallcourses/' + this.pageNo,
 					headers: { "Access-Control-Allow-Origin": "*" },
 				})
 
@@ -210,7 +256,7 @@ createApp({
 				this.pageNo = document.getElementById("pageNo").value;
 				axios({
 					method: 'get',
-					url: '/howhow/findcoursebycategoryid/' + this.currentcategoryid + "/" + this.pageNo,
+					url: '/api/findcoursebycategoryid/' + this.currentcategoryid + "/" + this.pageNo,
 					headers: { "Access-Control-Allow-Origin": "*" }
 				})
 					.then(response => (this.courses = response.data, this.res = response))
@@ -221,29 +267,61 @@ createApp({
 		},
 
 		addFavorite: function(courseid) {
-			this.userid = document.getElementById("userid").value;
+			axios({
+				method: 'get',
+				url: '/api/checklogin',
+				headers: { "Access-Control-Allow-Origin": "*" },
+			})
+				.then(response => {
+					if (response.data == "") {
+						location.href = '/login';
+					} else {
+						this.addFavoriteAction(courseid, response.data);
+					}
+				})
+				.catch(function(error) {
+					console.log(error);
+				})
+		},
 
+		addFavoriteAction(courseid, userid) {
+			this.userid = document.getElementById("userid").value;
 			axios({
 				method: 'post',
-				url: '/howhow/insertfavoritecourse',
+				url: '/api/insertfavoritecourse',
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 
-				data: { userID: this.userid, courseID: courseid }
+				data: { userID: userid, courseID: courseid }
 			})
 				.then(response => (this.favstatus.push(courseid)))
 				.catch(function(error) {
-					console.log(this.userid);
-					console.log(this.courseid);
 					console.log(error);
 				})
 		},
 
 		removeFavorite: function(courseid) {
-			this.userid = document.getElementById("userid").value;
+			axios({
+				method: 'get',
+				url: '/api/checklogin',
+				headers: { "Access-Control-Allow-Origin": "*" },
+			})
+				.then(response => {
+					if (response.data == "") {
+						location.href = '/login';
+					} else {
+						this.removeFavoriteAction(courseid, response.data);
+					}
+				})
+				.catch(function(error) {
+					console.log(error);
+				})
+		},
+
+		removeFavoriteAction(courseid, userid) {
 			const index = this.favstatus.indexOf(courseid);
 			axios({
 				method: 'get',
-				url: '/howhow/removefavoritecourse/' + this.userid + '/' + courseid,
+				url: '/api/removefavoritecourse/' + userid + '/' + courseid,
 				headers: { "Access-Control-Allow-Origin": "*" }
 			})
 				.then(response => (this.favstatus.splice(index, 1)))
@@ -257,12 +335,13 @@ createApp({
 			this.currentcategoryid = categoryid;
 			axios({
 				method: 'get',
-				url: '/howhow/findcoursebycategoryid/' + categoryid + "/1",
+				url: '/api/findcoursebycategoryid/' + categoryid + "/1",
 				headers: { "Access-Control-Allow-Origin": "*" }
 			})
 				.then(response => (
 					this.courses = response.data,
-					this.res = response
+					this.res = response,
+					this.$router.push('courses?category='+this.currentcategoryid)
 				))
 				.catch(function(error) {
 					console.log(error);
@@ -273,7 +352,7 @@ createApp({
 		findCategoryDetail(categoryid) {
 			axios({
 				method: 'get',
-				url: '/howhow/findcategorydetail/' + categoryid,
+				url: '/api/findcategorydetail/' + categoryid,
 				headers: { "Access-Control-Allow-Origin": "*" }
 			})
 				.then(response => (
@@ -289,14 +368,20 @@ createApp({
 			document.getElementById("pageNo").value = 1;
 			axios({
 				method: 'get',
-				url: '/howhow/findallcourses/1',
+				url: '/api/findallcourses/1',
 				headers: { "Access-Control-Allow-Origin": "*" }
 			})
-				.then(response => (this.courses = response.data, this.res = response))
+				.then(response => (
+					this.courses = response.data,
+					this.res = response,
+					this.$router.push('courses')
+					))
 				.catch(function(error) {
 					console.log(error);
 				});
 		}
 
 	}
-}).mount('#browse')
+})
+app.use(router);
+app.mount('#browse')
