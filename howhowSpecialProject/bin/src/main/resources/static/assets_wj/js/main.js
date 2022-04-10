@@ -1,4 +1,8 @@
 $(document).ready(function () {
+
+
+	getCourseId();
+
 	init();
 	addBulletinContent();
 	deleteBulletinContentById();
@@ -8,13 +12,24 @@ $(document).ready(function () {
 	slideBulltinReplyToggle();
 	webSlideBulltinReplyToggle();
 });
+
+function getCourseId() {
+    var urls = window.location.href.split('/');
+	var target = urls[urls.length-1];
+	var courseId = target.split('.')[0];
+    return courseId;
+	}
+
+
 function init() {
-	var couseId = 1;
+	var courseId = getCourseId();
+	console.log("get courseId: ", courseId);
+	
 	$.ajax({
 		type: "post",
 		url: "/howhow/init3.controller",
 		data: {
-			"id": 1
+			"courseid": courseId
 		},
 		dataType: "json",
 		contentType: "application/x-www-form-urlencoded",

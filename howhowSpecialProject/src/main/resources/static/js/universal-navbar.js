@@ -27,14 +27,6 @@ const dataObj = {
 		{
 			cId: "0",
 			cItemName: "全部",
-		},
-		{
-			cId: "1",
-			cItemName: "開發",
-		},
-		{
-			cId: "2",
-			cItemName: "IT與軟體",
 		}
 		
 	],

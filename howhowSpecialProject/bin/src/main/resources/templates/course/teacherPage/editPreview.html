@@ -9,8 +9,8 @@
 					<div class="card text-center">
 						<div class="card-header">
 							<label>章節</label>
-							<select name="editSection" id="editSection" v-model="currentSectionIndex"
-								@change="changePreviewLectureList(currentSectionIndex)">
+							<select name="editSection" id="editSection" v-model="preivewSectionIndex"
+								@change="changePreviewLectureList(preivewSectionIndex)">
 
 								<option v-for="(section,index) in sectionList" :key="index" :value=index>
 									{{section.sectionNumber}}.{{section.sectionName}}</option>
@@ -18,8 +18,8 @@
 
 							</select>
 							<label>單元</label>
-							<select name="editLecture" id="editLecture" v-model="currentLectureIndex"
-								@change="selectPreviewLecture(currentLectureIndex)">
+							<select name="editLecture" id="editLecture" v-model="preivewtLectureIndex"
+								@change="selectPreviewLecture(preivewtLectureIndex)">
 
 
 								<option v-for="(lecture,index) in lectureList" :value=index>
@@ -29,8 +29,8 @@
 							</select>
 							<div class="card-body">
 								<div v-if="lecture !== ''">
-									<div v-if="upLoadingText !== ''">
-										<p class="card-text">{{upLoadingText}}</p>
+									<div v-if="previewUpLoadingText !== ''">
+										<p class="card-text">{{previewUpLoadingText}}</p>
 									</div>
 									<div v-else>
 										<div v-if="lecture.previewViedeoUrl !== null">
@@ -39,8 +39,8 @@
 											</p>
 										</div>
 										<div v-else>
-											<div v-if="upLoadingText !== ''">
-												<p class="card-text">{{upLoadingText}}</p>
+											<div v-if="previewUpLoadingText !== ''">
+												<p class="card-text">{{previewUpLoadingText}}</p>
 
 											</div>
 											<div v-else>

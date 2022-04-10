@@ -32,12 +32,14 @@
 
 <link rel="stylesheet" th:href="@{/css/index.css}"></link>
 
+<link rel="stylesheet" th:href="@{/css/universal-navbar.css}"></link>
+
 <link rel="stylesheet"
 	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css}">
 
 </head>
 <body class="single-courses-page">
-	<script src="./js/header.js"></script>
+	<div th:insert="universal-navbar :: universal-navbar"></div>
 	<div id="myshop">
 		<div class="container">
 			<div class="row">

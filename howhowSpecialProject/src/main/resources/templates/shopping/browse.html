@@ -40,7 +40,7 @@
 	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css}">
 
 
-
+<link rel="stylesheet" th:href="@{/css/universal-navbar.css}"></link>
 
 
 <!-- <script -->
@@ -53,28 +53,45 @@
 
 </head>
 <body>
-	<script src="./js/header.js"></script>
+	<div th:insert="universal-navbar :: universal-navbar"></div>
 	<div id="browse">
-		<div
-			style="width: 1500px; position: relative; margin: 0px auto; border: solid 1px;">
-			<div class="row">
-				<div class="col-2">
-					<a href="#" @click.prevent="searchAll()">所有課程</a>
+<!-- 		<div -->
+<!-- 			style="width: 1500px; position: relative; margin: 0px auto; border: solid 1px;"> -->
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-2"> -->
+<!-- 					<a href="#" @click.prevent="searchAll()">所有課程</a> -->
+<!-- 				</div> -->
+<!-- 				<div v-for="category in categories" class="col-1"> -->
+<!-- 					<a href="#" @click.prevent="searchByCategory(category.id)">{{category.name}}</a> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-4" v-if="currentcategoryid==0"> -->
+<!-- 					<input id="search" v-model="search" placeholder="尋找" -->
+<!-- 						@keyup.enter="goSearch(search)"> -->
+<!-- 					<button class="px-25" @click="goSearch(search)">搜尋</button> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-4" v-if="currentcategoryid!=0"> -->
+<!-- 					{{currentcategoryname}} - {{currentcategorydescription}}</div> -->
+<!-- 			</div> -->
+			
+			<div class="container-fluid" style="background-color:white; height:200px">
+				<div class="row" v-if="currentcategoryid!=0">
+					<div class="col-2"></div>
+					<div class="col-2" style="line-height:120px; font-size:50px">{{currentcategoryname}}</div>
+					<div class="col-8"></div>
+					<div class="col-2"></div>
+					<div class="col-5" style="line-height:40px; font-size:25px">{{currentcategorydescription}}</div>
 				</div>
-				<div v-for="category in categories" class="col-1">
-					<a href="#" @click.prevent="searchByCategory(category.id)">{{category.name}}</a>
+				<div class="row" v-else>
+					<div class="col-2"></div>
+					<div class="col-8" style="line-height:200px; font-size:50px">快來加入HowHow一起學習吧!!</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-4" v-if="currentcategoryid==0">
-					<input id="search" v-model="search" placeholder="尋找"
-						@keyup.enter="goSearch(search)">
-					<button class="px-25" @click="goSearch(search)">搜尋</button>
-				</div>
-				<div class="col-4" v-if="currentcategoryid!=0">
-					{{currentcategoryname}} - {{currentcategorydescription}}</div>
-			</div>
-
+			
+			
+			
+			
 			<div class="row"
 				style="position: absolute; left: 50%; transform: translate(-50%); border-color: red; width: 1200px;">
 				<div class="col-12 col-lg-12">

@@ -66,6 +66,7 @@ var app = Vue.createApp({
 			console.log('category')
 			this.searchByCategory(this.categorying);
 			this.categoryid=this.categorying;
+			this.findCategoryDetail(this.categorying);
 		} else {
 			axios({
 				method: 'get',
