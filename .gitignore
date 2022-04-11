@@ -1,5 +1,6 @@
 /.metadata/
 .DS_Store
 # Eclipse Project files
-bin/
+/bin/*
+bin/*
 howhowSpecialProject/src/main/java/com/howhow/course/common/CommonSectionRepository.java.rej
