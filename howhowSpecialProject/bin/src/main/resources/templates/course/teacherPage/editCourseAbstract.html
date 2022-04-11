@@ -102,7 +102,7 @@
 					<div>
 						<img id="thumbnail" v-if="course.courseCover != null" :src="blobSetting+course.courseCover"
 							alt="Main image preview" class="img-fluid" accept="image/png,image/jpeg" />
-						<img id="thumbnail" v-else alt="Main image preview" class="img-fluid"
+						<img id="thumbnail" v-else alt="Main image preview" class="img-fluid" :src="tempCover"
 							accept="image/png,image/jpeg" />
 					</div>
 					<div>
