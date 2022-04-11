@@ -71,6 +71,8 @@ public class AccountController {
 	public String home( Model model) {
 		 Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		  String email="";
+		  
+		  
 		  if (principal instanceof AccountUserDetails) {
 		   email = ((AccountUserDetails)principal).getEmail();
 		  } else if(principal instanceof  DefaultOidcUser){
