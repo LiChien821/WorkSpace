@@ -1,5 +1,6 @@
 package com.howhow.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +23,7 @@ public class Notes {
 	@JoinColumn(name="author_id")
 	private UserAccountDt author;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(name="notedlecture_id")
 	private Lectures notedlecture;
 	
