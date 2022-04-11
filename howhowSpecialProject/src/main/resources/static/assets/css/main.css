@@ -1922,7 +1922,7 @@ input, select, textarea {
 		table th {
 			text-align: left;
 			padding: 0.5em 1em 0.5em 1em;
-			color: #fff;
+			color: rgb(255, 255, 255);
 			background: #222729 url("images/overlay.png");
 		}
 
@@ -2631,3 +2631,41 @@ input, select, textarea {
 				}
 
 	}
+	
+.demosection{
+    padding: 5%;
+    background-color: white;
+    border-radius: 10px;
+}	
+
+.demochapter{
+    padding: 5%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+body{
+    background-color: #F0F0F0;
+}
+
+.demochapter-content{
+    border: 1px black solid;
+    border-radius: 5px;
+}
+
+h3{
+    text-align: center;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.demochapter-row1{
+    width: 60%;
+}
+
+.demosection-row{
+    width: 40%;
+}

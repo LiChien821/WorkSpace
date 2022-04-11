@@ -6,86 +6,136 @@
 <body>
 
 	<th:block th:fragment="content">
-		<div class="accordion accordion-flush" id="createSectionList">
-			<div class="accordion-item rounded-pill" v-for="sectionunit in sectionList">
-				<h2 class="accordion-header " :id="'flush-heading'+sectionunit.sectionNumber">
-					<div class="accordion-button collapsed border-secondary border-2 rounded-pill border" type="button"
-						data-bs-toggle="collapse" :data-bs-target="'#flush-collapse'+sectionunit.sectionNumber"
-						aria-expanded="false" :aria-controls="'flush-collapse'+sectionunit.sectionNumber"
-						:href="'#flush-collapse'+sectionunit.sectionNumber"
-						@click="getLectureListFromSection(sectionunit.sectionID)">
-						<div class="d-flex justify-content-around ">
-							<h2 class="p-0 m-0">{{sectionunit.sectionNumber}} . </h2>
-							<div v-if="editingSectionNum == sectionunit.sectionNumber">
-								<input type="text" v-model="editSectionName">
-								<a class="fas fa-hand-spock fa-2x" @click="changeSectionName(sectionunit.sectionID)"></a >
-								<span>  .</span>
-								<a class="fas fa-code fa-2x" @click="rejectSection"></a>
-							</div>
-							<div v-else>
-								<h2 class="p-0 m-0">{{sectionunit.sectionName}} 
-								<a class="fas fa-edit" @click="changeToEditSectionName(sectionunit.sectionNumber)"></a>
-								<a class="fas fa-eraser" @click="deleteSection(sectionunit.sectionID)"></a>
-								</h2>
-						
-							
-							</div>
-						</div>
+		<div class="container" id="createSectionList">
+            <div class="row">
+                <div class="col-5">
 
-					</div>
-				</h2>
-				<div :id="'flush-collapse'+sectionunit.sectionNumber" class="accordion-collapse collapse "
-					:aria-labelledby="'flush-heading'+sectionunit.sectionNumber" data-bs-parent="#createSectionList">
-					<div class="accordion-body " v-for="lecture in lectureList">
-						<div class="d-flex justify-content-around border rounded-pill">
-							<p class="p-0 m-0">{{lecture.lectureNumber}} . </p>
-							
-							<div v-if="editingLectureNum == lecture.lectureNumber">
-								<input type="text" v-model="editLectureName">
-								<a class="fas fa-hand-spock fa-1x" @click="changeLectureName(lecture.lecturesID)"></a > 
-								<span> . </span>
-								<a class="fas fa-code" @click="rejectLecture"></a>
-							</div>
-							<div v-else>
-								<h5 class="p-0 m-0">{{lecture.lecturesName}} 
-								<a class="fas fa-edit" @click="changeToEditLectureName(lecture.lectureNumber)"></a>
-								<a class="fas fa-eraser" @click="deleteLecture(lecture.lecturesID)"></a>
-								
-								</h5>
-						
-							
-							</div>
-						</div>
-					</div>
-					<div class="input-group " id="createLecture">
-						<input type="text" class="form-control " placeholder="單元編號" required v-model="newLectureNum" 
-							>
-						<input type="text" class="form-control " placeholder="單元名稱" required v-model="newLectureName"
-							id="form3">
-						<div class="input-group-append">
-							<button class="btn btn-primary" type="button"
-								@click="sendlecturemessage(sectionunit.sectionID)">
-								新增單元<br>
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
+                    <!-- 編輯章節區域 -->
+                    <div class="demochapter">
+                        <h3>新增章節</h3>
+                        <div class="input-group mb-3 addchepter">
+                            <input class="input-group-text text" id="basic-addon1" v-model="newSectionNum">
+                            <input type="text" class="form-control" placeholder="新增章節" aria-label="Username"
+                                aria-describedby="basic-addon1" v-model="newSectionName" >
+                            <button class="btn btn-outline-secondary text" type="button" id="button-addon2" @click="sendsectionmessage">新增</button>
+                        </div>
+                        <h3>{{course.courseName}}  的所有章節</h3>
 
-		</div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="chapter-row1">章節名稱</th>
+                                    <th scope="col">修改章節</th>
+                                    <th scope="col">刪除章節</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- forloop章節 -->
+                                <tr v-for="item in sectionList">
+                                    <td scope="row">
+                                        <div>
+                                            <!-- 點選章節後顯示該章節單元 -->
+                                            <a href="#" @click="showSection(item)"
+                                                v-if="item.sectionName !== catchSection.sectionName"> ( {{item.sectionNumber}} )  {{ item.sectionName }}</a>
+                                        </div>
+                                        <div>
+                                            <!-- 綁定修改中的資料 -->
+                                            <input type="text" v-model="catchContent"
+                                                v-if="item.sectionName === catchSection.sectionName" @keyup.enter="commitEdit(item)">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <!-- 點選修改後，修改按鈕會變成確認按鈕 -->
+                                        <div>
+                                            <button type="button" class="btn btn-secondary" @click="editSection(item)"
+                                                v-if="item.sectionName !== catchSection.sectionName">修改</button>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-info"
+                                                v-if="item.sectionName === catchSection.sectionName"
+                                                @click="commitEdit(item)">確認</button>
+                                        </div>
+                                    </td>
+                                    <td><button type="button" class="btn btn-danger">刪除</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-		<br><br><br><br>
-		<div class="input-group " id="createSection">
-			<input type="text" class="form-control border border-5" placeholder="章節編號" v-model="newSectionNum" 
-				 required>
-			<input type="text" class="form-control border border-5" placeholder="章節名稱" v-model="newSectionName"
-				id="form2" required>
-			<div class="input-group-append">
-				<button class="btn btn-primary" type="button" @click="sendsectionmessage">
-					新增章節<br>
-				</button>
-			</div>
-		</div>
+                <div class="col-7">
+
+                    <!-- 編輯單元區域 -->
+                    <div class="demosection">
+                         <h3 v-if="catchSectionName !== ''" >新增單元( {{catchSectionName}} )</h3> 
+                         <h3 v-else>請先選擇章節</h3>
+                        <div class="input-group mb-3 addchepter">
+                            <input class="input-group-text text" id="basic-addon1" v-model="newLectureNum">
+                            <input type="text" class="form-control" placeholder="新增單元" v-model="newLectureName" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                            <button class="btn btn-outline-secondary text" type="button" id="button-addon2" @click="sendlecturemessage">新增</button>
+                        </div>
+                        <!-- 被選取的章節 -->
+                        <h3 v-if="catchSectionName !=='' ">(  {{catchSectionName}}  )所有單元</h3>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                  
+                                    <th scope="col" class="section-row">單元名稱</th>
+                                    <th scope="col">修改章節</th>
+                                    <th scope="col">刪除章節</th>
+                                    <th scope="col">影片狀態</th>
+                                    <th scope="col">說明編輯</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- forloop指定章節的單元 -->
+                                <tr v-for="item in lectureList">
+                                    <!-- 章節名稱 -->
+                                   
+                                    <td scope="row">
+                                        <!-- 單元名稱 -->
+                                        <div v-if="item.lecturesName !== catchLecture.lecturesName">{{ item.lectureNumber }}. {{ item.lecturesName }}</div>
+                                        <div v-if="item.lecturesName === catchLecture.lecturesName"><input type="text"
+                                                v-model="catchContent"></div>
+                                    </td>
+                                    <td>
+                                        <!-- 點選修改後，修改按鈕會變成確認按鈕 -->
+                                        <div>
+                                            <button type="button" class="btn btn-secondary" @click="editLecture(item)"
+                                                v-if="item.lecturesName !== catchLecture.lecturesName">修改</button>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-info"
+                                                v-if="item.lecturesName === catchLecture.lecturesName"
+                                                @click="commitLectureEdit(item)">確認</button>
+                                        </div>
+                                    </td>
+                                    <td><button type="button" class="btn btn-danger" scope="row" @click="deleteLecture(item.lecturesID)">刪除</button></td>
+                                    
+                                     <td >	
+                                     		<div>
+                                     			 <button type="button" class="btn btn-secondary" href="#editCourseLectures" v-if="item.videoSource !== null" @click="selectLecture(item)">已上傳</button>
+                                     		</div>
+                                     		<div>
+	                                       	  <button type="button" class="btn btn-dark" href="#editCourseLectures" v-if="item.videoSource === null" @click="selectLecture(item)">需上傳</button>
+                                     		</div>
+                                     </td>
+                                     <td >
+                                     		 <button type="button" class="btn btn-secondary"   v-if="item.hint !== null" >重新編輯</button>
+	                                         <button type="button" class="btn btn-dark"  v-if="item.hint === null">需編輯</button>
+                                     </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:replace="course/teacherPage/editCourseLectures :: content">
+
+				</th:block>
 	</th:block>
 </body>
 

@@ -12,17 +12,18 @@
 
 <body class="is-preload">
 	<div class="container-fluid">
+		<!-- temp
 		<div class="row justify-content-end">
 			<div th:insert="universal-navbar :: universal-navbar" style="width: 83%"></div>
 		</div>
+		 -->
 	</div>
 	<!-- Header -->
 	<div id="header">
 		<div class="top">
 			<!-- Logo -->
 			<div id="logo">
-				<span class="image avatar48"><img
-					th:src="@{/images/avatar.jpg}" alt="" /></span>
+				<span class="image fas fa-user-circle fa-2x"><img alt="" /></span>
 				<h1 id="title">[[${creator.givenName}]]
 					[[${creator.familyName}]]</h1>
 				<p>[[${creator.acountCreationTime}]]</p>
@@ -31,39 +32,20 @@
 			<!-- Nav -->
 			<nav id="nav">
 				<ul>
-					<li><a href="#top" id="top-link"><span
-							class="icon solid fa-home">我的頁面</span></a></li>
-					<li><a href="#courseList" id="portfolio-link"><span
-							class="icon solid fa-th">課程</span></a></li>
+					<li><a th:href="@{/}" id="top-link"><span class="icon solid fa-home">howhow頁面</span></a></li>
+					<li><a href="#courseList" id="portfolio-link"><span class="icon solid  fa-list-ol">已創造的課程</span></a>
+					</li>
 					<li><a th:href="@{/teacherPage/new}" id="about-link"><span
-							class="icon solid fa-user">創造新課程</span></a></li>
-					<li><a href="#" id="contact-link"><span
-							class="icon solid fa-envelope">聯絡我們</span></a></li>
+								class="icon solid  fa-folder-plus">創造新課程</span></a></li>
+					<li><a href="#" id="contact-link"><span class="icon solid  fa-comment-dots">所有Q&A</span></a></li>
 				</ul>
 			</nav>
 
 		</div>
 
-		<div class="bottom">
 
-			<!-- Social Icons -->
-			<ul class="icons">
-				<li><a href="#" class="icon brands fa-twitter"><span
-						class="label">Twitter</span></a></li>
-				<li><a href="#" class="icon brands fa-facebook-f"><span
-						class="label">Facebook</span></a></li>
-				<li><a href="#" class="icon brands fa-github"><span
-						class="label">Github</span></a></li>
-				<li><a href="#" class="icon brands fa-dribbble"><span
-						class="label">Dribbble</span></a></li>
-				<li><a href="#" class="icon solid fa-envelope"><span
-						class="label">Email</span></a></li>
-			</ul>
-
-		</div>
 
 	</div>
-	<script src="./js/header.js"></script>
 	<!-- Main -->
 	<div id="main">
 
@@ -73,8 +55,7 @@
 
 				<header>
 					<h2 class="alt">
-						這是 <strong>howhow學</strong>從這裡開始 <a
-							href="http://html5up.net/license">創造</a> 你的<br /> 新課程 <a
+						這是 <strong>howhow學</strong>從這裡開始 <a href="http://html5up.net/license">創造</a> 你的<br /> 新課程 <a
 							href="#">請點選</a>下方
 					</h2>
 					<p>
@@ -101,17 +82,14 @@
 				<p>以下是課程列表</p>
 
 				<div class="row">
-					<form method="POST" hidden th:action="@{/teacherPage/edit}"
-						id="editForm">
+					<form method="POST" hidden th:action="@{/teacherPage/edit}" id="editForm">
 						<input id="forminput" name="courseID" hidden>
 					</form>
 					<div class="col-4 col-12-mobile" v-for="course in courseList">
 						<article class="item">
-							<a @click="courseToEdit(course.courseID)" href="#javascript"
-								class="image fit"> <img v-if="course.courseCover == null"
-								th:src="@{/images/pic02.jpg}" alt="" /> <img
-								v-if="course.courseCover != null"
-								:src="blobSetting+course.courseCover" alt="" />
+							<a @click="courseToEdit(course.courseID)" href="#javascript" class="image fit"> <img
+									v-if="course.courseCover == null" th:src="@{/images/pic02.jpg}" alt="" /> <img
+									v-if="course.courseCover != null" :src="blobSetting+course.courseCover" alt="" />
 							</a>
 
 							<header>
@@ -134,17 +112,15 @@
 
 
 
-							<li
-								v-bind:class="[currentPage !=index? '' : 'disabled','page-item']"
-								v-for="index in totalPages" :key="index"><a
-								class="page-link" @click="pageLinkToCourse(index)">{{index}}</a>
+							<li v-bind:class="[currentPage !=index? '' : 'disabled','page-item']"
+								v-for="index in totalPages" :key="index"><a class="page-link"
+									@click="pageLinkToCourse(index)">{{index}}</a>
 							</li>
 
 
 
 
-							<li
-								v-bind:class="[currentPage < totalPages? '' : 'disabled','page-item']">
+							<li v-bind:class="[currentPage < totalPages? '' : 'disabled','page-item']">
 								<a class="page-link" @click="pageLinkToCourse(currentPage+1)">next</a>
 							</li>
 						</ul>
@@ -212,15 +188,10 @@
 
 	</div>
 
-	<!-- Footer -->
-	<div id="footer">
 
-		<!-- Copyright -->
-		<ul class="copyright">
-			<li>&copy; Untitled. All rights reserved.</li>
-		</ul>
 
-		<script type="importmap">
+
+	<script type="importmap">
 
 	{
   "imports": {
@@ -231,7 +202,7 @@
 
 </script>
 
-	</div>
+
 
 
 	<!-- Scripts -->
