@@ -1,5 +1,7 @@
 package com.howhow.paymentflow.ecpayment.controller;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,13 +20,13 @@ public class ECPayProcessCreditOneController {
 	
 	@RequestMapping(value="/ECPayProcessCreditOne", produces="text/html;charset=utf-8")
 	@ResponseBody
-	public String processPayment(HttpServletRequest request) {		
+	public String processPayment(HttpServletRequest request) throws UnknownHostException {		
 		String form = genAioCheckOutOneTime(request);		
 		System.out.printf("ECPayController 產生消費者付款的表單：\n%s\n",form);	
 		return form; 		
 	}
 	
-	private String genAioCheckOutOneTime(HttpServletRequest request ){	
+	private String genAioCheckOutOneTime(HttpServletRequest request ) throws UnknownHostException{	
 		AioCheckOutOneTime obj = new AioCheckOutOneTime();
 		
 		// 須改，由前面order產生時的orderID傳到這
@@ -36,7 +38,8 @@ public class ECPayProcessCreditOneController {
 		obj.setCustomField1(request.getParameter("CustomField1"));
 		obj.setNeedExtraPaidInfo("N");
 		obj.setReturnURL("https://220.133.103.95/howhow/ECPayResponse");
-		obj.setOrderResultURL("http://localhost:80/ECPayResult"); 
+		String myip = InetAddress.getLocalHost().getHostAddress();
+		obj.setOrderResultURL(myip+"/ECPayResult"); 
 		String form = all.aioCheckOut(obj, null);
 		return form;
 	}	

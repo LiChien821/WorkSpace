@@ -77,7 +77,7 @@ public class UtilityTool {
 		content = content.replace("[[name]]", acc.getAccount());
 		String myip = InetAddress.getLocalHost().getHostAddress();
 		String azureUrl="https://howhowproject.azurewebsites.net";
-		String verifyURL = azureUrl + "/verify?code=" + acc.getVerificationcode()
+		String verifyURL = myip + "/verify?code=" + acc.getVerificationcode()
 				+ "&email=" + toAddress;
 		System.out.println("/verify?code=" + randomCode + "&email=" + toAddress);
 		content = content.replace("[[URL]]", verifyURL);
