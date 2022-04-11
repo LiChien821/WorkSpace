@@ -20,7 +20,7 @@ public class ECPayProcessAllController {
 	public String processPayment(HttpServletRequest request) {		
 		String form = genAioCheckOutALL(request);		
 		System.out.printf("ECPayController 產生消費者付款的表單：\n%s\n",form);	
-		return form; 		
+		return form;
 	}
 	
 	private String genAioCheckOutALL(HttpServletRequest request ){	
@@ -34,7 +34,7 @@ public class ECPayProcessAllController {
 		obj.setCustomField1(request.getParameter("CustomField1"));
 		obj.setNeedExtraPaidInfo("N");
 		obj.setReturnURL("https://220.133.103.95/howhow/ECPayResponse");
-		obj.setOrderResultURL("http://localhost:80/ECPayResult"); 
+		obj.setOrderResultURL("http://localhost:80/mycourse");
 		String form = all.aioCheckOut(obj, null);
 		return form;
 	}	

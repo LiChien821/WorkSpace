@@ -27,7 +27,6 @@ public class ECPayResultController {
 	public static AllInOne all = new AllInOne("");		 
 	
 	@PostMapping(value="/ECPayResult",  produces="text/html;charset=utf-8")
-	@ResponseBody
 	public String processPaymentResult2(HttpServletRequest request) throws NumberFormatException, OrderNotFoundException, OrderStatusErrorException, DuplicatedPurchasedCourseException {		
 		
 		Hashtable<String, String> dict = new Hashtable<String, String>();
@@ -43,9 +42,9 @@ public class ECPayResultController {
 			String orderidString = dict.get("CustomField1");
 			pController.insertPurchasedCourse(Integer.parseInt(orderidString));
 			
-			return "<h1>付款成功</h1>";			 
+			return "redirect:/mycourse";
 		}
 		else
-			return "<h1>付款失敗</h1>";	
+			return "redirect:/myshop";
 	}
 }
