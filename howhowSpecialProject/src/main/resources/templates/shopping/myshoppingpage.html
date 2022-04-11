@@ -9,14 +9,19 @@
 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 	crossorigin="anonymous"></script>
 
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-			integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-			integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-			crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-			integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
-			crossorigin="anonymous"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+	integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+	integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+	crossorigin="anonymous"></script>
 
 <link rel="stylesheet" th:href="@{/shopping/css/font-awesome.min.css}">
 
@@ -33,6 +38,8 @@
 <link rel="stylesheet" th:href="@{/css/index.css}"></link>
 
 <link rel="stylesheet" th:href="@{/css/universal-navbar.css}"></link>
+
+<link rel="stylesheet" th:href="@{/css/modal.css}"></link>
 
 <link rel="stylesheet"
 	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css}">
@@ -55,7 +62,7 @@
 								<div class="instructor-short-info flex-wrap">
 									<div class="self-course-page">
 										<table class="table">
-											<thead>
+											
 												<tr>
 													<th scope="col" width="70%">課程名稱</th>
 													<th scope="col" width="15%">課程類別</th>
@@ -107,7 +114,6 @@
 								小計</div>
 						</header>
 						<!-- .entry-header -->
-
 						<footer>
 							<div class="course-cost">NT${{totalprice}}</div>
 							<!-- .course-cost -->
@@ -124,29 +130,42 @@
 								<div class="modal-dialog modal-dialog-centered">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">商品資料</h5>
+											<h3 class="modal-title text-center" id="exampleModalLabel">結帳確認</h3>
 											<button type="button" class="btn-close"
 												data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
-										<div class="modal-body">
-											<form>
-												<div class="mb-3">
-													<table>
-													{{totalprice}}
-														<tr><th>課程名稱</th><th>價格</th></tr>
-														<tr v-for="item in shopdetail"><td>{{item.coursename}}</td><td>{{item.discountprice}}</td>
-													</table>
-												</div>
-											</form>
-										</div>
 
+										<div class="modal-body">
+											<h5>付款方式</h5>
+													信用卡付款
+											<hr>
+											<h5>訂單資訊</h5>
+											<p>
+											<table class="table">
+											<thead>
+												<tr>
+													<th>課程名稱</th>
+													<th>結帳金額</th>
+												</tr>
+											</thead>
+												<tr v-for="item in shopdetail">
+													<td>{{item.coursename}}</td>
+													<td>{{item.discountprice}}</td>
+											</table>
+											</p>
+											<div style="text-align:right"> 總金額: NT&#36{{totalprice}} </div>
+										</div>
 
 										<form id="idFormAioCheckOut" method="post"
 											action="ECPayProcessCreditOne">
 											<input type="text" hidden name="TotalAmount" id="TotalAmount">
 											<input type="text" hidden name="TradeDesc" id="TradeDesc">
 											<input type="text" hidden name="ItemName" id="ItemName">
-											<input type="text" hidden name="CustomField1" id="CustomField1"> <input type="submit">
+											<input type="text" hidden name="CustomField1"
+												id="CustomField1"> <input type="submit" value="確認付款"
+												class="btn btn-outline-warning pull-right"> <input
+												type="button" value="取消"
+												class="btn btn-secondary pull-right" data-bs-dismiss="modal">
 										</form>
 									</div>
 								</div>

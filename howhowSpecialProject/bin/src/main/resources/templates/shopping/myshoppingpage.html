@@ -46,7 +46,7 @@
 						<div class="container">
 							<div class="instructors-info">
 								<header>
-									<h2 class="entry-title">購物車</h2>
+									<h2 class="entry-title">購物車test</h2>
 								</header>
 								<!-- .entry-heading -->
 
@@ -122,16 +122,14 @@
 								<div class="modal-dialog modal-dialog-centered">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">商品資料</h5>
+											<h5 class="modal-title" id="exampleModalLabel">商品資料商品資料商品資料</h5>
 											<button type="button" class="btn-close"
 												data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
 										<div class="modal-body">
 											<form>
 												<div class="mb-3">
-													<table>
-													{{totalprice}}
-														<tr><th>課程名稱</th><th>價格</th></tr>
+													<table>{{totalprice}}<tr><th>課程名稱test</th><th>價格test</th></tr>
 														<tr v-for="item in shopdetail"><td>{{item.coursename}}</td><td>{{item.discountprice}}</td>
 													</table>
 												</div>
@@ -144,7 +142,7 @@
 											<input type="text" hidden name="TotalAmount" id="TotalAmount">
 											<input type="text" hidden name="TradeDesc" id="TradeDesc">
 											<input type="text" hidden name="ItemName" id="ItemName">
-											<input type="text" hidden name="CustomField1" id="CustomField1"> <input type="submit">
+											<input type="text" hidden name="CustomField1" id="CustomField1"><input type="submit">
 										</form>
 									</div>
 								</div>
