@@ -1,17 +1,19 @@
-import { createRouter, createWebHistory}  from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
- const LoginPage = {template: '<div>Home</div>'}
- const routes = [
-     { path: '/', name: 'home', component: "" },
-     { path: '/login', redirect: '/' },
-     { path: '/howhow/login', name: 'login', component: () => {
- 		LoginPage
- 	}}
- ]
- const router = createRouter({
-     history:createWebHistory(),
-     routes: routes
- })
+const LoginPage = { template: '<div>Home</div>' }
+const routes = [
+	{ path: '/', name: 'home', component: "" },
+	{ path: '/login', redirect: '/' },
+	{
+		path: '/howhow/login', name: 'login', component: () => {
+			LoginPage
+		}
+	}
+]
+const router = createRouter({
+	history: createWebHistory(),
+	routes: routes
+})
 
 
 const dataObj = {
@@ -28,7 +30,13 @@ const dataObj = {
 
 	favstatus: "",
 
-	categories: "",
+	categories: [
+		{
+			cId: "0",
+			cItemName: "全部",
+		}
+
+	],
 
 	currentcategoryid: 0,
 
@@ -44,7 +52,9 @@ const dataObj = {
 
 	ccf: false,
 
-	searching: ""
+	searching: "",
+
+	isLogged: ""
 
 };
 
@@ -62,10 +72,10 @@ var app = Vue.createApp({
 			this.search = this.searching;
 			this.goSearch(this.searching);
 			document.getElementById("searching").value == "";
-		} else if (this.categorying != ""){
+		} else if (this.categorying != "") {
 			console.log('category')
 			this.searchByCategory(this.categorying);
-			this.categoryid=this.categorying;
+			this.categoryid = this.categorying;
 			this.findCategoryDetail(this.categorying);
 		} else {
 			axios({
@@ -93,7 +103,18 @@ var app = Vue.createApp({
 			url: '/api/getallcategory',
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
-			.then(response => (this.categories = response.data))
+			.then(response => {
+				for (var i = 0; i < response.data.length; i++) {
+					const item = response.data[i];
+					var newCategoryObject = {
+						cId: "",
+						cItemName: ""
+					}
+					newCategoryObject.cId = item["id"].toString();
+					newCategoryObject.cItemName = item["name"];
+					this.categories.push(newCategoryObject);
+				}
+			})
 			.catch(function(error) {
 				console.log(error);
 			});
@@ -108,6 +129,18 @@ var app = Vue.createApp({
 			})
 
 		this.searching = document.getElementById("searching").value;
+
+		axios({
+			method: 'get',
+			url: '/api/checkLoginStatus',
+			headers: { "Access-Control-Allow-Origin": "*" }
+		})
+			.then(response => (
+				this.isLogged = response.data
+			))
+			.catch(function(error) {
+				console.log(error);
+			})
 
 	},
 	methods: {
@@ -128,13 +161,14 @@ var app = Vue.createApp({
 						console.log(error);
 					});
 			} else {
+				this.currentcategoryid = 0;
 				axios({
 					method: 'get',
-					url: '/api/findcoursebynamelike/' + search + "/" +this.pageNo,
+					url: '/api/findcoursebynamelike/' + search + "/" + this.pageNo,
 					headers: { "Access-Control-Allow-Origin": "*" },
 				})
 
-					.then(response => (this.courses = response.data, this.res = response),this.$router.push('courses?search='+this.currentsearch))
+					.then(response => (this.courses = response.data, this.res = response), this.$router.push('courses?search=' + this.currentsearch))
 					.catch(function(error) {
 						console.log(error);
 					});
@@ -342,7 +376,7 @@ var app = Vue.createApp({
 				.then(response => (
 					this.courses = response.data,
 					this.res = response,
-					this.$router.push('courses?category='+this.currentcategoryid)
+					this.$router.push('courses?category=' + this.currentcategoryid)
 				))
 				.catch(function(error) {
 					console.log(error);
@@ -351,18 +385,25 @@ var app = Vue.createApp({
 		},
 
 		findCategoryDetail(categoryid) {
-			axios({
-				method: 'get',
-				url: '/api/findcategorydetail/' + categoryid,
-				headers: { "Access-Control-Allow-Origin": "*" }
-			})
-				.then(response => (
-					this.currentcategoryname = response.data.name,
-					this.currentcategorydescription = response.data.descriptior
-				))
-				.catch(function(error) {
-					console.log(error);
+
+			if (categoryid == 0) {
+				this.searchAll();
+				this.$router.push('courses')
+			} else {
+
+				axios({
+					method: 'get',
+					url: '/api/findcategorydetail/' + categoryid,
+					headers: { "Access-Control-Allow-Origin": "*" }
 				})
+					.then(response => {
+						this.currentcategoryname = response.data.name;
+						this.currentcategorydescription = response.data.descriptior;
+					})
+					.catch(function(error) {
+						console.log(error);
+					})
+			}
 		},
 		searchAll() {
 			this.currentcategoryid = 0;
@@ -376,12 +417,11 @@ var app = Vue.createApp({
 					this.courses = response.data,
 					this.res = response,
 					this.$router.push('courses')
-					))
+				))
 				.catch(function(error) {
 					console.log(error);
 				});
-		}
-
+		},
 	}
 })
 app.use(router);
