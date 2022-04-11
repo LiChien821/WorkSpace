@@ -45,7 +45,7 @@ createApp({
 			var courseId = target.split('.')[0];
 			console.log(courseId) ;
 			return axios.get(
-				"/howhow/initBulletin.controller",
+				"/api/initBulletin.controller",
 				{
 					params: {
 						courseid: courseId
@@ -61,7 +61,7 @@ createApp({
 		function getCreatorIdByCourseId(courseId){
 			
 			return axios.get(
-				"/howhow/findCreatorIdByCourseId.controller",
+				"/api/findCreatorIdByCourseId.controller",
 				{
 					params: {
 						courseid: courseId
@@ -75,10 +75,10 @@ createApp({
 			);
 		}
 		function getLoggedUserId(){
-			return axios.get("/howhow/findLoggedUser.controller");
+			return axios.get("/api/findLoggedUser.controller");
 		}
 		function getSectionsByCourseid(courseId){
-			return axios.get("/howhow/findAllSectionByCourseId.controller",
+			return axios.get("/api/findAllSectionByCourseId.controller",
 				{
 					params: {
 						courseid: courseId
@@ -93,22 +93,16 @@ createApp({
 			
 		}
 		axios
-		.all([getBulletinByCourseId(courseId), getCreatorIdByCourseId(courseId), getLoggedUserId(), getSectionsByCourseid(courseId)])
+		.all([getBulletinByCourseId(courseId), getCreatorIdByCourseId(courseId), getSectionsByCourseid(courseId)])
 		.then(axios.spread((...responses) => {
 			const resp1 = responses[0];
 			const resp2 = responses[1];
 			const resp3 = responses[2];
-			const resp4 = responses[3];
 			this.bulletins = resp1.data;
 			this.courseCreatorId = resp2.data;
-			this.userId = resp3.data["loggedUserId"];
-			this.userName = resp3.data["loggedUserName"];
-			this.sections = resp4.data;
-			console.log(this.bulletins);
-			console.log(this.courseCreatorId);
-			console.log("now uid, uname cid",this.userId, this.userName, this.courseCreatorId);
-			console.log(this.sections);
+			this.sections = resp3.data;
 		})).catch(errors => {
+			console.log('123')
 			console.log(errors);
 		})
 
@@ -123,7 +117,7 @@ createApp({
 		sendSearch: function () {
 			axios({
 				method: 'get',
-				url: '/howhow/findBulletinBySearch.controller',
+				url: '/api/findBulletinBySearch.controller',
 				headers: { 
 					'Content-Type': 'application/x-www-form-urlencoded',
 					"data-Type": "JSON",
@@ -154,7 +148,7 @@ createApp({
 		sendQuestion: function () {
 			axios({
 				method: 'post',
-				url: '/howhow/insertBulletin2.controller',
+				url: '/api/insertBulletin2.controller',
 				headers: { 
 					// 'Authorization': 'Basic xxxxxxxxxxxxxxxxxxx',
 					'Content-Type': 'application/json',
@@ -201,7 +195,7 @@ createApp({
 		sendReplyInput: function(bltId) {
 			axios({
 				method: 'post',
-				url: '/howhow/insertBulletinReply.controller',
+				url: '/api/insertBulletinReply.controller',
 				headers: { 
 					// 'Authorization': 'Basic xxxxxxxxxxxxxxxxxxx',
 					'Content-Type': 'application/json',
@@ -232,7 +226,7 @@ createApp({
 		},
 		getBulletinByLectureId: function (lectureId){
 			axios.get(
-				"/howhow/initBulletinByLectureId.controller",
+				"/api/initBulletinByLectureId.controller",
 				{
 					params: {
 						lectureid: lectureId
@@ -261,7 +255,7 @@ createApp({
 			console.log(courseId);
 
 			axios.get(
-				"/howhow/initBulletin.controller",
+				"/api/initBulletin.controller",
 				{
 					params: {
 						courseid: courseId

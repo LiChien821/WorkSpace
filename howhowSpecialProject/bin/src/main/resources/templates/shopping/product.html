@@ -41,13 +41,13 @@
 <link th:href="@{http://fonts.googleapis.com/css?family=Roboto}"
 	rel='stylesheet' type='text/css' />
 
-<!-- weiji -->
+<link rel="stylesheet" th:href="@{/css/universal-navbar.css}"></link>
 
-<!-- weijiend -->
 </head>
 
 <body>
-	<script src="./js/header.js"></script>
+	<div th:insert="universal-navbar :: universal-navbar"></div>
+	
 	<div id="product">
 
 		<hr />
@@ -134,25 +134,15 @@
 			</div>
 		</div>
 
-<<<<<<< HEAD
 		<div style="height: 220px; background-color: #FFFFFF; border-radius: 0px 0px 80px 80px;">
 			<div class="container-fluid">
 				<div class="row" style="position: relative">
 					<div>
 						<hr/>
-=======
-		<div
-			style="height: 220px; background-color: #FFFFFF; border-radius: 0px 0px 80px 80px;">
-			<div class="container-fluid">
-				<div class="row" style="position: relative">
-					<div>
-						<hr />
->>>>>>> 2.1-Riko
 					</div>
 					<div class="col-lg-3"></div>
 					<div class="col-lg-3"></div>
 					<div class="col-lg-1" style="position: relative">
-<<<<<<< HEAD
 						<button v-if="!favstatus" class="btn rounded-pill bround-3 d-flex align-items-center justify-content-center productbtn1" @click="addFavorite()">
 							<i class="fa fa-bookmark fa-lg" aria-hidden="true"></i>
 						</button>
@@ -184,45 +174,6 @@
 			</div>
 		</div>
 
-=======
-						<button v-if="!favstatus"
-							class="btn rounded-pill d-flex align-items-center justify-content-center productbtn1">
-							<i class="fa fa-bookmark fa-lg" aria-hidden="true"></i>
-						</button>
-						<button v-else
-							class="btn rounded-pill d-flex align-items-center justify-content-center productbtn2">
-							<i class="fa fa-bookmark fa-lg" aria-hidden="true"
-								style="color: white"></i>
-						</button>
-					</div>
-					<div class="col-lg-1" style="position: relative">
-						<button v-if="!shopstatus"
-							class="btn rounded-pill d-flex align-items-center justify-content-center productbtn3">
-							<i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
-						</button>
-						<button v-else
-							class="btn rounded-pill d-flex align-items-center justify-content-center productbtn4">
-							<i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
-						</button>
-					</div>
-					<div class="col-lg-1"
-						style="font-size: 80px; line-height: 150px; position: relative">
-						<div style="position: absolute; left: -30%; color: orange;">NT${{course.discountprice}}</div>
-					</div>
-					<div class="col-lg-3 justify-content-center"
-						style="position: relative">
-						<a class="btn d-flex align-items-center justify-content-center productpurchase" v-if="!purchasedstatus" style="border-radius: 10px;">立即購買</a>
-						<a class="btn d-flex align-items-center justify-content-center" v-else
-							style="width: 350px; font-size: 25px; background-color:orange; border-radius: 10px; height: 70px; margin-top: 40px; position: absolute; left: 6%">已購買</a>
-					</div>
-					<div style="position: absolute; top: 570%;">
-						<hr / class="hr2" style="width: 96%; margin-left: 2%">
-					</div>
-				</div>
-			</div>
-
-		</div>
->>>>>>> 2.1-Riko
 		<div style="height: 110px"></div>
 		<div class="container-fluid">
 

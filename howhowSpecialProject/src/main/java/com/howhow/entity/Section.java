@@ -3,6 +3,7 @@ package com.howhow.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,7 +36,7 @@ public class Section {
 	@JoinColumn(name="course_id")
 	private CourseBasic courseBasic;
 	
-	@OneToMany(mappedBy = "section")
+	@OneToMany(mappedBy = "section",cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Lectures> lecturesList=new ArrayList<>();
 	
 	@Column(name = "system_time")
