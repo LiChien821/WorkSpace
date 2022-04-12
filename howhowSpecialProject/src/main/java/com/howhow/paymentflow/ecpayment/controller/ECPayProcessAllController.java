@@ -36,7 +36,7 @@ public class ECPayProcessAllController {
 		obj.setCustomField1(request.getParameter("CustomField1"));
 		obj.setNeedExtraPaidInfo("N");
 		obj.setReturnURL("https://220.133.103.95/howhow/ECPayResponse");
-		String myip = InetAddress.getLocalHost().getHostAddress();
+		String myip = "52.139.157.137";
 		obj.setOrderResultURL(myip+"/ECPayResult"); 
 		String form = all.aioCheckOut(obj, null);
 		return form;

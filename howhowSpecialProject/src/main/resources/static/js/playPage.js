@@ -1,3 +1,18 @@
+
+var player = videojs('my-video', {
+				preload: true,
+				loop: true,
+				muted: false,
+				width: "800px",
+				height: "720px",
+				controls: true,
+				 controlBar: {
+				    muteToggle: true,
+				  }
+			});
+		
+
+
 const dataObj = {
 	baseUrl: "",
 	videoSrcUrl: "",
@@ -172,7 +187,6 @@ Vue.createApp({
 			});
 		
 		
-		
 	},
 	
 }).mount('#playSectionList')
@@ -225,13 +239,3 @@ Vue.createApp({
 }).mount('#introduceBlock')
 
 
-var player = videojs('my-video', {
-	
-	loop: true,
-	muted: true,
-	width: "800px",
-	height: "720px",
-	controls: true
-});
-
-player.currentTime(0);

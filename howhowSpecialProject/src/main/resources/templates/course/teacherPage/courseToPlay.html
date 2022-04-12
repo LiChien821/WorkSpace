@@ -52,7 +52,7 @@
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+		<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search" >
 		<div class="navbar-nav">
 			<div class="nav-item text-nowrap">
 				<a class="nav-link px-3" href="#">Sign out</a>
@@ -75,22 +75,24 @@
 							<button class="btn btn-toggle align-items-center rounded collapsed "
 								data-bs-toggle="collapse" :data-bs-target="'#course-collapse'+section.sectionNumber"
 								aria-expanded="true">
-								<h4><span data-feather="layers"></span> {{section.sectionNumber}}.
+								<h4><span ></span> {{section.sectionNumber}}.
 									{{section.sectionName}}</h4>
 							</button>
 							<div class="collapse show" :id="'course-collapse'+section.sectionNumber">
 								<ul class="nav flex-column btn-toggle-nav list-unstyled fw-normal pb-1 small"
 									v-for="lecture in section.lecturesList">
 									<li class="nav-item border rounded-pill" v-if="lecture.videoSource !== null">
-									<div >
-										<a href="#" class="link-dark rounded " @click="handleVideoUrl(lecture)">
+										<a class="fa fa-youtube"></a >
+										<div >
 											
-											<h5><span data-feather="fast-forward"></span>{{lecture.lectureNumber}}.
-												{{lecture.lecturesName}}</h5>
-											
-										</a>
+											<a href="#" class="link-dark rounded" @click="handleVideoUrl(lecture)">
+												
+												<h5><span ></span>{{lecture.lectureNumber}}.
+													{{lecture.lecturesName}}</h5>
+												
+											</a>
 
-										<button>附加連結</button>
+									
 										</div >
 									</li>
 								</ul>
@@ -123,9 +125,9 @@
 								<ul  class="m-b-0">
 									<li  class="chat-history p-2 bd-highlight" v-for="(notes,index) in notesList">
 										<div>
-											<a href="#javescr"  @click="changetime(notes.duration)">{{index}}</a>
+											<a href="#javescr"  @click="changetime(notes.duration)">{{index}}</a> <a>筆記內容 {{notes.context}} </a>
 										</div>
-										<div >{{notes.context}} </div>
+									
 									</li>
 								
 								</ul>

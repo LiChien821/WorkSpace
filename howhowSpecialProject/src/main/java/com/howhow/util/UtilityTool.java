@@ -75,7 +75,7 @@ public class UtilityTool {
 		acc.setVerificationcode(randomCode);
 
 		content = content.replace("[[name]]", acc.getAccount());
-		String myip = InetAddress.getLocalHost().getHostAddress();
+		String myip = "52.139.157.137";
 		String azureUrl="https://howhowproject.azurewebsites.net";
 		String verifyURL = myip + "/verify?code=" + acc.getVerificationcode()
 				+ "&email=" + toAddress;
