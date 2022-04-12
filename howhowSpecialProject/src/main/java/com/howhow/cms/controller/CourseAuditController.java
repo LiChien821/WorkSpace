@@ -45,7 +45,7 @@ public class CourseAuditController {
 	@ResponseBody
 	@GetMapping("/coursedata")
 	public List<CourseBasicDTO> showAllPendingApproval() {
-		List<CourseBasic> basics = cbs.findUnAuditCourses(2);
+		List<CourseBasic> basics = cbs.findUnAuditCourses(1);
 		List<CourseBasicDTO> basicDTOs = new ArrayList<CourseBasicDTO>();
 		
 		for(CourseBasic basic : basics) {
@@ -74,7 +74,7 @@ public class CourseAuditController {
 		cbs.updateCourseBasic(course);
 
 
-		if (status == 1) {
+		if (status == 2) {
 			setMessage(course, "y", course.getCourseName() + " 課程審核通過");
 		} else if (status == 3) {
 			setMessage(course, "y", course.getCourseName() + " 課程審核未通過");

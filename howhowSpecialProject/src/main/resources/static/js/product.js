@@ -113,7 +113,7 @@ var product = Vue.createApp({
 			.then(response => {
 				this.purchasedstatus = response.data;
 				setTimeout(() => {
-					if (this.purchasedstatus == true) {
+					if (this.purchasedstatus == true || this.admin == 1) {
 						this.handlefirstVideoUrl();
 					} else {
 						this.handlefirstPreviewVideoUrl();
@@ -602,7 +602,7 @@ var bulletin = Vue.createApp({
 					"Access-Control-Allow-Origin": "*"
 				},
 				params: {
-					query: this.currQuery
+					query: this.currQuery, courseid: this.courseId
 				}
 			})
 				.then((response) => {

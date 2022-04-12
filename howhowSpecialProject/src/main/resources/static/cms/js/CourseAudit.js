@@ -9,7 +9,7 @@ Vue.createApp({
         passAudit(item) {
             axios({
                 method: 'put',
-                url: '/cms/coursedata/1',
+                url: '/cms/coursedata/2',
                 headers: { 'Content-Type': 'application/json' },
                 data: JSON.stringify(item)
             }).then(res => {

@@ -244,9 +244,9 @@ public class BulletinController {
 	
 	@GetMapping("/api/findBulletinBySearch.controller")
 	@ResponseBody
-	public List<Object> findBulletinBySearch(@RequestParam("query") String query) {
+	public List<Object> findBulletinBySearch(@RequestParam("query") String query, @RequestParam("courseid") int cid) {
 		List<Object> list = new ArrayList<Object>();
-		List<Bulletin> blist = bService.findAllBySearch(query);
+		List<Bulletin> blist = bService.findAllBySearch(query, cid);
 		if (blist == null) return list;
 		
 		for (Bulletin btn : blist) {
