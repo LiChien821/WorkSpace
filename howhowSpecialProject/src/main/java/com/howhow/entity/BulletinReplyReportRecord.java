@@ -16,9 +16,8 @@ import org.springframework.stereotype.Component;
 
 @Entity
 @Component
-@Table(name = "reportrecord")
-public class ReportRecord {
-
+@Table(name = "bulletinreplyreportrecord")
+public class BulletinReplyReportRecord {
 	@Id
 	@Column(name = "report_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,18 +27,18 @@ public class ReportRecord {
 	private int userID;
 
 	@Transient
-	private int bulletinID;
+	private int bulletinreplyID;
 
 	@Transient
 	private int reporttype;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private UserAccountMt usermt;
+	private UserAccountDt userdt;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "bulletin_id")
-	private Bulletin bulletin;
+	@JoinColumn(name = "bulletinreply_id")
+	private BulletinReply bulletinreply;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "reporttype")
@@ -47,22 +46,6 @@ public class ReportRecord {
 
 	@Column(name = "system_time")
 	private String systemtime;
-
-	public int getUserID() {
-		return usermt.getUserId();
-	}
-
-	public int getReporttype() {
-		return typeobj.getReporttype();
-	}
-
-	public String getSystemtime() {
-		return systemtime;
-	}
-
-	public void setSystemtime(String systemtime) {
-		this.systemtime = systemtime;
-	}
 
 	public int getReportID() {
 		return reportID;
@@ -72,28 +55,45 @@ public class ReportRecord {
 		this.reportID = reportID;
 	}
 
-	public int getBulletinID() {
-		return bulletinID;
+	public int getUserID() {
+		return userID;
 	}
 
-	public void setBulletinID(int bulletinID) {
-		this.bulletinID = bulletinID;
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 
-	public UserAccountMt getUsermt() {
-		return usermt;
+	public int getBulletinreplyID() {
+		return bulletinreplyID;
 	}
 
-	public void setUsermt(UserAccountMt usermt) {
-		this.usermt = usermt;
+	public void setBulletinreplyID(int bulletinreplyID) {
+		this.bulletinreplyID = bulletinreplyID;
 	}
 
-	public Bulletin getBulletin() {
-		return bulletin;
+	public int getReporttype() {
+		return reporttype;
 	}
 
-	public void setBulletin(Bulletin bulletin) {
-		this.bulletin = bulletin;
+	public void setReporttype(int reporttype) {
+		this.reporttype = reporttype;
+	}
+
+
+	public UserAccountDt getUserdt() {
+		return userdt;
+	}
+
+	public void setUserdt(UserAccountDt userdt) {
+		this.userdt = userdt;
+	}
+
+	public BulletinReply getBulletinreply() {
+		return bulletinreply;
+	}
+
+	public void setBulletinreply(BulletinReply bulletinreply) {
+		this.bulletinreply = bulletinreply;
 	}
 
 	public ReportType getTypeobj() {
@@ -104,12 +104,12 @@ public class ReportRecord {
 		this.typeobj = typeobj;
 	}
 
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public String getSystemtime() {
+		return systemtime;
 	}
 
-	public void setReporttype(int reporttype) {
-		this.reporttype = reporttype;
+	public void setSystemtime(String systemtime) {
+		this.systemtime = systemtime;
 	}
-
+	
 }
