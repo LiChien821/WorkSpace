@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.howhow.course.exception.NoSectionException;
+import com.howhow.entity.Lectures;
 import com.howhow.entity.Section;
 
 @Service
@@ -99,6 +100,14 @@ public class LearningSectionService {
 			if (list.contains(sec)) {
 				continue;
 			}
+			List<Lectures> lectureslist=new ArrayList<>();
+			for(Lectures lec : sec.getLecturesList()) {
+				
+				if(lec.isAvailableToPreview()) {
+					lectureslist.add(lec);
+				}
+			}
+			sec.setLecturesList(lectureslist);
 			list.add(sec);
 		}
 		return list;

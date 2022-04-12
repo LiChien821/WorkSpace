@@ -15,7 +15,7 @@
 
 			<!-- Logo -->
 			<div id="logo">
-				<span class="image avatar48"><img th:src="@{/images/avatar.jpg}" alt="" /></span>
+				<span class="image fas fa-user-circle fa-2x" alt=""> </span>
 				<h1 id="title">[[${creator.givenName}]] [[${creator.familyName}]]</h1>
 				<p>[[${creator.acountCreationTime}]]</p>
 			</div>
@@ -23,33 +23,22 @@
 			<!-- Nav -->
 			<nav id="nav">
 				<ul>
-					<li><a th:href="@{/teacherPage/page}" id="top-link"><span class="icon solid fa-home">介紹</span></a>
-					</li>
-					<li><a th:href="@{/teacherPage/page#portfolio}" id="portfolio-link"><span
-								class="icon solid fa-th">課程</span></a></li>
-					<li><a href="#about" id="about-link"><span class="icon solid fa-user">Q&A</span></a></li>
-					<li><a href="#javascript" id="contact-link"><span class="icon solid fa-envelope"
-								@click="navToPlay">播放</span></a></li>
-					<form method="GET" hidden :action="'/teacherPage/play/'+currentCourseID" id="postForm"> <input name="courseID"
-							hidden th:value="${courseID}"></form>
+					<li><a th:href="@{/}" id="top-link"><span class="icon solid fa-home">howhow頁面</span></a></li>
+
+					<li><a th:href="@{/teacherPage/page#courseList}" id="portfolio-link"><span
+								class="icon solid  fa-list-ol">其他課程</span></a></li>
+					<li><a href="#about" id="about-link"><span class="icon solid  fa-comment-dots">Q&A</span></a></li>
+					<li><a href="#javascript" id="contact-link"><span class="icon solid  fa-play-circle"
+								@click="navToPlay">測試播放</span></a></li>
+					<form method="GET" hidden :action="'/teacherPage/play/'+currentCourseID" id="postForm"> <input
+							name="courseID" hidden th:value="${courseID}"></form>
 
 				</ul>
 			</nav>
 
 		</div>
 
-		<div class="bottom">
 
-			<!-- Social Icons -->
-			<ul class="icons">
-				<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-				<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-				<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-				<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-				<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-			</ul>
-
-		</div>
 
 	</div>
 
