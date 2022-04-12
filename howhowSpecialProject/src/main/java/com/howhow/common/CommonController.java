@@ -52,8 +52,6 @@ public class CommonController {
 	
 	@GetMapping("/api/searchCourseInfo/{query}")
 	public String searchCourseInfo (@PathVariable("query") String query) {
-		System.out.println(query);
-		System.out.println(">>>");
 		return "searchResult";
 	}
 	

@@ -120,7 +120,7 @@ const app = createApp({
 			const resp1 = responses[0];
 			const resp2 = responses[1];
 			this.isLogged = resp1.data;
-			console.log(this.isLogged);
+			console.log("now isLogged:", this.isLogged);
 
 			for (var i = 0; i < resp2.data.length; i++) {
 				const item = resp2.data[i];

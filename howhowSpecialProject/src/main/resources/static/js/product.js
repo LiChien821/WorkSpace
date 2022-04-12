@@ -597,6 +597,7 @@ var bulletin = Vue.createApp({
 					"Access-Control-Allow-Origin": "*"
 				},
 				params: {
+					courseid: this.courseId,
 					query: this.currQuery
 				}
 			})
@@ -661,6 +662,7 @@ var bulletin = Vue.createApp({
 		},
 		toggleReplyInput: function (bltId) {
 			this.showReplyInput = bltId;
+
 		},
 		cancelReplyInput: function () {
 			this.showReplyInput = false;

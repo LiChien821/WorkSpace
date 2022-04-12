@@ -36,7 +36,7 @@
 
 <link href="https://vjs.zencdn.net/7.17.0/video-js.css" rel="stylesheet" />
 
-<link rel="stylesheet" th:href="@{/assets_wj/css/universal-navbar.css}"></link>
+<link rel="stylesheet" th:href="@{/css/universal-navbar.css}"></link>
 <link rel="stylesheet" th:href="@{/css/index.css}"></link>
 
 
@@ -349,20 +349,22 @@
 	<!-- board -->
 	<div class="container">
 		<div class="related-courses">
-			<header
-				class="entry-heading flex flex-wrap justify-content-between align-items-center">
-				<h2 class="entry-title" style="font-size: 45px; font-weight: bold;">本課程章節</h2>
+			<header class="entry-heading d-flex align-items-center">
+				<h2 class="entry-title" style="font-size: 45px; font-weight: bold;">留言板</h2>
+				<div style="width: 50px;"></div>
+				<h2 class="entry-title" v-if="purchasedstatus" style="font-size: 45px; font-weight: bold;">快來購買課程一起加入提問吧！</h2>
+				
 			</header>
 		</div>
 		<div class="card border border-0" id="bulletin">
 			<div
-				class="card-header border border-0 d-flex a justify-content-between">
+				class="card-header border border-0 d-flex justify-content-between">
 				<div>留言回覆</div>
 				<div>
 					<div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
 						<div class="input-group">
 							<input type="search" placeholder="請搜尋..." v-model="currQuery"
-								aria-describedby="button-addon1"
+								aria-describedby="button-addon1" @keyup.enter="sendSearch()"
 								class="form-control border-0 bg-light">
 							<div class="input-group-append">
 								<button id="button-addon1" type="submit"
@@ -509,7 +511,7 @@
 											<div class="flex-grow-1 m-0">{{ bRep.replyContent }}</div>
 										</div>
 									</div>
-
+									
 									<div class="blt-reply-content d-flex mt-2">
 										<div class="flex-shrink-0"
 											v-if="purchasedstatus || courseCreatorId==userId">
@@ -523,9 +525,9 @@
 												<div class="me-2" v-if="userId == courseCreatorId">
 													<small><span>授課老師</span></small>
 												</div>
-												<!-- 											<div class="me-2"> -->
-												<!-- 												<small><span>{{ userName }}</span></small> -->
-												<!-- 											</div> -->
+												<!-- <div class="me-2">
+													<small><span>{{ userName }}</span></small>
+												</div> -->
 											</div>
 											<div class="flex-grow-1 m-0 d-grid ">
 												<textarea class="reply-input" type="text"
@@ -534,8 +536,8 @@
 													placeholder="請留言..."></textarea>
 											</div>
 											<transition name="replyInput">
-											<div class="mt-1 d-flex justify-content-end"
-												v-if="showReplyInput == blt.bulletinId">
+											<div class="mt-1 d-flex justify-content-end">
+												<!-- v-if="showReplyInput == blt.bulletinId" -->
 												<div class="reply-input-toggle">
 													<button
 														class="btn btn-dark btn-primary me-1 reply-input-toggle-cancel"
@@ -582,14 +584,13 @@
 	<!-- .clients-logo -->
 	</div>
 	<script type="importmap">
-{
-  "imports": {
-	"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
-	"vue-router": "https://cdnjs.cloudflare.com/ajax/libs/vue-router/4.0.0-alpha.12/vue-router.esm.js"
-  }
-}
-
-</script>
+	{
+		"imports": {
+			"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
+			"vue-router": "https://cdnjs.cloudflare.com/ajax/libs/vue-router/4.0.0-alpha.12/vue-router.esm.js"
+		}
+	}
+	</script>
 	<script type="module" th:src="@{/js/product.js}"></script>
 	<script type="module" th:src="@{/js/universal-navbar.js}"></script>
 
