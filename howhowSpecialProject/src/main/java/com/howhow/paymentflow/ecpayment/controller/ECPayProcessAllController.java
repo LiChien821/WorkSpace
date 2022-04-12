@@ -22,7 +22,7 @@ public class ECPayProcessAllController {
 	public String processPayment(HttpServletRequest request) throws UnknownHostException {		
 		String form = genAioCheckOutALL(request);		
 		System.out.printf("ECPayController 產生消費者付款的表單：\n%s\n",form);	
-		return form; 		
+		return form;
 	}
 	
 	private String genAioCheckOutALL(HttpServletRequest request ) throws UnknownHostException{	

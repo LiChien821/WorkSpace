@@ -11,40 +11,36 @@
 	<div id="header">
 
 		<div class="top">
-
+			<div>
+				<a class="navbar-brand" href="/">
+					<img class="icon container-fluid" th:src="@{/image/unnamed.png}" alt="" />
+				</a>
+			</div>
 			<!-- Logo -->
 			<div id="logo">
-				<span class="image avatar48"><img th:src="@{/images/avatar.jpg}" alt="" /></span>
-				<h1 id="title">[[${creator.givenName}]] [[${creator.familyName}]]</h1>
-				<p>[[${creator.acountCreationTime}]]</p>
+				<a href="/home">
+					<span class="image fas fa-user-circle fa-2x"></span>
+					<h1 id="title">[[${creator.givenName}]]
+						[[${creator.familyName}]]</h1>
+					<p>[[${creator.acountCreationTime}]]</p>
+				</a>
 			</div>
 
 			<!-- Nav -->
 			<nav id="nav">
 				<ul>
-					<li><a th:href="@{/teacherPage/page}" id="top-link"><span class="icon solid fa-home">我的頁面</span></a>
-					</li>
+					<li><a th:href="@{/}" id="top-link"><span class="icon solid fa-home">howhow頁面</span></a></li>
+
 					<li><a th:href="@{/teacherPage/page#courseList}" id="portfolio-link"><span
-								class="icon solid fa-th">課程</span></a></li>
-					<li><a href="new" id="about-link"><span class="icon solid fa-user">創造新課程</span></a></li>
-					<li><a href="#" id="contact-link"><span class="icon solid fa-envelope">聯絡我們</span></a></li>
+								class="icon solid  fa-list-ol">已創造的課程</span></a></li>
+					<li><a href="new" id="about-link"><span class="icon solid fa-folder-plus">創造新課程</span></a></li>
+					<li><a href="#" id="contact-link"><span class="icon solid fa-comment-dots">所有Q&A</span></a></li>
 				</ul>
 			</nav>
 
 		</div>
 
-		<div class="bottom">
 
-			<!-- Social Icons -->
-			<ul class="icons">
-				<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-				<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-				<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-				<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
-				<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-			</ul>
-
-		</div>
 
 	</div>
 
@@ -63,71 +59,70 @@
 					style="max-width: 700px; margin: 0 auto" enctype="multipart/form-data" th:object="${courseBasic}"
 					onsubmit="return checkEmailUnique(this);">
 
-					<div class="py-3">
-						<div class="container">
-							<div class="row">
-								<div class="d-flex justify-content-center">
-									<h1 class="text-dark">創造一門新課程</h1>
-									<p>並上傳封面照</p>
-								</div>
+
+					<div class="container">
+						<div class="row">
+							<div class="d-flex justify-content-center">
+								<h1 class="text-dark">創造一門新課程</h1>
+								<p>並上傳封面照</p>
 							</div>
-							<div class="row" id="text">
+						</div>
+						<div class="row" id="text">
 
-								<input type="text" id="defaultCourseID" hidden th:value="*{courseID}">
+							<input type="text" id="defaultCourseID" hidden th:value="*{courseID}">
 
-								<h3 class="mb-3">課程內容</h3>
-								<div class="col-md-6 p-4">
+							<div class="col-md-6 p-4">
 
 
-									<div class="form-row">
-										<label class="col-sm-4 col-form-label">課程名稱</label>
-										<div class="col-sm-8">
-											<input type="text" class="form-control" th:field="*{courseName}" required
-												minlength="2" maxlength="15" />
-										</div>
+								<div class="form-row">
+									<label class="col-sm-4 col-form-label">課程名稱</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" th:field="*{courseName}" required
+											minlength="2" maxlength="15" />
+									</div>
 
-										<label for="category"class="col-sm-4 col-form-label">分類</label>
-										<div class="col-sm-8" >
-											<select name="category" id="category" th:field="*{category}" >
-												<th:block th:each="cat: ${cateList}">
+									<label for="category" class="col-sm-4 col-form-label">分類</label>
+									<div class="col-sm-8">
+										<select name="category" id="category" th:field="*{category}">
+											<th:block th:each="cat: ${cateList}">
 												<option th:value="${cat.id}">[[${cat.name}]]</option>
-												</th:block>
-												
-											</select>
-											
-										</div>
+											</th:block>
 
-										<label class="col-sm-4 col-form-label">價錢</label>
-										<div class="col-sm-8">
-											<input type="text" class="form-control" th:field="*{price}" required
-												minlength="2" maxlength="15" />
-										</div>
-
-										
-
-
+										</select>
 
 									</div>
 
-								</div>
-
-								<div class="col-md-6 p-4">
-									<label for="textarea" class="container-fluid">課程介紹</label>
-									<div class="container-fluid">
-										<textarea id="textarea" name="textarea" rows="4" cols="50"
-											th:field="*{description}">
-											介紹一下將要開設的課程,與適合購買課程的對象
-										</textarea>
+									<label class="col-sm-4 col-form-label">價錢</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" th:field="*{price}" required
+											minlength="2" maxlength="15" />
 									</div>
+
+
+
+
+
 								</div>
 
 							</div>
+
+							<div class="col-md-6 p-4">
+								<label for="textarea" class="container-fluid">課程介紹</label>
+								<div class="container-fluid">
+									<textarea id="textarea" name="textarea" rows="4" cols="37"
+										th:field="*{description}">
+										介紹一下將要開設的課程,與適合購買課程的對象
+									</textarea>
+								</div>
+							</div>
+
 						</div>
 					</div>
 
 
 
-					<div class="py-5 bg-light">
+
+					<div class="p-2 bg-light">
 						<div class="container">
 							<div class="row">
 								<div class="mx-auto text-center ">
@@ -140,10 +135,10 @@
 									<div><label class="text-success"></label></div>
 									<div>
 										<img id="thumbnail" alt="Main image preview" class="img-fluid"
-											accept="image/png,image/jpeg" />
+											accept="image/png,image/jpeg" style="height: 300px;width:auto" />
 									</div>
 									<div>
-										<input type="file" id="fileImage" name="poster"  />
+										<input type="file" id="fileImage" name="poster" />
 										<input type="submit" value="創建課程">
 									</div>
 									<input type="hidden" />
@@ -159,5 +154,22 @@
 
 
 </body>
+<script>
+	$(document).ready(function () {
+		$("#fileImage").change(function () {
+
+			readURL(this);
+		});
+	});
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$("#thumbnail").attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+</script>
 
 </html>

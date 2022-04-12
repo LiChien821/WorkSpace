@@ -51,12 +51,12 @@ public class Lectures {
 	
 //	@OneToMany(mappedBy = "lectures")
 //	private List<Question> questionList=new ArrayList<Question>();
-	@OneToMany(mappedBy = "lectureid",cascade = CascadeType.REMOVE, orphanRemoval = true)                                //modified by weijie(2022-03-22)
+	@OneToMany(mappedBy = "lectureid",cascade=CascadeType.REMOVE,orphanRemoval = true)                                //modified by weijie(2022-03-22)
 	@JsonIgnore
 	private List<Bulletin> bulletinList=new ArrayList<Bulletin>(); 
 	
 	@JsonIgnore   //modified by chien-lin(2022-03-31)
-	@OneToMany(mappedBy = "notedlecture",cascade = CascadeType.REMOVE, orphanRemoval = true)
+	@OneToMany(mappedBy = "notedlecture",cascade=CascadeType.REMOVE,orphanRemoval = true)
 	private List<Notes> notesList=new ArrayList<Notes>();
 	
 	@JsonIgnore

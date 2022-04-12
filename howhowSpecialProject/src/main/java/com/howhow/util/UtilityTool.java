@@ -43,8 +43,8 @@ public class UtilityTool {
 
 		mailSender.setHost("smtp.gmail.com");
 		mailSender.setPort(587);
-		mailSender.setUsername("fromeggtochicken@gmail.com");
-		mailSender.setPassword("rvmqobkcoysopnjd");
+		mailSender.setUsername("howhowweb@gmail.com");
+		mailSender.setPassword("sfjdvwbkiwxsyrow");
 
 		Properties mailProperties = new Properties();
 		mailProperties.setProperty("mail.smtp.auth", "true");
@@ -61,12 +61,12 @@ public class UtilityTool {
 		JavaMailSenderImpl mailSender = UtilityTool.prepareMailSender();
 
 		String toAddress = acc.getUserAccountDt().getEmail();
-		String subject = "Please verify your registration to  continue shopping";
+		String subject = "好好學會員註冊認證信";
 		String content = "Dear[[name]],Please click the&nbsp;<div><a href=\"[[URL]]\" target=\"_self\">verify </a><div><font face=\"Comic Sans MS\"></font></div></div>";
 
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
-		helper.setFrom("fromeggtochicken@gmail.com", "FromEggToChicken");
+		helper.setFrom("howhowweb@gmail.com", "好好學");
 
 		helper.setTo(toAddress);
 		helper.setSubject(subject);

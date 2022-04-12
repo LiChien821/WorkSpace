@@ -83,7 +83,7 @@ input, select, textarea {
 	}
 
 	body {
-		background: #fff;
+		background: rgb(255, 255, 255);
 		font-family: 'Source Sans Pro', sans-serif;
 		font-size: 19pt;
 		font-weight: 300;
@@ -1922,7 +1922,7 @@ input, select, textarea {
 		table th {
 			text-align: left;
 			padding: 0.5em 1em 0.5em 1em;
-			color: #fff;
+			color: rgb(255, 255, 255);
 			background: #222729 url("images/overlay.png");
 		}
 
@@ -2046,9 +2046,9 @@ input, select, textarea {
 		-webkit-justify-content: space-between;
 		-ms-justify-content: space-between;
 		justify-content: space-between;
-		background: #222629 url("images/overlay.png");
+		background: #E2C652  url("images/overlay.png");
 		box-shadow: inset -0.25em 0 0.25em 0 rgba(0, 0, 0, 0.1);
-		color: #fff;
+		color: rgb(0, 0, 0);
 		height: 100%;
 		left: 0;
 		overflow-y: auto;
@@ -2091,7 +2091,7 @@ input, select, textarea {
 			}
 
 				#header .icons a:hover {
-					color: #fff;
+					color: rgb(0, 0, 0);
 				}
 
 	#logo {
@@ -2137,7 +2137,7 @@ input, select, textarea {
 			#nav ul li a {
 				display: block;
 				padding: 0.5em 1.5em 0.5em 1.5em;
-				color: rgba(255, 255, 255, 0.5);
+				color: rgb(0, 0, 0);
 				text-decoration: none;
 				outline: 0;
 				border: 0;
@@ -2163,9 +2163,9 @@ input, select, textarea {
 					}
 
 				#nav ul li a.active {
-					background: rgba(0, 0, 0, 0.15);
+					background: #E2C652 (0, 0, 0, 0.15);
 					box-shadow: inset 0 0 0.25em 0 rgba(0, 0, 0, 0.125);
-					color: #fff;
+					color: rgb(0, 0, 0);
 				}
 
 					#nav ul li a.active span:before {
@@ -2177,7 +2177,7 @@ input, select, textarea {
 	#footer {
 		margin-left: 375px;
 		text-align: center;
-		background-color: #dce3e2;
+		background-color: #E2C652;
 		padding: 3em 0 4em 0;
 		box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.05), inset 0 0.1em 0.1em 0 rgba(0, 0, 0, 0.025);
 		font-size: 0.8em;
@@ -2219,7 +2219,7 @@ input, select, textarea {
 
 			#main > section.dark {
 				color: #ddd;
-				color: rgba(255, 255, 255, 0.75);
+				color: rgb(0, 0, 0);
 			}
 
 				#main > section.dark h2, #main > section.dark h3, #main > section.dark h4, #main > section.dark h5, #main > section.dark h6 {
@@ -2227,40 +2227,41 @@ input, select, textarea {
 				}
 
 				#main > section.dark strong {
-					color: #fff;
+					color: rgb(0, 0, 0);
 					border-color: inherit;
 				}
 
 				#main > section.dark a {
-					color: #fff;
+					color: rgb(0, 0, 0);
 					border-color: inherit;
 				}
 
 					#main > section.dark a:hover {
-						border-bottom-color: rgba(255, 255, 255, 0);
+						border-bottom-color: rgb(0, 0, 0);
 					}
 
 			#main > section.cover {
 				padding: 10em 0;
 				background-size: cover;
 				background-position: center center;
+				background-image: url("images/hahowgirl-7.png");
 			}
 
 			#main > section.one {
-				background-color: #81918E;
-				background-image: url("../../images/banner.jpg");
+				background-color: rgb(255, 255, 255);
+				
 			}
 
 			#main > section.two {
-				background-color: #f5fafa;
+				background-color: rgb(255, 255, 255);
 			}
 
 			#main > section.three {
-				background-color: #ecf1f1;
+				background-color: rgb(255, 255, 255);
 			}
 
 			#main > section.four {
-				background-color: #e8edec;
+				background-color: rgb(255, 255, 255);
 			}
 
 /* Wide */
@@ -2440,7 +2441,7 @@ input, select, textarea {
 				width: 275px;
 				z-index: 10002;
 				width: 275px;
-				background: #222729 url("images/overlay.png");
+				background: #E2C652  url("images/overlay.png");
 				box-shadow: inset -0.25em 0 0.25em 0 rgba(0, 0, 0, 0.125);
 			}
 
@@ -2631,3 +2632,41 @@ input, select, textarea {
 				}
 
 	}
+	
+.demosection{
+    padding: 5%;
+    background-color: white;
+    border-radius: 10px;
+}	
+
+.demochapter{
+    padding: 5%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+body{
+    background-color: #F0F0F0;
+}
+
+.demochapter-content{
+    border: 1px black solid;
+    border-radius: 5px;
+}
+
+h3{
+    text-align: center;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.demochapter-row1{
+    width: 60%;
+}
+
+.demosection-row{
+    width: 40%;
+}

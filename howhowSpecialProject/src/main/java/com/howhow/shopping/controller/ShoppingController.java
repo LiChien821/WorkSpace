@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.howhow.account.service.AccountService;
+import com.howhow.entity.CourseBasic;
 import com.howhow.entity.UserAccountDt;
 import com.howhow.shopping.exception.CourseNotFoundException;
 import com.howhow.shopping.service.CourseBasicService;
@@ -39,6 +40,25 @@ public class ShoppingController {
 	@GetMapping("/product")
 	public String browseProduct(@RequestParam("id") int id ,Model m) throws CourseNotFoundException {
 		
+		
+		CourseBasic course = cService.findByID(id);
+		if(course==null || course.getStatusType().getStatusID()!=2) throw new CourseNotFoundException();
+		
+		int userid=-1;
+		UserAccountDt accountDetail = service.findByEmail(UtilityTool.getTokenEmail());
+		if(accountDetail!= null) userid = accountDetail.getUserId();
+		
+		m.addAttribute("courseid", id);
+		m.addAttribute("userid",userid);
+		m.addAttribute("pageNo", 1);
+		m.addAttribute("admin", 0);
+		
+		return "shopping/product";
+	}
+	
+	@GetMapping("/cms/product")
+	public String browseProductAdmin(@RequestParam("id") int id ,Model m) throws CourseNotFoundException {
+		
 		if(cService.findByID(id)==null) throw new CourseNotFoundException();
 		
 		int userid=-1;
@@ -48,9 +68,12 @@ public class ShoppingController {
 		m.addAttribute("courseid", id);
 		m.addAttribute("userid",userid);
 		m.addAttribute("pageNo", 1);
+		m.addAttribute("admin", 1);
 		
 		return "shopping/product";
 	}
+	
+	
 	
 	@GetMapping("/myshop")
 	public String enterMyShop(Model m) {

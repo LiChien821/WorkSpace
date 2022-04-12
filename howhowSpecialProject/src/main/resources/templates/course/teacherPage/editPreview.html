@@ -4,7 +4,7 @@
 <th:block th:fragment="content">
 	<div class="py-5">
 		<div class="container" id="editPreviewLectures">
-			<div class="row">
+			<div class="row" >
 				<div class="col-md-12">
 					<div class="card text-center">
 						<div class="card-header">
@@ -75,16 +75,21 @@
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header">
-													<h5 class="modal-title" id="previewBackdropLabel">影片上傳中</h5>
+													 <div v-if="completeUpload == 1">上傳完成</div>
+												    <div v-else> 影片上傳中  </div>
 
 												</div>
 												<div class="modal-body">
-													影片上傳中 請等候上傳
+													<div v-if="completeUpload == 1">影片上傳完成</div>
+													    <div v-else> 影片上傳中  請等候上傳</div>
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary"
-														data-bs-dismiss="modal">關閉提示窗並等候</button>
-													<button type="button" class="btn btn-primary">知道了</button>
+														data-bs-dismiss="modal" v-if="completeUpload == 1">關閉</button>
+													<button type="button" class="btn btn-secondary"
+														data-bs-dismiss="modal" v-else>關閉提示窗並等候</button>
+													<button type="button" class="btn btn-primary" v-if="completeUpload == 1" @click="closeCompleteStates" data-bs-dismiss="modal" > ok</button>
+													<a  class="btn btn-primary" v-else disabled  > 等候上傳 </a >
 												</div>
 											</div>
 										</div>
@@ -119,9 +124,11 @@
 										:aria-labelledby="'flush-heading'+sectionunit.sectionNumber"
 										data-bs-parent="#previewSectionList">
 										<div class="accordion-body " v-for="lecture in sectionunit.lecturesList">
-											<div class="d-flex justify-content-around border rounded-pill" v-if="lecture.availableToPreview">
-												<p class="p-0 m-0">{{lecture.lectureNumber}} . </p>
-												<h5 class="p-0 m-0">{{lecture.lecturesName}}</h5>
+											<div v-if="lecture.availableToPreview">
+												<div class="d-flex justify-content-around border rounded-pill" >
+													<p class="p-0 m-0">{{lecture.lectureNumber}} . </p>
+													<h5 class="p-0 m-0">{{lecture.lecturesName}}</h5>
+												</div>
 											</div>
 										</div>
 
@@ -143,7 +150,7 @@
 
 
 
-						<div class="card-footer text-muted"> 2 days ago </div>
+						
 					</div>
 				</div>
 			</div>

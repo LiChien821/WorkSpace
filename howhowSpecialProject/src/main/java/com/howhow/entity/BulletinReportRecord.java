@@ -1,6 +1,6 @@
 package com.howhow.entity;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,11 +14,10 @@ import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
-
 @Entity
 @Component
-@Table(name = "reportrecord")
-public class ReportRecord {
+@Table(name = "bulletinreportrecord")
+public class BulletinReportRecord {
 
 	@Id
 	@Column(name = "report_id")
@@ -29,18 +28,18 @@ public class ReportRecord {
 	private int userID;
 
 	@Transient
-	private int questionID;
+	private int bulletinID;
 
 	@Transient
 	private int reporttype;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private UserAccountMt usermt;
+	private UserAccountDt userdt;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "question_id")
-	private Question question;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "bulletin_id")
+	private Bulletin bulletin;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "reporttype")
@@ -49,9 +48,6 @@ public class ReportRecord {
 	@Column(name = "system_time")
 	private String systemtime;
 
-	public int getUserID() {
-		return usermt.getUserId();
-	}
 
 	public int getReporttype() {
 		return typeobj.getReporttype();
@@ -73,28 +69,33 @@ public class ReportRecord {
 		this.reportID = reportID;
 	}
 
-	public int getQuestionID() {
-		return questionID;
+	public int getBulletinID() {
+		return bulletinID;
 	}
 
-	public void setQuestionID(int questionID) {
-		this.questionID = questionID;
+	public void setBulletinID(int bulletinID) {
+		this.bulletinID = bulletinID;
 	}
 
-	public UserAccountMt getUsermt() {
-		return usermt;
+
+	public UserAccountDt getUserdt() {
+		return userdt;
 	}
 
-	public void setUsermt(UserAccountMt usermt) {
-		this.usermt = usermt;
+	public void setUserdt(UserAccountDt userdt) {
+		this.userdt = userdt;
 	}
 
-	public Question getQuestion() {
-		return question;
+	public int getUserID() {
+		return userID;
 	}
 
-	public void setQuestion(Question question) {
-		this.question = question;
+	public Bulletin getBulletin() {
+		return bulletin;
+	}
+
+	public void setBulletin(Bulletin bulletin) {
+		this.bulletin = bulletin;
 	}
 
 	public ReportType getTypeobj() {
@@ -112,6 +113,5 @@ public class ReportRecord {
 	public void setReporttype(int reporttype) {
 		this.reporttype = reporttype;
 	}
-	
 
 }

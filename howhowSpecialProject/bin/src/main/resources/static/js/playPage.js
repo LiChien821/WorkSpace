@@ -72,11 +72,6 @@ Vue.createApp({
 
 
 	},
-	mounted: function() {
-
-
-
-	},
 
 }).mount('#notesVue')
 
@@ -175,7 +170,7 @@ Vue.createApp({
 			.catch(function(error) {
 				console.log(error);
 			});
-			
+		
 		
 		
 	},
@@ -239,3 +234,4 @@ var player = videojs('my-video', {
 	controls: true
 });
 
+player.currentTime(0);

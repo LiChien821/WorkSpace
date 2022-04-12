@@ -30,7 +30,7 @@ const dataObj = {
 	newLectureNum: "",
 	newLectureName: "",
 
-
+	tempCover:"",
 	coverFile: "",
 	videoFile: "",
 	previewVideoFile:"",
@@ -43,7 +43,19 @@ const dataObj = {
 	editingSectionNum:0,
 	editSectionName:"",
 	editingLectureNum:0,
-	editLectureName:""
+	editLectureName:"",
+	
+   // 被選擇的章節裡的單元
+    selectedLectureList:[],
+    // 要修改的物件
+    catchSection:[],
+    // 修改中的內容
+    catchContent:'',
+    // 被選取的章節名稱
+    catchSectionName:'',
+    catchLecture:"",
+    startUploadBlock:0,
+    completeUpload:0
 
 };
 
@@ -60,8 +72,16 @@ Vue.createApp({
 			this.category = this.categoryList[id - 1];
 			this.course.category = this.category;
 		},
-		handleFileUpload() {
+		handleFileUpload(event) {
+			  var reader = new FileReader();
+			reader.addEventListener('load',this.imageLoader);
+
 			this.coverFile = this.$refs.file.files[0];
+			reader.readAsDataURL(this.coverFile);
+		},
+		imageLoader(event){
+			this.tempCover=event.target.result;
+			
 		},
 		createForm: function() {
 			axios({
@@ -157,53 +177,77 @@ Vue.createApp({
 
 
 
-
 Vue.createApp({
 	data() {
 		return dataObj;
 	},
-	computed:{
-		
-		
-	},
 	methods: {
-		getSectionNum: function(){
+			getSectionNum: function(){
 			this.newSectionNum= this.sectionList.length+1;
 		},
 		sendsectionmessage() {
 			axios({
 				method: 'post',
-
 				url: '/api/createSection/' + this.currentCourseID,
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
-
 				data: { sectionNumber: this.newSectionNum, sectionName: this.newSectionName }
 			})
-
 				.then(response => (this.sectionList = response.data,this.getSectionNum()))
 				.catch(function(error) {
 					console.log(error);
-
 				});
 			this.newSectionNum = "";
 			this.newSectionName = "";
-		}
-	},
+		},
+		refreshCourse(){
+				axios({
+			method: 'get',
+
+			url: '/api/getCourse/' + this.currentCourseID,
+			headers: { "Access-Control-Allow-Origin": "*" },
 
 
-}).mount('#createSection')
+		})
 
+			.then(response => (this.course = response.data, this.sectionList = response.data.sectionList, this.category = response.data.category,this.getSectionNum()))
+			.catch(function(error) {
+				console.log(error);
 
-Vue.createApp({
-	data() {
-		return dataObj;
-	},
-	computed:{
-		
-		
-	},
-
-	methods: {
+			});	
+		},
+		showSection(item) {
+            this.lectureList = [];
+            this.getSectionName(item);
+            this.lectureList=item.lecturesList;
+            this.getLectureNum();
+            this.currentSectionID=item.sectionID;
+        },
+        // 切換編輯模式
+        editSection(item) {
+            this.catchSection = item;
+            this.catchContent = item.sectionName
+        },
+         editLecture(item) {
+            this.catchLecture = item;
+            this.catchContent = item.lecturesName
+        },
+        commitLectureEdit(item) {
+            item.lecturesName = this.catchContent;
+            this.changeLectureName(item.lecturesID);
+            this.catchLecture = ""
+            alert("修改成功")
+        },
+        // 確認修改內容，切回普通模式
+        commitEdit(item) {
+            item.sectionName = this.catchContent;
+            this.changeSectionName(item.sectionID);
+            this.catchSection = []
+            alert("修改成功")
+        },
+        // 取得被選取的章節名稱
+        getSectionName(item){
+            this.catchSectionName = item.sectionName;
+        },
 		getLectureNum: function(){
 			this.newLectureNum= this.lectureList.length+1;
 		},
@@ -220,7 +264,7 @@ Vue.createApp({
 				url: '/api/updateSectionName/'+  this.currentCourseID,
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 
-				data: { sectionID:sectionID, sectionName: this.editSectionName }
+				data: { sectionID:sectionID, sectionName: this.catchContent}
 			})
 
 				.then(response => (this.sectionList = response.data,this.editingSectionNum=0,this.editSectionName=""))
@@ -230,6 +274,10 @@ Vue.createApp({
 				});
 			
 			
+		},
+		selectLecture: function(item) {
+			this.startUploadBlock=1;
+			this.lecture = item;
 		},
 		rejectLecture:function(){
 			this.editingLectureNum=0;
@@ -244,7 +292,7 @@ Vue.createApp({
 				url: '/api/updateLecturesName/'+  this.currentSectionID,
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 
-				data: { lecturesID:lecturesID, lecturesName: this.editLectureName }
+				data: { lecturesID:lecturesID, lecturesName: this.catchContent}
 			})
 
 				.then(response => (this.lectureList = response.data,this.editingLectureNum=0,this.editLectureName=""))
@@ -255,8 +303,8 @@ Vue.createApp({
 			
 			
 		},
-		sendlecturemessage: function(id) {
-			this.currentSectionID = id;
+		sendlecturemessage: function() {
+			
 			axios({
 				method: 'post',
 
@@ -306,7 +354,7 @@ Vue.createApp({
 
 			})
 
-				.then(response => (this.lectureList = response.data))
+				.then(response => (this.lectureList = response.data,this.refreshCourse(),this.getLectureNum()))
 				.catch(function(error) {
 					console.log(error);
 
@@ -322,7 +370,7 @@ Vue.createApp({
 
 			})
 
-				.then(response => (this.sectionList = response.data))
+				.then(response => (this.sectionList = response.data,this.getSectionNum()))
 				.catch(function(error) {
 					console.log(error);
 
@@ -351,35 +399,41 @@ Vue.createApp({
 		return dataObj;
 	},
 	methods: {
+		refreshLectureList:function(){
+			axios({
+				method: 'get',
+
+				url: '/api/getLectureList/' + this.currentSectionID,
+				headers: { "Access-Control-Allow-Origin": "*" },
+
+
+			})
+
+				.then(response => (this.lectureList = response.data))
+				.catch(function(error) {
+					console.log(error);
+
+				});
+		},
 		changeLectureList: function(id) {
 			this.lecture = "";
 			this.lectureList = this.sectionList[id].lecturesList;
 				axios({
 			method: 'get',
-
 			url: '/api/getCourse/' + this.currentCourseID,
 			headers: { "Access-Control-Allow-Origin": "*" },
-
-
 		})
-
 			.then(response => (this.course = response.data, this.sectionList = response.data.sectionList, this.category = response.data.category))
 			.catch(function(error) {
 				console.log(error);
-
 			});
-
 		},
-		selectLecture: function(id) {
-			this.lecture = this.lectureList[id];
-
+		selectLecture: function(item) {
+			this.lecture = item;
 		},
-		createForm: function() {
-			
+		createForm: function() {			
 			if (this.videoFile !== "") {
 				var postforms = new FormData();
-
-
 				postforms.append("videofile", this.videoFile);
 				postforms.append("lectureID", this.lecture.lecturesID);
 				let config = {
@@ -395,18 +449,23 @@ Vue.createApp({
 						postforms,
 						config
 					)
-					.then(response => (this.lecture = response.data,this.upLoadingText = ""))
+					.then(response => (this.lecture = response.data,this.upLoadingText = "",this.refreshLectureList(),this.completeUpload=1))
 					.catch(function(error) {
 						this.upLoadingText = "";
 						console.log(error);
-
 					});
-
-			}
-			
-			
+			}		
 		},
-
+		closeUploadBlock(){
+			this.startUploadBlock=0;
+			this.completeUpload=0;
+		},
+		closeUploadBlockWhenComplete(){
+			if(this.completeUpload == 1){
+				this.startUploadBlock=0;
+				this.completeUpload=0;
+			}
+		},
 		handleVideoUpload() {
 			this.videoFile = this.$refs.videofile.files[0];
 		},
@@ -440,8 +499,12 @@ Vue.createApp({
 			});
 
 		},
+		closeCompleteStates(){
+			this.completeUpload=0;
+		},
 		selectPreviewLecture: function(id) {
 			this.lecture = this.lectureList[id];
+			this.completeUpload=0;
 
 		},
 		createPreviewForm: function() {
@@ -465,7 +528,7 @@ Vue.createApp({
 						postforms,
 						config
 					)
-					.then(response => (this.previewableSectionList = response.data,this.previewUpLoadingText = ""))
+					.then(response => (this.previewableSectionList = response.data,this.previewUpLoadingText = "",this.completeUpload=1))
 					.catch(function(error) {
 						this.upLoadingText = "";
 						console.log(error);
