@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-
+///for fixing conflict
 const dataObj = {
 
 	purchasedcourses: "",
