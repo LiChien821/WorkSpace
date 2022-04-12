@@ -38,7 +38,9 @@ import com.howhow.util.UtilityTool;
 public class ProductController {
 	
 	public final int PAGESIZE=8;
-
+	
+	public final int VERIFICATEDSTATUSID=2;
+			
 	@Autowired
 	CourseBasicService cService;
 
@@ -115,7 +117,7 @@ public class ProductController {
 
 		for (CourseBasic courseBasic : list) {
 			CourseBasicDTO cb = dtoutils(courseBasic);
-			dtoList.add(cb);
+			if(cb.getCoursestatusid()==VERIFICATEDSTATUSID) dtoList.add(cb);
 
 		}
 
@@ -146,7 +148,7 @@ public class ProductController {
 
 		for (CourseBasic courseBasic : list) {
 			CourseBasicDTO cb = dtoutils(courseBasic);
-			dtoList.add(cb);
+			if(cb.getCoursestatusid()==VERIFICATEDSTATUSID) dtoList.add(cb);
 		}
 		
 		Page<CourseBasicDTO> page = toPage(dtoList, pageable);
@@ -167,7 +169,7 @@ public class ProductController {
 
 		for (CourseBasic courseBasic : list) {
 			CourseBasicDTO cb = dtoutils(courseBasic);
-			dtoList.add(cb);
+			if(cb.getCoursestatusid()==VERIFICATEDSTATUSID) dtoList.add(cb);
 		}
 
 		Page<CourseBasicDTO> page = toPage(dtoList, pageable);
