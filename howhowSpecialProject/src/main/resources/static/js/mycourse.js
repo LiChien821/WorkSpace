@@ -18,6 +18,7 @@ createApp({
 	data() {
 		return dataObj;
 	},
+	
 
 	mounted: function() {
 
@@ -45,15 +46,28 @@ createApp({
 	},
 
 	methods: {
+<<<<<<< HEAD
+
+		insertcourserank: function(courseid) {
+=======
 		goLearning: function(courseid) {
 			location.href = '/product?id=' + courseid;
 		},
 
 		insertcourserank: function() {
+>>>>>>> 276d1edf5bf391817d7f005ef8e698d533283805
 
 			this.rank = document.getElementById("rank").value;
 			this.message = document.getElementById("message").value;
 
+<<<<<<< HEAD
+			console.log("userid", this.userid);
+			console.log("courseid", courseid);
+			console.log("rank", this.rank);
+			console.log("message", this.message);
+
+=======
+>>>>>>> 276d1edf5bf391817d7f005ef8e698d533283805
 			axios({
 				method: 'post',
 				url: '/api/insertcourserank',
@@ -81,7 +95,38 @@ createApp({
 				url: '/api/deletecourserank/'+this.userid+'/'+courseid,
 				headers: {"Access-Control-Allow-Origin": "*" },
 			})
+<<<<<<< HEAD
+				.then(function(response) {
+					console.log(response);
+				})
+				.catch(function(error) {
+					console.log(error);
+				});
+
+		},
+		
+		deletecourserank: function(courseid) {
+
+			this.rank = document.getElementById("rank").value;
+			this.message = document.getElementById("message").value;
+
+			console.log("userid", this.userid);
+			console.log("courseid", courseid);
+			console.log("rank", this.rank);
+			console.log("message", this.message);
+
+			axios({
+				method: 'get',
+				url: '/howhow/api/deletecourserank/',
+				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+				data: { userid: this.userid, courseid: courseid, rank: this.rank, message: this.message }
+			})
+				.then(function(response) {
+					console.log(response);
+				})
+=======
 				.then(this.rankstatus.splice(index, 1))
+>>>>>>> 276d1edf5bf391817d7f005ef8e698d533283805
 				.catch(function(error) {
 					console.log(error);
 				});
