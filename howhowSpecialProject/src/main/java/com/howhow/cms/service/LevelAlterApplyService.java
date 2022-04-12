@@ -28,4 +28,8 @@ public class LevelAlterApplyService {
 		}
 		return null;
 	}
+	
+	public LevelAlterApply insertApply(LevelAlterApply apply) {
+		return repo.save(apply);
+	}
 }

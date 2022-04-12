@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.howhow.cms.dto.ReportDetailObj;
-import com.howhow.cms.service.QuestionService;
 import com.howhow.cms.service.ReportRecordService;
+import com.howhow.course.bulletin.service.BulletinService;
 import com.howhow.entity.ReportRecord;
 
 @Controller
@@ -23,7 +23,7 @@ public class ReportController {
 	private ReportRecordService rrs;
 	
 	@Autowired
-	private QuestionService qs;
+	private BulletinService bs;
 
 	@GetMapping("/report")
 	public String test() {
@@ -43,9 +43,9 @@ public class ReportController {
 			ReportDetailObj DO = new ReportDetailObj();
 			
 			DO.setReportid(record.getReportID());
-			DO.setQuestionid(record.getQuestion().getQuestionID());
+			DO.setBulletionID(record.getBulletin().getBulletinid());
 			DO.setReportedPerson(record.getUsermt().getUserId());
-			DO.setReportcontent(record.getQuestion().getQuestionContext());
+			DO.setReportcontent(record.getBulletin().getContent());
 			DO.setReporttypename(record.getTypeobj().getReportname());
 			DO.setReporttime(record.getSystemtime());
 			
@@ -64,9 +64,9 @@ public class ReportController {
 	
 	// 刪除問題
 	@ResponseBody
-	@DeleteMapping("/question")
+	@DeleteMapping("/bulletin")
 	public List<ReportDetailObj> deleteQuestion(@RequestBody ReportDetailObj reportdetail) {
-		qs.deleteQuestion(reportdetail.getQuestionid());
+		bs.deleteById(reportdetail.getBulletionID());
 		return showAllReport();
 	}
 }

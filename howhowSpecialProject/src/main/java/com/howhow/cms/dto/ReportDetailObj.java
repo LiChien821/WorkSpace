@@ -3,7 +3,7 @@ package com.howhow.cms.dto;
 public class ReportDetailObj {
 	private Integer reportid;
 	private Integer reportedPerson;
-	private Integer questionid;
+	private Integer bulletionID;
 	private String reportcontent;
 	private String reporttypename;
 	private String reporttime;
@@ -48,12 +48,12 @@ public class ReportDetailObj {
 		this.reportid = reportid;
 	}
 
-	public Integer getQuestionid() {
-		return questionid;
+	public Integer getBulletionID() {
+		return bulletionID;
 	}
 
-	public void setQuestionid(Integer questionid) {
-		this.questionid = questionid;
+	public void setBulletionID(Integer bulletionID) {
+		this.bulletionID = bulletionID;
 	}
 
 }
