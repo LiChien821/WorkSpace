@@ -602,7 +602,7 @@ var bulletin = Vue.createApp({
 					"Access-Control-Allow-Origin": "*"
 				},
 				params: {
-					query: this.currQuery
+					query: this.currQuery, courseid: this.courseId
 				}
 			})
 				.then((response) => {

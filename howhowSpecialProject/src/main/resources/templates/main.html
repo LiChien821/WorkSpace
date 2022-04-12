@@ -69,6 +69,15 @@
 				
 				<hr/>
 			</div>
+			<div sec:authorize="hasAuthority('SuperAdmin')" style="padding:10px;font-size:18px;margin-left:12px" >
+				<span>您的身分為
+					[[${account.userstatus.accountLevel}]]</span>
+							<a th:href="@{/cms/category}" style="color: #666666;">
+				<input type="Button" value="後台" style="background-color: #ffffff; border-radius: 7px; height: 50px; width: 200px; color: #666666; margin-top: 20px; border: solid 1px gray;letter-spacing: 1px;font-size: 16px" ></input>
+			</a>
+				
+				<hr/>
+			</div>
 			<div
 				sec:authorize="hasAuthority('Teacher') or hasAuthority('Student')"
 				style="padding:10px;font-size:18px;margin-left:12px" >

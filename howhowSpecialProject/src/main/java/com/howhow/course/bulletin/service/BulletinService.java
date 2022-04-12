@@ -62,8 +62,8 @@ public class BulletinService {
 	}
 	
 	//findAllBySearch
-	public List<Bulletin> findAllBySearch(String str) {
-		List<Bulletin> op1 = bRepo.findAllBySearch("%"+str+"%");
+	public List<Bulletin> findAllBySearch(String str, int cid) {
+		List<Bulletin> op1 = bRepo.findAllBySearch("%"+str+"%", cid);
 		if (op1.isEmpty()) {
 			return null;
 		}

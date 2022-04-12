@@ -59,9 +59,10 @@ public interface BulletinRepository extends JpaRepository<Bulletin, Integer> {
 	           		+ "		WHERE content LIKE ?1 OR title LIKE ?1 \n"
 	           		+ "	    UNION \n"
 	           		+ "	    SELECT bulletin_id FROM BulletinReply \n"
-	           		+ "	    WHERE reply_content LIKE ?1)\n"
+	           		+ "	    WHERE reply_content LIKE ?1) and\n"
+	           		+ "		lecture_id in (select lectures_id from lectures where section_id in (select section_id from section where course_id = ?2))"
 	           		+ "	ORDER BY creation_time DESC;")
-	public List<Bulletin> findAllBySearch(String str);
+	public List<Bulletin> findAllBySearch(String str, int cid);
 	
 //	@Query(nativeQuery = true,
 //	           value = "SELECT B.section_id, section_name, lectures_id, lectures_name FROM lectures AS A \n"
