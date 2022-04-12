@@ -1,0 +1,43 @@
+.container-all{
+    display: flex;
+    align-items: stretch;
+    background-color: #DDDDDD;
+}
+
+#sidebar{
+    width: 250px;
+    height: 100vh;
+    background-color: #2B2B2B;
+    color: #404040;
+
+}
+
+#sidebar ul li a{
+    padding: 10px;
+    font-size: 20px;
+    display: block;
+    text-decoration: none;
+    color: white;
+}
+
+#sidebar ul li a:hover{
+    color: white;
+    background-color:  #1075a0 ;
+}
+
+a.active{
+    background-color: #1075a0;
+}
+
+.whitetriangle{
+    position: relative;
+    float: right;
+    bottom: 5px;
+    left: 10px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 20px 30px 20px 0;
+    border-color: transparent #DDDDDD transparent transparent;
+    
+}

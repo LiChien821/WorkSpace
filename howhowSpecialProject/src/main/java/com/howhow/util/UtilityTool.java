@@ -12,6 +12,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,7 +29,8 @@ public class UtilityTool {
 
 	@Autowired
 	private AccountService service;
-
+	
+	
 	public static String getSiteURL(HttpServletRequest request) {
 		String siteURL = request.getRequestURI().toString();
 		System.out.println("siteURL+getServletPath" + siteURL + "," + request.getServletPath());
@@ -74,8 +76,8 @@ public class UtilityTool {
 
 		content = content.replace("[[name]]", acc.getAccount());
 		String myip = InetAddress.getLocalHost().getHostAddress();
-
-		String verifyURL = myip + UtilityTool.getSiteURL(request) + "/verify?code=" + acc.getVerificationcode()
+		String azureUrl="https://howhowproject.azurewebsites.net";
+		String verifyURL = myip + "/verify?code=" + acc.getVerificationcode()
 				+ "&email=" + toAddress;
 		System.out.println("/verify?code=" + randomCode + "&email=" + toAddress);
 		content = content.replace("[[URL]]", verifyURL);

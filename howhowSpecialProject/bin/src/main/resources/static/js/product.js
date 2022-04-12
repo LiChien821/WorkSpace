@@ -35,6 +35,18 @@ const dataObj = {
 	skipTime: "",
 
 	blobSetting: "",
+	
+	userid:"",
+	
+	notestatus: false,
+	
+	notesList: "",
+	
+	notescontext:"",
+	
+	duration:"",
+	
+	currentTime: ""
 
 };
 
@@ -150,6 +162,31 @@ var product = Vue.createApp({
 	},
 
 	methods: {
+		
+		createNotes: function() {
+			this.duration = player.currentTime();
+			axios({
+				method: 'post',
+				url: '/api/createNotes',
+				headers: { "Access-Control-Allow-Origin": "*" },
+				data: {
+					userID: this.userid,
+
+					lectureID: this.currentLecturesID,
+
+					duration: this.duration,
+
+					notescontext: this.notescontext,
+
+				},
+
+			})
+				.then(response => (this.notesList = response.data, this.notescontext = ""))
+				.catch(function(error) {
+					console.log(error);
+				});
+		},
+
 
 		changetime: function (time) {
 			player.pause();
@@ -345,7 +382,15 @@ var product = Vue.createApp({
 			this.videoSrcUrl = this.baseUrl + this.lecture.videoSource;
 			player.src(this.videoSrcUrl);
 		},
-
+		
+		changeNoteStatus: function() {
+			if(this.notestatus==true) {
+				this.notestatus=false;
+			} else {
+				this.notestatus=true;
+			}
+		},
+		
 		handlePreviewVideoUrl: function (lecture) {
 			this.lecture = lecture;
 			this.currentLecturesID = this.lecture.lecturesID;
@@ -701,7 +746,8 @@ var bulletin = Vue.createApp({
 					console.log("error: ");
 					console.log(error);
 				})
-		}
+		},
+		
 	}
 
 })

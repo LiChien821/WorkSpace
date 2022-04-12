@@ -1,0 +1,37 @@
+.content{
+    margin-top: 50px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+
+.text{
+    padding: 20px;
+}
+
+.category-type{
+    padding: 20px;
+}
+
+.content-exist{
+    margin: 10px;
+    border: black solid 1px;
+    border-radius: 10px;
+}
+.table{
+    margin-top: 10px;
+}
+
+.classtype{
+    white-space:nowrap;
+}
+
+.add-button{
+    position: relative;
+    left: 80%;
+    margin-bottom: 20px;
+}
+
+.existcategory{
+    padding: 10px;
+}

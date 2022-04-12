@@ -40,7 +40,7 @@
 	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css}">
 
 
-
+<link rel="stylesheet" th:href="@{/css/universal-navbar.css}"></link>
 
 
 <!-- <script -->
@@ -53,28 +53,136 @@
 
 </head>
 <body>
-	<script src="./js/header.js"></script>
+	<!-- <div th:insert="universal-navbar :: universal-navbar"></div>
+	 -->
+	
+	
 	<div id="browse">
-		<div
-			style="width: 1500px; position: relative; margin: 0px auto; border: solid 1px;">
-			<div class="row">
-				<div class="col-2">
-					<a href="#" @click.prevent="searchAll()">所有課程</a>
-				</div>
-				<div v-for="category in categories" class="col-1">
-					<a href="#" @click.prevent="searchByCategory(category.id)">{{category.name}}</a>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-4" v-if="currentcategoryid==0">
-					<input id="search" v-model="search" placeholder="尋找"
-						@keyup.enter="goSearch(search)">
-					<button class="px-25" @click="goSearch(search)">搜尋</button>
-				</div>
-				<div class="col-4" v-if="currentcategoryid!=0">
-					{{currentcategoryname}} - {{currentcategorydescription}}</div>
-			</div>
+	
+	<nav th:fragment="universal-navbar" class="navbar navbar-expand-lg navbar-light bg-light p-0 m-0"
+        style="height: 130px; background-color:#E2C652;">
+        <div class="container-fluid px-3 header">
+            <a class="navbar-brand" href="/">
+                <img class="icon" th:src="@{/image/unnamed.png}" alt="" />
+            </a>
+            <div class="nav-item dropdown me-2 py-2 ms-5">
+                <div class="dropdown-toggle" href="#" id="category" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <small><span>| 類別 |</span></small>
+                </div>
+                <ul class="dropdown-menu" aria-labelledby="category">
+                    <li class="dropdown-submenu dropdown-item" v-for="category in categories">
+                        <div class="d-flex justify-content-between" @click="searchByCategory(category.cId)">
+                            <small><span>{{ category.cItemName }}</span></small>
+                            <i class="fa fa-chevron-right"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
 
+            <div class="ms-3 navbar-search d-flex align-items-center justify-content-center">
+
+                <input type="search" placeholder="搜尋任何事物..." v-model="search" aria-describedby="button-addon4"
+                    @keyup.enter="goSearch(search)" class="navbar-search-input rounded-pill border-0 px-3">
+                <div class="">
+                    <button id="button-addon4" type="button" class="border-0 rounded-pill"
+                        @click="goSearch(search)" style="height: 40px; background-color:#E2C652;"><i
+                            class="fa fa-search"></i></button>
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+                <div class="navbar-nav">
+                    <div class="nav-item dropdown mx-2 py-2 d-flex align-items-center">
+                        <div id="teacher" role="button" aria-expanded="false">
+                            <a class="nav-link" href="/teacherPage/page">
+                                <small><span>講師</span></small>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item dropdown mx-2 py-2 d-flex align-items-center">
+                        <div id="my-course" role="button" aria-expanded="false">
+                            <a class="nav-link" href="/mycourse">
+                                <small><span>我的課程</span></small>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item mx-2 py-2">
+                        <div id="shopping-cart" role="button" aria-expanded="false">
+                            <a class="nav-link" href="/myshop">
+                                <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item mx-2 py-2 " v-if="!isLogged">
+                        <div href="" id="navbar-loggin" role="button" aria-expanded="false">
+                            <a style="color:#E2C652" class="nav-link" th:href="@{/login}">
+                                <input type="button" class="bt2" value="登入"></input>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item mx-2 py-2 " v-if="!isLogged">
+                        <div href="" id="navbar-register" role="button" aria-expanded="false">
+                            <a th:href="@{/register}" class="nav-link">
+                                <input type="button" class="bt1" value="註冊"></input>
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <div class="nav-item mx-2 py-2 " v-if="isLogged">
+                        <div href="" id="profile" role="button" aria-expanded="false">
+                            <a class="nav-link" href="/home">
+                                <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+	
+<!-- 		<div -->
+<!-- 			style="width: 1500px; position: relative; margin: 0px auto; border: solid 1px;"> -->
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-2"> -->
+<!-- 					<a href="#" @click.prevent="searchAll()">所有課程</a> -->
+<!-- 				</div> -->
+<!-- 				<div v-for="category in categories" class="col-1"> -->
+<!-- 					<a href="#" @click.prevent="searchByCategory(category.id)">{{category.name}}</a> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-4" v-if="currentcategoryid==0"> -->
+<!-- 					<input id="search" v-model="search" placeholder="尋找" -->
+<!-- 						@keyup.enter="goSearch(search)"> -->
+<!-- 					<button class="px-25" @click="goSearch(search)">搜尋</button> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-4" v-if="currentcategoryid!=0"> -->
+<!-- 					{{currentcategoryname}} - {{currentcategorydescription}}</div> -->
+<!-- 			</div> -->
+			
+			<div class="container-fluid" style="background-color:white; height:280px">
+				<div class="row" v-if="currentcategoryid!=0">
+					<div class="col-2"></div>
+					<div class="col-2" style="line-height:120px; font-size:50px; color:orange">{{currentcategoryname}}</div>
+					<div class="col-8"></div>
+					<div class="col-2"></div>
+					<div class="col-6" style="line-height:40px; font-size:25px">{{currentcategorydescription}}</div>
+				</div>
+				<div class="row" v-else>
+					<div class="col-2"></div>
+					<div class="col-8" style="line-height:280px; font-size:50px; color:orange">快來加入HowHow一起學習吧!!</div>
+				</div>
+			</div>
+			
+			
+			
+			
 			<div class="row"
 				style="position: absolute; left: 50%; transform: translate(-50%); border-color: red; width: 1200px;">
 				<div class="col-12 col-lg-12">
@@ -256,22 +364,6 @@
 							</ul>
 						</div>
 
-						<div
-							class="col-12 flex justify-content-start justify-content-lg-end col-lg-8 order-1 order-lg-2">
-							<div class="pagination-results flex flex-wrap align-items-center">
-								<p class="m-0">Showing 1–3 of 12 results</p>
-
-								<form>
-									<select>
-										<option>Show: 06</option>
-										<option>Show: 12</option>
-										<option>Show: 18</option>
-										<option>Show: 24</option>
-									</select>
-								</form>
-							</div>
-							<!-- .pagination-results -->
-						</div>
 					</div>
 					<!-- .pagination -->
 				</div>
@@ -304,8 +396,8 @@
 
 
 	<script type="module" th:src="@{/js/browse.js}"></script>
-	<script type="module" th:src="@{/js/universal-navbar.js}"></script>
-
+	<!-- <script type="module" th:src="@{/js/universal-navbar.js}"></script>
+ -->
 
 
 
