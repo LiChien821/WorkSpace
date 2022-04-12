@@ -1,6 +1,6 @@
 package com.howhow.cms.dto;
 
-public class ReportDetailObj {
+public class BulletinReportDTO {
 	private Integer reportid;
 	private Integer reportedPerson;
 	private Integer bulletionID;

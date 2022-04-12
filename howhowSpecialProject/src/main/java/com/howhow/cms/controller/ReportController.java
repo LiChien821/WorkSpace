@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.howhow.cms.dto.BulletinDTO;
 import com.howhow.cms.dto.BulletinReplyDTO;
-import com.howhow.cms.dto.ReportDetailObj;
+import com.howhow.cms.dto.BulletinReportDTO;
+import com.howhow.cms.dto.ReplyReportDTO;
 import com.howhow.cms.service.BulletinReplyReportRecordService;
 import com.howhow.cms.service.BulletinReportRecordService;
 import com.howhow.cms.service.ReportTypeService;
@@ -51,7 +52,7 @@ public class ReportController {
 		return "cms/reportmain.html";
 	}
 
-	//	檢舉bulletin
+	// 檢舉bulletin
 	@PostMapping("/bulletinreport")
 	public void addBulletinReport(@RequestBody BulletinDTO bulletinId) {
 		BulletinReportRecord reportrecord = new BulletinReportRecord();
@@ -65,7 +66,7 @@ public class ReportController {
 		brrs.insertReport(reportrecord);
 	}
 	
-	//	檢舉reply
+	// 檢舉reply
 	@PostMapping("/replyreport")
 	public void addReplyReport(@RequestBody BulletinReplyDTO replyId) {
 		BulletinReplyReportRecord  reportrecord = new BulletinReplyReportRecord();
@@ -82,14 +83,14 @@ public class ReportController {
 	// 顯示所有被檢舉的問題
 	@ResponseBody
 	@GetMapping("/showbulletinreport")
-	public List<ReportDetailObj> showAllReport() {
+	public List<BulletinReportDTO> showAllReport() {
 		
 		List<BulletinReportRecord> records = brrs.findAll();
-		List<ReportDetailObj> details = new ArrayList<ReportDetailObj>();
+		List<BulletinReportDTO> details = new ArrayList<BulletinReportDTO>();
 		
 		for (BulletinReportRecord record : records) {
 			
-			ReportDetailObj DO = new ReportDetailObj();
+			BulletinReportDTO DO = new BulletinReportDTO();
 			
 			DO.setReportid(record.getReportID());
 			DO.setBulletionID(record.getBulletin().getBulletinid());
@@ -103,10 +104,33 @@ public class ReportController {
 		return details;
 	}
 	
-	// 駁回檢舉
+	//顯示所有被檢舉的回答
+	@ResponseBody
+	@GetMapping("/showreplyreport")
+	public List<ReplyReportDTO> showAllReplyReport(){
+		List<ReplyReportDTO> replyDTOs = new ArrayList<ReplyReportDTO>();
+		List<BulletinReplyReportRecord> reportrecords = brrrs.findAll();
+		
+		for(BulletinReplyReportRecord reportrecord : reportrecords) {
+			ReplyReportDTO replyDTO = new ReplyReportDTO();
+			
+			replyDTO.setReplyID(reportrecord.getBulletinreplyID());
+			replyDTO.setReportcontent(reportrecord.getBulletinreply().getReplycontent());
+			replyDTO.setReporttypename(reportrecord.getTypeobj().getReportname());
+			replyDTO.setReportedPerson(reportrecord.getUserdt().getUserId());
+			replyDTO.setReportid(reportrecord.getReportID());
+			replyDTO.setReporttime(reportrecord.getSystemtime());
+			
+			replyDTOs.add(replyDTO);
+		}
+		return replyDTOs;
+	}
+	
+	
+	// 駁回問題檢舉
 	@ResponseBody
 	@DeleteMapping("/reportdata")
-	public List<ReportDetailObj> deleteReport(@RequestBody ReportDetailObj reportdetail){
+	public List<BulletinReportDTO> deleteReport(@RequestBody BulletinReportDTO reportdetail){
 		brrs.deleteReport(reportdetail.getReportid());
 		return showAllReport();
 	}
@@ -114,7 +138,7 @@ public class ReportController {
 	// 刪除問題
 	@ResponseBody
 	@DeleteMapping("/bulletin")
-	public List<ReportDetailObj> deleteQuestion(@RequestBody ReportDetailObj reportdetail) {
+	public List<BulletinReportDTO> deleteQuestion(@RequestBody BulletinReportDTO reportdetail) {
 		bs.deleteById(reportdetail.getBulletionID());
 		return showAllReport();
 	}
