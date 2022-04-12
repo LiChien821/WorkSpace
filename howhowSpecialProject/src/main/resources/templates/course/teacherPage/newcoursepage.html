@@ -11,12 +11,19 @@
 	<div id="header">
 
 		<div class="top">
-
+			<div>
+				<a class="navbar-brand" href="/">
+					<img class="icon container-fluid" th:src="@{/image/unnamed.png}" alt="" />
+				</a>
+			</div>
 			<!-- Logo -->
 			<div id="logo">
-				<span class="image fas fa-user-circle fa-2x" alt=""> </span>
-				<h1 id="title">[[${creator.givenName}]] [[${creator.familyName}]]</h1>
-				<p>[[${creator.acountCreationTime}]]</p>
+				<a href="/home">
+					<span class="image fas fa-user-circle fa-2x"></span>
+					<h1 id="title">[[${creator.givenName}]]
+						[[${creator.familyName}]]</h1>
+					<p>[[${creator.acountCreationTime}]]</p>
+				</a>
 			</div>
 
 			<!-- Nav -->
@@ -52,66 +59,66 @@
 					style="max-width: 700px; margin: 0 auto" enctype="multipart/form-data" th:object="${courseBasic}"
 					onsubmit="return checkEmailUnique(this);">
 
-					
-						<div class="container">
-							<div class="row">
-								<div class="d-flex justify-content-center">
-									<h1 class="text-dark">創造一門新課程</h1>
-									<p>並上傳封面照</p>
-								</div>
-							</div>
-							<div class="row" id="text">
 
-								<input type="text" id="defaultCourseID" hidden th:value="*{courseID}">
-
-								<div class="col-md-6 p-4">
-
-
-									<div class="form-row">
-										<label class="col-sm-4 col-form-label">課程名稱</label>
-										<div class="col-sm-8">
-											<input type="text" class="form-control" th:field="*{courseName}" required
-												minlength="2" maxlength="15" />
-										</div>
-
-										<label for="category" class="col-sm-4 col-form-label">分類</label>
-										<div class="col-sm-8">
-											<select name="category" id="category" th:field="*{category}">
-												<th:block th:each="cat: ${cateList}">
-													<option th:value="${cat.id}">[[${cat.name}]]</option>
-												</th:block>
-
-											</select>
-
-										</div>
-
-										<label class="col-sm-4 col-form-label">價錢</label>
-										<div class="col-sm-8">
-											<input type="text" class="form-control" th:field="*{price}" required
-												minlength="2" maxlength="15" />
-										</div>
-
-
-
-
-
-									</div>
-
-								</div>
-
-								<div class="col-md-6 p-4">
-									<label for="textarea" class="container-fluid">課程介紹</label>
-									<div class="container-fluid">
-										<textarea id="textarea" name="textarea" rows="4" cols="37"
-											th:field="*{description}">
-											介紹一下將要開設的課程,與適合購買課程的對象
-										</textarea>
-									</div>
-								</div>
-
+					<div class="container">
+						<div class="row">
+							<div class="d-flex justify-content-center">
+								<h1 class="text-dark">創造一門新課程</h1>
+								<p>並上傳封面照</p>
 							</div>
 						</div>
-					
+						<div class="row" id="text">
+
+							<input type="text" id="defaultCourseID" hidden th:value="*{courseID}">
+
+							<div class="col-md-6 p-4">
+
+
+								<div class="form-row">
+									<label class="col-sm-4 col-form-label">課程名稱</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" th:field="*{courseName}" required
+											minlength="2" maxlength="15" />
+									</div>
+
+									<label for="category" class="col-sm-4 col-form-label">分類</label>
+									<div class="col-sm-8">
+										<select name="category" id="category" th:field="*{category}">
+											<th:block th:each="cat: ${cateList}">
+												<option th:value="${cat.id}">[[${cat.name}]]</option>
+											</th:block>
+
+										</select>
+
+									</div>
+
+									<label class="col-sm-4 col-form-label">價錢</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" th:field="*{price}" required
+											minlength="2" maxlength="15" />
+									</div>
+
+
+
+
+
+								</div>
+
+							</div>
+
+							<div class="col-md-6 p-4">
+								<label for="textarea" class="container-fluid">課程介紹</label>
+								<div class="container-fluid">
+									<textarea id="textarea" name="textarea" rows="4" cols="37"
+										th:field="*{description}">
+										介紹一下將要開設的課程,與適合購買課程的對象
+									</textarea>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
 
 
 

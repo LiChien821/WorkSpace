@@ -13,11 +13,19 @@
 
 		<div class="top">
 
+			<div>
+				<a class="navbar-brand" href="/">
+					<img class="icon container-fluid" th:src="@{/image/unnamed.png}" alt="" />
+				</a>
+			</div>
 			<!-- Logo -->
 			<div id="logo">
-				<span class="image fas fa-user-circle fa-2x" alt=""> </span>
-				<h1 id="title">[[${creator.givenName}]] [[${creator.familyName}]]</h1>
-				<p>[[${creator.acountCreationTime}]]</p>
+				<a href="/home">
+					<span class="image fas fa-user-circle fa-2x"></span>
+					<h1 id="title">[[${creator.givenName}]]
+						[[${creator.familyName}]]</h1>
+					<p>[[${creator.acountCreationTime}]]</p>
+				</a>
 			</div>
 
 			<!-- Nav -->
