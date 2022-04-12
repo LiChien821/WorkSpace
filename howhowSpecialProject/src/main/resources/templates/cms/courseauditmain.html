@@ -73,7 +73,7 @@
                                                 <td>{{ item.createID }}</td>
                                                 <td>{{ item.descript }}</td>
                                                 <td>{{ item.price }}</td>
-                                                <td><a :href="'/play/' + item.courseID">前往</a></td>
+                                                <td><a :href="'/cms/product?id=' + item.courseID">前往</a></td>
                                                 <td>{{ item.status }}</td>
                                                 <td>
                                                     <button class="btn btn-primary" @click="passAudit(item)">通過</button>
