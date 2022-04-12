@@ -233,12 +233,14 @@ Vue.createApp({
         },
         commitLectureEdit(item) {
             item.lecturesName = this.catchContent;
+            this.changeLectureName(item.lecturesID);
             this.catchLecture = ""
             alert("修改成功")
         },
         // 確認修改內容，切回普通模式
         commitEdit(item) {
             item.sectionName = this.catchContent;
+            this.changeSectionName(item.sectionID);
             this.catchSection = []
             alert("修改成功")
         },
@@ -262,7 +264,7 @@ Vue.createApp({
 				url: '/api/updateSectionName/'+  this.currentCourseID,
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 
-				data: { sectionID:sectionID, sectionName: this.editSectionName }
+				data: { sectionID:sectionID, sectionName: this.catchContent}
 			})
 
 				.then(response => (this.sectionList = response.data,this.editingSectionNum=0,this.editSectionName=""))
@@ -290,7 +292,7 @@ Vue.createApp({
 				url: '/api/updateLecturesName/'+  this.currentSectionID,
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 
-				data: { lecturesID:lecturesID, lecturesName: this.editLectureName }
+				data: { lecturesID:lecturesID, lecturesName: this.catchContent}
 			})
 
 				.then(response => (this.lectureList = response.data,this.editingLectureNum=0,this.editLectureName=""))

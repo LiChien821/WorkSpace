@@ -56,7 +56,7 @@
                                                 @click="commitEdit(item)">確認</button>
                                         </div>
                                     </td>
-                                    <td><button type="button" class="btn btn-danger">刪除</button></td>
+                                    <td><button type="button" class="btn btn-danger"  @click="deleteSection(item.sectionID)">刪除</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -67,7 +67,7 @@
 
                     <!-- 編輯單元區域 -->
                     <div class="demosection">
-                         <h3 v-if="catchSectionName !== ''" >新增單元( {{catchSectionName}} )</h3> 
+                         <h3 v-if="catchSectionName !== ''" >新增( {{catchSectionName}} )單元</h3> 
                          <h3 v-else>請先選擇章節</h3>
                         <div class="input-group mb-3 addchepter">
                             <input class="input-group-text text" id="basic-addon1" v-model="newLectureNum">
