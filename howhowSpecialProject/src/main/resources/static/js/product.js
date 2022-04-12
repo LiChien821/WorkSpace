@@ -46,7 +46,9 @@ const dataObj = {
 	
 	duration:"",
 	
-	currentTime: ""
+	currentTime: "",
+	
+	admin:""
 
 };
 
@@ -70,6 +72,7 @@ var product = Vue.createApp({
 
 	mounted: function () {
 		this.courseid = document.getElementById("courseid").value;
+		this.admin = document.getElementById("admin").value;
 		axios({
 			method: 'get',
 			url: '/api/findcoursebyid/' + this.courseid,
@@ -477,7 +480,8 @@ const dataObj2 = {
 	bulletins: "",
 	courseId: "",
 
-	purchasedstatus: ""
+	purchasedstatus: "",
+	admin:""
 };
 
 var bulletin = Vue.createApp({
@@ -496,6 +500,7 @@ var bulletin = Vue.createApp({
 		function () {
 			this.courseId = document.getElementById("courseid").value;
 			this.userId = document.getElementById("userid").value;
+			this.admin = document.getElementById("admin").value;
 			var courseId = this.courseId;
 			function getBulletinByCourseId(courseId) {
 				console.log(courseId);
