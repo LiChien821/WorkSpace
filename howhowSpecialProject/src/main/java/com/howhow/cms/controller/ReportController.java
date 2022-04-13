@@ -53,21 +53,22 @@ public class ReportController {
 
 	//	檢舉bulletin
 	@PostMapping("/bulletinreport")
-	public void addBulletinReport(@RequestBody BulletinDTO bulletinId) {
+	@ResponseBody
+	public boolean addBulletinReport(@RequestBody BulletinDTO bulletinId) {
 		BulletinReportRecord reportrecord = new BulletinReportRecord();
 		Bulletin bulletin = bs.findById(bulletinId.getBulletinid());
-		
 		reportrecord.setTypeobj(rts.findById(bulletinId.getReporttypeid()));
 		reportrecord.setBulletin(bulletin);
 		reportrecord.setSystemtime(UtilityTool.getSysTime());
 		reportrecord.setUserdt(bulletin.getLauncherid());
-		
 		brrs.insertReport(reportrecord);
+		return true;
 	}
 	
 	//	檢舉reply
 	@PostMapping("/replyreport")
-	public void addReplyReport(@RequestBody BulletinReplyDTO replyId) {
+	@ResponseBody
+	public boolean addReplyReport(@RequestBody BulletinReplyDTO replyId) {
 		BulletinReplyReportRecord  reportrecord = new BulletinReplyReportRecord();
 		BulletinReply reply = brs.findById(replyId.getBulletinreplyid());
 		
@@ -75,8 +76,9 @@ public class ReportController {
 		reportrecord.setUserdt(reply.getRespondentid());
 		reportrecord.setSystemtime(UtilityTool.getSysTime());
 		reportrecord.setTypeobj(rts.findById(replyId.getReporttypeid()));
-		
+	
 		brrrs.insertReply(reportrecord);
+		return true;
 	}
 	
 	// 顯示所有被檢舉的問題

@@ -503,7 +503,6 @@ var bulletin = Vue.createApp({
 			this.admin = document.getElementById("admin").value;
 			var courseId = this.courseId;
 			function getBulletinByCourseId(courseId) {
-				console.log(courseId);
 				return axios.get(
 					"/api/initBulletin.controller",
 					{
@@ -520,7 +519,6 @@ var bulletin = Vue.createApp({
 			}
 
 			function getCreatorIdByCourseId(courseId) {
-
 				return axios.get(
 					"/api/findCreatorIdByCourseId.controller",
 					{
@@ -562,10 +560,6 @@ var bulletin = Vue.createApp({
 					this.bulletins = resp1.data;
 					this.courseCreatorId = resp2.data;
 					this.sections = resp3.data;
-					console.log(this.bulletins);
-					console.log(this.courseCreatorId);
-					console.log("now uid, uname cid", this.userId, this.userName, this.courseCreatorId);
-					console.log(this.sections);
 				})).catch(errors => {
 					console.log(errors);
 				});
@@ -602,11 +596,11 @@ var bulletin = Vue.createApp({
 					"Access-Control-Allow-Origin": "*"
 				},
 				params: {
-					query: this.currQuery, courseid: this.courseId
+					query: this.currQuery, 
+					courseid: this.courseId
 				}
 			})
 				.then((response) => {
-					console.log("resp: ", response.data);
 					this.bulletins = response.data;
 				})
 				.catch(function (error) {
@@ -621,7 +615,6 @@ var bulletin = Vue.createApp({
 		toggleQuestionLectureId: function (lecId, secName, lecName) {
 			this.currQuestionLectionId = lecId;
 			this.currQuestionSelection = secName + "." + lecName;
-			console.log("lecId: ", lecId);
 		},
 		sendQuestion: function () {
 			axios({
@@ -640,12 +633,11 @@ var bulletin = Vue.createApp({
 				}
 			})
 				.then((response) => {
-					console.log("resp: ", response.data);
 					this.bulletins.unshift(response.data
 					)
 				})
 				.catch(function (error) {
-					console.log("error: ", error);
+					console.log(error);
 				})
 
 			this.showQuestionBar = false;
@@ -654,7 +646,6 @@ var bulletin = Vue.createApp({
 			this.currQuestionTitle = "";
 			this.currQuestionContent = "";
 			this.showReply = false;
-			console.log(this.bulletins, "sendQuestion finish");
 
 		},
 		toggleReplyContent: function (bltId) {
@@ -666,6 +657,7 @@ var bulletin = Vue.createApp({
 		},
 		toggleReplyInput: function (bltId) {
 			this.showReplyInput = bltId;
+
 		},
 		cancelReplyInput: function () {
 			this.showReplyInput = false;
@@ -695,7 +687,6 @@ var bulletin = Vue.createApp({
 					}
 				})
 				.catch(function (error) {
-					console.log("error: ");
 					console.log(error);
 				})
 
@@ -717,18 +708,13 @@ var bulletin = Vue.createApp({
 				}
 			)
 				.then((response) => {
-					console.log("resp: ");
-					console.log(response);
 					this.bulletins = response.data;
 				})
 				.catch((error) => {
-					console.log("error: ");
 					console.log(error);
 				})
 		},
 		getBulletinByCourseId: function () {
-			console.log(courseId);
-
 			axios.get(
 				"/api/initBulletin.controller",
 				{
@@ -743,16 +729,44 @@ var bulletin = Vue.createApp({
 				}
 			)
 				.then((response) => {
-					console.log("resp: ");
-					console.log(response);
 					this.bulletins = response.data;
 				})
 				.catch((error) => {
-					console.log("error: ");
 					console.log(error);
 				})
 		},
-		
+		reportBulletin: function(bulletinId, reportTypeId) {
+			var inputdata = {};
+			inputdata.bulletinid = bulletinId;
+			inputdata.reporttypeid = reportTypeId;
+			axios({
+				method: 'post',
+				url: '/cms/bulletinreport',
+				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+				data: JSON.stringify(inputdata)
+			})
+				.then(response => {
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		},
+		reportBulletinReply: function(bulletinReplyId, reportTypeId) {
+			var inputdata = {};
+			inputdata.bulletinreplyid = bulletinReplyId;
+			inputdata.reporttypeid = reportTypeId;
+			axios({
+				method: 'post',
+				url: '/cms/replyreport',
+				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+				data: JSON.stringify(inputdata)
+			})
+				.then((response) => {
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
 	}
 
 })
