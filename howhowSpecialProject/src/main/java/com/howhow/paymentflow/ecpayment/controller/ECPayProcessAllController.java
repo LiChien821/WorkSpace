@@ -34,11 +34,11 @@ public class ECPayProcessAllController {
 		obj.setTradeDesc( request.getParameter("TradeDesc") );		
 		obj.setItemName( request.getParameter("ItemName") );	
 		obj.setCustomField1(request.getParameter("CustomField1"));
-		obj.setNeedExtraPaidInfo("N");
+		obj.setNeedExtraPaidInfo("N"); 
 		obj.setReturnURL("https://220.133.103.95/howhow/ECPayResponse");
 		String myip = InetAddress.getLocalHost().getHostAddress();
 		obj.setOrderResultURL(myip+"/ECPayResult"); 
 		String form = all.aioCheckOut(obj, null);
 		return form;
-	}	
+	}
 }
