@@ -36,8 +36,8 @@ public class ECPayProcessCreditOneController {
 		obj.setCustomField1(request.getParameter("CustomField1"));
 		obj.setNeedExtraPaidInfo("N");
 		obj.setReturnURL("https://220.133.103.95/howhow/ECPayResponse");
-		obj.setOrderResultURL("http://localhost/ECPayResult"); 
-		//obj.setOrderResultURL("http://52.139.157.137/ECPayResult"); 
+		//obj.setOrderResultURL("http://localhost/ECPayResult"); 
+		obj.setOrderResultURL("http://52.139.157.137/ECPayResult"); 
 		String form = all.aioCheckOut(obj, null);
 		return form;
 	}	
