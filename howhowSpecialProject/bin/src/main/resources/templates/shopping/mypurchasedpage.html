@@ -81,14 +81,15 @@
 														<td width="55%">{{course.coursename}}</td>
 														<td width="15%">{{course.categoryname}}</td>
 														<td width="15%"><button
-																class="btn btn-outline-warning" style="color:#AE8F00"
+																class="btn btn-outline-warning" style="color: #AE8F00"
 																@click="goLearning(course.courseid)">前往上課</button></td>
 
 														<td width="15%">
 															<!-- Button trigger modal -->
 															<button type="button" class="btn btn-outline-dark"
 																data-bs-toggle="modal" data-bs-target="#exampleModal"
-																data-bs-whatever="@mdo" @click="findCourseidForRank(course.courseid)"
+																data-bs-whatever="@mdo"
+																@click="findCourseidForRank(course.courseid)"
 																v-if="!rankstatus.includes(course.courseid)">我要評價</button>
 
 															<button type="button" class="btn btn-secondary"
@@ -100,7 +101,7 @@
 																aria-labelledby="exampleModalLabel" aria-hidden="true">
 
 																<div class="modal-dialog modal-dialog-centered">
-																	<div class="modal-content">
+																	<div class="modal-content" style="background-color:#FFFFDF">
 
 																		<div class="modal-header">
 																			<h5 class="modal-title" id="exampleModalLabel">課程評價</h5>
