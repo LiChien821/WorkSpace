@@ -20,11 +20,8 @@
 	</properties>
 	<dependencies>
 
-		<dependency> 
-			<groupId>mysql</groupId> 
-			<artifactId>mysql-connector-java</artifactId> 
-			<version>8.0.28</version> 
-		</dependency> 
+		<!-- <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
+			<version>8.0.28</version> </dependency> -->
 
 		<dependency>
 			<groupId>com.azure.spring</groupId>
@@ -71,11 +68,11 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- <dependency>
+		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
 			<scope>runtime</scope>
-		</dependency> -->
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -114,6 +111,10 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.28</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-core</artifactId>
 		</dependency>
 	</dependencies>
 

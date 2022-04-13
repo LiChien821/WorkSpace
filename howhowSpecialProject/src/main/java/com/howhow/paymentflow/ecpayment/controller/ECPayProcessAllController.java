@@ -21,13 +21,11 @@ public class ECPayProcessAllController {
 	@ResponseBody
 	public String processPayment(HttpServletRequest request) throws UnknownHostException {		
 		String form = genAioCheckOutALL(request);		
-		System.out.printf("ECPayController 產生消費者付款的表單：\n%s\n",form);	
 		return form;
 	}
 	
 	private String genAioCheckOutALL(HttpServletRequest request ) throws UnknownHostException{	
 		AioCheckOutALL obj = new AioCheckOutALL();
-		// 須改，由前面order產生時的orderID傳到這
 		obj.setMerchantTradeNo(String.format("III%d", new Date().getTime()));	
 		obj.setMerchantTradeDate(String.format("%tY/%<tm/%<td %<tH:%<tM:%<tS", new Date() ) );	
 		obj.setTotalAmount( request.getParameter("TotalAmount") );	
@@ -36,9 +34,8 @@ public class ECPayProcessAllController {
 		obj.setCustomField1(request.getParameter("CustomField1"));
 		obj.setNeedExtraPaidInfo("N");
 		obj.setReturnURL("https://220.133.103.95/howhow/ECPayResponse");
-		String myip = InetAddress.getLocalHost().getHostAddress();
-		obj.setOrderResultURL(myip+"/ECPayResult"); 
+		obj.setOrderResultURL("http://localhost/ECPayResult"); 
 		String form = all.aioCheckOut(obj, null);
 		return form;
-	}	
+	}
 }

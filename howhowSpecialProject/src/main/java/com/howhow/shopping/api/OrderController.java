@@ -110,4 +110,14 @@ public class OrderController {
 		omtService.deleteByID(id);
 		return true;
 	}
+	
+	@GetMapping("/checkout/succeed")
+	public String checkoutSucceed() {
+		return "shopping/checkoutsucceed.html";
+	}
+	
+	@GetMapping("/checkout/fail")
+	public String checkoutFail() {
+		return "shopping/checkoutfail.html";
+	}
 }
