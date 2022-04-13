@@ -20,7 +20,6 @@ const dataObj = {
 	courseCreatorId: "",
 	userName: "Big O",
 	currQuery: "",
-
 	isLogged: true,
 
 	categories:[
@@ -118,10 +117,9 @@ const app = createApp({
 		.all([checkLoggedStatus(), getAllCategoryInfo()])
 		.then(axios.spread((...responses) => {
 			const resp1 = responses[0];
-			const resp2 = responses[1];
 			this.isLogged = resp1.data;
-			console.log(this.isLogged);
 
+			const resp2 = responses[1];
 			for (var i = 0; i < resp2.data.length; i++) {
 				const item = resp2.data[i];
 				var newCategoryObject = {
@@ -132,9 +130,6 @@ const app = createApp({
 				newCategoryObject.cItemName = item["name"];
 				this.categories.push(newCategoryObject);
 			  }
-
-			console.log(this.categories);
-			// console.log(resp1);
 		})).catch(errors => {
 			console.log(errors);
 		})

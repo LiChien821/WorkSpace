@@ -33,8 +33,6 @@
 
 <link rel="stylesheet" th:href="@{/shopping/style.css}">
 
-<link rel="stylesheet" th:href="@{/assets_wj/css/universal-navbar.css}"></link>
-
 <link rel="stylesheet" th:href="@{/css/index.css}"></link>
 
 <link rel="stylesheet" th:href="@{/css/universal-navbar.css}"></link>
@@ -186,83 +184,6 @@
 						<header class="entry-heading" style="height: 100px;">
 							<h2 class="entry-title">最愛課程</h2>
 						</header>
-						<!-- .entry-heading -->
-						<!-- 						<div class="instructor-short-info flex flex-wrap"> -->
-						<!-- 							<div v-for="fav in favdetail"> -->
-						<!-- 								<div class="col-12 col-lg-12 px-25"> -->
-						<!-- 									<div class="course-content"> -->
-						<!-- 										<div class="course-content-wrap"> -->
-
-						<!-- 											<header class="entry-header"> -->
-						<!-- 												<h2 class="entry-title"> -->
-						<!-- 													<a href="#">{{fav.coursename}}</a> -->
-						<!-- 												</h2> -->
-						<!-- 												<div -->
-						<!-- 													class="flex flex-wrap justify-content-between align-items-center"> -->
-						<!-- 													<div class="flex justify-content-end align-items-center"> -->
-						<!-- 														<div> -->
-						<!-- 															<button class="btn btn-success btn-sm" -->
-						<!-- 																@click="removeFavoriteCourse(fav.courseid)">移除最愛</button> -->
-						<!-- 														</div> -->
-						<!-- 														<div v-if="purchasedstatus.includes(fav.courseid)"> -->
-						<!-- 															<button class="btn btn-dark btn-sm" disabled -->
-						<!-- 																style="margin: 10px">已購買</button> -->
-						<!-- 														</div> -->
-						<!-- 														<div v-else-if="!shopstatus.includes(fav.courseid)"> -->
-						<!-- 															<button class="btn btn-outline-warning btn-sm" -->
-						<!-- 																@click="addShoppingCart(fav.courseid)" -->
-						<!-- 																style="margin: 10px">加入購物車</button> -->
-						<!-- 														</div> -->
-						<!-- 														<div v-else> -->
-						<!-- 															<button disabled class="btn btn-warning btn-sm" -->
-						<!-- 																style="margin: 10px">已在購物車</button> -->
-						<!-- 														</div> -->
-						<!-- 													</div> -->
-						<!-- 												</div> -->
-						<!-- 											</header> -->
-						<!-- 											.entry-header -->
-
-						<!-- 											<footer -->
-						<!-- 												class="entry-footer flex flex-wrap justify-content-between align-items-center"> -->
-						<!-- 												<div class="course-cost">NT${{fav.discountprice}}</div> -->
-						<!-- 												.course-cost -->
-						<!-- 												<div -->
-						<!-- 													class="course-ratings flex justify-content-end align-items-center"> -->
-						<!-- 													<div v-if="fav.ranknum>0"> -->
-						<!-- 														<span class="fa fa-star checked"></span> <span -->
-						<!-- 															v-if="fav.rank>=2" class="fa fa-star checked"></span> <span -->
-						<!-- 															v-else-if="fav.rank>=1.5" -->
-						<!-- 															class="fa fa-star-half-o checked"></span> <span v-else -->
-						<!-- 															class="fa fa-star-o"></span> <span v-if="fav.rank>=3" -->
-						<!-- 															class="fa fa-star checked"></span> <span -->
-						<!-- 															v-else-if="fav.rank>=2.5" -->
-						<!-- 															class="fa fa-star-half-o checked"></span> <span v-else -->
-						<!-- 															class="fa fa-star-o"></span> <span v-if="fav.rank>=4" -->
-						<!-- 															class="fa fa-star checked"></span> <span -->
-						<!-- 															v-else-if="fav.rank>=3.5" -->
-						<!-- 															class="fa fa-star-half-o checked"></span> <span v-else -->
-						<!-- 															class="fa fa-star-o"></span> <span v-if="fav.rank>=4.8" -->
-						<!-- 															class="fa fa-star checked"></span> <span -->
-						<!-- 															v-else-if="fav.rank>=4.3" -->
-						<!-- 															class="fa fa-star-half-o checked"></span> <span v-else -->
-						<!-- 															class="fa fa-star-o"></span> <span -->
-						<!-- 															class="course-ratings-count">{{fav.ranknum}}則評價</span> -->
-						<!-- 													</div> -->
-						<!-- 												</div> -->
-						<!-- 												.course-ratings -->
-						<!-- 												<div class="course-stunum col-12 justify-content-start" -->
-						<!-- 													v-if="fav.studentnum>=5">同學{{fav.studentnum}}人</div> -->
-						<!-- 												.course-cost -->
-						<!-- 											</footer> -->
-						<!-- 											.entry-footer -->
-						<!-- 										</div> -->
-						<!-- 									</div> -->
-						<!-- 								</div> -->
-						<!-- 								.course-content-wrap -->
-						<!-- 							</div> -->
-						<!-- 							.instructor-short-info -->
-						<!-- 						</div> -->
-
 
 						<div class="classes" style="display: inline;"
 							v-for="fav in favdetail">
@@ -384,6 +305,8 @@
 		<!-- .clients-logo -->
 
 	</div>
+
+	<!-- <div th:insert="universal-footer :: universal-footer"></div> -->
 
 	<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
 
