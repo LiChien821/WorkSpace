@@ -44,10 +44,10 @@ public class Lectures {
 	private String previewViedeoUrl;
 	
 	@Column(name = "system_time")
-	private String SystemTime;
+	private String systemTime;
 	
 	@Column
-	private String Hint;
+	private String hint;
 	
 //	@OneToMany(mappedBy = "lectures")
 //	private List<Question> questionList=new ArrayList<Question>();
@@ -144,13 +144,7 @@ public class Lectures {
 		this.notesList = notesList;
 	}
 
-	public String getSystemTime() {
-		return SystemTime;
-	}
 
-	public void setSystemTime(String systemTime) {
-		SystemTime = systemTime;
-	}
 
 	public int getLectureNumber() {
 		return lectureNumber;
@@ -160,13 +154,22 @@ public class Lectures {
 		this.lectureNumber = lectureNumber;
 	}
 
+	public String getSystemTime() {
+		return systemTime;
+	}
+
+	public void setSystemTime(String systemTime) {
+		this.systemTime = systemTime;
+	}
+
 	public String getHint() {
-		return Hint;
+		return hint;
 	}
 
 	public void setHint(String hint) {
-		Hint = hint;
+		this.hint = hint;
 	}
+
 	
 	
 	

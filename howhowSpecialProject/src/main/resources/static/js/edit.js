@@ -55,7 +55,9 @@ const dataObj = {
     catchSectionName:'',
     catchLecture:"",
     startUploadBlock:0,
-    completeUpload:0
+    startHintBlock:0,
+    completeUpload:0,
+    edithint:""
 
 };
 
@@ -221,6 +223,7 @@ Vue.createApp({
             this.lectureList=item.lecturesList;
             this.getLectureNum();
             this.currentSectionID=item.sectionID;
+            this.refreshCourse();
         },
         // 切換編輯模式
         editSection(item) {
@@ -275,6 +278,11 @@ Vue.createApp({
 			
 			
 		},
+		hintSelectLecture:function(item) {
+			this.startHintBlock=1;
+			this.lecture = item;
+			this.edithint=this.lecture.hint;
+		},
 		selectLecture: function(item) {
 			this.startUploadBlock=1;
 			this.lecture = item;
@@ -303,6 +311,7 @@ Vue.createApp({
 			
 			
 		},
+	
 		sendlecturemessage: function() {
 			
 			axios({
@@ -427,6 +436,24 @@ Vue.createApp({
 			.catch(function(error) {
 				console.log(error);
 			});
+		},
+		changeLectureHint:function(lecturesID){
+		axios({
+		method: 'post',
+
+		url: '/api/updateLecturesHint/'+  this.currentSectionID,
+		headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+
+		data: { lecturesID:lecturesID, hint: this.edithint}
+			})
+
+		.then(response => (this.lectureList = response.data,this.startHintBlock=0,alert("ok")))
+		.catch(function(error) {
+			console.log(error);
+
+		});
+	
+	
 		},
 		selectLecture: function(item) {
 			this.lecture = item;

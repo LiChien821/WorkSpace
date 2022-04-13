@@ -66,7 +66,7 @@ public class CourseBasic implements Serializable{
 	@JoinColumn(name = "creator_id")
 	private UserAccountDt creator;
 	
-	@JsonIgnore
+	
 	@ManyToOne
 	@JoinColumn(name = "status_id")
 	private CourseStatusType statusType;

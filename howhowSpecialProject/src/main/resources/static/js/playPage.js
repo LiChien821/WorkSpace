@@ -15,16 +15,16 @@ const dataObj = {
 	currentSectionID: "",
 	currentLecturesID: "",
 	userAccountID: "",
-	userAccountCreatTime:"",
+	userAccountCreatTime: "",
 
 	sectionList: "",
 	lecturesList: "",
 	sectionID: "",
-	
-	totalSection:"",
-	totalLecture:"",
-	
-	
+
+	totalSection: "",
+	totalLecture: "",
+
+
 
 };
 
@@ -66,7 +66,7 @@ Vue.createApp({
 			player.pause();
 			this.skipTime = time;
 			player.currentTime(this.skipTime);
-			
+
 
 		}
 
@@ -110,7 +110,7 @@ Vue.createApp({
 			this.currentLecturesID = this.lecture.lecturesID;
 			this.videoSrcUrl = this.baseUrl + this.lecture.videoSource;
 			player.src(this.videoSrcUrl);
-			this.notesList="";
+			this.notesList = "";
 			this.getAllNotesByUIDANDLectureID();
 		},
 		handlefirstVideoUrl: function() {
@@ -138,7 +138,7 @@ Vue.createApp({
 
 		},
 	},
-	beforeMount: function(){
+	beforeMount: function() {
 		axios({
 			method: 'get',
 			url: '/api/getBlobUrl',
@@ -148,7 +148,7 @@ Vue.createApp({
 			.catch(function(error) {
 				console.log(error);
 			});
-		
+
 	},
 	mounted: function() {
 		this.currentCourseID = document.getElementById("playPageDeafultId").value;
@@ -165,60 +165,60 @@ Vue.createApp({
 				this.lecture = response.data[0].lecturesList[0],
 				this.videoSrcUrl = response.data[0].lecturesList[0].videoSource,
 				this.handlefirstVideoUrl(),
-			this.getAllNotesByUIDANDLectureID()
+				this.getAllNotesByUIDANDLectureID()
 			))
 			.catch(function(error) {
 				console.log(error);
 			});
-		
-		
-		
+
+
+
 	},
-	
+
 }).mount('#playSectionList')
 
 Vue.createApp({
 	data() {
 		return dataObj;
 	},
-	computed:{
-		
+	computed: {
+
 	},
 	methods: {
-		getCourse:function(){
-			
+		getCourse: function() {
+
 			axios({
 				method: 'get',
-	
+
 				url: '/api/getCourse/' + this.currentCourseID,
 				headers: { "Access-Control-Allow-Origin": "*" },
 			})
-	
-				.then(response => (this.course = response.data,this.gettotalSection(),
-		this.gettotalLecture()))
+
+				.then(response => (this.course = response.data, this.gettotalSection(),
+					this.gettotalLecture()))
 				.catch(function(error) {
 					console.log(error);
-	
+
 				});
 		},
-		gettotalSection:function (){
-			this.totalSection= this.course.sectionList.length;
+		gettotalSection: function() {
+			this.totalSection = this.course.sectionList.length;
 		},
-		gettotalLecture:function(){
+		gettotalLecture: function() {
 			var num;
-			
-			this.course.sectionList.forEach((section) =>{ num+=section.lecturesList.length  }    );
-			
-			this.totalLecture=num;
+
+			this.course.sectionList.forEach((section) => { num += section.lecturesList.length });
+
+			this.totalLecture = num;
 		}
-		
+
 
 
 	},
 	mounted: function() {
-			this.userAccountCreatTime = document.getElementById("userAccountCreatTime").value;
+		this.userAccountCreatTime = document.getElementById("userAccountCreatTime").value;
 		this.getCourse();
-		
+
 
 	},
 
@@ -226,12 +226,15 @@ Vue.createApp({
 
 
 var player = videojs('my-video', {
-	
+
 	loop: true,
-	muted: true,
+	muted: false,
 	width: "800px",
 	height: "720px",
-	controls: true
+	controls: true,
+	controlBar: {
+		muteToggle: true,
+	}
 });
 
 player.currentTime(0);

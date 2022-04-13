@@ -90,7 +90,7 @@
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
-													data-bs-dismiss="modal" v-if="completeUpload == 1" >關閉/button>
+													data-bs-dismiss="modal" v-if="completeUpload == 1" >關閉</button>
 												<button type="button" class="btn btn-secondary"
 													data-bs-dismiss="modal" v-else>關閉提示窗並等候</button>
 												<button type="button" class="btn btn-primary" v-if="completeUpload == 1" @click="closeUploadBlock" data-bs-dismiss="modal" >OK </button>
@@ -100,6 +100,35 @@
 									</div>	
 								</div>
 							</div>
+
+						</div>
+						
+					</div >
+				</div>
+			</div>
+			
+			<div class="row" v-if="startHintBlock ==1">
+				<div class="col-md-12" >
+				
+					<div class="card text-center">
+					
+						<div > {{catchSectionName}} . {{lecture.lecturesName}}</div>
+						
+						
+						<div class="card-body">
+						
+
+
+
+
+							<div>
+								
+								<textarea v-if="lecture.hint ==null" rows="4" cols="37"  v-model="edithint" placeholder="請編輯重點說明"></textarea>
+								<textarea v-else v-model="edithint" rows="4" cols="37" ></textarea>
+							
+						
+							</div>
+								<button class="btn btn-primary"  @click="changeLectureHint(lecture.lecturesID)">送出編輯</button>
 
 						</div>
 						
