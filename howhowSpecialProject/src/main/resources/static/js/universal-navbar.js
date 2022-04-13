@@ -122,8 +122,6 @@ const app = createApp({
 				this.isLogged = true;
 				this.userStatus = resp1.data;
 			}
-			console.log("now isLogged/userStatus:", this.isLogged, this.userStatus);
-
 			const resp2 = responses[1];
 			for (var i = 0; i < resp2.data.length; i++) {
 				const item = resp2.data[i];
@@ -135,9 +133,6 @@ const app = createApp({
 				newCategoryObject.cItemName = item["name"];
 				this.categories.push(newCategoryObject);
 			  }
-
-			console.log(this.categories);
-			// console.log(resp1);
 		})).catch(errors => {
 			console.log(errors);
 		})

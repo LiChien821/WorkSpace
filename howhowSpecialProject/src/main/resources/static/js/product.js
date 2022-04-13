@@ -465,6 +465,7 @@ const dataObj2 = {
 	courseCreatorId: "",
 	userName: "學生",
 	currQuery: "",
+	currSectionSelection: "選擇單元",
 
 	showQuestionBar: false,
 	currQuestionSelection: "選擇單元",
@@ -693,7 +694,7 @@ var bulletin = Vue.createApp({
 			this.showReplyInput = true;
 			this.currReplyInputContent = "";
 		},
-		getBulletinByLectureId: function (lectureId) {
+		getBulletinByLectureId: function (lectureId, secName, lecName) {
 			axios.get(
 				"/api/initBulletinByLectureId.controller",
 				{
@@ -713,13 +714,14 @@ var bulletin = Vue.createApp({
 				.catch((error) => {
 					console.log(error);
 				})
+			this.currSectionSelection = secName + "." + lecName;
 		},
 		getBulletinByCourseId: function () {
 			axios.get(
 				"/api/initBulletin.controller",
 				{
 					params: {
-						courseid: courseId
+						courseid: this.courseId
 					},
 					headers: {
 						'Content-Type': 'application/x-www-form-urlencoded',
@@ -734,6 +736,7 @@ var bulletin = Vue.createApp({
 				.catch((error) => {
 					console.log(error);
 				})
+			this.currSectionSelection = "全部章節";
 		},
 		reportBulletin: function(bulletinId, reportTypeId) {
 			var inputdata = {};

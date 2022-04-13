@@ -363,11 +363,11 @@
 				</div>
 				<div class="dropdown">
 					<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">{{
-						currQuestionSelection }}</button>
+						currSectionSelection }}</button>
 					<ul class="dropdown-menu">
 						<li @click="getBulletinByCourseId()"><small class="dropdown-item"><span>全部章節</span></small></li>
 						<div v-for="sec in sections">
-							<li v-for="lec in sec.lectures" @click="getBulletinByLectureId(lec.lectureId)"><small
+							<li v-for="lec in sec.lectures" @click="getBulletinByLectureId(lec.lectureId, sec.sectionName, lec.lectureName)"><small
 									class="dropdown-item"><span>{{ sec.sectionName }}
 										. {{lec.lectureName}}</span></small></li>
 						</div>
