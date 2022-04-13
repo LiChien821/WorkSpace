@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,20 +33,18 @@ import com.howhow.util.UtilityTool;
 public class ReportController {
 	@Autowired
 	private BulletinReportRecordService brrs;
-	
+
 	@Autowired
 	private BulletinService bs;
-	
+
 	@Autowired
 	private ReportTypeService rts;
-	
+
 	@Autowired
 	private BulletinReplyReportRecordService brrrs;
-	
+
 	@Autowired
 	private BulletinReplyService brs;
-	
-
 
 	@GetMapping("/report")
 	public String guidToReport() {
@@ -54,92 +53,101 @@ public class ReportController {
 
 	// 檢舉bulletin
 	@PostMapping("/bulletinreport")
-	public void addBulletinReport(@RequestBody BulletinDTO bulletinId) {
+	public void addBulletinReport(@RequestBody BulletinDTO bulletinDTOId) {
 		BulletinReportRecord reportrecord = new BulletinReportRecord();
-		Bulletin bulletin = bs.findById(bulletinId.getBulletinid());
-		
-		reportrecord.setTypeobj(rts.findById(bulletinId.getReporttypeid()));
+		Bulletin bulletin = bs.findById(bulletinDTOId.getBulletinid());
+
+		reportrecord.setTypeobj(rts.findById(bulletinDTOId.getReporttypeid()));
 		reportrecord.setBulletin(bulletin);
 		reportrecord.setSystemtime(UtilityTool.getSysTime());
 		reportrecord.setUserdt(bulletin.getLauncherid());
-		
+
 		brrs.insertReport(reportrecord);
 	}
-	
+
 	// 檢舉reply
 	@PostMapping("/replyreport")
-	public void addReplyReport(@RequestBody BulletinReplyDTO replyId) {
-		BulletinReplyReportRecord  reportrecord = new BulletinReplyReportRecord();
-		BulletinReply reply = brs.findById(replyId.getBulletinreplyid());
-		
+	public void addReplyReport(@RequestBody BulletinReplyDTO replyDTO) {
+		BulletinReplyReportRecord reportrecord = new BulletinReplyReportRecord();
+		BulletinReply reply = brs.findById(replyDTO.getBulletinreplyid());
+
 		reportrecord.setBulletinreply(reply);
 		reportrecord.setUserdt(reply.getRespondentid());
 		reportrecord.setSystemtime(UtilityTool.getSysTime());
-		reportrecord.setTypeobj(rts.findById(replyId.getReporttypeid()));
-		
+		reportrecord.setTypeobj(rts.findById(replyDTO.getReporttypeid()));
+
 		brrrs.insertReply(reportrecord);
 	}
-	
+
 	// 顯示所有被檢舉的問題
 	@ResponseBody
-	@GetMapping("/showbulletinreport")
+	@GetMapping("/bulletinreport")
 	public List<BulletinReportDTO> showAllReport() {
-		
+
 		List<BulletinReportRecord> records = brrs.findAll();
-		List<BulletinReportDTO> details = new ArrayList<BulletinReportDTO>();
-		
+		List<BulletinReportDTO> bulletinDTOs = new ArrayList<BulletinReportDTO>();
+
 		for (BulletinReportRecord record : records) {
-			
-			BulletinReportDTO DO = new BulletinReportDTO();
-			
-			DO.setReportid(record.getReportID());
-			DO.setBulletionID(record.getBulletin().getBulletinid());
-			DO.setReportedPerson(record.getUserdt().getUserId());
-			DO.setReportcontent(record.getBulletin().getContent());
-			DO.setReporttypename(record.getTypeobj().getReportname());
-			DO.setReporttime(record.getSystemtime());
-			
-			details.add(DO);
+
+			BulletinReportDTO bulletinDTO = new BulletinReportDTO();
+
+			bulletinDTO.setReportid(record.getReportID());
+			bulletinDTO.setBulletionID(record.getBulletin().getBulletinid());
+			bulletinDTO.setReportedPerson(record.getUserdt().getUserId());
+			bulletinDTO.setReportcontent(record.getBulletin().getContent());
+			bulletinDTO.setReporttypename(record.getTypeobj().getReportname());
+			bulletinDTO.setReporttime(record.getSystemtime());
+
+			bulletinDTOs.add(bulletinDTO);
 		}
-		return details;
+		return bulletinDTOs;
 	}
-	
-	//顯示所有被檢舉的回答
+
+	// 顯示所有被檢舉的回答
 	@ResponseBody
-	@GetMapping("/showreplyreport")
-	public List<ReplyReportDTO> showAllReplyReport(){
+	@GetMapping("/replyreport")
+	public List<ReplyReportDTO> showAllReplyReport() {
 		List<ReplyReportDTO> replyDTOs = new ArrayList<ReplyReportDTO>();
-		List<BulletinReplyReportRecord> reportrecords = brrrs.findAll();
-		
-		for(BulletinReplyReportRecord reportrecord : reportrecords) {
+		List<BulletinReplyReportRecord> records = brrrs.findAll();
+
+		for (BulletinReplyReportRecord record : records) {
 			ReplyReportDTO replyDTO = new ReplyReportDTO();
-			
-			replyDTO.setReplyID(reportrecord.getBulletinreplyID());
-			replyDTO.setReportcontent(reportrecord.getBulletinreply().getReplycontent());
-			replyDTO.setReporttypename(reportrecord.getTypeobj().getReportname());
-			replyDTO.setReportedPerson(reportrecord.getUserdt().getUserId());
-			replyDTO.setReportid(reportrecord.getReportID());
-			replyDTO.setReporttime(reportrecord.getSystemtime());
-			
+
+			replyDTO.setReplyID(record.getBulletinreplyID());
+			replyDTO.setReportcontent(record.getBulletinreply().getReplycontent());
+			replyDTO.setReporttypename(record.getTypeobj().getReportname());
+			replyDTO.setReportedPerson(record.getUserdt().getUserId());
+			replyDTO.setReportid(record.getReportID());
+			replyDTO.setReporttime(record.getSystemtime());
+
 			replyDTOs.add(replyDTO);
 		}
 		return replyDTOs;
 	}
-	
-	
-	// 駁回問題檢舉
+
+	// 問題檢舉處理
 	@ResponseBody
-	@DeleteMapping("/reportdata")
-	public List<BulletinReportDTO> deleteReport(@RequestBody BulletinReportDTO reportdetail){
-		brrs.deleteReport(reportdetail.getReportid());
+	@DeleteMapping("/bulletinreport/{handle}")
+	public List<BulletinReportDTO> deleteReport(@RequestBody BulletinReportDTO reportdetail, @PathVariable("handle") int handle) {
+		if(handle == 1) {
+			brrs.deleteReport(reportdetail.getReportid()); // 駁回檢舉
+		}else {
+			bs.deleteById(reportdetail.getBulletionID()); // 刪除問題
+		}
+		
 		return showAllReport();
 	}
-	
-	// 刪除問題
+
+	// 回答檢舉處理
 	@ResponseBody
-	@DeleteMapping("/bulletin")
-	public List<BulletinReportDTO> deleteQuestion(@RequestBody BulletinReportDTO reportdetail) {
-		bs.deleteById(reportdetail.getBulletionID());
-		return showAllReport();
+	@DeleteMapping("/replyreport/{handle}")
+	public List<ReplyReportDTO> deleteReplyReport(@RequestBody ReplyReportDTO replyDTO, @PathVariable("handle") int handle) {
+		if(handle == 1) {
+			brs.deleteById(replyDTO.getReportid()); //駁回檢舉
+		}else {
+			bs.deleteById(replyDTO.getReplyID()); //刪除回答
+		}
+		
+		return showAllReplyReport();
 	}
 }
