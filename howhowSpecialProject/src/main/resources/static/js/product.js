@@ -754,7 +754,31 @@ var bulletin = Vue.createApp({
 					console.log(error);
 				})
 		},
-		
+		reportBulletin: function(bulletinId, reportTypeId) {
+			axios.post(
+				"/cms/bulletinreport",
+				{
+					data: {
+						bulletinid : bulletinId,
+						reporttypeid : reportTypeId
+					},
+					headers: {
+						'Content-Type': 'application/json',
+						"dataType": "JSON",
+						"Access-Control-Allow-Origin": "*"
+					}
+				})
+				.then((response) => {
+					console.log("reportBulletin finished");
+				})
+				.catch((error) => {
+					console.log("reportBulletin error: ", error);
+				})
+
+		},
+		reportBulletinReply: function() {
+
+		}
 	}
 
 })
