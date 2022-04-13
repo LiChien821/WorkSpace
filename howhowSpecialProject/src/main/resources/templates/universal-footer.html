@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NavigationBar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- <link rel="stylesheet" th:href="@{/assets_wj/css/universal-navbar.css}"></link>
+    <link rel="stylesheet" th:href="@{/css/index.css}"></link> -->
+    <style>
+    </style>
+</head>
+
+<body>
+    <div style="background-color: aqua; height: 300px;"></div>
+    <footer class="bg-light py-4 mt-3">
+        <link rel="stylesheet" th:href="@{/css/universal-footer.css}"></link>
+        <div class="container">
+            <div class="row d-flex justify-content-around">
+                <div class="col">
+                    <div>關於</div>
+                    <div>
+                        <div class="my-1"><a href="#" class="footer-link">關於我們</a></div>
+                        <div class="my-1"><a href="#" class="footer-link">加入HowHow</a></div>
+                        <div class="my-1"><a href="#" class="footer-link">新聞媒體中心</a></div>
+                        <div class="my-1"><a href="#" class="footer-link">使用者條款</a></div>
+                        <div class="my-1"><a href="#" class="footer-link">服務契約</a></div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div>幫助</div>
+                    <div>
+                        <div class="my-1"><a href="#" class="footer-link">我要開課</a></div>
+                        <div class="my-1"><a href="#" class="footer-link">企業學習方案</a></div>
+                        <div class="my-1"><a href="#" class="footer-link">異業合作洽談</a></div>
+                        <div class="my-1"><a href="#" class="footer-link">兌換課程</a></div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div>追蹤動態</div>
+                    <div>
+                        <div class="my-1">
+                            <!-- rounded rounded-pill -->
+                            <button class="">
+                                <i class="fa fa-facebook-square" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                        <div class="my-1">
+                            <i class="fa fa-instagram" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="d-flex justify-content-around">
+                <div>關於</div>
+                <div>幫助</div>
+                <div>追蹤動態</div>
+                <div></div>
+            </div> -->
+
+        </div>
+    </footer>
+</body>
+
+</html>

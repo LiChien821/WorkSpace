@@ -26,6 +26,11 @@ public class CommonController {
 		return "universal-navbar";
 	}
 	
+	@GetMapping("/api/footer-test")
+	public String processFooter() {
+		return "universal-footer";
+	}
+	
 	@GetMapping("/api/searchCourseInfo/{query}")
 	public String searchCourseInfo (@PathVariable("query") String query) {
 		return "searchResult";
@@ -33,14 +38,13 @@ public class CommonController {
 	
 	@GetMapping("/api/checkLoginStatus")
 	@ResponseBody
-	public Integer checkLoginStatus() {
+	public boolean checkLoginStatus() {
 		UserAccountDt accountdt = aService.findByEmail(UtilityTool.getTokenEmail());
 		if (accountdt == null) {
-			return -1;
+			return false;
 		};
 		
-		UserStatus userStatus = usService.findById(accountdt.getUserId());
-		return userStatus.getAccountStatus();
+		return true;
 	}
 	
 }
