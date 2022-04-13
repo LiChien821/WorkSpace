@@ -67,7 +67,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">被檢舉人ID</th>
-                                            <th scope="col">檢舉項目ID</th>
+                                            <th scope="col">問題ID</th>
                                             <th scope="col" class="reportContent">檢舉內容</th>
                                             <th scope="col">檢舉類型</th>
                                             <th scope="col" class="reporttime">檢舉時間</th>
@@ -75,20 +75,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>食屎</td>
-                                            <td>不雅言論</td>
-                                            <td>2022-04-13 09:29</td>
+                                        <tr v-for="item in bulletin">
+                                            <td>{{ item.reportedPerson }}</td>
+                                            <td>{{ item.bulletionID }}</td>
+                                            <td>{{ item.reportcontent }}</td>
+                                            <td>{{ item.reporttypename }}</td>
+                                            <td>{{ item.reporttime }}</td>
                                             <td>
-                                                <select class="form-select" aria-label="Default select example">
+                                                <select class="form-select" aria-label="Default select example" v-model="item.handle">
                                                     <option selected>請選擇</option>
                                                     <option value="1">駁回檢舉</option>
                                                     <option value="2">刪除問題</option>
                                                   </select>
                                             </td>
-                                            <td><button type="button" class="btn btn-primary">送出</button></td>
+                                            <td><button type="button" class="btn btn-primary" @click="handleBulletinReport(item)">送出</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -100,7 +100,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">被檢舉人ID</th>
-                                            <th scope="col">檢舉項目ID</th>
+                                            <th scope="col">問題ID</th>
                                             <th scope="col" class="reportContent">檢舉內容</th>
                                             <th scope="col">檢舉類型</th>
                                             <th scope="col" class="reporttime">檢舉時間</th>
@@ -108,20 +108,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>食屎</td>
-                                            <td>不雅言論</td>
-                                            <td>2022-04-13 09:29</td>
+                                        <tr v-for="item in reply">
+                                            <td>{{ item.reportedPerson }}</td>
+                                            <td>{{ item.replyID }}</td>
+                                            <td>{{ item.reportcontent }}</td>
+                                            <td>{{ item.reporttypename }}</td>
+                                            <td>{{ item.reporttime }}</td>
                                             <td>
-                                                <select class="form-select" aria-label="Default select example">
+                                                <select class="form-select" aria-label="Default select example" v-model="item.handle">
                                                     <option selected>請選擇</option>
                                                     <option value="1">駁回檢舉</option>
                                                     <option value="2">刪除問題</option>
                                                   </select>
                                             </td>
-                                            <td><button type="button" class="btn btn-primary">送出</button></td>
+                                            <td><button type="button" class="btn btn-primary" @click="heandleReplyReport(item)">送出</button></td>
                                         </tr>
                                     </tbody>
                                 </table>

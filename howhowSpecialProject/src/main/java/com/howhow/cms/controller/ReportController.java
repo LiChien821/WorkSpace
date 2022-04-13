@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,14 +56,14 @@ public class ReportController {
 	@ResponseBody
 	public boolean addBulletinReport(@RequestBody BulletinDTO bulletinId) {
 		System.out.println(bulletinId);
-//		BulletinReportRecord reportrecord = new BulletinReportRecord();
-//		Bulletin bulletin = bs.findById(bulletinId.getBulletinid());
-//		reportrecord.setTypeobj(rts.findById(bulletinId.getReporttypeid()));
-//		reportrecord.setBulletin(bulletin);
-//		reportrecord.setSystemtime(UtilityTool.getSysTime());
-//		reportrecord.setUserdt(bulletin.getLauncherid());
-//
-//		brrs.insertReport(reportrecord);
+		BulletinReportRecord reportrecord = new BulletinReportRecord();
+		Bulletin bulletin = bs.findById(bulletinId.getBulletinid());
+		reportrecord.setTypeobj(rts.findById(bulletinId.getReporttypeid()));
+		reportrecord.setBulletin(bulletin);
+		reportrecord.setSystemtime(UtilityTool.getSysTime());
+		reportrecord.setUserdt(bulletin.getLauncherid());
+
+		brrs.insertReport(reportrecord);
 		return true;
 	}
 	
@@ -116,7 +117,7 @@ public class ReportController {
 		for (BulletinReplyReportRecord record : records) {
 			ReplyReportDTO replyDTO = new ReplyReportDTO();
 
-			replyDTO.setReplyID(record.getBulletinreplyID());
+			replyDTO.setReplyID(record.getBulletinreply().getBulletinreplyid());
 			replyDTO.setReportcontent(record.getBulletinreply().getReplycontent());
 			replyDTO.setReporttypename(record.getTypeobj().getReportname());
 			replyDTO.setReportedPerson(record.getUserdt().getUserId());
@@ -130,13 +131,14 @@ public class ReportController {
 
 	// 問題檢舉處理
 	@ResponseBody
-	@DeleteMapping("/cms/bulletinreport/{handle}")
+	@PutMapping("/cms/bulletinreport/{handle}")
 	public List<BulletinReportDTO> deleteReport(@RequestBody BulletinReportDTO reportdetail, @PathVariable("handle") int handle) {
 		if(handle == 1) {
 			brrs.deleteReport(reportdetail.getReportid()); // 駁回檢舉
 		}else {
 			Bulletin bulletin = bs.findById(reportdetail.getBulletionID());
-			bulletin.setContent("此流言已被刪除");
+			bulletin.setTitle("此流言已被刪除");
+			bulletin.setContent("無內容");
 			bs.update(bulletin); // 刪除問題
 		}
 		return showAllReport();
@@ -144,7 +146,7 @@ public class ReportController {
 
 	// 回答檢舉處理
 	@ResponseBody
-	@DeleteMapping("/cms/replyreport/{handle}")
+	@PutMapping("/cms/replyreport/{handle}")
 	public List<ReplyReportDTO> deleteReplyReport(@RequestBody ReplyReportDTO replyDTO, @PathVariable("handle") int handle) {
 		if(handle == 1) {
 			brrrs.deleteReport(replyDTO.getReportid()); //駁回檢舉

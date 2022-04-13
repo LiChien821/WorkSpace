@@ -36,7 +36,7 @@ public class BulletinReplyReportRecord {
 	@JoinColumn(name = "user_id")
 	private UserAccountDt userdt;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "bulletinreply_id")
 	private BulletinReply bulletinreply;
 
