@@ -17,4 +17,11 @@ public class BulletinDTO {
 		this.reporttypeid = reporttypeid;
 	}
 	
+	@Override
+	public String toString() {
+		return "BulletinDTO [bulletinid=" + bulletinid + ", reporttypeid=" + reporttypeid + "]";
+	}
+	
+	
+	
 }

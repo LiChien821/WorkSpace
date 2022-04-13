@@ -741,7 +741,7 @@ var bulletin = Vue.createApp({
 			inputdata.reporttypeid = reportTypeId;
 			axios({
 				method: 'post',
-				url: '/cms/bulletinreport',
+				url: '/api/bulletinreport',
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 				data: JSON.stringify(inputdata)
 			})
@@ -757,7 +757,7 @@ var bulletin = Vue.createApp({
 			inputdata.reporttypeid = reportTypeId;
 			axios({
 				method: 'post',
-				url: '/cms/replyreport',
+				url: '/api/replyreport',
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 				data: JSON.stringify(inputdata)
 			})

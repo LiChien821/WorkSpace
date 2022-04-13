@@ -1,20 +1,20 @@
 Vue.createApp({
     data() {
         return {
-            testdata:{
-                bulletinid:1,
-                reporttypeid:1
-            }
+            onActive:'bulletin',
+            bulletin:''
         }
     },
     methods: {
-        test(){
-            axios({
-                method: 'post',
-                url: '/api/bulletinreport',
-                headers: { 'Content-Type': 'application/json' },
-                data: JSON.stringify(this.testdata)
-            })
-        }
+
+    },
+    mounted() {
+        axios({
+            method:'get',
+            url:'/cms/bulletinreport',
+            headers:{'Content-Type':'application/json'}
+        }).then(res => {
+            this.bulletin = res.data
+        })
     },
 }).mount('#app')

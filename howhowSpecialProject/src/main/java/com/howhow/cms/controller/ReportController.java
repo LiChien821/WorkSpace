@@ -51,22 +51,23 @@ public class ReportController {
 	}
 
 	//	檢舉bulletin
-	@PostMapping("/bulletinreport")
+	@PostMapping("/api/bulletinreport")
 	@ResponseBody
 	public boolean addBulletinReport(@RequestBody BulletinDTO bulletinId) {
-		BulletinReportRecord reportrecord = new BulletinReportRecord();
-		Bulletin bulletin = bs.findById(bulletinId.getBulletinid());
-		reportrecord.setTypeobj(rts.findById(bulletinId.getReporttypeid()));
-		reportrecord.setBulletin(bulletin);
-		reportrecord.setSystemtime(UtilityTool.getSysTime());
-		reportrecord.setUserdt(bulletin.getLauncherid());
-
-		brrs.insertReport(reportrecord);
+		System.out.println(bulletinId);
+//		BulletinReportRecord reportrecord = new BulletinReportRecord();
+//		Bulletin bulletin = bs.findById(bulletinId.getBulletinid());
+//		reportrecord.setTypeobj(rts.findById(bulletinId.getReporttypeid()));
+//		reportrecord.setBulletin(bulletin);
+//		reportrecord.setSystemtime(UtilityTool.getSysTime());
+//		reportrecord.setUserdt(bulletin.getLauncherid());
+//
+//		brrs.insertReport(reportrecord);
 		return true;
 	}
 	
 	//	檢舉reply
-	@PostMapping("/replyreport")
+	@PostMapping("/api/replyreport")
 	@ResponseBody
 	public boolean addReplyReport(@RequestBody BulletinReplyDTO replyId) {
 		BulletinReplyReportRecord  reportrecord = new BulletinReplyReportRecord();
@@ -134,9 +135,10 @@ public class ReportController {
 		if(handle == 1) {
 			brrs.deleteReport(reportdetail.getReportid()); // 駁回檢舉
 		}else {
-			bs.deleteById(reportdetail.getBulletionID()); // 刪除問題
+			Bulletin bulletin = bs.findById(reportdetail.getBulletionID());
+			bulletin.setContent("此流言已被刪除");
+			bs.update(bulletin); // 刪除問題
 		}
-		
 		return showAllReport();
 	}
 
@@ -145,11 +147,12 @@ public class ReportController {
 	@DeleteMapping("/cms/replyreport/{handle}")
 	public List<ReplyReportDTO> deleteReplyReport(@RequestBody ReplyReportDTO replyDTO, @PathVariable("handle") int handle) {
 		if(handle == 1) {
-			brs.deleteById(replyDTO.getReportid()); //駁回檢舉
+			brrrs.deleteReport(replyDTO.getReportid()); //駁回檢舉
 		}else {
-			bs.deleteById(replyDTO.getReplyID()); //刪除回答
+			BulletinReply reply = brs.findById(replyDTO.getReplyID()); // 修改回答
+			reply.setReplycontent("此流言已被刪除");
+			brs.update(reply);
 		}
-		
 		return showAllReplyReport();
 	}
 }
