@@ -29,7 +29,6 @@ import com.howhow.entity.BulletinReportRecord;
 import com.howhow.util.UtilityTool;
 
 @Controller
-@RequestMapping("/cms")
 public class ReportController {
 	@Autowired
 	private BulletinReportRecordService brrs;
@@ -46,13 +45,13 @@ public class ReportController {
 	@Autowired
 	private BulletinReplyService brs;
 
-	@GetMapping("/report")
+	@GetMapping("/cms/report")
 	public String guidToReport() {
 		return "cms/reportmain.html";
 	}
 
 	// 檢舉bulletin
-	@PostMapping("/bulletinreport")
+	@PostMapping("/api/bulletinreport")
 	public void addBulletinReport(@RequestBody BulletinDTO bulletinDTOId) {
 		BulletinReportRecord reportrecord = new BulletinReportRecord();
 		Bulletin bulletin = bs.findById(bulletinDTOId.getBulletinid());
@@ -66,7 +65,7 @@ public class ReportController {
 	}
 
 	// 檢舉reply
-	@PostMapping("/replyreport")
+	@PostMapping("/api/replyreport")
 	public void addReplyReport(@RequestBody BulletinReplyDTO replyDTO) {
 		BulletinReplyReportRecord reportrecord = new BulletinReplyReportRecord();
 		BulletinReply reply = brs.findById(replyDTO.getBulletinreplyid());
@@ -81,7 +80,7 @@ public class ReportController {
 
 	// 顯示所有被檢舉的問題
 	@ResponseBody
-	@GetMapping("/bulletinreport")
+	@GetMapping("/cms/bulletinreport")
 	public List<BulletinReportDTO> showAllReport() {
 
 		List<BulletinReportRecord> records = brrs.findAll();
@@ -105,7 +104,7 @@ public class ReportController {
 
 	// 顯示所有被檢舉的回答
 	@ResponseBody
-	@GetMapping("/replyreport")
+	@GetMapping("/cms/replyreport")
 	public List<ReplyReportDTO> showAllReplyReport() {
 		List<ReplyReportDTO> replyDTOs = new ArrayList<ReplyReportDTO>();
 		List<BulletinReplyReportRecord> records = brrrs.findAll();
@@ -127,7 +126,7 @@ public class ReportController {
 
 	// 問題檢舉處理
 	@ResponseBody
-	@DeleteMapping("/bulletinreport/{handle}")
+	@DeleteMapping("/cms/bulletinreport/{handle}")
 	public List<BulletinReportDTO> deleteReport(@RequestBody BulletinReportDTO reportdetail, @PathVariable("handle") int handle) {
 		if(handle == 1) {
 			brrs.deleteReport(reportdetail.getReportid()); // 駁回檢舉
@@ -140,7 +139,7 @@ public class ReportController {
 
 	// 回答檢舉處理
 	@ResponseBody
-	@DeleteMapping("/replyreport/{handle}")
+	@DeleteMapping("/cms/replyreport/{handle}")
 	public List<ReplyReportDTO> deleteReplyReport(@RequestBody ReplyReportDTO replyDTO, @PathVariable("handle") int handle) {
 		if(handle == 1) {
 			brs.deleteById(replyDTO.getReportid()); //駁回檢舉
