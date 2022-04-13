@@ -85,6 +85,7 @@
 
 				<header>
 					<h2>已建造的課程</h2>
+					<p>課程  : 綠色代表審核通過 ; 紅色代表審核失敗 ; 黃色代表審核中</p>
 				</header>
 
 				<p>以下是課程列表</p>
@@ -100,10 +101,19 @@
 									v-if="course.courseCover != null" :src="blobSetting+course.courseCover" alt="" />
 							</a>
 
-							<header>
-								<a @click="courseToEdit(course.courseID)">
-									<h3>{{course.courseName}}</h3>
-								</a> <input hidden :id="'course'">
+							<header  >
+								<button  class= "btn btn-warning container-fluid"@click="courseToEdit(course.courseID)" v-if="course.statusType.statusID ==1">
+									{{course.courseName}}
+								</button > 
+								<button  class= "btn btn-success container-fluid"@click="courseToEdit(course.courseID)" v-if="course.statusType.statusID ==2">
+									{{course.courseName}}
+								</button > 
+								<button  class= "btn btn-danger container-fluid"@click="courseToEdit(course.courseID)" v-if="course.statusType.statusID ==3">
+									{{course.courseName}}
+								</button > 
+								
+								
+							
 							</header>
 						</article>
 
@@ -140,59 +150,7 @@
 			</div>
 		</section>
 
-		<!-- About Me -->
-		<section id="about" class="three">
-			<div class="container">
 
-				<header>
-					<h2>About Me</h2>
-				</header>
-
-				<a href="#" class="image featured"><img src="" alt="" /></a>
-
-				<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna.
-					Ridiculus ultricies curae quis et rhoncus velit. Lobortis elementum
-					aliquet nec vitae laoreet eget cubilia quam non etiam odio
-					tincidunt montes. Elementum sem parturient nulla quam placerat
-					viverra mauris non cum elit tempus ullamcorper dolor. Libero rutrum
-					ut lacinia donec curae mus vel quisque sociis nec ornare iaculis.</p>
-
-			</div>
-		</section>
-
-		<!-- Contact -->
-		<section id="contact" class="four">
-			<div class="container">
-
-				<header>
-					<h2>Contact</h2>
-				</header>
-
-				<p>Elementum sem parturient nulla quam placerat viverra mauris
-					non cum elit tempus ullamcorper dolor. Libero rutrum ut lacinia
-					donec curae mus. Eleifend id porttitor ac ultricies lobortis sem
-					nunc orci ridiculus faucibus a consectetur. Porttitor curae mauris
-					urna mi dolor.</p>
-
-				<form method="post" action="#">
-					<div class="row">
-						<div class="col-6 col-12-mobile">
-							<input type="text" name="name" placeholder="Name" />
-						</div>
-						<div class="col-6 col-12-mobile">
-							<input type="text" name="email" placeholder="Email" />
-						</div>
-						<div class="col-12">
-							<textarea name="message" placeholder="Message"></textarea>
-						</div>
-						<div class="col-12">
-							<input type="submit" value="Send Message" />
-						</div>
-					</div>
-				</form>
-
-			</div>
-		</section>
 
 	</div>
 

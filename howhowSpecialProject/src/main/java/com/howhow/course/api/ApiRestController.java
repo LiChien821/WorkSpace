@@ -279,6 +279,16 @@ public class ApiRestController {
 		return lectureService.findAllBySectionID(sectionID);
 
 	}
+	@PostMapping(value = "/api/updateLecturesHint/{sectionID}")
+	@ResponseStatus(HttpStatus.OK)
+	public Iterable<Lectures> updateLecturesHint(@PathVariable("sectionID") int sectionID, @RequestBody Lectures upLectures) throws NoSectionException
+			{
+		Lectures existedLectures= lectureService.findByLectureID(upLectures.getLecturesID());
+		existedLectures.setHint(upLectures.getHint());
+		lectureService.saveLectures(existedLectures);  
+		return lectureService.findAllBySectionID(sectionID);
+
+	}
 
 
 }
