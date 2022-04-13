@@ -389,14 +389,12 @@
 								<div class=" d-flex justify-content-between">
 									<div class="dropdown d-flex">
 										<button type="button" class="btn-sm btn-primary dropdown-toggle"
-											data-bs-toggle="dropdown">{{ currQuestionSelection
-											}}</button>
+											data-bs-toggle="dropdown">{{ currQuestionSelection }}</button>
 										<ul class="dropdown-menu">
 											<div v-for="sec in sections">
 												<li v-for="lec in sec.lectures"
 													@click="toggleQuestionLectureId(lec.lectureId, sec.sectionName, lec.lectureName)">
-													<small class="dropdown-item"><span>{{
-															sec.sectionName }} . {{lec.lectureName}}</span></small>
+													<small class="dropdown-item"><span>{{ sec.sectionName }} . {{lec.lectureName}}</span></small>
 												</li>
 											</div>
 										</ul>
@@ -462,7 +460,7 @@
 											blt.replyCount }}</span> <small></small>
 								</div>
 
-								<div class="dropdown">
+								<div class="dropdown" v-if="userId != -1">
 									<div class="dropdown-toggle" href="#" id="bulletin-report" role="button"
 										data-bs-toggle="dropdown" aria-expanded="false">
 										<i class="fa fa-flag" aria-hidden="true"></i>
@@ -498,13 +496,13 @@
 														<small><span>{{ bRep.creationTime }}</span></small>
 													</div>
 
-													<div class="dropdown">
+													<div class="dropdown" v-if="userId != -1">
 														<div class="dropdown-toggle" href="#" id="bulletinReply-report" role="button"
 															data-bs-toggle="dropdown" aria-expanded="false">
 															<i class="fa fa-flag" aria-hidden="true"></i>
 														</div>
 														<ul class="dropdown-menu" aria-labelledby="bulletinReply-report">
-															<li class="dropdown-item" @click="reportBulletin(blt.bulletinId, 1)">檢舉不雅文字</li>
+															<li class="dropdown-item" @click="reportBulletinReply(bRep.bulletinreplyId, 1)">檢舉不雅文字</li>
 															<li class="dropdown-item">檢舉人身攻擊</li>
 														</ul>
 													</div>

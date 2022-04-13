@@ -45,10 +45,10 @@
                 <div class="navbar-nav">
                     <div class="nav-item dropdown mx-2 py-2 d-flex align-items-center" v-if="userStatus == 50">
                         <div id="howhow-cms" role="button" aria-expanded="false">
-                            <a class="nav-link" href="/cms/report">
+                            <a class="nav-link" th:href="@{/cms/report}">
                                 <small><span>後台</span></small>
                             </a>
-                        </div>
+                        </div> 
                     </div>
 
                     <div class="nav-item dropdown mx-2 py-2 d-flex align-items-center">
