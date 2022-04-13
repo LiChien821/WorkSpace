@@ -51,54 +51,46 @@
 </head>
 <body class="single-courses-page">
 	<div th:insert="universal-navbar :: universal-navbar"></div>
-	<div id="mycourse">
-		<div class="container">
-			<div class="row">
-				<div class="col-12 col-lg-10">
-					<div class="single-course-wrap">
-						<div class="container">
+	<div class="background-color-while">
+		<div class="checkout-result">
+			<div class="single-course-wrap">
+				<div class="container">
 
-							<div class="instructors-info">
-								<img src="/images/paymentSuccess.png" /><br>
-								<br>
-								<h2 class="entry-title">
-									<font color="red">付款成功</font>
-								</h2>
+					<div class="instructors-info">
+						<img src="/images/paymentSuccess.png" /><br> <br>
+						<h2 class="entry-title">
+							<font color="red">付款成功</font>
+						</h2>
 
 
-							</div>
-							</br>
-
-							<div>
-								<h4>
-									<body onload="countTime()">
-										<span id="showtime"></span> 秒後回到我的課程…
-										</br>
-										</br> 或 立即
-
-										<button type="button" class="btn btn-outline-info"
-											onclick="location.href='http://localhost/mycourse'">前往我的課程</button>
-									</body>
-								</h4>
-							</div>
-
-							<!-- .instructors-info -->
-						</div>
 					</div>
+					</br>
+
+					<div>
+						<h4>
+							<body onload="countTime()">
+								<span id="showtime"></span> 秒後回到我的課程…
+								</br>
+								</br> 或 立即
+
+								<button type="button" class="btn btn-outline-info"
+									onclick="location.href='http://localhost/mycourse'">前往我的課程</button>
+							</body>
+						</h4>
+					</div>
+
+					<!-- .instructors-info -->
 				</div>
-
 			</div>
-			<!-- .row -->
+
+
+			<!-- .clients-logo -->
+
 		</div>
-		<!-- .container -->
-
-
-		<!-- .clients-logo -->
-
 	</div>
 
 	<script>
-		let returnSeconds = 5000;
+		let returnSeconds = 5;
 		function countTime() {
 			document.getElementById("showtime").innerHTML = returnSeconds;
 			setTimeout(countTime, 1000);
@@ -108,7 +100,6 @@
 				location.href = '/mycourse';
 			}
 		}
-
 	</script>
 
 	<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>

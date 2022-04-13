@@ -39,6 +39,7 @@ public class ECPayProcessCreditOneController {
 		obj.setReturnURL("https://220.133.103.95/ecpay/ECPayServer2");
 		String myip = InetAddress.getLocalHost().getHostAddress();
 		obj.setOrderResultURL("http://localhost/ECPayResult"); 
+		//obj.setOrderResultURL("http://52.139.157.137/ECPayResult"); 
 		String form = all.aioCheckOut(obj, null);
 		return form;
 	}	
