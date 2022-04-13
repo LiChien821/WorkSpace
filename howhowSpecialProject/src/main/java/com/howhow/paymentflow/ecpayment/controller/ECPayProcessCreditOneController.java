@@ -29,7 +29,6 @@ public class ECPayProcessCreditOneController {
 	private String genAioCheckOutOneTime(HttpServletRequest request ) throws UnknownHostException{	
 		AioCheckOutOneTime obj = new AioCheckOutOneTime();
 		
-		// 須改，由前面order產生時的orderID傳到這
 		obj.setMerchantTradeNo(String.format("III%d", new Date().getTime()));	
 		obj.setMerchantTradeDate(String.format("%tY/%<tm/%<td %<tH:%<tM:%<tS", new Date() ) );	
 		obj.setTotalAmount( request.getParameter("TotalAmount") );	
