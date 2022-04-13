@@ -59,7 +59,8 @@
 						<div class="container">
 
 							<div class="instructors-info">
-								<img src="/images/checkoutsucceed.jpg" /><br><br>
+								<img src="/images/paymentSuccess.png" /><br>
+								<br>
 								<h2 class="entry-title">
 									<font color="red">付款成功</font>
 								</h2>
@@ -97,7 +98,7 @@
 	</div>
 
 	<script>
-		let returnSeconds = 5;
+		let returnSeconds = 5000;
 		function countTime() {
 			document.getElementById("showtime").innerHTML = returnSeconds;
 			setTimeout(countTime, 1000);
@@ -107,6 +108,7 @@
 				location.href = '/mycourse';
 			}
 		}
+
 	</script>
 
 	<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
