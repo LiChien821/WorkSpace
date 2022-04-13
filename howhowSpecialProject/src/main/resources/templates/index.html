@@ -78,24 +78,21 @@
 
 
 	<div style="float: right" th:fragment="logout" sec:authorize="isAuthenticated()">
-
-
 		<div style="float: left">
 			<span style="font-weight: bold">User: </span><span sec:authentication="name"></span>
 		</div>
-
-
 		<div style="float: none">&nbsp;</div>
 		<div style="float: right">
 			<form action="#" th:action="@{/logout}" method="post">
 				<input type="submit" value="Logout" />
 			</form>
 		</div>
-
 	</div>
 
 	<div>&nbsp;</div>
 
+	<div style="height: 50px;"></div>
+	<div th:insert="universal-footer :: universal-footer"></div>
 
 
 	<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>

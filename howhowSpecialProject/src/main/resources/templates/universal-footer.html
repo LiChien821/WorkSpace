@@ -23,13 +23,14 @@
 </head>
 
 <body>
-    <div style="background-color: aqua; height: 300px;"></div>
-    <footer class="bg-light py-4 mt-3">
+    <div style="background-color: #E2C652; height: 300px;"></div>
+
+    <footer th:fragment="universal-footer" class="py-4 mt-3" style="background-color:#E2C652;">
         <link rel="stylesheet" th:href="@{/css/universal-footer.css}"></link>
-        <div class="container">
+        <div class="container" >
             <div class="row d-flex justify-content-around">
                 <div class="col">
-                    <div>關於</div>
+                    <div class="mb-3" style="font-size: 24px; color: #224a9f">關於</div>
                     <div>
                         <div class="my-1"><a href="#" class="footer-link">關於我們</a></div>
                         <div class="my-1"><a href="#" class="footer-link">加入HowHow</a></div>
@@ -39,7 +40,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div>幫助</div>
+                    <div class="mb-3" style="font-size: 24px; color: #224a9f">幫助</div>
                     <div>
                         <div class="my-1"><a href="#" class="footer-link">我要開課</a></div>
                         <div class="my-1"><a href="#" class="footer-link">企業學習方案</a></div>
@@ -48,17 +49,19 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div>追蹤動態</div>
-                    <div>
-                        <div class="my-1">
-                            <!-- rounded rounded-pill -->
-                            <button class="">
-                                <i class="fa fa-facebook-square" aria-hidden="true"></i>
-                            </button>
+                    <div class="mb-3" style="font-size: 24px; color: #224a9f">追蹤動態</div>
+                    <div class="d-flex">
+                        <div class="mx-1">
+                            <i class="fab fa-youtube fa-2x" style="color: red;"></i>
                         </div>
-
-                        <div class="my-1">
-                            <i class="fa fa-instagram" aria-hidden="true"></i>
+                        <div class="mx-1">
+                            <i id="instagram" class="fab fa-instagram fa-2x"></i>
+                        </div>
+                        <div class="mx-1">
+                            <i class="fab fa-line fa-2x" style="color: #00B900;"></i>
+                        </div>
+                        <div class="mx-1">
+                            <i class="fab fa-facebook-square fa-2x" style="color: #4267B2;"></i>
                         </div>
                     </div>
                 </div>
