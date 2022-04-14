@@ -1,8 +1,10 @@
 .question-enter-active {
     transition: all 0.3s ease-out;
+    
   }
 .question-leave-active {
     transition: all 0.2s linear;
+    
 }
 .question-enter-from, .question-leave-to {
     opacity: 0;
@@ -11,9 +13,14 @@
 
 .replyInput-enter-active {
   transition: all 0.3s ease-out;
+  height: 30px;
+}
+.replyInput-enter-to {
+    height: 30px;
 }
 .replyInput-leave-active {
     transition: all 0.2s linear;
+    height: 0px;
 }
 .replyInput-enter-from, .replyInput-leave-to {
     opacity: 0;
@@ -53,3 +60,18 @@
     color: #aaa;
     font-style: italic;
 }
+
+#bRep-input-textarea:focus {
+    height: 120px;
+  }
+
+#bRep-input-textarea {
+    height: 30px;
+    font-size:16px;
+    -webkit-transition: height .35s ease-in-out;
+    transition: height .35s ease-in-out;
+} 
+  
+/* #bRep-cannel-btn: {
+    height: 120px;
+} */

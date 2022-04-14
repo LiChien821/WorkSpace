@@ -715,6 +715,7 @@ var bulletin = Vue.createApp({
 					console.log(error);
 				})
 			this.currSectionSelection = secName + "." + lecName;
+			this.showReply = false;
 		},
 		getBulletinByCourseId: function () {
 			axios.get(
@@ -737,8 +738,10 @@ var bulletin = Vue.createApp({
 					console.log(error);
 				})
 			this.currSectionSelection = "全部章節";
+			this.showReply = false;
 		},
 		reportBulletin: function(bulletinId, reportTypeId) {
+			var toastLiveExample = document.getElementById('blt-report-toast')
 			var inputdata = {};
 			inputdata.bulletinid = bulletinId;
 			inputdata.reporttypeid = reportTypeId;
@@ -749,12 +752,15 @@ var bulletin = Vue.createApp({
 				data: JSON.stringify(inputdata)
 			})
 				.then(response => {
+					var toast = new bootstrap.Toast(toastLiveExample)
+    				toast.show()
 				})
 				.catch((error) => {
 					console.log(error);
 				});
 		},
 		reportBulletinReply: function(bulletinReplyId, reportTypeId) {
+			var toastLiveExample = document.getElementById('bRep-report-toast')
 			var inputdata = {};
 			inputdata.bulletinreplyid = bulletinReplyId;
 			inputdata.reporttypeid = reportTypeId;
@@ -765,6 +771,9 @@ var bulletin = Vue.createApp({
 				data: JSON.stringify(inputdata)
 			})
 				.then((response) => {
+					
+					var toast = new bootstrap.Toast(toastLiveExample)
+    				toast.show()
 				})
 				.catch((error) => {
 					console.log(error);
