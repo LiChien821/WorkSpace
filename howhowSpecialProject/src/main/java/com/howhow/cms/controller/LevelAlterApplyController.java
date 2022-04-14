@@ -12,6 +12,7 @@ import com.howhow.cms.dto.LevelAlterApplyDTO;
 import com.howhow.cms.service.LevelAlterApplyService;
 import com.howhow.entity.LevelAlterApply;
 import com.howhow.entity.UserAccountDt;
+import com.howhow.shopping.exception.UserNotFoundException;
 import com.howhow.util.UtilityTool;
 
 @Controller
@@ -25,11 +26,14 @@ public class LevelAlterApplyController {
 	
     //提交申請單
 	@PostMapping("api/applydata")
-	public LevelAlterApplyDTO addApply() {
+	public LevelAlterApplyDTO addApply() throws UserNotFoundException {
 		UserAccountDt userDt = as.findByEmail(UtilityTool.getTokenEmail());
-		LevelAlterApplyDTO applyDTO = new LevelAlterApplyDTO();
+		if (userDt == null) {
+			throw new UserNotFoundException();
+		}
 		
-		if(laas.checkRepeat(userDt.getUserId())) {
+		LevelAlterApplyDTO applyDTO = new LevelAlterApplyDTO();
+		if(laas.isApplied(userDt.getUserId())) {
 			applyDTO.setAlreadyApplied(true);
 			return applyDTO;
 		}

@@ -157,6 +157,7 @@ const app = createApp({
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" }
 			})
 				.then((response) => {
+					console.log("alreadyApplied status: ", response.data["alreadyApplied"]);
 					console.log("sendTeacherApply finished");
 				})
 				.catch((error) => {
