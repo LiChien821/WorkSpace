@@ -23,16 +23,16 @@ public class LevelAlterApplyController {
 	private UserAccountDtService uads;
 	
     //提交申請單
-	@PostMapping("api/applydata")
-	public boolean addApply(@RequestBody LevelAlterApplyDTO applyDTO) {
-		LevelAlterApply apply = new LevelAlterApply();
-		apply.setApplylevel("Teacher");
-		apply.setApplystatus("未處理");
-		apply.setSystemtime(UtilityTool.getSysTime());
-		apply.setUserAccountDt(uads.findById(applyDTO.getUserid()));
-		
-		laas.insertApply(apply);
-		
-		return true;
-	}
+//	@PostMapping("api/applydata")
+//	public boolean addApply(@RequestBody LevelAlterApplyDTO applyDTO) {
+//		LevelAlterApply apply = new LevelAlterApply();
+//		apply.setApplylevel("Teacher");
+//		apply.setApplystatus("未處理");
+//		apply.setSystemtime(UtilityTool.getSysTime());
+//		apply.setUserAccountDt(uads.findById(applyDTO.getUserid()));
+//		
+//		laas.insertApply(apply);
+//		
+//		return true;
+//	}
 }

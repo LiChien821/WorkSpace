@@ -147,6 +147,21 @@ const app = createApp({
 
 		goToCoursePageBySearch: function() {
 			self.location.href = "/courses?search=" + this.currQuery;
+		},
+
+		sendTeacherApply: function() {
+			
+			axios({
+				method: 'post',
+				url: '/api/applydata',
+				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" }
+			})
+				.then((response) => {
+					console.log("sendTeacherApply finished");
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 		}
 	}
 })

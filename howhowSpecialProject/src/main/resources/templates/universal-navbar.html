@@ -44,9 +44,17 @@
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
                 <div class="navbar-nav">
                     <div class="nav-item dropdown mx-2 py-2 d-flex align-items-center">
-                        <div id="teacher" role="button" aria-expanded="false">
+
+                        <div sec:authorize="hasAuthority('Student')" id="teacher" role="button" aria-expanded="false">
+
+                            <a class="nav-link" href="#" @click.prevent="sendTeacherApply()">
+                                <small><span>申請講師</span></small>
+                            </a>
+                        </div> 
+
+                        <div sec:authorize="hasAuthority('Teacher')" id="teacher" role="button" aria-expanded="false">
                             <a class="nav-link" href="/teacherPage/page">
-                                <small><span>講師</span></small>
+                                <small><span>我是講師</span></small>
                             </a>
                         </div>
                     </div>

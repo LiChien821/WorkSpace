@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.azure.core.annotation.Put;
+import com.howhow.account.service.AccountService;
 import com.howhow.account.service.UserAccountDtService;
 import com.howhow.account.service.UserStatusService;
 import com.howhow.cms.dto.LevelAlterApplyDTO;
@@ -21,10 +22,14 @@ import com.howhow.cms.service.LevelAlterApplyService;
 import com.howhow.entity.LevelAlterApply;
 import com.howhow.entity.UserAccountDt;
 import com.howhow.entity.UserStatus;
+import com.howhow.shopping.exception.UserNotFoundException;
 import com.howhow.util.UtilityTool;
 
 @Controller
 public class UserLevelController {
+	
+	@Autowired
+	private AccountService aService;
 	
 	@Autowired
 	private UserStatusService uss;
@@ -72,16 +77,24 @@ public class UserLevelController {
 	}
 	
 	// 申請成為老師
-	@PostMapping("api/applydata")
-	public boolean addApply(@RequestBody LevelAlterApplyDTO applyDTO) {
+	@PostMapping("/api/applydata")
+	@ResponseBody
+	public boolean addApply() throws UserNotFoundException {
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		System.out.println(UtilityTool.getTokenEmail());
+		UserAccountDt accountdt = aService.findByEmail(UtilityTool.getTokenEmail());
+		if (accountdt == null) {
+			throw new UserNotFoundException(); 
+		}
+	
 		LevelAlterApply apply = new LevelAlterApply();
-		apply.setApplylevel("Teacher");
+		apply.setApplylevel("Teacher"); 
 		apply.setApplystatus("未處理");
 		apply.setSystemtime(UtilityTool.getSysTime());
-		apply.setUserAccountDt(uads.findById(applyDTO.getUserid()));
+		apply.setUserAccountDt(accountdt);
 		
 		laas.insertApply(apply);
-		
 		return true;
 	}
+
 }
