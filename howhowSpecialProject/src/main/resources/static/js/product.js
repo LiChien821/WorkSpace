@@ -565,26 +565,6 @@ var bulletin = Vue.createApp({
 					console.log(errors);
 				});
 
-			axios({
-				method: 'get',
-				url: '/api/findpurchasedcoursestatus/' + this.userId + '/' + this.courseId,
-				headers: { "Access-Control-Allow-Origin": "*" }
-			})
-				.then(response => {
-					this.purchasedstatus = response.data;
-					setTimeout(() => {
-						if (this.purchasedstatus == true) {
-							this.handlefirstVideoUrl();
-						} else {
-							this.handlefirstPreviewVideoUrl();
-						}
-					}, 100);
-
-				})
-				.catch(function (error) {
-					console.log(error);
-				});
-
 		},
 	methods: {
 		sendSearch: function () {

@@ -9,7 +9,7 @@ public class CourseRankDTO {
 	private int userid;
 	private int rank;
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+0")
 	private String rankdate;
 	private String message;
 	private String coursename;
