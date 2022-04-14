@@ -4,13 +4,14 @@
 <head th>
     <meta charset="UTF-8">
     <title>NavigationBar</title>
-   
+
 </head>
 
 <body>
     <nav th:fragment="universal-navbar" class="navbar navbar-expand-lg navbar-light bg-light p-0 m-0"
         style="height: 130px; background-color:#E2C652;" id="howhowdo-navbar">
-        <link rel="stylesheet" th:href="@{/css/universal-navbar.css}"></link>
+        <link rel="stylesheet" th:href="@{/css/universal-navbar.css}">
+        </link>
         <div class="container-fluid px-3 header">
             <a class="navbar-brand" href="/">
                 <img class="icon" th:src="@{/image/unnamed.png}" alt="" />
@@ -46,11 +47,24 @@
                     <div class="nav-item dropdown mx-2 py-2 d-flex align-items-center">
 
                         <div sec:authorize="hasAuthority('Student')" id="teacher" role="button" aria-expanded="false">
-
                             <a class="nav-link" th:href="@{#}" @click.prevent="sendTeacherApply()">
                                 <small><span>申請講師</span></small>
                             </a>
-                        </div> 
+                            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                                <div id="liveToast" class="toast hide" role="alert" aria-live="assertive"
+                                    aria-atomic="true">
+                                    <div class="toast-header">
+                                        <strong class="me-auto">公告</strong>
+                                        <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="toast-body">
+                                        講師申請已送出，待後台審理，請耐心等候告知...
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
 
                         <div sec:authorize="hasAuthority('Teacher')" id="teacher" role="button" aria-expanded="false">
                             <a class="nav-link" href="/teacherPage/page">

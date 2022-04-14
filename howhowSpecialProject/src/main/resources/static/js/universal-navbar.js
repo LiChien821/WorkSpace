@@ -150,7 +150,7 @@ const app = createApp({
 		},
 
 		sendTeacherApply: function() {
-			
+			var toastLiveExample = document.getElementById('liveToast')
 			axios({
 				method: 'post',
 				url: '/api/applydata',
@@ -159,6 +159,8 @@ const app = createApp({
 				.then((response) => {
 					console.log("alreadyApplied status: ", response.data["alreadyApplied"]);
 					console.log("sendTeacherApply finished");
+					var toast = new bootstrap.Toast(toastLiveExample)
+    				toast.show()
 				})
 				.catch((error) => {
 					console.log(error);

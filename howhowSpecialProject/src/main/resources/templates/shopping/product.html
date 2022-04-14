@@ -33,6 +33,10 @@
 
 	<link rel="stylesheet" th:href="@{/css/universal-navbar.css}">
 	</link>
+
+	<link rel="stylesheet" th:href="@{/assets_wj/css/main2.css}">
+	</link>
+
 	<link rel="stylesheet" th:href="@{/css/index.css}">
 	</link>
 
@@ -367,7 +371,8 @@
 					<ul class="dropdown-menu">
 						<li @click="getBulletinByCourseId()"><small class="dropdown-item"><span>全部章節</span></small></li>
 						<div v-for="sec in sections">
-							<li v-for="lec in sec.lectures" @click="getBulletinByLectureId(lec.lectureId, sec.sectionName, lec.lectureName)"><small
+							<li v-for="lec in sec.lectures"
+								@click="getBulletinByLectureId(lec.lectureId, sec.sectionName, lec.lectureName)"><small
 									class="dropdown-item"><span>{{ sec.sectionName }}
 										. {{lec.lectureName}}</span></small></li>
 						</div>
@@ -388,35 +393,38 @@
 							<div>
 								<div class=" d-flex justify-content-between">
 									<div class="dropdown d-flex">
-										<button type="button" class="btn-sm btn-primary dropdown-toggle"
-											data-bs-toggle="dropdown">{{ currQuestionSelection }}</button>
+										<button type="button" class="btn-sm btn-outline-dark dropdown-toggle me-1 mb-1"
+											style="height: 40px;border-radius: 10px;" data-bs-toggle="dropdown">{{
+											currQuestionSelection }}</button>
 										<ul class="dropdown-menu">
 											<div v-for="sec in sections">
 												<li v-for="lec in sec.lectures"
 													@click="toggleQuestionLectureId(lec.lectureId, sec.sectionName, lec.lectureName)">
-													<small class="dropdown-item"><span>{{ sec.sectionName }} . {{lec.lectureName}}</span></small>
+													<small class="dropdown-item"><span>{{ sec.sectionName }} .
+															{{lec.lectureName}}</span></small>
 												</li>
 											</div>
 										</ul>
 									</div>
 
-									<input id="blt-qst-title" class="rounded form-control mb-1" type="text"
-										@focus="toggleQuestionBar" v-model="currQuestionTitle"
-										placeholder="請留下您的問題標題...">
+									<input id="blt-qst-title" class="form-control" type="text"
+										style="height: 40px;border-radius: 10px;" @focus="toggleQuestionBar"
+										v-model="currQuestionTitle" placeholder="請留下您的問題標題...">
 								</div>
 								<transition name="question">
 									<div id="blt-qst-toggle" v-if="showQuestionBar">
 										<div id="d1c1">
-											<textarea class="rounded form-control mb-1" rows="5" id="c1"
-												v-model="currQuestionContent" style="resize: none;"
+											<textarea class="form-control mb-1" rows="5" id="c1"
+												v-model="currQuestionContent" style="resize: none; border-radius: 10px;"
 												placeholder="請留下您的問題內容..."></textarea>
 										</div>
 										<div class="d-flex justify-content-end" id="d1b1">
-											<button class="btn btn-dark btn-primary me-1" id="blt-qst-toggle-cancel"
-												type="button" @click="showQuestionBar = false">取消</button>
-											<button class="btn btn-dark btn-primary" id="blt-qst-submit"
-												:class="[toggleQuestionBtnDisabled]" @click="sendQuestion()"
-												type="button">送出</button>
+											<button class="btn btn-dark me-1" id="blt-qst-toggle-cancel"
+												style="border-radius: 10px;" type="button"
+												@click="showQuestionBar = false">取消</button>
+											<button class="btn btn-dark" id="blt-qst-submit"
+												style="border-radius: 10px;" :class="[toggleQuestionBtnDisabled]"
+												@click="sendQuestion()" type="button">送出</button>
 										</div>
 									</div>
 								</transition>
@@ -469,6 +477,19 @@
 										<li class="dropdown-item" @click="reportBulletin(blt.bulletinId, 1)">檢舉不雅文字</li>
 										<li class="dropdown-item">檢舉人身攻擊</li>
 									</ul>
+									<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+										<div id="blt-report-toast" class="toast hide" role="alert" aria-live="assertive"
+											aria-atomic="true">
+											<div class="toast-header">
+												<strong class="me-auto">公告</strong>
+												<button type="button" class="btn-close" data-bs-dismiss="toast"
+													aria-label="Close"></button>
+											</div>
+											<div class="toast-body">
+												此則留言的檢舉已送出，請靜待後台審理...
+											</div>
+										</div>
+									</div>
 								</div>
 
 							</div>
@@ -497,14 +518,33 @@
 													</div>
 
 													<div class="dropdown" v-if="userId != -1">
-														<div class="dropdown-toggle" href="#" id="bulletinReply-report" role="button"
-															data-bs-toggle="dropdown" aria-expanded="false">
+														<div class="dropdown-toggle" href="#" id="bulletinReply-report"
+															role="button" data-bs-toggle="dropdown"
+															aria-expanded="false">
 															<i class="fa fa-flag" aria-hidden="true"></i>
 														</div>
-														<ul class="dropdown-menu" aria-labelledby="bulletinReply-report">
-															<li class="dropdown-item" @click="reportBulletinReply(bRep.bulletinreplyId, 1)">檢舉不雅文字</li>
+														<ul class="dropdown-menu"
+															aria-labelledby="bulletinReply-report">
+															<li class="dropdown-item"
+																@click="reportBulletinReply(bRep.bulletinreplyId, 1)">
+																檢舉不雅文字</li>
 															<li class="dropdown-item">檢舉人身攻擊</li>
 														</ul>
+														<div class="position-fixed bottom-0 end-0 p-3"
+															style="z-index: 11">
+															<div id="bRep-report-toast" class="toast hide" role="alert"
+																aria-live="assertive" aria-atomic="true">
+																<div class="toast-header">
+																	<strong class="me-auto">公告</strong>
+																	<button type="button" class="btn-close"
+																		data-bs-dismiss="toast"
+																		aria-label="Close"></button>
+																</div>
+																<div class="toast-body">
+																	此則回覆的檢舉已送出，請靜待後台審理...
+																</div>
+															</div>
+														</div>
 													</div>
 
 												</div>
@@ -530,25 +570,24 @@
 												</div> -->
 												</div>
 												<div class="flex-grow-1 m-0 d-grid ">
-													<textarea class="reply-input" type="text"
+													<textarea class="reply-input" type="text" id="bRep-input-textarea"
 														@focus="toggleReplyInput(blt.bulletinId)"
-														v-model="currReplyInputContent" style="height: 30px;"
+														v-model="currReplyInputContent" style="border-radius:5px;"
 														placeholder="請留言..."></textarea>
 												</div>
-												<transition name="replyInput">
-													<div class="mt-1 d-flex justify-content-end">
-														<!-- v-if="showReplyInput == blt.bulletinId" -->
+												
+												<div class="mt-1 d-flex justify-content-end"
+													v-if="showReplyInput == blt.bulletinId">
 														<div class="reply-input-toggle">
-															<button
-																class="btn btn-dark btn-primary me-1 reply-input-toggle-cancel"
+															<button id="bRep-cannel-btn"
+																class="btn btn-dark btn-primary me-1 reply-input-toggle-cancel" 
 																@click="cancelReplyInput()" type="button">取消</button>
 															<button class="btn btn-dark btn-primary"
 																:class="{'disabled' : currReplyInputContent == ''}"
 																@click="sendReplyInput(blt.bulletinId)"
 																id="reply-input-submit" type="button">送出</button>
 														</div>
-													</div>
-												</transition>
+												</div>
 											</div>
 										</div>
 									</div>
