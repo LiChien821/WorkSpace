@@ -76,23 +76,5 @@ public class UserLevelController {
 		return uss.updateUserStatus(userStatus);
 	}
 	
-	// 申請成為老師
-	@PostMapping("/api/applydata")
-	@ResponseBody
-	public boolean addApply() throws UserNotFoundException {
-		UserAccountDt accountdt = aService.findByEmail(UtilityTool.getTokenEmail());
-		if (accountdt == null) {
-			throw new UserNotFoundException(); 
-		}
-	
-		LevelAlterApply apply = new LevelAlterApply();
-		apply.setApplylevel("Teacher"); 
-		apply.setApplystatus("未處理");
-		apply.setSystemtime(UtilityTool.getSysTime());
-		apply.setUserAccountDt(accountdt);
-		
-		laas.insertApply(apply);
-		return true;
-	}
 
 }

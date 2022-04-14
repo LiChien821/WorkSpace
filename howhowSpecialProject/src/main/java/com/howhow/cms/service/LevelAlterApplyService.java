@@ -32,4 +32,11 @@ public class LevelAlterApplyService {
 	public LevelAlterApply insertApply(LevelAlterApply apply) {
 		return repo.save(apply);
 	}
+	
+	public boolean checkRepeat(int id) {
+		if(repo.findByUserId(id).getApplyid() != 0) {
+			return true;
+		}
+		return false;
+	}
 }

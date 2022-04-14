@@ -15,6 +15,7 @@ import javax.persistence.Transient;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.howhow.util.UtilityTool;
 
 @Entity
 @Component
@@ -42,6 +43,17 @@ public class LevelAlterApply {
 	@JoinColumn(name = "user_id")
 	private UserAccountDt userAccountDt;
 
+	public LevelAlterApply(UserAccountDt userDt) {
+		applylevel = "Teacher";
+		applystatus = "未處理";
+		userAccountDt = userDt;
+		systemtime = UtilityTool.getSysTime();
+	}
+	
+	public LevelAlterApply() {
+		
+	}
+	
 	public int getApplyid() {
 		return applyid;
 	}

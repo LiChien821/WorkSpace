@@ -1,13 +1,14 @@
 package com.howhow.cms.dto;
 
 public class LevelAlterApplyDTO {
-	private int userid;
+	private boolean alreadyApplied;
 
-	public int getUserid() {
-		return userid;
+	public boolean isAlreadyApplied() {
+		return alreadyApplied;
 	}
 
-	public void setUserid(int userid) {
-		this.userid = userid;
+	public void setAlreadyApplied(boolean alreadyApplied) {
+		this.alreadyApplied = alreadyApplied;
 	}
+
 }
