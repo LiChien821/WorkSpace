@@ -1177,7 +1177,7 @@ a.btn:hover {
 }
 
 .breadcrumbs li::after {
-	content: '';
+	content: '���';
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -1312,7 +1312,7 @@ a.btn:hover {
 }
 
 .cat-links ul li::before {
-	content: '';
+	content: '���';
 	position: absolute;
 	top: 8px;
 	left: 0;
@@ -1528,7 +1528,7 @@ ul.green-ticked li {
 }
 
 ul.green-ticked li::before {
-	content: '';
+	content: '��';
 	position: absolute;
 	top: 2px;
 	left: 0;
@@ -1550,7 +1550,7 @@ ul.black-doted {
 }
 
 .single-course-cont-section ul.black-doted li::before {
-	content: '';
+	content: '���';
 	position: absolute;
 	top: 3px;
 	left: 0;
@@ -2725,13 +2725,11 @@ p.footer-copyright {
 }
 
 .button-new1 {
-	box-shadow: 0 8px 16px 0 rgba(95, 218, 132, 0.2), 0 6px 20px 0
-		rgba(95, 218, 132, 0.2);
+	box-shadow: 0 8px 16px 0 rgba(95, 218, 132, 0.2), 0 6px 20px 0 rgba(95, 218, 132, 0.2);
 }
 
 .button-new2:hover {
-	box-shadow: 0 12px 16px 0 rgba(95, 218, 132, 0.2), 0 17px 50px 0
-		rgba(0, 0, 0, 0.19);
+	box-shadow: 0 12px 16px 0 rgb(248, 202, 63),0 17px 50px 0 rgba(0,0,0,0.05);
 }
 
 * {
@@ -2973,7 +2971,7 @@ body {
 	color: #FFFFFF;
 	border-radius: 51px;
 	opacity: 1;
-	font-family: 微軟正黑體;
+	font-family: 敺株�迤暺��;
 	border: none;
 	letter-spacing: 2px;
 }
