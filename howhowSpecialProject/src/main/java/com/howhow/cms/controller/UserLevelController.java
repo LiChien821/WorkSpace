@@ -29,16 +29,11 @@ import com.howhow.util.UtilityTool;
 public class UserLevelController {
 	
 	@Autowired
-	private AccountService aService;
-	
-	@Autowired
 	private UserStatusService uss;
 	
 	@Autowired
 	private LevelAlterApplyService laas;
 	
-	@Autowired
-	private UserAccountDtService uads;
 	
 	@GetMapping("/cms/userstatus")
 	public String guidToUserStatus() {
