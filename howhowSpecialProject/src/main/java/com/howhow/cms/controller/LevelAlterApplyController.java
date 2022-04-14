@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.howhow.account.service.AccountService;
 import com.howhow.account.service.UserAccountDtService;
@@ -25,7 +26,8 @@ public class LevelAlterApplyController {
 	private AccountService as;
 	
     //提交申請單
-	@PostMapping("api/applydata")
+	@PostMapping("/api/applydata")
+	@ResponseBody
 	public LevelAlterApplyDTO addApply() throws UserNotFoundException {
 		UserAccountDt userDt = as.findByEmail(UtilityTool.getTokenEmail());
 		if (userDt == null) {

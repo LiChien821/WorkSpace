@@ -47,7 +47,7 @@
 
                         <div sec:authorize="hasAuthority('Student')" id="teacher" role="button" aria-expanded="false">
 
-                            <a class="nav-link" href="#" @click.prevent="sendTeacherApply()">
+                            <a class="nav-link" th:href="@{#}" @click.prevent="sendTeacherApply()">
                                 <small><span>申請講師</span></small>
                             </a>
                         </div> 
