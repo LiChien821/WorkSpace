@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.howhow.account.service.AccountService;
+import com.howhow.account.service.UserAccountDtService;
+import com.howhow.cms.dto.LevelAlterApplyDTO;
 import com.howhow.cms.service.LevelAlterApplyService;
 import com.howhow.entity.LevelAlterApply;
 import com.howhow.util.UtilityTool;
@@ -18,15 +20,19 @@ public class LevelAlterApplyController {
 	private LevelAlterApplyService laas;
 	
 	@Autowired
-	private AccountService service;
+	private UserAccountDtService uads;
 	
     //提交申請單
 	@PostMapping("api/applydata")
-	public void insertApply(@RequestBody LevelAlterApply apply) {
+	public boolean addApply(@RequestBody LevelAlterApplyDTO applyDTO) {
+		LevelAlterApply apply = new LevelAlterApply();
 		apply.setApplylevel("Teacher");
 		apply.setApplystatus("未處理");
-		apply.setUserAccountDt(service.findByEmail(UtilityTool.getTokenEmail()));
 		apply.setSystemtime(UtilityTool.getSysTime());
+		apply.setUserAccountDt(uads.findById(applyDTO.getUserid()));
+		
 		laas.insertApply(apply);
+		
+		return true;
 	}
 }
