@@ -1,11 +1,15 @@
 package com.howhow.shopping.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class CourseRankDTO {
 	
 	private int courserankid;
 	private int courseid;
 	private int userid;
 	private int rank;
+	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private String rankdate;
 	private String message;
 	private String coursename;
