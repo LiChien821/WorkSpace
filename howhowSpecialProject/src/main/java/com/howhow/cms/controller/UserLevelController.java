@@ -80,8 +80,6 @@ public class UserLevelController {
 	@PostMapping("/api/applydata")
 	@ResponseBody
 	public boolean addApply() throws UserNotFoundException {
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		System.out.println(UtilityTool.getTokenEmail());
 		UserAccountDt accountdt = aService.findByEmail(UtilityTool.getTokenEmail());
 		if (accountdt == null) {
 			throw new UserNotFoundException(); 
