@@ -19,18 +19,18 @@ const dataObj = {
 	orderisdisabled: "",
 
 	ccf: false,
-	
-	blobSetting:"",
-	
-	orderdto:"",
-	
-	TotalAmount:"",
-	
-	TradeDesc:"",
-	
-	ItemName:"",
-	
-	CustomField1:""
+
+	blobSetting: "",
+
+	orderdto: "",
+
+	TotalAmount: "",
+
+	TradeDesc: "",
+
+	ItemName: "",
+
+	CustomField1: ""
 
 };
 
@@ -127,8 +127,7 @@ createApp({
 			setTimeout(() => {
 				this.findshoppingcart();
 				this.findfavoritecourse();
-				this.findtotalprice();
-			}, 20);
+			}, 100);
 
 		},
 
@@ -164,8 +163,7 @@ createApp({
 			setTimeout(() => {
 				this.findshoppingcart();
 				this.findfavoritecourse();
-				this.findtotalprice();
-			}, 20);
+			}, 100);
 
 		},
 
@@ -200,7 +198,7 @@ createApp({
 				});
 			setTimeout(() => {
 				this.findfavoritecourse();
-			}, 20);
+			}, 100);
 		},
 
 		createOrder: function() {
@@ -227,11 +225,11 @@ createApp({
 				url: '/api/createorder/' + userid,
 				headers: { "Access-Control-Allow-Origin": "*" }
 			})
-				.then(response =>{
-					document.getElementById('TotalAmount').value=response.data.totalamount;
-					document.getElementById('ItemName').value=response.data.itemname;
-					document.getElementById('TradeDesc').value=response.data.description;
-					document.getElementById('CustomField1').value=response.data.customfield1;
+				.then(response => {
+					document.getElementById('TotalAmount').value = response.data.totalamount;
+					document.getElementById('ItemName').value = response.data.itemname;
+					document.getElementById('TradeDesc').value = response.data.description;
+					document.getElementById('CustomField1').value = response.data.customfield1;
 				})
 				.catch(function(error) {
 					console.log(error);
@@ -271,8 +269,7 @@ createApp({
 			setTimeout(() => {
 				this.findshoppingcart();
 				this.findfavoritecourse();
-				this.findtotalprice();
-			}, 20);
+			}, 100);
 		},
 		findfavoritecourse() {
 			axios({
@@ -292,6 +289,17 @@ createApp({
 				headers: { "Access-Control-Allow-Origin": "*" }
 			})
 				.then(response => (this.shopdetail = response.data))
+				.then(response => {
+					this.totalprice = 0;
+					for (let i = 0; i < this.shopdetail.length; i++) {
+						this.totalprice = this.totalprice + this.shopdetail[i].discountprice;
+					}
+					if (this.totalprice == 0) {
+						this.orderisdisabled = true;
+					} else {
+						this.orderisdisabled = false;
+					}
+				})
 				.catch(function(error) {
 					console.log(error);
 				});
@@ -307,7 +315,7 @@ createApp({
 				} else {
 					this.orderisdisabled = false;
 				}
-			}, 200);
+			}, 500);
 		}
 	}
 

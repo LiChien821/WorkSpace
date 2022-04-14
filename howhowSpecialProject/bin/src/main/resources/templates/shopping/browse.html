@@ -22,14 +22,11 @@
 
 
 <link rel="stylesheet" th:href="@{/shopping/css/elegant-fonts.css}">
-<link rel="stylesheet" th:href="@{/assets_wj/css/universal-navbar.css}"></link>
 <link rel="stylesheet" th:href="@{/shopping/css/themify-icons.css}">
 <link rel="stylesheet" th:href="@{/css/index.css}"></link>
 <link rel="stylesheet" th:href="@{/shopping/css/swiper.min.css}">
 
 <link rel="stylesheet" th:href="@{/shopping/style.css}">
-
-<link rel="stylesheet" th:href="@{/assets_wj/css/universal-navbar.css}"></link>
 
 <link rel="stylesheet" th:href="@{/css/index.css}"/>
 
@@ -53,10 +50,7 @@
 
 </head>
 <body>
-	<!-- <div th:insert="universal-navbar :: universal-navbar"></div>
-	 -->
-	
-	
+
 	<div id="browse">
 	
 	<nav th:fragment="universal-navbar" class="navbar navbar-expand-lg navbar-light bg-light p-0 m-0"
@@ -146,25 +140,6 @@
         </div>
     </nav>
 	
-<!-- 		<div -->
-<!-- 			style="width: 1500px; position: relative; margin: 0px auto; border: solid 1px;"> -->
-<!-- 			<div class="row"> -->
-<!-- 				<div class="col-2"> -->
-<!-- 					<a href="#" @click.prevent="searchAll()">所有課程</a> -->
-<!-- 				</div> -->
-<!-- 				<div v-for="category in categories" class="col-1"> -->
-<!-- 					<a href="#" @click.prevent="searchByCategory(category.id)">{{category.name}}</a> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			<div class="row"> -->
-<!-- 				<div class="col-4" v-if="currentcategoryid==0"> -->
-<!-- 					<input id="search" v-model="search" placeholder="尋找" -->
-<!-- 						@keyup.enter="goSearch(search)"> -->
-<!-- 					<button class="px-25" @click="goSearch(search)">搜尋</button> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-4" v-if="currentcategoryid!=0"> -->
-<!-- 					{{currentcategoryname}} - {{currentcategorydescription}}</div> -->
-<!-- 			</div> -->
 			
 			<div class="container-fluid" style="background-color:white; height:280px">
 				<div class="row" v-if="currentcategoryid!=0">
@@ -190,65 +165,6 @@
 						<div v-if="courses.empty==true">
 							<div style="margin: 20px">目前查無搜尋結果</div>
 						</div>
-						<!--                             <div class="col-12 col-md-4 px-25" v-for="course in courses.content"> -->
-						<!--                                 <div class="course-content"> -->
-						<!--                                     <div v-if="course.coursestatusid==1"> -->
-						<!--                                         <figure class="course-thumbnail"> -->
-						<!--                                             <a href="#"><img :src="blobSetting+course.cover" alt=""></a> -->
-						<!--                                         </figure>.course-thumbnail -->
-
-						<!--                                         <div class="course-content-wrap"> -->
-
-						<!--                                             <header class="entry-header"> -->
-						<!--                                                 <h2 class="entry-title"><a :href="course.url">{{course.coursename}}</a> -->
-						<!--                                                 </h2> -->
-						<!--                                                 <div class="flex flex-wrap justify-content-between align-items-center"> -->
-						<!--                                                     <div class="course-author"><a href="#">{{course.creatorname}}</a> -->
-						<!--                                                     </div>.course-date -->
-						<!--                                                     <div class="flex justify-content-end align-items-center"> -->
-						<!--                                                         <div v-if="favstatus.includes(course.courseid)"><button class="btn btn-success shadow-none far fa-bookmark " style="color:white" @click="removeFavorite(course.courseid)"></button></div> -->
-						<!--                                                         <div v-else><button class="btn btn-light shadow-none far fa-bookmark" style="color:green" @click="addFavorite(course.courseid)"></button></div> -->
-						<!--                                                     </div> -->
-						<!--                                                 </div> -->
-
-						<!--                                             </header>.entry-header -->
-
-						<!--                                             <footer -->
-						<!--                                                 class="entry-footer flex flex-wrap justify-content-between align-items-center"> -->
-						<!--                                                 <div class="course-cost" v-if="course.price>course.discountprice"> -->
-						<!--                                                     NT${{course.discountprice}} <span -->
-						<!--                                                         class="price-drop">{{course.price}}</span> -->
-						<!--                                                 </div>.course-cost -->
-						<!--                                                 <div class="course-cost" v-else> -->
-						<!--                                                     NT${{course.price}} -->
-						<!--                                                 </div>.course-cost -->
-						<!--                                                 <div class="course-ratings flex justify-content-end align-items-center"> -->
-						<!--                                                     <div v-if="course.ranknum>0"> -->
-						<!--                                                         <span class="fas fa-star checked"></span> -->
-						<!--                                                         <span v-if="course.rank>=2"class="fas fa-star checked"></span> -->
-						<!--                                                         <span v-else-if="course.rank>=1.5" class="fas fa-star-half-alt checked"></span>  -->
-						<!--                                                         <span v-else class="far fa-star checked"></span> -->
-						<!--                                                         <span v-if="course.rank>=3"class="fas fa-star checked"></span> -->
-						<!--                                                         <span v-else-if="course.rank>=2.5" class="fas fa-star-half-alt checked"></span> -->
-						<!--                                                         <span v-else class="far fa-star checked"></span> -->
-						<!--                                                         <span v-if="course.rank>=4" class="fas fa-star checked"></span> -->
-						<!--                                                         <span v-else-if="course.rank>=3.5" class="fas fa-star-half-alt checked"></span> -->
-						<!--                                                         <span v-else class="far fa-star checked"></span> -->
-						<!--                                                         <span v-if="course.rank>=4.8" class="fas fa-star checked"></span> -->
-						<!--                                                         <span v-else-if="course.rank>=4.3" class="fas fa-star-half-alt checked" ></span> -->
-						<!--                                                         <span v-else class="far fa-star checked"></span> -->
-						<!--                                                         <span class="course-ratings-count">{{course.ranknum}}則評價</span> -->
-						<!--                                                     </div> -->
-						<!--                                                 </div>.course-ratings -->
-						<!--                                                 <div class="course-stunum" v-if="course.studentnum>=5"> -->
-						<!--                                                     同學{{course.studentnum}}人 -->
-						<!--                                                 </div>.course-cost -->
-						<!--                                             </footer>.entry-footer -->
-						<!--                                         </div>.course-content-wrap -->
-						<!--                                     </div> -->
-						<!--                                 </div>.course-content -->
-						<!--                             </div>.col -->
-
 
 						<div class="classes" style="display: inline"
 							v-for="course in courses.content">
@@ -377,8 +293,10 @@
 			<input id="searching" name="searching" hidden th:value="${searching}" />
 			<input id="categorying" name="categorying" hidden th:value="${categorying}" />
 	</div>
-	</footer>
-	<!-- .site-footer -->
+
+	<div style="height: 1210px;"></div>
+	<div th:insert="universal-footer :: universal-footer"></div>
+
 	<script src="https://unpkg.com/vue@3"></script>
 	
 	<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>

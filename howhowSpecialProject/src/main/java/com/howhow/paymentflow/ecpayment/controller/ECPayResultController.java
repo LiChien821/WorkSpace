@@ -27,7 +27,7 @@ public class ECPayResultController {
 	public static AllInOne all = new AllInOne("");		 
 	
 	@PostMapping(value="/ECPayResult",  produces="text/html;charset=utf-8")
-	public String processPaymentResult2(HttpServletRequest request) throws NumberFormatException, OrderNotFoundException, OrderStatusErrorException, DuplicatedPurchasedCourseException {		
+	public String processPaymentResult(HttpServletRequest request) throws NumberFormatException, OrderNotFoundException, OrderStatusErrorException, DuplicatedPurchasedCourseException {		
 		
 		Hashtable<String, String> dict = new Hashtable<String, String>();
 		Enumeration<String> enumeration = request.getParameterNames();
@@ -36,15 +36,13 @@ public class ECPayResultController {
 			String paramValue = request.getParameter(paramName);
 			dict.put(paramName, paramValue);			
 		}
-		System.out.printf("【ECPayResult.java】用戶端付款成功後回傳「付款結果」通知給伺服端的參數們：\n%s\n", dict.toString());
 		boolean checkStatus = all.compareCheckMacValue(dict); 
 		if ("1".equals(dict.get("RtnCode")) && checkStatus==true ){
 			String orderidString = dict.get("CustomField1");
 			pController.insertPurchasedCourse(Integer.parseInt(orderidString));
-			
-			return "redirect:/mycourse";
+			return "shopping/checkoutsucceed.html";			 
 		}
 		else
-			return "redirect:/myshop";
+			return "shopping/checkoutfail.html";	
 	}
 }

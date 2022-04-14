@@ -123,8 +123,8 @@
                                      		</div>
                                      </td>
                                      <td >
-                                     		 <button type="button" class="btn btn-secondary"   v-if="item.hint !== null" >重新編輯</button>
-	                                         <button type="button" class="btn btn-dark"  v-if="item.hint === null">需編輯</button>
+                                     		 <button type="button" class="btn btn-secondary"   v-if="item.hint !== null" @click="hintSelectLecture(item)">重新編輯</button>
+	                                         <button type="button" class="btn btn-dark"  v-if="item.hint === null" @click="hintSelectLecture(item)">需編輯</button>
                                      </td>
                                 </tr>
                             </tbody>
