@@ -572,6 +572,7 @@ var bulletin = Vue.createApp({
 			})
 				.then(response => {
 					this.purchasedstatus = response.data;
+					console.log("now purchasedstatus:", this.purchasedstatus);
 					setTimeout(() => {
 						if (this.purchasedstatus == true) {
 							this.handlefirstVideoUrl();

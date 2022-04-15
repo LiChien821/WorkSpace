@@ -344,8 +344,8 @@
 			<header class="entry-heading d-flex align-items-center">
 				<h2 class="entry-title" style="font-size: 45px; font-weight: bold;">學生留言板</h2>
 				<div style="width: 50px;"></div>
-				<h2 class="entry-title" v-if="purchasedstatus" style="font-size: 45px; font-weight: bold;">
-					快來購買課程一起加入提問吧！</h2>
+				<h2 class="entry-title" v-if="purchasedstatus != true" style="font-size: 45px; font-weight: bold;">
+					快來購買課程一起加入提問吧！ pcs{{purchasedstatus}}</h2>
 			</header>
 		</div>
 		<div class="card border border-0" id="bulletin">
@@ -570,7 +570,7 @@
 												</div> -->
 												</div>
 												<div class="flex-grow-1 m-0 d-grid ">
-													<textarea class="reply-input" type="text" id="bRep-input-textarea"
+													<textarea class="reply-input px-2" type="text" id="bRep-input-textarea"
 														@focus="toggleReplyInput(blt.bulletinId)"
 														v-model="currReplyInputContent" style="border-radius:5px;"
 														placeholder="請留言..."></textarea>
