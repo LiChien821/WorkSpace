@@ -79,6 +79,45 @@
                                 <small><span>我的課程</span></small>
                             </a>
                         </div>
+
+
+                        <div class="mt-5" >
+                            <div class="dropdown-toggle" href="#" id="my-course-dropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <!-- <small><span><i class="fas fa-caret-down"></i></span></small> -->
+                            </div>
+                            
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-info shadow" 
+                                aria-labelledby="my-course-dropdown" style="width: 400px; height: 400px;background-color:#f3f7f7;border-radius: 15px;">
+
+                                <div class="px-3 mt-1"><span>最近學習</span></div>
+                                <div class="px-3 mt-3" v-if="course == ''">暫無課程</div>
+                                <div>
+                                    <div style="height: 60px;" v-for="course in courses">
+                                        <hr class="mb-1 mx-5" color="#6f5499" size="3" />
+                                        <a class="d-flex px-3 mb-3 mt-2 navbar-course-item" :href="course.url"
+                                            style="text-decoration:none;">
+                                            <div class="flex-shrink-0 m-0 p-0">
+                                                <img style="height: 60px; width: 100px;"
+                                                    :src="blobSetting + course.cover" alt="">
+                                            </div>
+                                            <div class="flex-grow-1 ms-3 d-block">
+                                                <div class="text-wrap " style="height: 36px; width: 250px;">
+                                                    <span class="text-wrap" style="font-size: 16px;">{{
+                                                        course.coursename
+                                                        }}</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="d-grid px-3 mt-4 align-items-end">
+                                    <button class="btn btn-secondary" type="button"><a class="nav-btn-link"
+                                            href="/mycourse">前往我的課程</a></button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="nav-item mx-2 py-2">

@@ -29,56 +29,9 @@ const dataObj = {
 		}
 		
 	],
-	// recentCourseTitle: "從一開始到最後的教學都讓我驚豔",
-	// recentCourseProgress: 20,
-	// recentCourseInfo: "課程",
-	// courseInfos:[
-	// 	{
-	// 		ctitle: "從一開始到最後的教學都讓我驚豔",
-	// 		cProgress: 20,
-	// 		cInfo: "課程"
-	// 	},
-	// 	{
-	// 		ctitle: "從一開始到最後的教學都讓我驚豔",
-	// 		cProgress: 20,
-	// 		cInfo: "課程"
-	// 	}
-	// ],
-	// shoppingInfos:[
-	// 	{
-	// 		ctitle: "從一開始到最後的教學都讓我驚豔",
-	// 		cStatus: "已開課",
-	// 		cPrice: 1100
-	// 	},
-	// 	{
-	// 		ctitle: "從一開始到最後的教學都讓我驚豔",
-	// 		cStatus: "募資中",
-	// 		cPrice: 1100
-	// 	},
-	// 	{
-	// 		ctitle: "從一開始到最後的教學都讓我驚豔",
-	// 		cStatus: "已開課",
-	// 		cPrice: 1100
-	// 	}
-	// ],
-	// reminderInfos: [
-	// 	{
-	// 		content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
-	// 		dateTime: "一個月前"
-	// 	},
-	// 	{
-	// 		content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
-	// 		dateTime: "一個月前"
-	// 	},
-	// 	{
-	// 		content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
-	// 		dateTime: "一個月前"
-	// 	},
-	// 	{
-	// 		content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
-	// 		dateTime: "一個月前"
-	// 	}
-	// ]
+	blobSetting: "",
+	courses: ""
+	
 };
 
 const app = createApp({
@@ -86,6 +39,45 @@ const app = createApp({
 		return dataObj;
 	},
 	mounted: function () {
+
+		axios({
+			method: 'get',
+			url: '/api/getBlobUrl',
+			headers: { "Access-Control-Allow-Origin": "*" },
+		})
+			.then(response => {
+				this.blobSetting = response.data;
+				// console.log("this blobSetting", this.blobSetting);
+			})
+			.catch(function (error) {
+				console.log(error);
+			})
+
+		axios({
+			method: 'get',
+			url: '/api/findallcourses/1',
+			headers: { "Access-Control-Allow-Origin": "*" }
+		})
+			.then(response => {
+				this.courses = [];
+				// console.log("this response", response.data);
+				var i = 0;
+				var n = response.data['content'].length;
+				// console.log("n", n);
+				while (i < n) {
+					if (i >= 3 ) {break}
+					this.courses.push(response.data['content'][i]);
+					i++;
+				}
+				// console.log("this courses", this.courses);
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+
+
+
+
 		function checkLoggedStatus(){
 			return axios.get(
 				"/api/checkLoginStatus",

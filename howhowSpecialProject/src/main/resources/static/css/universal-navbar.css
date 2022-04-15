@@ -3,62 +3,104 @@
 .dropdown-submenu {
     position: relative;
 }
+
 .dropdown-submenu>.dropdown-menu {
     top: 0;
     left: 100%;
     margin-top: -6px;
     margin-left: -1px;
 }
+
 .dropdown-submenu:hover>.dropdown-menu {
     display: block;
 }
+
 .dropdown-submenu:hover>a:after {
     border-left-color: #fff;
 }
+
 .dropdown-submenu.pull-left {
     float: none;
 }
+
 .dropdown-submenu.pull-left>.dropdown-menu {
     left: -100%;
     margin-left: 10px;
 }
 
-a.nav-btn-link:link, a.nav-btn-link:visited {
-    color:white;
-    text-decoration:none;
+a.nav-btn-link:link,
+a.nav-btn-link:visited {
+    color: white;
+    text-decoration: none;
 }
-a.nav-btn-link:hover, a.nav-btn-link:active {color:white;}
+
+a.nav-btn-link:hover,
+a.nav-btn-link:active {
+    color: white;
+}
 
 .dropdown-toggle::after {
     display: none;
 }
-/* .dropdown:hover > .dropdown-menu{
+
+.dropdown:hover > .dropdown-menu{
     display: block;
     float: none;
     width: 80px;
+} 
 
-}*/
 .dropdown-menu-info {
     height: 200px;
     overflow-y: auto;
-}
+} 
 
-.navbar-search{ 
+.navbar-search {
     /* position: relative; */
     width: 700px;
     height: 100px;
-  }
-  .navbar-search-input {
+}
+
+.navbar-search-input {
     /* position: absolute; */
     width: 500px;
     height: 40px;
-  }
-  .nav-item span {
+}
+
+.nav-item span {
     font-size: 19.5px;
     color: #5f5f5f;
     letter-spacing: 1px;
-  }
-  
-  #theSecSearch input, #theSecSearch button {
-    border-radius:10px;
-  }
+}
+
+#theSecSearch input,
+#theSecSearch button {
+    border-radius: 10px;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 10px;
+}
+
+.dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
+.top .classpicture {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-image:
+        url("https://scontent.fkhh5-1.fna.fbcdn.net/v/t1.18169-9/10371364_271869939662204_4999169435577560629_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=gw_pKNH4L0cAX8sBiU1&_nc_ht=scontent.fkhh5-1.fna&oh=00_AT8R4swPg5B_CYKkBrB2Ye717io28tE4ZwGEtfsHphsb8Q&oe=6271A196");
+    background-size: cover;
+    transition-duration: 0.3s;
+}
+
+.classbox:hover .classpicture {
+    transform: scale(1.15);
+}
+
+.navbar-course-item:hover {
+    background-color: rgba(255, 215, 141, 0.906);
+}

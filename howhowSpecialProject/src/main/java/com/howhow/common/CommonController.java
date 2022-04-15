@@ -23,7 +23,7 @@ public class CommonController {
 
 	@GetMapping("/api/navbar-test")
 	public String processNavbar() {
-		return "universal-navbar";
+		return "universal-navbar-origin";
 	}
 	
 	@GetMapping("/api/footer-test")
