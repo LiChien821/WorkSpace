@@ -572,20 +572,10 @@ var bulletin = Vue.createApp({
 			})
 				.then(response => {
 					this.purchasedstatus = response.data;
-					console.log("now purchasedstatus:", this.purchasedstatus);
-					setTimeout(() => {
-						if (this.purchasedstatus == true) {
-							this.handlefirstVideoUrl();
-						} else {
-							this.handlefirstPreviewVideoUrl();
-						}
-					}, 100);
-
 				})
 				.catch(function (error) {
 					console.log(error);
 				});
-
 		},
 	methods: {
 		sendSearch: function () {

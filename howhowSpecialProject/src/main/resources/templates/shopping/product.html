@@ -93,7 +93,6 @@
 											<div class="lecturename">
 												<a href="#" class="link-dark rounded " @click="handleVideoUrl(lecture)"
 													style="text-decoration: none;">
-
 													<p style="margin-left: 40px;">
 														<span
 															data-feather="fast-forward"></span>{{lecture.lectureNumber}}.
@@ -118,7 +117,7 @@
 														{{lecture.lecturesName}}
 													</p>
 													<hr / style="border: 1px solid; margin: 0px 20px">
-
+													
 												</a>
 											</div>
 										</li>
@@ -263,7 +262,8 @@
 					</div>
 				</div>
 				<div class="col-lg-4"
-					style="border-radius: 20px; height: 700px; width: 600px; background-color: rgba(255, 255, 255, 0.9);">
+					style="border-radius: 20px; height: 700px; width: 600px; background-color: rgba(255, 255, 255, 0.9); font-size:35px; padding:40px">
+					{{lecture.hint}}
 				</div>
 				<div class="col-lg-1"></div>
 			</div>

@@ -100,7 +100,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">被檢舉人ID</th>
-                                            <th scope="col">問題ID</th>
+                                            <th scope="col">回答ID</th>
                                             <th scope="col" class="reportContent">檢舉內容</th>
                                             <th scope="col">檢舉類型</th>
                                             <th scope="col" class="reporttime">檢舉時間</th>
@@ -118,7 +118,7 @@
                                                 <select class="form-select" aria-label="Default select example" v-model="item.handle">
                                                     <option selected>請選擇</option>
                                                     <option value="1">駁回檢舉</option>
-                                                    <option value="2">刪除問題</option>
+                                                    <option value="2">刪除回答</option>
                                                   </select>
                                             </td>
                                             <td><button type="button" class="btn btn-primary" @click="heandleReplyReport(item)">送出</button></td>
