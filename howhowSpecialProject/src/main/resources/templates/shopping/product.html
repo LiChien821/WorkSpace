@@ -48,6 +48,12 @@
 	<link rel="stylesheet" th:href="@{/css/universal-navbar.css}">
 	</link>
 
+	<style>
+		.bulletin-selection-item:hover .bulletin-report-item:hover{
+			background-color: rgba(255, 215, 141, 0.906);
+		}
+	</style>
+
 </head>
 
 <body>
@@ -347,7 +353,7 @@
 		</div>
 		<div class="card border border-0" id="bulletin">
 			<div class="card-header border border-0 d-flex justify-content-between">
-				<div>留言回覆</div>
+				<div class="fs-3"><i class="fas fa-address-book fa-lg"></i></div>
 				<div>
 					<div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
 						<div class="input-group">
@@ -363,14 +369,15 @@
 					</div>
 				</div>
 				<div class="dropdown">
-					<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">{{
+					<button type="button" style="background-color: #224a9f; color: #fff;" class="btn rounded-pill border-0 dropdown-toggle" data-bs-toggle="dropdown">{{
 						currSectionSelection }}</button>
-					<ul class="dropdown-menu">
+
+					<ul class="mt-1 dropdown-menu text-center right-dropdown-menu shadow" style="background-color:#f3f7f7;border-radius: 15px;">
 						<li @click="getBulletinByCourseId()"><small class="dropdown-item"><span>全部章節</span></small></li>
 						<div v-for="sec in sections">
 							<li v-for="lec in sec.lectures"
 								@click="getBulletinByLectureId(lec.lectureId, sec.sectionName, lec.lectureName)"><small
-									class="dropdown-item"><span>{{ sec.sectionName }}
+									class="dropdown-item bulletin-selection-item"><span>{{ sec.sectionName }}
 										. {{lec.lectureName}}</span></small></li>
 						</div>
 					</ul>
@@ -390,14 +397,15 @@
 							<div>
 								<div class=" d-flex justify-content-between">
 									<div class="dropdown d-flex">
-										<button type="button" class="btn-sm btn-outline-dark dropdown-toggle me-1 mb-1"
+										<button type="button" class="btn-sm btn-secondary border-0 dropdown-toggle me-1 mb-1"
 											style="height: 40px;border-radius: 10px;" data-bs-toggle="dropdown">{{
 											currQuestionSelection }}</button>
-										<ul class="dropdown-menu">
+
+										<ul class="mt-1 dropdown-menu text-center right-dropdown-menu shadow" style="background-color:#f3f7f7;border-radius: 15px;"> 
 											<div v-for="sec in sections">
 												<li v-for="lec in sec.lectures"
 													@click="toggleQuestionLectureId(lec.lectureId, sec.sectionName, lec.lectureName)">
-													<small class="dropdown-item"><span>{{ sec.sectionName }} .
+													<small class="dropdown-item bulletin-selection-item"><span>{{ sec.sectionName }} .
 															{{lec.lectureName}}</span></small>
 												</li>
 											</div>
@@ -470,9 +478,9 @@
 										data-bs-toggle="dropdown" aria-expanded="false">
 										<i class="fa fa-flag" aria-hidden="true"></i>
 									</div>
-									<ul class="dropdown-menu" aria-labelledby="bulletin-report">
-										<li class="dropdown-item" @click="reportBulletin(blt.bulletinId, 1)">檢舉不雅文字</li>
-										<li class="dropdown-item">檢舉人身攻擊</li>
+									<ul class="dropdown-menu text-center right-dropdown-menu shadow" aria-labelledby="bulletin-report" style="background-color:#f3f7f7;border-radius: 15px;"> 
+										<li class="dropdown-item bulletin-report-item" @click="reportBulletin(blt.bulletinId, 1)">檢舉不雅文字</li>
+										<li class="dropdown-item bulletin-report-item">檢舉人身攻擊</li>
 									</ul>
 									<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
 										<div id="blt-report-toast" class="toast hide" role="alert" aria-live="assertive"
@@ -505,7 +513,7 @@
 											<div class="container px-0 ms-2 mt-1">
 												<div class="d-flex justify-content-start align-items-center">
 													<div class="me-2" v-if="bRep.resondentId == courseCreatorId">
-														<small><span>授課老師</span></small>
+														<small><span class="text-light bg-dark px-1" style="border-radius: 8px;">授課老師</span></small>
 													</div>
 													<div class="me-2">
 														<small><span>{{ bRep.respondentName }}</span></small>
@@ -520,12 +528,12 @@
 															aria-expanded="false">
 															<i class="fa fa-flag" aria-hidden="true"></i>
 														</div>
-														<ul class="dropdown-menu"
+														<ul class="dropdown-menu text-center right-dropdown-menu shadow" style="background-color:#f3f7f7;border-radius: 15px;"
 															aria-labelledby="bulletinReply-report">
-															<li class="dropdown-item"
+															<li class="dropdown-item bulletin-report-item"
 																@click="reportBulletinReply(bRep.bulletinreplyId, 1)">
 																檢舉不雅文字</li>
-															<li class="dropdown-item">檢舉人身攻擊</li>
+															<li class="dropdown-item bulletin-report-item">檢舉人身攻擊</li>
 														</ul>
 														<div class="position-fixed bottom-0 end-0 p-3"
 															style="z-index: 11">
@@ -560,7 +568,7 @@
 												v-if="purchasedstatus  || courseCreatorId==userId || admin==1">
 												<div class="d-flex justify-content-start align-items-center">
 													<div class="me-2" v-if="userId == courseCreatorId">
-														<small><span>授課老師</span></small>
+														<small><span class="text-light bg-dark px-1" style="border-radius: 8px;">授課老師</span></small>
 													</div>
 													<!-- <div class="me-2">
 													<small><span>{{ userName }}</span></small>

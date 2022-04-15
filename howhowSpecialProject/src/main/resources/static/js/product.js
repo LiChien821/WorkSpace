@@ -474,7 +474,7 @@ const dataObj2 = {
 	currQuestionContent: "",
 
 	showReply: false,
-	showReplyInput: true,
+	showReplyInput: false,
 	currReplyInputContent: "",
 
 	sections: "",

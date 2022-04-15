@@ -43,16 +43,16 @@ a.nav-btn-link:active {
     display: none;
 }
 
-.dropdown:hover > .dropdown-menu{
+/* .dropdown:hover > .dropdown-menu{
     display: block;
     float: none;
     width: 80px;
-} 
+}  */
 
-.dropdown-menu-info {
+/* .dropdown-menu-info {
     height: 200px;
     overflow-y: auto;
-} 
+}  */
 
 .navbar-search {
     /* position: relative; */
@@ -77,14 +77,19 @@ a.nav-btn-link:active {
     border-radius: 10px;
 }
 
-.dropdown:hover .dropdown-menu {
+.navbar-dropdown:hover .navbar-dropdown-menu {
     display: block;
     margin-top: 10px;
 }
 
-.dropdown-menu {
+.right-dropdown-menu {
     right: 0;
     left: auto;
+}
+
+.left-dropdown-menu {
+    right: auto;
+    left: -60%;
 }
 
 .top .classpicture {
@@ -101,6 +106,6 @@ a.nav-btn-link:active {
     transform: scale(1.15);
 }
 
-.navbar-course-item:hover {
+.navbar-category-item:hover, .navbar-course-item:hover, .navbar-profile-item > a:hover{
     background-color: rgba(255, 215, 141, 0.906);
 }
