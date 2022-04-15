@@ -33,12 +33,6 @@ public class LevelAlterApplyService {
 		return repo.save(apply);
 	}
 	
-//	public boolean checkRepeat(int id) {
-//		if(repo.findByUserId(id).getApplyid() != 0) {
-//			return true;
-//		}
-//		return false;
-//	}
 	public boolean isApplied(int id) {
 		if(repo.findByUserId(id) != 0) {
 			return true;
