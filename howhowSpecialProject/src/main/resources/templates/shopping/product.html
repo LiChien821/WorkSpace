@@ -70,16 +70,16 @@
 		<div class="container-fluid">
 			<div class="row py-5" style="backdrop-filter: blur(5px); border: 1px solid"
 				v-bind:style="{ backgroundImage:'url('+blobSetting+course.cover+ ')'}">
-				<div class="col-12 col-lg-2"></div>
-				<div class="col-12 col-lg-6" style="padding: 0px;">
+				<div class="col-1 col-lg-1"></div>
+				<div class="col-6 col-lg-6" style="padding: 0px;">
 					<div class="productvideo me-5">
 						<video id="my-video" class="video-js vjs-fluid vjs-big-play-centered"></video>
 					</div>
 
 				</div>
-				<div class="col-12 col-lg-12" v-if="!notestatus"
-					style="background-color: rgba(255, 255, 255, 0.9); border-radius: 20px; max-height: 550px; width: 600px; overflow-y: auto;">
-					<button class="btn btn-outline-dark" style="margin: 10px; margin-left: 500px"
+				<div class="col-3 col-lg-4" v-if="!notestatus"
+					style="background-color: rgba(255, 255, 255, 0.9); border-radius: 20px; max-height: 550px; overflow-y: auto;">
+					<button class="btn btn-outline-dark" style="margin: 10px; margin-left: 80%"
 						@click="changeNoteStatus()">Notes</button>
 					<ul class="nav flex-column" v-for="section in course.sectionList">
 						<li class="nav-item">
@@ -262,13 +262,13 @@
 						<div class="col-6"
 							style="font-size: 70px; letter-spacing: 8px; color: #757575; margin-top: 40px">|學生數</div>
 						<div class="col-6" style="font-size: 70px; letter-spacing: 8px; color: #757575"></div>
-						<div class="col-5"
+						<div class="col-6"
 							style="font-size: 55px; letter-spacing: 8px; color: #757575; margin-left: 35px">
 							◆{{course.studentnum}}位同學</div>
 					</div>
 				</div>
 				<div class="col-lg-4"
-					style="border-radius: 20px; height: 700px; width: 600px; background-color: rgba(255, 255, 255, 0.9); font-size:35px; padding:40px">
+					style="border-radius: 20px; height: 700px; background-color: rgba(255, 255, 255, 0.9); font-size:35px; padding:40px">
 					{{lecture.hint}}
 				</div>
 				<div class="col-lg-1"></div>
@@ -278,8 +278,8 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-1"></div>
-				<div class="col-lg-6">
-					<h1 class="entry-title" style="margin-top: 50px" id="courserank">CourseRank</h1>
+				<div class="col-lg-6" style="margin-right:55px">
+					<h1 class="entry-title" style="margin-top: 50px"  id="courserank">CourseRank</h1>
 					<div class="instructor-short-info">
 						<div v-if="ranks.empty==true">目前尚無評價</div>
 
@@ -324,7 +324,7 @@
 				</div>
 				<div class="col-lg-4">
 					<div class="single-course-cont-section"
-						style="border-radius: 20px; height: 650px; margin-left: 40px; padding: 20px; padding-left: 50px; background-color: rgba(255, 255, 255, 0.9);">
+						style="border-radius: 20px; height: 700px; background-color: rgba(255, 255, 255, 0.9); font-size:35px; padding:40px">
 						<h2 style="font-size: 50px">What Will I Learn?</h2>
 
 						<div>{{course.description}}</div>
