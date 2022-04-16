@@ -447,10 +447,13 @@ product.mount('#product')
 var player = videojs('my-video', {
 
 	loop: true,
-	muted: true,
+	muted: false,
 	width: "800px",
 	height: "720px",
-	controls: true
+	controls: true,
+	controlBar: {
+		muteToggle: true,
+	}
 });
 
 
