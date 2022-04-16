@@ -16,4 +16,11 @@ public interface CourseBasicRepository extends JpaRepository<CourseBasic, Intege
 	
 	@Query(value="from CourseBasic where status_id=?1")
 	public List<CourseBasic> findByStatusID(int statusid);
+	
+	@Query(value="SELECT * FROM coursebasic\n"
+			+ "WHERE course_id IN (\n"
+			+ "	SELECT course_id FROM purchasedcourse\n"
+			+ "	WHERE user_id = ?1 );", nativeQuery = true)
+	public List<CourseBasic> findAllbyUserID(int userid);
+	
 }

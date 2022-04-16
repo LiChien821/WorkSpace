@@ -1,5 +1,9 @@
 package com.howhow.common;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,8 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.howhow.account.service.AccountService;
 import com.howhow.account.service.UserStatusService;
+import com.howhow.entity.CourseBasic;
+import com.howhow.entity.PurchasedCourse;
 import com.howhow.entity.UserAccountDt;
 import com.howhow.entity.UserStatus;
+import com.howhow.shopping.exception.UserNotFoundException;
+import com.howhow.shopping.service.CourseBasicService;
 import com.howhow.util.UtilityTool;
 
 @Controller
@@ -20,6 +28,9 @@ public class CommonController {
 	
 	@Autowired
 	private UserStatusService usService;
+	
+	@Autowired
+	CourseBasicService cService;
 
 	@GetMapping("/api/navbar-test")
 	public String processNavbar() {
@@ -38,13 +49,25 @@ public class CommonController {
 	
 	@GetMapping("/api/checkLoginStatus")
 	@ResponseBody
-	public boolean checkLoginStatus() {
+	public HashMap<String, Object> checkLoginStatus() throws UserNotFoundException {
 		UserAccountDt accountdt = aService.findByEmail(UtilityTool.getTokenEmail());
 		if (accountdt == null) {
-			return false;
+			throw new UserNotFoundException();
 		};
-		
-		return true;
+		int userid = accountdt.getUserId();
+		HashMap<String, Object> output = new HashMap<String, Object>();
+		output.put("userId", userid);
+		output.put("isLogged", true);
+		return output;
 	}
+	
+	@GetMapping("/api/findAllPurchasedCoursesByUserid/{userid}")
+	@ResponseBody
+	public List<CourseBasic> findAllPurchasedCoursesByUserid (@PathVariable("userid") int userid) {
+		List<CourseBasic> list = cService.findAllbyUserID(userid);
+		return list;
+	}
+	
+	
 	
 }
