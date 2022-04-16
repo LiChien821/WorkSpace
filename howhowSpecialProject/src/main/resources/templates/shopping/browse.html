@@ -59,7 +59,10 @@
             <a class="navbar-brand" href="/">
                 <img class="icon" th:src="@{/image/unnamed.png}" alt="" />
             </a>
-            <div class="nav-item dropdown navbar-dropdown me-2 py-2 ms-5 d-flex align-items-center">
+
+
+
+			<div class="nav-item dropdown navbar-dropdown me-2 py-2 ms-5 d-flex align-items-center">
                 <div id="category" role="button" aria-expanded="false">
                     <a class="nav-link" href="/courses">
                         <small><span>| 類別 |</span></small>
@@ -70,7 +73,7 @@
                         style="width: 200px;background-color:#f3f7f7;border-radius: 15px;">
 
                         <div herf="#" class="dropdown-item  navbar-category-item" v-for="cate in categories"
-                            @click="goToCoursePageByCategoryId(cate.cId)">
+                            @click="searchByCategory(cate.cId)">
                             {{ cate.cItemName }}
                         </div>
                     </div>
@@ -104,10 +107,9 @@
 
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
                 <div class="navbar-nav">
-                    <div class="nav-item dropdown mx-2 py-2 d-flex align-items-center">
-                        <div sec:authorize="hasAuthority('Student')" id="teacher" role="button" aria-expanded="false">
                     <div class="nav-item mx-2 py-2 d-flex align-items-center">
 
+						<div sec:authorize="hasAuthority('Student')" id="teacher" role="button" aria-expanded="false">
                             <a class="nav-link" th:href="@{#}" @click.prevent="sendTeacherApply()">
                                 <small><span>申請講師</span></small>
                             </a>
@@ -124,10 +126,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                        </div>
-
-                        <div sec:authorize="hasAuthority('Teacher')" id="teacher" role="button" aria-expanded="false">
                         </div>
 
                         <div sec:authorize="hasAuthority('Teacher')" id="teacher" role="button" aria-expanded="false">
@@ -137,7 +135,7 @@
                         </div>
                         <!-- <div id="teacher" role="button" aria-expanded="false">
                             <a class="nav-link" href="/teacherPage/page">
-                                <small><span>我是講師</span></small>
+                                <small><span>講師</span></small>
                             </a>
                         </div> -->
                     </div>

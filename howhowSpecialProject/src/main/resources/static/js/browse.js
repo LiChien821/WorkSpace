@@ -54,7 +54,9 @@ const dataObj = {
 
 	searching: "",
 
-	isLogged: ""
+	isLogged: "",
+	
+	purchasedCourses:""
 
 };
 
@@ -141,6 +143,8 @@ var app = Vue.createApp({
 			.catch(function(error) {
 				console.log(error);
 			})
+			
+		this.findPurchasedCourseByUserid();
 
 	},
 	methods: {
@@ -438,7 +442,28 @@ var app = Vue.createApp({
 				.catch((error) => {
 					console.log(error);
 				});
-		}
+		},
+		findPurchasedCourseByUserid: function() {
+			axios({
+				method: 'get',
+				url: '/api/findAllPurchasedCoursesByUserid/' + this.userid,
+				headers: { "Access-Control-Allow-Origin": "*" }
+			})
+				.then(response => {
+					this.purchasedCourses = [];
+					var i = 0;
+					var n = response.data.length;
+					console.log("response.data", response.data);
+					while (i < n) {
+						if (i >= 3 ) {break}
+						this.purchasedCourses.push(response.data[i]);
+						i++;
+					}
+				})
+				.catch(function(error) {
+					console.log(error);
+				});
+		},
 	}
 })
 app.use(router);
