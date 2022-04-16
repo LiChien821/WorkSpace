@@ -138,7 +138,7 @@ var app = Vue.createApp({
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (
-				this.isLogged = response.data
+				this.isLogged = response.data["isLogged"]
 			))
 			.catch(function(error) {
 				console.log(error);
@@ -453,7 +453,7 @@ var app = Vue.createApp({
 					this.purchasedCourses = [];
 					var i = 0;
 					var n = response.data.length;
-					console.log("response.data", response.data);
+					// console.log("response.data", response.data);
 					while (i < n) {
 						if (i >= 3 ) {break}
 						this.purchasedCourses.push(response.data[i]);

@@ -51,11 +51,13 @@ public class CommonController {
 	@ResponseBody
 	public HashMap<String, Object> checkLoginStatus() throws UserNotFoundException {
 		UserAccountDt accountdt = aService.findByEmail(UtilityTool.getTokenEmail());
-		if (accountdt == null) {
-			throw new UserNotFoundException();
-		};
-		int userid = accountdt.getUserId();
 		HashMap<String, Object> output = new HashMap<String, Object>();
+		if (accountdt == null) {
+			output.put("userId", -1);
+			output.put("isLogged", false);
+			return output;
+		}
+		int userid = accountdt.getUserId();
 		output.put("userId", userid);
 		output.put("isLogged", true);
 		return output;

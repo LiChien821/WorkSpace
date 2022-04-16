@@ -104,7 +104,6 @@ const app = createApp({
 		})).catch(errors => {
 			console.log(errors);
 		})
-
 	},
 	methods: {
 		findPurchasedCourseByUserid: function() {
