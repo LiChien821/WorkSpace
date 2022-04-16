@@ -59,7 +59,7 @@
             <a class="navbar-brand" href="/">
                 <img class="icon" th:src="@{/image/unnamed.png}" alt="" />
             </a>
-            <div class="nav-item dropdown me-2 py-2 ms-5">
+            <div class="nav-item dropdown navbar-dropdown me-2 py-2 ms-5 d-flex align-items-center">
                 <div class="dropdown-toggle" href="#" id="category" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
                     <small><span>| 類別 |</span></small>
@@ -88,9 +88,29 @@
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
                 <div class="navbar-nav">
                     <div class="nav-item dropdown mx-2 py-2 d-flex align-items-center">
-                        <div id="teacher" role="button" aria-expanded="false">
+                        <div sec:authorize="hasAuthority('Student')" id="teacher" role="button" aria-expanded="false">
+                            <a class="nav-link" th:href="@{#}" @click.prevent="sendTeacherApply()">
+                                <small><span>申請講師</span></small>
+                            </a>
+                            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                                <div id="liveToast" class="toast hide" role="alert" aria-live="assertive"
+                                    aria-atomic="true">
+                                    <div class="toast-header">
+                                        <strong class="me-auto">公告</strong>
+                                        <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="toast-body">
+                                        講師申請已送出，待後台審理，請耐心等候告知...
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div sec:authorize="hasAuthority('Teacher')" id="teacher" role="button" aria-expanded="false">
                             <a class="nav-link" href="/teacherPage/page">
-                                <small><span>講師</span></small>
+                                <small><span>我是講師</span></small>
                             </a>
                         </div>
                     </div>

@@ -422,6 +422,23 @@ var app = Vue.createApp({
 					console.log(error);
 				});
 		},
+		sendTeacherApply: function() {
+			var toastLiveExample = document.getElementById('liveToast')
+			axios({
+				method: 'post',
+				url: '/api/applydata',
+				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" }
+			})
+				.then((response) => {
+					console.log("alreadyApplied status: ", response.data["alreadyApplied"]);
+					console.log("sendTeacherApply finished");
+					var toast = new bootstrap.Toast(toastLiveExample)
+    				toast.show()
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
 	}
 })
 app.use(router);

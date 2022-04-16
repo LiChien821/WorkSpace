@@ -438,7 +438,7 @@ var product = Vue.createApp({
 						console.log(error);
 					})
 			}
-		}
+		},
 	}
 
 })
