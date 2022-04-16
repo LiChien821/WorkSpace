@@ -20,7 +20,7 @@ const dataObj = {
 	courseCreatorId: "",
 	userName: "Big O",
 	currQuery: "",
-	isLogged: true,
+	isLogged: false,
 
 	categories:[
 		{
@@ -30,7 +30,7 @@ const dataObj = {
 		
 	],
 	blobSetting: "",
-	courses: ""
+	purchasedCourses: ""
 	
 };
 
@@ -52,30 +52,6 @@ const app = createApp({
 			.catch(function (error) {
 				console.log(error);
 			})
-
-		axios({
-			method: 'get',
-			url: '/api/findallcourses/1',
-			headers: { "Access-Control-Allow-Origin": "*" }
-		})
-			.then(response => {
-				this.courses = [];
-				// console.log("this response", response.data);
-				var i = 0;
-				var n = response.data['content'].length;
-				// console.log("n", n);
-				while (i < n) {
-					if (i >= 3 ) {break}
-					this.courses.push(response.data['content'][i]);
-					i++;
-				}
-				// console.log("this courses", this.courses);
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
-
-
 
 
 		function checkLoggedStatus(){
@@ -104,12 +80,12 @@ const app = createApp({
 			);
 		}
 
-
 		axios
 		.all([checkLoggedStatus(), getAllCategoryInfo()])
 		.then(axios.spread((...responses) => {
 			const resp1 = responses[0];
-			this.isLogged = resp1.data;
+			this.isLogged = resp1.data["isLogged"];
+			this.userId = resp1.data["userId"];
 
 			const resp2 = responses[1];
 			for (var i = 0; i < resp2.data.length; i++) {
@@ -122,12 +98,36 @@ const app = createApp({
 				newCategoryObject.cItemName = item["name"];
 				this.categories.push(newCategoryObject);
 			  }
+			if (this.isLogged == true) {
+				this.findPurchasedCourseByUserid();
+			}
 		})).catch(errors => {
 			console.log(errors);
 		})
 
 	},
 	methods: {
+		findPurchasedCourseByUserid: function() {
+			axios({
+				method: 'get',
+				url: '/api/findAllPurchasedCoursesByUserid/' + this.userId,
+				headers: { "Access-Control-Allow-Origin": "*" }
+			})
+				.then(response => {
+					this.purchasedCourses = [];
+					var i = 0;
+					var n = response.data.length;
+					console.log("response.data", response.data);
+					while (i < n) {
+						if (i >= 3 ) {break}
+						this.purchasedCourses.push(response.data[i]);
+						i++;
+					}
+				})
+				.catch(function(error) {
+					console.log(error);
+				});
+		},
 
 		goToCoursePageByCategoryId: function(categroyId) {
 			if (categroyId == 0) {

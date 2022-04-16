@@ -17,6 +17,12 @@ public class CourseBasicService {
 	@Autowired
 	CourseBasicRepository repo;
 
+	//wj 
+	public List<CourseBasic> findAllbyUserID(int userid) {
+		List<CourseBasic> list = repo.findAllbyUserID(userid);
+		return list;
+	}
+	
 	public CourseBasic findByID(int id) {
 
 		Optional<CourseBasic> bean = repo.findById(id);

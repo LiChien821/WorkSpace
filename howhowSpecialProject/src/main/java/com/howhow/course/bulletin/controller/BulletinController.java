@@ -138,10 +138,11 @@ public class BulletinController {
 		Lectures lecture1 = llService.findByLectureID(lectureid);
 		String lecturename = lecture1.getLecturesName();
 	    String sectionname = lecture1.getSection().getSectionName();
+	    List<BulletinReplyDTO> replies = new ArrayList<BulletinReplyDTO>();;
 		BulletinDTO bDto = new BulletinDTO(
 				output.getBulletinid(), output.getTitle(), output.getContent(),
 				creationTime, launchername, lectureid,
-				null, 0, sectionname, lecturename);
+				replies, 0, sectionname, lecturename);
 		return bDto;
 	}
 

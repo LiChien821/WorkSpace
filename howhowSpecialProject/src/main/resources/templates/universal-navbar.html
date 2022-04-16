@@ -22,7 +22,6 @@
                         <small><span>| 類別 |</span></small>
                     </a>
                 </div>
-
                 <div class="mt-5">
                     <div class="dropdown-menu navbar-dropdown-menu text-center left-dropdown-menu shadow" aria-labelledby="category"
                         style="width: 200px;background-color:#f3f7f7;border-radius: 15px;">
@@ -32,10 +31,7 @@
                             {{ cate.cItemName }}
                         </div>
                     </div>
-
-
                 </div>
-
             </div>
 
             <div class="ms-3 navbar-search d-flex align-items-center justify-content-center">
@@ -70,7 +66,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                         <div sec:authorize="hasAuthority('Teacher')" id="teacher" role="button" aria-expanded="false">
@@ -86,32 +81,28 @@
                                 <small><span>我的課程</span></small>
                             </a>
                         </div>
-
-
                         <div class="mt-5">
                             <div class="dropdown-toggle" href="#" id="my-course-dropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <!-- <small><span><i class="fas fa-caret-down"></i></span></small> -->
                             </div>
-
                             <div class="dropdown-menu navbar-dropdown-menu right-dropdown-menu shadow" aria-labelledby="my-course-dropdown"
                                 style="width: 400px; height: 400px;background-color:#f3f7f7;border-radius: 15px;">
-
                                 <div class="px-3 mt-1"><span>最近學習</span></div>
-                                <div class="px-3 mt-3" v-if="courses == ''">暫無課程</div>
+                                <div class="px-3 mt-3" v-if="purchasedCourses == ''">暫無課程</div>
                                 <div>
-                                    <div style="height: 60px;" v-for="course in courses">
+                                    <div style="height: 60px;" v-for="course in purchasedCourses">
                                         <hr class="mb-1 mx-5" color="#6f5499" size="3" />
-                                        <a class="d-flex px-3 mb-3 mt-2 navbar-course-item" :href="course.url"
+                                        <a class="d-flex px-3 mb-3 mt-2 navbar-course-item" :href="'/product?id=' + course.courseID"
                                             style="text-decoration:none;">
                                             <div class="flex-shrink-0 m-0 p-0">
                                                 <img style="height: 60px; width: 100px;"
-                                                    :src="blobSetting + course.cover" alt="">
+                                                    :src="blobSetting + course.courseCover" alt="">
                                             </div>
                                             <div class="flex-grow-1 ms-3 d-block">
                                                 <div class="text-wrap " style="height: 36px; width: 250px;">
                                                     <span class="text-wrap" style="font-size: 16px;">{{
-                                                        course.coursename
+                                                        course.courseName
                                                         }}</span>
                                                 </div>
                                             </div>
@@ -124,7 +115,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="nav-item mx-2 py-2">
@@ -158,13 +148,11 @@
                                 <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
                             </a>
                         </div>
-
                         <div class="mt-5">
                             <div class="dropdown-toggle" href="#" id="profile" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 <!-- <small><span><i class="fas fa-caret-down"></i></span></small> -->
                             </div>
-
                             <div class="dropdown-menu navbar-dropdown-menu text-center right-dropdown-menu shadow navbar-profile-item"
                                 style="width: 180px; height: 250px;background-color:#f3f7f7;border-radius: 15px;"
                                 aria-labelledby="profile">
