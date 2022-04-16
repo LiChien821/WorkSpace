@@ -16,15 +16,47 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" th:href="@{/assets_wj/css/universal-navbar.css}"></link>
-    <link rel="stylesheet" th:href="@{/css/index.css}"></link>
+    <link rel="stylesheet" th:href="@{/css/universal-navbar.css}">
+    </link>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+    </link>
     <style>
+        .dropdown:hover .dropdown-menu {
+            display: block;
+            /* margin-top: 10px; */
+        }
+
+        .dropdown-menu {
+
+            right: 0;
+            left: auto;
+        }
+
+        .top .classpicture {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background-image:
+                url("https://scontent.fkhh5-1.fna.fbcdn.net/v/t1.18169-9/10371364_271869939662204_4999169435577560629_n.jpg?_nc_cat=105&ccb=1-5&_nc_sid=8bfeb9&_nc_ohc=gw_pKNH4L0cAX8sBiU1&_nc_ht=scontent.fkhh5-1.fna&oh=00_AT8R4swPg5B_CYKkBrB2Ye717io28tE4ZwGEtfsHphsb8Q&oe=6271A196");
+            background-size: cover;
+            transition-duration: 0.3s;
+        }
+
+        .classbox:hover .classpicture {
+            transform: scale(1.15);
+        }
+
+        .navbar-course-item:hover {
+            background-color: rgba(255, 215, 141, 0.83);
+        }
+
     </style>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="howhowdo-navbar">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="test-navbar">
         <div class="container-fluid px-3">
             <a class="navbar-brand" href="/">
                 <i class="fa fa-book" aria-hidden="true"></i>
@@ -36,33 +68,122 @@
                     <small><span>類別</span></small>
                 </div>
                 <ul class="dropdown-menu" aria-labelledby="category">
-                    <li class="dropdown-submenu dropdown-item" v-for="cate in categories">
-                        <a class="d-flex justify-content-between" tabindex="-1" :href=cate.cUrl>
-                            <small><span>{{ cate.cItemName }}</span></small>
+                    <li class="dropdown-submenu dropdown-item">
+                        <a class="d-flex justify-content-between" tabindex="-1">
+                            <small><span>cate.cItemName</span></small>
                             <i class="fa fa-chevron-right"></i></a>
                         <ul class="dropdown-menu">
-                            <li v-for="subCate in cate.subCategories"><a :href=subCate.scUrl>
-                                    <small><span>{{ subCate.scItemName }}</span></small></a>
+                            <li><a>
+                                    <small><span>subCate.scItemName</span></small></a>
                             </li>
-                            <!-- <li><a href="#"><small><span>資料科學</span></small></a></li> -->
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- <div class="input-group border rounded-pill p-1">
+                <div class="input-group-prepend border-0">
+                    <button id="button-addon4" type="button" class="btn btn-link text-info"><i
+                            class="fa fa-search"></i></button>
+                </div>
+                <input type="search" placeholder="搜尋任何事物..." aria-describedby="button-addon4" @keyup.enter="goToLogin()"
+                    class="form-control bg-light border-0 me-2">
+            </div> -->
+
+
+            <div class="collapse navbar-collapse d-flex justify-content-start" id="navbarNav">
+                <div class="navbar-nav">
+
+                    <div style="width: 150px;"></div>
+                    <div class="nav-item dropdown mx-2 py-2">
+                        <div class="dropdown-toggle" href="#" id="my-course" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <small><span>我的課程</span></small>
+                        </div>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-info" aria-labelledby="my-course"
+                            style="width: 400px; height: 400px;">
+
+                            <div class="px-3 mt-1"><span>最近學習</span></div>
+
+                            <div>
+                                <div style="height: 60px;"
+                                    v-for="course in courses">
+                                    <hr class="mb-1 mx-5"  color="#6f5499" size="3" />
+                                    <a class="d-flex px-3 mb-3 mt-2 navbar-course-item" :href="course.url" style="text-decoration:none;">
+                                        <div class="flex-shrink-0 m-0 p-0">
+                                            <img style="height: 60px; width: 100px;" :src="blobSetting + course.cover"
+                                                alt="">
+                                        </div>
+                                        <div class="flex-grow-1 ms-3 d-block">
+                                            <div class="text-wrap " style="height: 36px; width: 250px;">
+                                                <span class="text-wrap" style="font-size: 16px;">{{ course.coursename
+                                                    }}</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="d-grid px-3 mt-4 align-items-end">
+                                <button class="btn btn-primary" type="button"><a class="nav-btn-link"
+                                        href="/mycourse">前往我的課程</a></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nav-item dropdown mx-2 py-2">
+                        <div class="dropdown-toggle" href="#" id="shopping-cart" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown mx-2 py-2">
+                        <div class="dropdown-toggle" href="#" id="shopping-cart" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </nav>
+
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light" id="howhowdo-navbar">
+        <div class="container-fluid px-3">
+            <a class="navbar-brand" href="/">
+                <i class="fa fa-book" aria-hidden="true"></i>
+                <small><span>HowHowDo</span></small>
+            </a>
+            <div class="nav-item dropdown me-2 py-2">
+                <div class="dropdown-toggle" href="#" id="category" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <small><span>類別</span></small>
+                </div>
+                <ul class="dropdown-menu" aria-labelledby="category">
+                    <li class="dropdown-submenu dropdown-item">
+                        <a class="d-flex justify-content-between" tabindex="-1">
+                            <small><span>cate.cItemName</span></small>
+                            <i class="fa fa-chevron-right"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a>
+                                    <small><span>subCate.scItemName</span></small></a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
             </div>
 
             <div class="input-group border rounded-pill p-1">
-                    <div class="input-group-prepend border-0">
-                        <button id="button-addon4" type="button" class="btn btn-link text-info"><i
-                                class="fa fa-search"></i></button>
-                    </div>
-                    <input type="search" placeholder="搜尋任何事物..." aria-describedby="button-addon4" @keyup.enter="goToLogin()"
-	                    class="form-control bg-light border-0 me-2">
+                <div class="input-group-prepend border-0">
+                    <button id="button-addon4" type="button" class="btn btn-link text-info"><i
+                            class="fa fa-search"></i></button>
+                </div>
+                <input type="search" placeholder="搜尋任何事物..." aria-describedby="button-addon4" @keyup.enter="goToLogin()"
+                    class="form-control bg-light border-0 me-2">
             </div>
 
-            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button> -->
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
                 <div class="navbar-nav">
                     <div class="nav-item dropdown mx-2 py-2 ">
@@ -70,10 +191,6 @@
                             aria-expanded="false">
                             <small><span>講師</span></small>
                         </div>
-                        <!-- <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="teacher">
-                            <li><a class="dropdown-item" href="#">item1</a></li>
-                            <li><a class="dropdown-item" href="#">item2</a></li>
-                        </ul> -->
                     </div>
 
                     <div class="nav-item dropdown mx-2 py-2">
@@ -93,14 +210,14 @@
                                 </div>
                                 <div class="flex-grow-1 ms-3 d-block">
                                     <div style="height: 36px;">
-                                        <small><span>{{ recentCourseTitle }}</span></small>
+                                        <small><span>如何學Vue</span></small>
                                     </div>
                                     <div class="d-flex justify-content-between mt-1" style="height: 20px;">
                                         <div>
-                                            <small><span>{{ recentCourseProgress }}</span></small>
+                                            <small><span>recentCourseProgress</span></small>
                                         </div>
                                         <div>
-                                            <small><span>{{ recentCourseInfo }}</span></small>
+                                            <small><span>recentCourseInfo</span></small>
                                         </div>
                                     </div>
                                 </div>
@@ -109,22 +226,24 @@
                             <div><span>最近學習</span></hr>
                             </div>
 
+
+
                             <div>
-                                <div class="d-flex px-3 my-3" style="height: 60px;" v-for="course in courseInfos">
+                                <div class="d-flex px-3 my-3" style="height: 60px;">
                                     <div class="flex-shrink-0 m-0 p-0">
                                         <div style="background-color: rgb(21, 65, 168); height: 60px; width: 100px;">
                                         </div>
                                     </div>
                                     <div class="flex-grow-1 ms-3 d-block">
                                         <div style="height: 36px;">
-                                            <small><span>{{ course.ctitle }}</span></small>
+                                            <small><span>course.ctitle</span></small>
                                         </div>
                                         <div class="d-flex justify-content-between mt-1" style="height: 20px;">
                                             <div>
-                                                <small><span>上課進度{{ course.cStatus }}%</span></small>
+                                                <small><span>上課進度 course.cStatus %</span></small>
                                             </div>
                                             <div>
-                                                <small><span>{{ course.cPrice }}</span></small>
+                                                <small><span>course.cPrice </span></small>
                                             </div>
                                         </div>
                                     </div>
@@ -146,7 +265,7 @@
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-info" aria-labelledby="shopping-cart"
                             style="width: 400px; height: 400px;">
                             <div>
-                                <div class="d-flex px-3 my-3" style="height: 60px;" v-for="shopping in shoppingInfos">
+                                <div class="d-flex px-3 my-3" style="height: 60px;">
                                     <div class="flex-shrink-0 m-0 p-0">
                                         <div style="background-color: rgb(21, 65, 168); height: 60px; width: 100px;">
                                         </div>
@@ -187,7 +306,7 @@
                         </div>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-info" aria-labelledby="reminder-bell"
                             style="width: 400px; height: 400px;">
-                            <div class="d-flex p-3 m-0" v-for="rmd in reminderInfos">
+                            <div class="d-flex p-3 m-0">
                                 <div class="flex-shrink-0 m-0">
                                     <h1 class="mt-0 pt-0"><i class="fa fa-envelope-open" aria-hidden="true"></i>
                                     </h1>
@@ -210,42 +329,39 @@
 
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profile">
                             <li><a class="dropdown-item" href="#">
-                                <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
-                                帳號設定</a></li>
+                                    <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
+                                    帳號設定</a></li>
                             <li><a class="dropdown-item" href="#">
-                                <i class="fa fa-address-card fa-lg" aria-hidden="true"></i>
-                                個人檔案</a></li>
+                                    <i class="fa fa-address-card fa-lg" aria-hidden="true"></i>
+                                    個人檔案</a></li>
                             <li><a class="dropdown-item" href="#">
-                                <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
-                                我的收藏</a></li>
+                                    <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
+                                    我的收藏</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                             <li><a class="dropdown-item" href="#">
-                                <i class="fa file-o fa-lg" aria-hidden="true"></i>
-                                訂單記錄</a></li>
+                                    <i class="fa file-o fa-lg" aria-hidden="true"></i>
+                                    訂單記錄</a></li>
                             <li><a class="dropdown-item" href="#">
-                                <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
-                                我的折扣</a></li>
+                                    <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
+                                    我的折扣</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                             <li><a class="dropdown-item" href="/howhow/logout">
-                                <i class="fa fa-circle-o-notch fa-lg" aria-hidden="true"></i>
-                                登出</a></li>
+                                    <i class="fa fa-circle-o-notch fa-lg" aria-hidden="true"></i>
+                                    登出</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+    </nav> -->
 
 
 
-    </nav>
-
-
-
-    <section class=" py-5">
+    <!-- <section class=" py-5">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -420,7 +536,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
     <script type="importmap">
@@ -431,7 +547,7 @@
 	  }
 	}
     </script>
-    <script type="module" th:src="@{/assets_wj/js/universal-navbar.js}"></script>
+    <script type="module" th:src="@{/assets_wj/js/universal-navbar-origin.js}"></script>
     <!-- "html-loader": https://cdn.jsdelivr.net/npm/html-loader@3.1.0/dist/cjs.min.js -->
     <!-- "vue-router": "https://unpkg.com/vue-router@4" -->
     <footer class="bg-light py-4 mt-3">

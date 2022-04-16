@@ -1,0 +1,33 @@
+.bulletin{
+    background-color: #FBFBFF;
+    border-radius: 10px;
+    padding: 1%;
+    
+}
+
+.reply{
+    background-color: white;
+    border-radius: 10px;
+    padding: 1%;
+}
+
+.reportSection{
+    margin-top: 5%;
+}
+
+.handle{
+    width: 12%;
+}
+
+.reporttime{
+    width: 15%;
+}
+
+.reportContent{
+    width: 40%;
+}
+
+.title{
+    padding: 1%;
+
+}

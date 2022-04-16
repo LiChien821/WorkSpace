@@ -20,7 +20,7 @@ const dataObj = {
 	courseCreatorId: "",
 	userName: "Big O",
 	currQuery: "",
-	isLogged: true,
+	isLogged: false,
 
 	categories:[
 		{
@@ -29,56 +29,9 @@ const dataObj = {
 		}
 		
 	],
-	// recentCourseTitle: "從一開始到最後的教學都讓我驚豔",
-	// recentCourseProgress: 20,
-	// recentCourseInfo: "課程",
-	// courseInfos:[
-	// 	{
-	// 		ctitle: "從一開始到最後的教學都讓我驚豔",
-	// 		cProgress: 20,
-	// 		cInfo: "課程"
-	// 	},
-	// 	{
-	// 		ctitle: "從一開始到最後的教學都讓我驚豔",
-	// 		cProgress: 20,
-	// 		cInfo: "課程"
-	// 	}
-	// ],
-	// shoppingInfos:[
-	// 	{
-	// 		ctitle: "從一開始到最後的教學都讓我驚豔",
-	// 		cStatus: "已開課",
-	// 		cPrice: 1100
-	// 	},
-	// 	{
-	// 		ctitle: "從一開始到最後的教學都讓我驚豔",
-	// 		cStatus: "募資中",
-	// 		cPrice: 1100
-	// 	},
-	// 	{
-	// 		ctitle: "從一開始到最後的教學都讓我驚豔",
-	// 		cStatus: "已開課",
-	// 		cPrice: 1100
-	// 	}
-	// ],
-	// reminderInfos: [
-	// 	{
-	// 		content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
-	// 		dateTime: "一個月前"
-	// 	},
-	// 	{
-	// 		content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
-	// 		dateTime: "一個月前"
-	// 	},
-	// 	{
-	// 		content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
-	// 		dateTime: "一個月前"
-	// 	},
-	// 	{
-	// 		content: "從一開始到最後的教學都讓我驚豔，沒想到原來唱歌前需要做那麼多的前置準備，以及更多時間的練習基礎、技巧，還有給自己更多的時間去感受自己的變化<謝謝老師開了新的一扇窗，讓我也更注意自己的嘴巴、舌頭、喉嚨等部位，想要讓他們更能放鬆的應用不同技巧!",
-	// 		dateTime: "一個月前"
-	// 	}
-	// ]
+	blobSetting: "",
+	purchasedCourses: ""
+	
 };
 
 const app = createApp({
@@ -86,6 +39,21 @@ const app = createApp({
 		return dataObj;
 	},
 	mounted: function () {
+
+		axios({
+			method: 'get',
+			url: '/api/getBlobUrl',
+			headers: { "Access-Control-Allow-Origin": "*" },
+		})
+			.then(response => {
+				this.blobSetting = response.data;
+				// console.log("this blobSetting", this.blobSetting);
+			})
+			.catch(function (error) {
+				console.log(error);
+			})
+
+
 		function checkLoggedStatus(){
 			return axios.get(
 				"/api/checkLoginStatus",
@@ -112,12 +80,12 @@ const app = createApp({
 			);
 		}
 
-
 		axios
 		.all([checkLoggedStatus(), getAllCategoryInfo()])
 		.then(axios.spread((...responses) => {
 			const resp1 = responses[0];
-			this.isLogged = resp1.data;
+			this.isLogged = resp1.data["isLogged"];
+			this.userId = resp1.data["userId"];
 
 			const resp2 = responses[1];
 			for (var i = 0; i < resp2.data.length; i++) {
@@ -130,12 +98,35 @@ const app = createApp({
 				newCategoryObject.cItemName = item["name"];
 				this.categories.push(newCategoryObject);
 			  }
+			if (this.isLogged == true) {
+				this.findPurchasedCourseByUserid();
+			}
 		})).catch(errors => {
 			console.log(errors);
 		})
-
 	},
 	methods: {
+		findPurchasedCourseByUserid: function() {
+			axios({
+				method: 'get',
+				url: '/api/findAllPurchasedCoursesByUserid/' + this.userId,
+				headers: { "Access-Control-Allow-Origin": "*" }
+			})
+				.then(response => {
+					this.purchasedCourses = [];
+					var i = 0;
+					var n = response.data.length;
+					console.log("response.data", response.data);
+					while (i < n) {
+						if (i >= 3 ) {break}
+						this.purchasedCourses.push(response.data[i]);
+						i++;
+					}
+				})
+				.catch(function(error) {
+					console.log(error);
+				});
+		},
 
 		goToCoursePageByCategoryId: function(categroyId) {
 			if (categroyId == 0) {
@@ -147,6 +138,24 @@ const app = createApp({
 
 		goToCoursePageBySearch: function() {
 			self.location.href = "/courses?search=" + this.currQuery;
+		},
+
+		sendTeacherApply: function() {
+			var toastLiveExample = document.getElementById('liveToast')
+			axios({
+				method: 'post',
+				url: '/api/applydata',
+				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" }
+			})
+				.then((response) => {
+					console.log("alreadyApplied status: ", response.data["alreadyApplied"]);
+					console.log("sendTeacherApply finished");
+					var toast = new bootstrap.Toast(toastLiveExample)
+    				toast.show()
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 		}
 	}
 })

@@ -438,7 +438,7 @@ var product = Vue.createApp({
 						console.log(error);
 					})
 			}
-		}
+		},
 	}
 
 })
@@ -474,7 +474,7 @@ const dataObj2 = {
 	currQuestionContent: "",
 
 	showReply: false,
-	showReplyInput: true,
+	showReplyInput: false,
 	currReplyInputContent: "",
 
 	sections: "",
@@ -572,19 +572,10 @@ var bulletin = Vue.createApp({
 			})
 				.then(response => {
 					this.purchasedstatus = response.data;
-					setTimeout(() => {
-						if (this.purchasedstatus == true) {
-							this.handlefirstVideoUrl();
-						} else {
-							this.handlefirstPreviewVideoUrl();
-						}
-					}, 100);
-
 				})
 				.catch(function (error) {
 					console.log(error);
 				});
-
 		},
 	methods: {
 		sendSearch: function () {
@@ -715,6 +706,7 @@ var bulletin = Vue.createApp({
 					console.log(error);
 				})
 			this.currSectionSelection = secName + "." + lecName;
+			this.showReply = false;
 		},
 		getBulletinByCourseId: function () {
 			axios.get(
@@ -737,34 +729,42 @@ var bulletin = Vue.createApp({
 					console.log(error);
 				})
 			this.currSectionSelection = "全部章節";
+			this.showReply = false;
 		},
 		reportBulletin: function(bulletinId, reportTypeId) {
+			var toastLiveExample = document.getElementById('blt-report-toast')
 			var inputdata = {};
 			inputdata.bulletinid = bulletinId;
 			inputdata.reporttypeid = reportTypeId;
 			axios({
 				method: 'post',
-				url: '/cms/bulletinreport',
+				url: '/api/bulletinreport',
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 				data: JSON.stringify(inputdata)
 			})
 				.then(response => {
+					var toast = new bootstrap.Toast(toastLiveExample)
+    				toast.show()
 				})
 				.catch((error) => {
 					console.log(error);
 				});
 		},
 		reportBulletinReply: function(bulletinReplyId, reportTypeId) {
+			var toastLiveExample = document.getElementById('bRep-report-toast')
 			var inputdata = {};
 			inputdata.bulletinreplyid = bulletinReplyId;
 			inputdata.reporttypeid = reportTypeId;
 			axios({
 				method: 'post',
-				url: '/cms/replyreport',
+				url: '/api/replyreport',
 				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
 				data: JSON.stringify(inputdata)
 			})
 				.then((response) => {
+					
+					var toast = new bootstrap.Toast(toastLiveExample)
+    				toast.show()
 				})
 				.catch((error) => {
 					console.log(error);

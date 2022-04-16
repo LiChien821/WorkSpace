@@ -59,7 +59,27 @@
             <a class="navbar-brand" href="/">
                 <img class="icon" th:src="@{/image/unnamed.png}" alt="" />
             </a>
-            <div class="nav-item dropdown me-2 py-2 ms-5">
+
+
+
+			<div class="nav-item dropdown navbar-dropdown me-2 py-2 ms-5 d-flex align-items-center">
+                <div id="category" role="button" aria-expanded="false">
+                    <a class="nav-link" href="/courses">
+                        <small><span>| 類別 |</span></small>
+                    </a>
+                </div>
+                <div class="mt-5">
+                    <div class="dropdown-menu navbar-dropdown-menu text-center left-dropdown-menu shadow" aria-labelledby="category"
+                        style="width: 200px;background-color:#f3f7f7;border-radius: 15px;">
+
+                        <div herf="#" class="dropdown-item  navbar-category-item" v-for="cate in categories"
+                            @click="searchByCategory(cate.cId)">
+                            {{ cate.cItemName }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="nav-item dropdown me-2 py-2 ms-5">
                 <div class="dropdown-toggle" href="#" id="category" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
                     <small><span>| 類別 |</span></small>
@@ -72,7 +92,7 @@
                         </div>
                     </li>
                 </ul>
-            </div>
+            </div> -->
 
             <div class="ms-3 navbar-search d-flex align-items-center justify-content-center">
 
@@ -87,21 +107,87 @@
 
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
                 <div class="navbar-nav">
-                    <div class="nav-item dropdown mx-2 py-2 d-flex align-items-center">
-                        <div id="teacher" role="button" aria-expanded="false">
+                    <div class="nav-item mx-2 py-2 d-flex align-items-center">
+
+						<div sec:authorize="hasAuthority('Student')" id="teacher" role="button" aria-expanded="false">
+                            <a class="nav-link" th:href="@{#}" @click.prevent="sendTeacherApply()">
+                                <small><span>申請講師</span></small>
+                            </a>
+                            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                                <div id="liveToast" class="toast hide" role="alert" aria-live="assertive"
+                                    aria-atomic="true">
+                                    <div class="toast-header">
+                                        <strong class="me-auto">公告</strong>
+                                        <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="toast-body">
+                                        講師申請已送出，待後台審理，請耐心等候告知...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div sec:authorize="hasAuthority('Teacher')" id="teacher" role="button" aria-expanded="false">
+                            <a class="nav-link" href="/teacherPage/page">
+                                <small><span>我是講師</span></small>
+                            </a>
+                        </div>
+                        <!-- <div id="teacher" role="button" aria-expanded="false">
                             <a class="nav-link" href="/teacherPage/page">
                                 <small><span>講師</span></small>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
 
-                    <div class="nav-item dropdown mx-2 py-2 d-flex align-items-center">
+					<div class="nav-item dropdown navbar-dropdown mx-2 py-2 d-flex align-items-center">
                         <div id="my-course" role="button" aria-expanded="false">
                             <a class="nav-link" href="/mycourse">
                                 <small><span>我的課程</span></small>
                             </a>
                         </div>
+                        <div class="mt-5">
+                            <div class="dropdown-toggle" href="#" id="my-course-dropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <!-- <small><span><i class="fas fa-caret-down"></i></span></small> -->
+                            </div>
+                            <div class="dropdown-menu navbar-dropdown-menu right-dropdown-menu shadow" aria-labelledby="my-course-dropdown"
+                                style="width: 400px; height: 400px;background-color:#f3f7f7;border-radius: 15px;">
+                                <div class="px-3 mt-1"><span>最近學習</span></div>
+                                <div class="px-3 mt-3" v-if="purchasedCourses == ''">暫無課程</div>
+                                <div>
+                                    <div style="height: 60px;" v-for="course in purchasedCourses">
+                                        <hr class="mb-1 mx-5" color="#6f5499" size="3" />
+                                        <a class="d-flex px-3 mb-3 mt-2 navbar-course-item" :href="'/product?id=' + course.courseID"
+                                            style="text-decoration:none;">
+                                            <div class="flex-shrink-0 m-0 p-0">
+                                                <img style="height: 60px; width: 100px;"
+                                                    :src="blobSetting + course.courseCover" alt="">
+                                            </div>
+                                            <div class="flex-grow-1 ms-3 d-block">
+                                                <div class="text-wrap " style="height: 36px; width: 250px;">
+                                                    <span class="text-wrap" style="font-size: 16px;">{{
+                                                        course.courseName
+                                                        }}</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="d-grid px-3 mt-4 align-items-end">
+                                    <button class="btn btn-secondary" type="button"><a class="nav-btn-link"
+                                            href="/mycourse">前往我的課程</a></button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <!-- <div class="nav-item dropdown mx-2 py-2 d-flex align-items-center">
+                        <div id="my-course" role="button" aria-expanded="false">
+                            <a class="nav-link" href="/mycourse">
+                                <small><span>我的課程</span></small>
+                            </a>
+                        </div>
+                    </div> -->
 
                     <div class="nav-item mx-2 py-2">
                         <div id="shopping-cart" role="button" aria-expanded="false">
@@ -110,7 +196,6 @@
                             </a>
                         </div>
                     </div>
-
                     <div class="nav-item mx-2 py-2 " v-if="!isLogged">
                         <div href="" id="navbar-loggin" role="button" aria-expanded="false">
                             <a style="color:#E2C652" class="nav-link" th:href="@{/login}">
@@ -127,14 +212,57 @@
                         </div>
                     </div>
 
-
-                    <div class="nav-item mx-2 py-2 " v-if="isLogged">
+					<div class="nav-item mx-2 py-2 navbar-dropdown dropdown d-flex align-items-center " v-if="isLogged">
                         <div href="" id="profile" role="button" aria-expanded="false">
                             <a class="nav-link" href="/home">
                                 <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
                             </a>
                         </div>
+                        <div class="mt-5">
+                            <div class="dropdown-toggle" href="#" id="profile" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <!-- <small><span><i class="fas fa-caret-down"></i></span></small> -->
+                            </div>
+                            <div class="dropdown-menu navbar-dropdown-menu text-center right-dropdown-menu shadow navbar-profile-item"
+                                style="width: 180px; height: 250px;background-color:#f3f7f7;border-radius: 15px;"
+                                aria-labelledby="profile">
+                                <a class="dropdown-item d-flex align-items-center justify-content-center"
+                                    href="/logout">
+                                    <i class="fas fa-circle-o-notch fa-lg" aria-hidden="true"></i>
+                                    <div class="ms-1">帳號登出</div>
+                                </a>
+                                <hr class="dropdown-divider">
+                                <a class="dropdown-item d-flex align-items-center justify-content-center" href="/editAccount">
+                                    <i class="fas fa-cog fa-lg"></i>
+                                    <div class="ms-1">帳號設定</div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center justify-content-center" href="#">
+                                    <i class="far fa-user fa-lg"></i>
+                                    <div class="ms-1">個人檔案</div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center justify-content-center" href="#">
+                                    <i class="far fa-bookmark fa-lg"></i>
+                                    <div class="ms-1">我的收藏</div>
+                                </a>
+                                <hr class="dropdown-divider">
+                                <a class="dropdown-item d-flex align-items-center justify-content-center" href="#">
+                                    <i class="far fa-file fa-lg"></i>
+                                    <div class="ms-1">訂單記錄</div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center justify-content-center" href="#">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <div class="ms-1">享回饋金</div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
+                    <!-- <div class="nav-item mx-2 py-2 " v-if="isLogged">
+                        <div href="" id="profile" role="button" aria-expanded="false">
+                            <a class="nav-link" href="/home">
+                                <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -294,7 +422,7 @@
 			<input id="categorying" name="categorying" hidden th:value="${categorying}" />
 	</div>
 
-	<div style="height: 1210px;"></div>
+	<div style="height: 1300px;"></div>
 	<div th:insert="universal-footer :: universal-footer"></div>
 
 	<script src="https://unpkg.com/vue@3"></script>

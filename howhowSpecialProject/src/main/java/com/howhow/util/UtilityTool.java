@@ -61,7 +61,7 @@ public class UtilityTool {
 		JavaMailSenderImpl mailSender = UtilityTool.prepareMailSender();
 
 		String toAddress = acc.getUserAccountDt().getEmail();
-		String subject = "好好學會員註冊認證信";
+		String subject = "好好學-會員註冊認證信";
 		String content = "Dear[[name]],Please click the&nbsp;<div><a href=\"[[URL]]\" target=\"_self\">verify </a><div><font face=\"Comic Sans MS\"></font></div></div>";
 
 		MimeMessage message = mailSender.createMimeMessage();

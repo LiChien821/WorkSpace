@@ -54,7 +54,9 @@ const dataObj = {
 
 	searching: "",
 
-	isLogged: ""
+	isLogged: "",
+	
+	purchasedCourses:""
 
 };
 
@@ -136,11 +138,13 @@ var app = Vue.createApp({
 			headers: { "Access-Control-Allow-Origin": "*" }
 		})
 			.then(response => (
-				this.isLogged = response.data
+				this.isLogged = response.data["isLogged"]
 			))
 			.catch(function(error) {
 				console.log(error);
 			})
+			
+		this.findPurchasedCourseByUserid();
 
 	},
 	methods: {
@@ -418,6 +422,44 @@ var app = Vue.createApp({
 					this.res = response,
 					this.$router.push('courses')
 				))
+				.catch(function(error) {
+					console.log(error);
+				});
+		},
+		sendTeacherApply: function() {
+			var toastLiveExample = document.getElementById('liveToast')
+			axios({
+				method: 'post',
+				url: '/api/applydata',
+				headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" }
+			})
+				.then((response) => {
+					console.log("alreadyApplied status: ", response.data["alreadyApplied"]);
+					console.log("sendTeacherApply finished");
+					var toast = new bootstrap.Toast(toastLiveExample)
+    				toast.show()
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		},
+		findPurchasedCourseByUserid: function() {
+			axios({
+				method: 'get',
+				url: '/api/findAllPurchasedCoursesByUserid/' + this.userid,
+				headers: { "Access-Control-Allow-Origin": "*" }
+			})
+				.then(response => {
+					this.purchasedCourses = [];
+					var i = 0;
+					var n = response.data.length;
+					// console.log("response.data", response.data);
+					while (i < n) {
+						if (i >= 3 ) {break}
+						this.purchasedCourses.push(response.data[i]);
+						i++;
+					}
+				})
 				.catch(function(error) {
 					console.log(error);
 				});
